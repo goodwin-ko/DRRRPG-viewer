@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드래곤볼 RPG 조회시스템</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="search-section">
+                <h1 class="logo-text">Dragonball_Manager</h1>
+                <form id="search-form" class="search-form">
+                    <input type="text" id="nicname-input" placeholder="닉네임을 입력하세요 (예: goodwin)" required autocomplete="off">
+                    <button type="submit" id="search-btn">조회</button>
+                </form>
+            </div>
+            
+            <!-- Player Stats Section -->
+            <div id="player-profile" class="player-profile hidden">
+                <div class="profile-left">
+                    <div class="tier-badge-wrapper">
+                        <div id="tier-icon" class="tier-icon">🏆</div>
+                        <div class="tier-info">
+                            <span id="player-tier" class="tier-name">브론즈</span>
+                            <span id="player-name" class="player-name">goodwin</span>
+                            <span id="player-tt-grade" class="grade-badge">등급: -</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-center">
+                    <div class="stats-grid">
+                        <div class="stat-card highlight-card">
+                            <div class="stat-card-icon">🎖️</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">기여점수</span>
+                                <span id="stat-special-point" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">😇</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">엔젤포인트</span>
+                                <span id="stat-angel-point" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card highlight-card">
+                            <div class="stat-card-icon">⚡</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">랭킹점수</span>
+                                <span id="stat-rank-score" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">📅</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">시즌포인트</span>
+                                <span id="stat-season-point" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🏆</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">랭킹 포인트</span>
+                                <span id="stat-rank-point" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">💎</div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-label">블루다이아</span>
+                                <span id="stat-blue-diamond" class="stat-card-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-right">
+                    <div class="header-buttons">
+                        <button class="btn-action" onclick="window.location.reload();">새로고침</button>
+                        <button class="btn-action btn-gold">아이템조합↑</button>
+                    </div>
+                    <div class="meta-info">
+                        <div class="link-point-wrapper">
+                            <span class="link-label">링크포인트:</span>
+                            <span id="stat-link-point" class="link-value">0</span>
+                        </div>
+                        <div class="save-time-wrapper">
+                            <span id="save-date" class="save-date">2026년06월05일 오전 00:00:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>데이터를 조회하고 분석하는 중입니다...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="error-message hidden">
+            <p id="error-text">오류가 발생했습니다.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <nav class="category-tabs">
+            <button class="tab-btn active" data-category="basic">기본현황</button>
+            <button class="tab-btn hidden" data-category="detail">세부현황</button>
+            <button class="tab-btn" data-category="equip">장비현황</button>
+            <button class="tab-btn hidden" data-category="hell">헬레이드 현황</button>
+            <button class="tab-btn hidden" data-category="db">드래곤볼 현황</button>
+            <button class="tab-btn hidden" data-category="potion">물약 현황</button>
+            <button class="tab-btn hidden" data-category="other">기타</button>
+            <button class="tab-btn" data-category="link">링크 현황</button>
+        </nav>
+
+        <!-- Main Content Grid -->
+        <main class="dashboard-grid">
+            <!-- Column 1: 기본현황 -->
+            <section class="grid-column">
+                <h2 class="column-header basic-header">기본현황</h2>
+                <div id="col-basic" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 2: 세부현황 -->
+            <section class="grid-column">
+                <h2 class="column-header detail-header">세부현황</h2>
+                <div id="col-detail" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 3: 장비현황 -->
+            <section class="grid-column">
+                <h2 class="column-header equip-header">장비현황</h2>
+                <div id="col-equip" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 4: 헬레이드 현황 -->
+            <section class="grid-column">
+                <h2 class="column-header hell-header">헬레이드 현황</h2>
+                <div id="col-hell" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 5: 드래곤볼 현황 -->
+            <section class="grid-column">
+                <h2 class="column-header db-header">드래곤볼 현황</h2>
+                <div id="col-db" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 6: 물약 현황 -->
+            <section class="grid-column">
+                <h2 class="column-header potion-header">물약 현황</h2>
+                <div id="col-potion" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 7: 기타 -->
+            <section class="grid-column">
+                <h2 class="column-header other-header">기타</h2>
+                <div id="col-other" class="cards-container">
+                    <div class="empty-placeholder">캐릭터가 없습니다</div>
+                </div>
+            </section>
+
+            <!-- Column 8: 링크 현황 -->
+            <section class="grid-column">
+                <h2 class="column-header link-header">링크 현황</h2>
+                <div id="col-link" class="cards-container">
+                    <div class="empty-placeholder">데이터가 없습니다</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
