@@ -125,53 +125,66 @@ def get_logs():
 def get_rankings():
     board = request.args.get('board', '유저랭킹').strip()
     import urllib.parse
+    import concurrent.futures
     board_encoded = urllib.parse.quote(board)
-    url = f"https://m16tool.xyz/Game/DRR/Rank/Index?board={board_encoded}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
-    try:
+    
+    def fetch_page(page_idx):
+        url = f"https://m16tool.xyz/Game/DRR/Rank/Index?index={page_idx}&board={board_encoded}"
         response = requests.get(url, headers=headers, timeout=10)
         if response.status_code != 200:
-            return jsonify({"success": False, "error": f"Failed to fetch rankings (Status Code: {response.status_code})"}), 500
-            
-        soup = BeautifulSoup(response.text, 'html.parser')
-        tbody = soup.find('tbody')
-        if not tbody:
-            return jsonify({"success": False, "error": "No ranking table found."}), 404
-            
-        rows = tbody.find_all('tr')
+            raise Exception(f"Failed to fetch page {page_idx} (Status Code: {response.status_code})")
+        return page_idx, response.text
+
+    try:
+        pages_data = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            future_to_page = {executor.submit(fetch_page, idx): idx for idx in range(1, 5)}
+            for future in concurrent.futures.as_completed(future_to_page):
+                idx = future_to_page[future]
+                pages_data[idx] = future.result()[1]
+                
         rankings = []
-        for row in rows:
-            cols = row.find_all('td')
-            if len(cols) >= 3:
-                rank_str = cols[0].text.strip()
-                name_html = str(cols[1])
-                score_str = cols[2].text.strip()
-                
-                # Extract nickname from links or text
-                name_match = re.search(r'nicName=([^&"]+)', name_html)
-                if name_match:
-                    import urllib.parse
-                    nicname = urllib.parse.unquote(name_match.group(1))
-                else:
-                    nicname = cols[1].text.strip().split('(')[0].strip()
-                
-                try:
-                    rank = int(rank_str)
-                except:
-                    rank = rank_str
+        for idx in range(1, 5):
+            html = pages_data.get(idx)
+            if not html:
+                continue
+            soup = BeautifulSoup(html, 'html.parser')
+            tbody = soup.find('tbody')
+            if not tbody:
+                continue
+            rows = tbody.find_all('tr')
+            for row in rows:
+                cols = row.find_all('td')
+                if len(cols) >= 3:
+                    rank_str = cols[0].text.strip()
+                    name_html = str(cols[1])
+                    score_str = cols[2].text.strip()
                     
-                try:
-                    score = int(score_str.replace(',', ''))
-                except:
-                    score = score_str
+                    # Extract nickname from links or text
+                    name_match = re.search(r'nicName=([^&"]+)', name_html)
+                    if name_match:
+                        nicname = urllib.parse.unquote(name_match.group(1))
+                    else:
+                        nicname = cols[1].text.strip().split('(')[0].strip()
                     
-                rankings.append({
-                    "rank": rank,
-                    "nicname": nicname,
-                    "score": score
-                })
+                    try:
+                        rank = int(rank_str)
+                    except:
+                        rank = rank_str
+                        
+                    try:
+                        score = int(score_str.replace(',', ''))
+                    except:
+                        score = score_str
+                        
+                    rankings.append({
+                        "rank": rank,
+                        "nicname": nicname,
+                        "score": score
+                    })
         return jsonify({"success": True, "rankings": rankings})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500

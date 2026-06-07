@@ -210,7 +210,9 @@ function switchTab(category) {
     // 2. Toggle active class on column sections
     for (let key in columnSections) {
         if (columnSections[key]) {
-            if (key === category) {
+            const isRankTab = ['user-rank', 'contrib-rank', 'passion-rank'].includes(category);
+            const isMatch = (key === category) || (key === 'rank' && isRankTab);
+            if (isMatch) {
                 columnSections[key].classList.add('active');
             } else {
                 columnSections[key].classList.remove('active');
@@ -957,54 +959,14 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
     const colRank = columns['rank'];
     if (!colRank) return;
 
-    // 1. Ensure persistent container for switch buttons and content area
-    let switchContainer = colRank.querySelector('.rank-switch-container');
-    if (!switchContainer) {
-        // Create the container
-        switchContainer = document.createElement('div');
-        switchContainer.className = 'rank-switch-container';
-        
-        const boards = [
-            { id: '유저랭킹', label: '유저 랭킹' },
-            { id: '기여랭킹', label: '기여 랭킹' },
-            { id: '열정랭킹', label: '열정 랭킹' }
-        ];
-
-        boards.forEach(b => {
-            const btn = document.createElement('button');
-            btn.className = 'rank-switch-btn';
-            btn.dataset.board = b.id;
-            btn.textContent = b.label;
-            btn.addEventListener('click', () => {
-                fetchAndRenderRankings(b.id);
-            });
-            switchContainer.appendChild(btn);
-        });
-
-        // Clear placeholder and append container
-        colRank.innerHTML = '';
-        colRank.appendChild(switchContainer);
-
-        // Create the content area
-        const contentArea = document.createElement('div');
-        contentArea.id = 'rank-content-area';
-        colRank.appendChild(contentArea);
+    // Dynamically update the section header text
+    const rankHeader = document.querySelector('.rank-header');
+    if (rankHeader) {
+        rankHeader.textContent = boardName;
     }
 
-    const contentArea = colRank.querySelector('#rank-content-area');
-    if (!contentArea) return;
-
-    // 2. Update active class on switch buttons
-    switchContainer.querySelectorAll('.rank-switch-btn').forEach(btn => {
-        if (btn.dataset.board === boardName) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-
     try {
-        contentArea.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>랭킹 정보를 불러오는 중입니다...</p></div>';
+        colRank.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>랭킹 정보를 불러오는 중입니다...</p></div>';
         const response = await fetch('/api/rankings?board=' + encodeURIComponent(boardName));
         const result = await response.json();
 
@@ -1014,7 +976,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
         const rankings = result.rankings || [];
         if (rankings.length === 0) {
-            contentArea.innerHTML = '<div class="empty-placeholder">등록된 랭킹 정보가 없습니다.</div>';
+            colRank.innerHTML = '<div class="empty-placeholder">등록된 랭킹 정보가 없습니다.</div>';
             return;
         }
 
@@ -1081,8 +1043,8 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
         tableContainer.appendChild(table);
         card.appendChild(tableContainer);
 
-        contentArea.innerHTML = '';
-        contentArea.appendChild(card);
+        colRank.innerHTML = '';
+        colRank.appendChild(card);
 
         // Add click events to nicknames for instant search
         tableContainer.querySelectorAll('.rank-nickname').forEach(el => {
@@ -1097,7 +1059,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
     } catch (e) {
         console.error(e);
-        contentArea.innerHTML = `<div class="error-message"><p>랭킹 로드 중 오류가 발생했습니다: ${e.message}</p></div>`;
+        colRank.innerHTML = `<div class="error-message"><p>랭킹 로드 중 오류가 발생했습니다: ${e.message}</p></div>`;
     }
 }
 
@@ -1108,8 +1070,12 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             switchTab(category);
-            if (category === 'rank') {
-                fetchAndRenderRankings();
+            if (category === 'user-rank') {
+                fetchAndRenderRankings('유저랭킹');
+            } else if (category === 'contrib-rank') {
+                fetchAndRenderRankings('기여랭킹');
+            } else if (category === 'passion-rank') {
+                fetchAndRenderRankings('열정랭킹');
             }
         });
     });
