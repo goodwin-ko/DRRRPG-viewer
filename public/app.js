@@ -647,19 +647,16 @@ function createCharacterCard(char) {
     return card;
 }
 
-// Fetch player rankings and update badges next to Ranking Score and Blue Diamonds
+// Fetch player rankings and update ranks in the independent ranks summary card (3 lines 1 column)
 async function updatePlayerRanksInHeader(nickname) {
-    const rankScoreBadge = document.getElementById('stat-rank-positions');
-    const contribBadge = document.getElementById('stat-contrib-position');
+    const userRankVal = document.getElementById('header-user-rank');
+    const contribRankVal = document.getElementById('header-contrib-rank');
+    const passionRankVal = document.getElementById('header-passion-rank');
     
-    if (rankScoreBadge) {
-        rankScoreBadge.classList.add('hidden');
-        rankScoreBadge.textContent = '';
-    }
-    if (contribBadge) {
-        contribBadge.classList.add('hidden');
-        contribBadge.textContent = '';
-    }
+    // Set default empty state to "--"
+    if (userRankVal) userRankVal.textContent = '--';
+    if (contribRankVal) contribRankVal.textContent = '--';
+    if (passionRankVal) passionRankVal.textContent = '--';
 
     try {
         const cleanNickname = nickname.toLowerCase().trim();
@@ -688,26 +685,15 @@ async function updatePlayerRanksInHeader(nickname) {
             if (found) passionRank = found.rank;
         }
 
-        // Render User/Passion ranks next to 랭킹점수
-        if (userRank !== -1 || passionRank !== -1) {
-            let rankText = '';
-            if (userRank !== -1) rankText += `유저 ${userRank}위`;
-            if (passionRank !== -1) {
-                if (rankText) rankText += ' / ';
-                rankText += `열정 ${passionRank}위`;
-            }
-            if (rankScoreBadge) {
-                rankScoreBadge.textContent = rankText;
-                rankScoreBadge.classList.remove('hidden');
-            }
+        // Render values
+        if (userRankVal) {
+            userRankVal.textContent = userRank !== -1 ? `${userRank}위` : '--';
         }
-
-        // Render Contrib rank next to 블루다이아
-        if (contribRank !== -1) {
-            if (contribBadge) {
-                contribBadge.textContent = `기여 ${contribRank}위`;
-                contribBadge.classList.remove('hidden');
-            }
+        if (contribRankVal) {
+            contribRankVal.textContent = contribRank !== -1 ? `${contribRank}위` : '--';
+        }
+        if (passionRankVal) {
+            passionRankVal.textContent = passionRank !== -1 ? `${passionRank}위` : '--';
         }
     } catch (e) {
         console.error("Failed to update player ranks in header:", e);
