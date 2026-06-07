@@ -859,9 +859,23 @@ body {
 }
 
 /* Rankings Table Styling */
+.rankings-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .rankings-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 .rankings-card {
-    max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0;
     border: 1px solid rgba(0, 229, 255, 0.15) !important;
     box-shadow: 0 0 15px rgba(0, 229, 255, 0.05) !important;
 }

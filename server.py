@@ -140,14 +140,14 @@ def get_rankings():
 
     try:
         pages_data = {}
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-            future_to_page = {executor.submit(fetch_page, idx): idx for idx in range(1, 5)}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            future_to_page = {executor.submit(fetch_page, idx): idx for idx in range(1, 6)}
             for future in concurrent.futures.as_completed(future_to_page):
                 idx = future_to_page[future]
                 pages_data[idx] = future.result()[1]
                 
         rankings = []
-        for idx in range(1, 5):
+        for idx in range(1, 6):
             html = pages_data.get(idx)
             if not html:
                 continue

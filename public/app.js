@@ -980,74 +980,88 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
             return;
         }
 
-        // Create a card holding the rankings list
-        const card = document.createElement('div');
-        card.className = 'char-card rankings-card';
+        colRank.innerHTML = '';
 
-        const nameRow = document.createElement('div');
-        nameRow.className = 'char-name-row';
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'char-name';
-        
+        // Slice into 3 ranges: 1-50, 51-100, 101-150
+        const slices = [
+            { label: '1위 ~ 50위', range: [0, 50] },
+            { label: '51위 ~ 100위', range: [50, 100] },
+            { label: '101위 ~ 150위', range: [100, 150] }
+        ];
+
         let titleEmoji = '🏆';
         if (boardName === '기여랭킹') titleEmoji = '🎖️';
         else if (boardName === '열정랭킹') titleEmoji = '🔥';
-        
-        nameSpan.textContent = `${titleEmoji} 실시간 ${boardName === '유저랭킹' ? '유저' : boardName === '기여랭킹' ? '기여' : '열정'} 랭킹`;
-        nameRow.appendChild(nameSpan);
-        card.appendChild(nameRow);
 
-        const tableContainer = document.createElement('div');
-        tableContainer.className = 'rankings-table-container';
+        const boardTitle = boardName === '유저랭킹' ? '유저 랭킹' : boardName === '기여랭킹' ? '기여 랭킹' : '열정 랭킹';
 
-        const table = document.createElement('table');
-        table.className = 'rankings-table';
+        slices.forEach(slice => {
+            const subRankings = rankings.slice(slice.range[0], slice.range[1]);
+            if (subRankings.length === 0) return;
 
-        // Table Header
-        const thead = document.createElement('thead');
-        
-        let scoreHeader = '랭킹점수';
-        if (boardName === '기여랭킹') scoreHeader = '기여도';
-        else if (boardName === '열정랭킹') scoreHeader = '열정점수';
+            // Create a card holding the rankings list
+            const card = document.createElement('div');
+            card.className = 'char-card rankings-card';
 
-        thead.innerHTML = `
-            <tr>
-                <th style="width: 20%; text-align: center;">순위</th>
-                <th style="width: 50%; text-align: left;">닉네임</th>
-                <th style="width: 30%; text-align: right;">${scoreHeader}</th>
-            </tr>
-        `;
-        table.appendChild(thead);
+            const nameRow = document.createElement('div');
+            nameRow.className = 'char-name-row';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'char-name';
+            nameSpan.textContent = `${titleEmoji} ${boardTitle} (${slice.label})`;
+            nameRow.appendChild(nameSpan);
+            card.appendChild(nameRow);
 
-        // Table Body
-        const tbody = document.createElement('tbody');
-        rankings.forEach(item => {
-            const tr = document.createElement('tr');
+            const tableContainer = document.createElement('div');
+            tableContainer.className = 'rankings-table-container';
+
+            const table = document.createElement('table');
+            table.className = 'rankings-table';
+
+            // Table Header
+            const thead = document.createElement('thead');
             
-            // Format rank with medals for top 3
-            let rankDisplay = item.rank;
-            if (item.rank === 1) rankDisplay = '🥇';
-            else if (item.rank === 2) rankDisplay = '🥈';
-            else if (item.rank === 3) rankDisplay = '🥉';
+            let scoreHeader = '랭킹점수';
+            if (boardName === '기여랭킹') scoreHeader = '기여도';
+            else if (boardName === '열정랭킹') scoreHeader = '열정점수';
 
-            tr.innerHTML = `
-                <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
-                <td style="text-align: left;">
-                    <span class="rank-nickname" data-nickname="${item.nicname}">${item.nicname}</span>
-                </td>
-                <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
+            thead.innerHTML = `
+                <tr>
+                    <th style="width: 20%; text-align: center;">순위</th>
+                    <th style="width: 50%; text-align: left;">닉네임</th>
+                    <th style="width: 30%; text-align: right;">${scoreHeader}</th>
+                </tr>
             `;
-            tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
-        tableContainer.appendChild(table);
-        card.appendChild(tableContainer);
+            table.appendChild(thead);
 
-        colRank.innerHTML = '';
-        colRank.appendChild(card);
+            // Table Body
+            const tbody = document.createElement('tbody');
+            subRankings.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                // Format rank with medals for top 3
+                let rankDisplay = item.rank;
+                if (item.rank === 1) rankDisplay = '🥇';
+                else if (item.rank === 2) rankDisplay = '🥈';
+                else if (item.rank === 3) rankDisplay = '🥉';
+
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
+                    <td style="text-align: left;">
+                        <span class="rank-nickname" data-nickname="${item.nicname}">${item.nicname}</span>
+                    </td>
+                    <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+            card.appendChild(tableContainer);
+
+            colRank.appendChild(card);
+        });
 
         // Add click events to nicknames for instant search
-        tableContainer.querySelectorAll('.rank-nickname').forEach(el => {
+        colRank.querySelectorAll('.rank-nickname').forEach(el => {
             el.addEventListener('click', (e) => {
                 const nickname = e.target.dataset.nickname;
                 if (nickname) {
