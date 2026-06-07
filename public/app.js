@@ -409,6 +409,13 @@ function createEquipmentCard(char) {
     nameSpan.className = 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
+    
+    if (char.isCorrupted) {
+        const errorBadge = document.createElement('span');
+        errorBadge.className = 'char-error-badge';
+        errorBadge.textContent = '오류';
+        nameRow.appendChild(errorBadge);
+    }
     card.appendChild(nameRow);
 
     // Equip List container
@@ -544,6 +551,13 @@ function createCharacterCard(char) {
     nameSpan.className = 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
+
+    if (char.isCorrupted) {
+        const errorBadge = document.createElement('span');
+        errorBadge.className = 'char-error-badge';
+        errorBadge.textContent = '오류';
+        nameRow.appendChild(errorBadge);
+    }
     card.appendChild(nameRow);
 
     // Body container holding two halves
@@ -806,6 +820,7 @@ async function fetchAndRenderLogs(nicName) {
                 const d3 = decodeBase64ToArray(d3B64);
 
                 if (d1.length > 72) {
+                    const isCorrupted = d1.length !== 97 || (d1[0] !== "" && !/^\d+$/.test(d1[0]));
                     const charId = parseInt(d1[2]);
 
                     // Determine if this is the active hero slot
@@ -899,6 +914,7 @@ async function fetchAndRenderLogs(nicName) {
                         slotNum: slotNumInt,
                         charId,
                         name: charName,
+                        isCorrupted,
                         category,
                         level,
                         adventure: adv,
