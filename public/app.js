@@ -138,6 +138,7 @@ const ITEM_MAPPING = {
     1162: { name: '오천크스 갑옷', color: 'standard' },
     1163: { name: '개발자의 헬멧(base)', color: 'green' },
     1168: { name: '개발자의 헬멧(base)', color: 'green' },
+    1176: { name: '탐험일지-닥터위로', color: 'standard' },
     1179: { name: '베이비의 보석v2', color: 'standard' },
     1181: { name: '베이비의 반지v2', color: 'standard' },
     1182: { name: '베이비의 신발v2', color: 'standard' },
