@@ -647,8 +647,74 @@ function createCharacterCard(char) {
     return card;
 }
 
-// Fetch and Display Logs
+// Fetch player rankings and update badges next to Ranking Score and Blue Diamonds
+async function updatePlayerRanksInHeader(nickname) {
+    const rankScoreBadge = document.getElementById('stat-rank-positions');
+    const contribBadge = document.getElementById('stat-contrib-position');
+    
+    if (rankScoreBadge) {
+        rankScoreBadge.classList.add('hidden');
+        rankScoreBadge.textContent = '';
+    }
+    if (contribBadge) {
+        contribBadge.classList.add('hidden');
+        contribBadge.textContent = '';
+    }
 
+    try {
+        const cleanNickname = nickname.toLowerCase().trim();
+        
+        // Fetch all three boards in parallel
+        const [resUser, resContrib, resPassion] = await Promise.all([
+            fetch('/api/rankings?board=' + encodeURIComponent('유저랭킹')).then(r => r.json()),
+            fetch('/api/rankings?board=' + encodeURIComponent('기여랭킹')).then(r => r.json()),
+            fetch('/api/rankings?board=' + encodeURIComponent('열정랭킹')).then(r => r.json())
+        ]);
+
+        let userRank = -1;
+        let contribRank = -1;
+        let passionRank = -1;
+
+        if (resUser.success && resUser.rankings) {
+            const found = resUser.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) userRank = found.rank;
+        }
+        if (resContrib.success && resContrib.rankings) {
+            const found = resContrib.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) contribRank = found.rank;
+        }
+        if (resPassion.success && resPassion.rankings) {
+            const found = resPassion.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) passionRank = found.rank;
+        }
+
+        // Render User/Passion ranks next to 랭킹점수
+        if (userRank !== -1 || passionRank !== -1) {
+            let rankText = '';
+            if (userRank !== -1) rankText += `유저 ${userRank}위`;
+            if (passionRank !== -1) {
+                if (rankText) rankText += ' / ';
+                rankText += `열정 ${passionRank}위`;
+            }
+            if (rankScoreBadge) {
+                rankScoreBadge.textContent = rankText;
+                rankScoreBadge.classList.remove('hidden');
+            }
+        }
+
+        // Render Contrib rank next to 블루다이아
+        if (contribRank !== -1) {
+            if (contribBadge) {
+                contribBadge.textContent = `기여 ${contribRank}위`;
+                contribBadge.classList.remove('hidden');
+            }
+        }
+    } catch (e) {
+        console.error("Failed to update player ranks in header:", e);
+    }
+}
+
+// Fetch and Display Logs
 async function fetchAndRenderLogs(nicName) {
     // UI transition
     loadingSpinner.classList.remove('hidden');
@@ -672,6 +738,7 @@ async function fetchAndRenderLogs(nicName) {
 
         // 1. Render Player Header Metrics
         document.getElementById('player-name').textContent = result.nicName;
+        updatePlayerRanksInHeader(result.nicName);
 
         const rankScore = data.RANK_SCORE || 0;
         

@@ -211,6 +211,20 @@ body {
     gap: 2px;
 }
 
+.stat-card-rank {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    white-space: nowrap;
+    text-shadow: 0 0 5px rgba(0, 229, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.05);
+}
+
 .stat-card-label {
     font-size: 0.75rem;
     color: var(--text-muted);
