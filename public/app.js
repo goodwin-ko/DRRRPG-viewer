@@ -125,7 +125,10 @@ const LINK_NAME_MAPPING = {
 const ITEM_MAPPING = {
     743: { name: '오천크스 수련팔찌', color: 'standard' },
     747: { name: '베이비의신발', color: 'standard' },
+    846: { name: '마인부우의 신발', color: 'purple' },
     879: { name: '베이비의 신발v2', color: 'standard' },
+    932: { name: '쿠우라의 갑옷', color: 'green' },
+    999: { name: '새로운 시작', color: 'purple' },
     1036: { name: '지구인의생명!', color: 'blue' },
     1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
     1086: { name: '베이비의신발', color: 'standard' },
@@ -159,6 +162,7 @@ const ITEM_MAPPING = {
     1459: { name: '베이비의 보석Lv2', color: 'standard' },
     1460: { name: '베이비의 신발Lv2', color: 'standard' },
     1463: { name: '브로리의 최종힘', color: 'purple' },
+    1465: { name: '베지트의 체력장갑', color: 'cyan' },
     1466: { name: '베이비의 보석v2', color: 'standard' },
     1469: { name: '베지트의 전투반지', color: 'purple' },
     1471: { name: '베이비의 보석v2', color: 'standard' },
@@ -166,7 +170,7 @@ const ITEM_MAPPING = {
     1473: { name: '베지트의 도복', color: 'cyan' },
     1474: { name: '베지트의 만능장갑', color: 'cyan' },
     1476: { name: '개발자의 헬멧+1', color: 'green' },
-    1482: { name: '[Event]손오반의 힘', color: 'purple' },
+    1482: { name: '손오반의 힘', color: 'purple' },
     1484: { name: '영웅의 신전', color: 'purple' }
 };
 
