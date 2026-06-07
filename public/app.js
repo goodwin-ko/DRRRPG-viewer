@@ -157,14 +157,16 @@ const ITEM_MAPPING = {
     1448: { name: '영웅의 증표Lv22', color: 'purple' },
     1458: { name: '베이비의 반지Lv2', color: 'standard' },
     1459: { name: '베이비의 보석Lv2', color: 'standard' },
+    1463: { name: '브로리의 최종힘', color: 'purple' },
     1466: { name: '베이비의 보석v2', color: 'standard' },
     1469: { name: '베지트의 전투반지', color: 'purple' },
     1471: { name: '베이비의 보석v2', color: 'standard' },
-    1472: { name: '(Vegito) 신발', color: 'cyan' },
-    1473: { name: '(Vegito) 도복', color: 'cyan' },
-    1474: { name: '(Vegito) 만능장갑', color: 'cyan' },
+    1472: { name: '베지트의 신발', color: 'cyan' },
+    1473: { name: '베지트의 도복', color: 'cyan' },
+    1474: { name: '베지트의 만능장갑', color: 'cyan' },
     1476: { name: '개발자의 헬멧+1', color: 'green' },
-    1482: { name: '[Event]손오반의 힘', color: 'purple' }
+    1482: { name: '[Event]손오반의 힘', color: 'purple' },
+    1484: { name: '영웅의 신전', color: 'purple' }
 };
 
 // DOM Elements
