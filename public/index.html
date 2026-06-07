@@ -126,6 +126,13 @@
             <p id="error-text">오류가 발생했습니다.</p>
         </div>
 
+        <!-- 데이터 손상 알림 배너 -->
+        <div id="corruption-warning" class="corruption-warning hidden">
+            <span class="warning-icon">⚠️</span>
+            <span class="warning-text">손상된 세이브 데이터가 감지되었습니다. 게임 내에서 해당 캐릭터로 다시 저장(-저장)해주시기 바랍니다.</span>
+            <div id="corrupted-chars-list" class="corrupted-chars-list"></div>
+        </div>
+
         <!-- Category Tabs -->
         <nav class="category-tabs">
             <button class="tab-btn active" data-category="basic">기본현황</button>

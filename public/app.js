@@ -736,6 +736,11 @@ async function fetchAndRenderLogs(nicName) {
     errorMessage.classList.add('hidden');
     playerProfile.classList.add('hidden');
 
+    const warningEl = document.getElementById('corruption-warning');
+    if (warningEl) {
+        warningEl.classList.add('hidden');
+    }
+
     // Clear columns
     for (let key in columns) {
         columns[key].innerHTML = '';
@@ -976,8 +981,31 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
-        // Sort characters by slotNum ascending (so they are listed in the link order 1 to 61)
-        uniqueCharacters.sort((a, b) => a.slotNum - b.slotNum);
+        // Sort characters: corrupted characters first, then by slotNum ascending
+        uniqueCharacters.sort((a, b) => {
+            if (a.isCorrupted && !b.isCorrupted) return -1;
+            if (!a.isCorrupted && b.isCorrupted) return 1;
+            return a.slotNum - b.slotNum;
+        });
+
+        // Check for corrupted characters and display warning at the top
+        const corruptedChars = uniqueCharacters.filter(char => char.isCorrupted);
+        const warningEl = document.getElementById('corruption-warning');
+        const corruptedCharsListEl = document.getElementById('corrupted-chars-list');
+        if (warningEl && corruptedCharsListEl) {
+            corruptedCharsListEl.innerHTML = '';
+            if (corruptedChars.length > 0) {
+                corruptedChars.forEach(char => {
+                    const badge = document.createElement('span');
+                    badge.className = 'corrupted-char-badge';
+                    badge.textContent = char.name;
+                    corruptedCharsListEl.appendChild(badge);
+                });
+                warningEl.classList.remove('hidden');
+            } else {
+                warningEl.classList.add('hidden');
+            }
+        }
 
         // 4. Render cards to columns
         uniqueCharacters.forEach(char => {
