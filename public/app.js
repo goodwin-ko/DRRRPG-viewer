@@ -179,7 +179,8 @@ const columns = {
     db: document.getElementById('col-db'),
     potion: document.getElementById('col-potion'),
     other: document.getElementById('col-other'),
-    link: document.getElementById('col-link')
+    link: document.getElementById('col-link'),
+    rank: document.getElementById('col-rank')
 };
 
 // Dashboard Column Section wrappers for active tab display
@@ -191,7 +192,8 @@ const columnSections = {
     db: document.getElementById('col-db').closest('.grid-column'),
     potion: document.getElementById('col-potion').closest('.grid-column'),
     other: document.getElementById('col-other').closest('.grid-column'),
-    link: document.getElementById('col-link').closest('.grid-column')
+    link: document.getElementById('col-link').closest('.grid-column'),
+    rank: document.getElementById('col-rank').closest('.grid-column')
 };
 
 // Switch active category tab
@@ -950,6 +952,155 @@ searchForm.addEventListener('submit', (e) => {
     }
 });
 
+// Fetch and Render Rankings Page
+async function fetchAndRenderRankings(boardName = '유저랭킹') {
+    const colRank = columns['rank'];
+    if (!colRank) return;
+
+    // 1. Ensure persistent container for switch buttons and content area
+    let switchContainer = colRank.querySelector('.rank-switch-container');
+    if (!switchContainer) {
+        // Create the container
+        switchContainer = document.createElement('div');
+        switchContainer.className = 'rank-switch-container';
+        
+        const boards = [
+            { id: '유저랭킹', label: '유저 랭킹' },
+            { id: '기여랭킹', label: '기여 랭킹' },
+            { id: '열정랭킹', label: '열정 랭킹' }
+        ];
+
+        boards.forEach(b => {
+            const btn = document.createElement('button');
+            btn.className = 'rank-switch-btn';
+            btn.dataset.board = b.id;
+            btn.textContent = b.label;
+            btn.addEventListener('click', () => {
+                fetchAndRenderRankings(b.id);
+            });
+            switchContainer.appendChild(btn);
+        });
+
+        // Clear placeholder and append container
+        colRank.innerHTML = '';
+        colRank.appendChild(switchContainer);
+
+        // Create the content area
+        const contentArea = document.createElement('div');
+        contentArea.id = 'rank-content-area';
+        colRank.appendChild(contentArea);
+    }
+
+    const contentArea = colRank.querySelector('#rank-content-area');
+    if (!contentArea) return;
+
+    // 2. Update active class on switch buttons
+    switchContainer.querySelectorAll('.rank-switch-btn').forEach(btn => {
+        if (btn.dataset.board === boardName) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    try {
+        contentArea.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>랭킹 정보를 불러오는 중입니다...</p></div>';
+        const response = await fetch('/api/rankings?board=' + encodeURIComponent(boardName));
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.error || '랭킹 데이터를 가져오지 못했습니다.');
+        }
+
+        const rankings = result.rankings || [];
+        if (rankings.length === 0) {
+            contentArea.innerHTML = '<div class="empty-placeholder">등록된 랭킹 정보가 없습니다.</div>';
+            return;
+        }
+
+        // Create a card holding the rankings list
+        const card = document.createElement('div');
+        card.className = 'char-card rankings-card';
+
+        const nameRow = document.createElement('div');
+        nameRow.className = 'char-name-row';
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'char-name';
+        
+        let titleEmoji = '🏆';
+        if (boardName === '기여랭킹') titleEmoji = '🎖️';
+        else if (boardName === '열정랭킹') titleEmoji = '🔥';
+        
+        nameSpan.textContent = `${titleEmoji} 실시간 ${boardName === '유저랭킹' ? '유저' : boardName === '기여랭킹' ? '기여' : '열정'} 랭킹`;
+        nameRow.appendChild(nameSpan);
+        card.appendChild(nameRow);
+
+        const tableContainer = document.createElement('div');
+        tableContainer.className = 'rankings-table-container';
+
+        const table = document.createElement('table');
+        table.className = 'rankings-table';
+
+        // Table Header
+        const thead = document.createElement('thead');
+        
+        let scoreHeader = '랭킹점수';
+        if (boardName === '기여랭킹') scoreHeader = '기여도';
+        else if (boardName === '열정랭킹') scoreHeader = '열정점수';
+
+        thead.innerHTML = `
+            <tr>
+                <th style="width: 20%; text-align: center;">순위</th>
+                <th style="width: 50%; text-align: left;">닉네임</th>
+                <th style="width: 30%; text-align: right;">${scoreHeader}</th>
+            </tr>
+        `;
+        table.appendChild(thead);
+
+        // Table Body
+        const tbody = document.createElement('tbody');
+        rankings.forEach(item => {
+            const tr = document.createElement('tr');
+            
+            // Format rank with medals for top 3
+            let rankDisplay = item.rank;
+            if (item.rank === 1) rankDisplay = '🥇';
+            else if (item.rank === 2) rankDisplay = '🥈';
+            else if (item.rank === 3) rankDisplay = '🥉';
+
+            tr.innerHTML = `
+                <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
+                <td style="text-align: left;">
+                    <span class="rank-nickname" data-nickname="${item.nicname}">${item.nicname}</span>
+                </td>
+                <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        tableContainer.appendChild(table);
+        card.appendChild(tableContainer);
+
+        contentArea.innerHTML = '';
+        contentArea.appendChild(card);
+
+        // Add click events to nicknames for instant search
+        tableContainer.querySelectorAll('.rank-nickname').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const nickname = e.target.dataset.nickname;
+                if (nickname) {
+                    nicnameInput.value = nickname;
+                    fetchAndRenderLogs(nickname);
+                }
+            });
+        });
+
+    } catch (e) {
+        console.error(e);
+        contentArea.innerHTML = `<div class="error-message"><p>랭킹 로드 중 오류가 발생했습니다: ${e.message}</p></div>`;
+    }
+}
+
 // Load default lookup on page load (optional but helpful)
 window.addEventListener('DOMContentLoaded', () => {
     // Set up tab button event listeners
@@ -957,6 +1108,9 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             switchTab(category);
+            if (category === 'rank') {
+                fetchAndRenderRankings();
+            }
         });
     });
 

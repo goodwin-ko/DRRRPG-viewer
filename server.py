@@ -121,6 +121,61 @@ def get_logs():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
+@app.route('/api/rankings')
+def get_rankings():
+    board = request.args.get('board', '유저랭킹').strip()
+    import urllib.parse
+    board_encoded = urllib.parse.quote(board)
+    url = f"https://m16tool.xyz/Game/DRR/Rank/Index?board={board_encoded}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code != 200:
+            return jsonify({"success": False, "error": f"Failed to fetch rankings (Status Code: {response.status_code})"}), 500
+            
+        soup = BeautifulSoup(response.text, 'html.parser')
+        tbody = soup.find('tbody')
+        if not tbody:
+            return jsonify({"success": False, "error": "No ranking table found."}), 404
+            
+        rows = tbody.find_all('tr')
+        rankings = []
+        for row in rows:
+            cols = row.find_all('td')
+            if len(cols) >= 3:
+                rank_str = cols[0].text.strip()
+                name_html = str(cols[1])
+                score_str = cols[2].text.strip()
+                
+                # Extract nickname from links or text
+                name_match = re.search(r'nicName=([^&"]+)', name_html)
+                if name_match:
+                    import urllib.parse
+                    nicname = urllib.parse.unquote(name_match.group(1))
+                else:
+                    nicname = cols[1].text.strip().split('(')[0].strip()
+                
+                try:
+                    rank = int(rank_str)
+                except:
+                    rank = rank_str
+                    
+                try:
+                    score = int(score_str.replace(',', ''))
+                except:
+                    score = score_str
+                    
+                rankings.append({
+                    "rank": rank,
+                    "nicname": nicname,
+                    "score": score
+                })
+        return jsonify({"success": True, "rankings": rankings})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
 if __name__ == '__main__':
     # Ensure public folder exists
     os.makedirs('public', exist_ok=True)
