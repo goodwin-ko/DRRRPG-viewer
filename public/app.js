@@ -26,10 +26,9 @@ const UPBOOK_TO_SLOT = {
     22: 22,  // 인조인간20호
     23: 45,  // 자넨바(쟈넨바)
     24: 43,  // 농부
-    25: 1,   // 손오공(카카로트)
-    26: 9,   // 베지터
-    27: 28,  // 야콩
-    28: 47   // 브로리(약해진)
+    // UpBook 25~27: 아직 미확인 슬롯 (필요시 추가)
+    28: 1,   // 손오공(카카로트) ← PDATA1 인덱스 28 검증 완료
+    29: 9,   // 베지터 ← PDATA1 인덱스 29 검증 완료
 };
 
 // Reverse map: slot number → UpBook 1-based index (built automatically)
