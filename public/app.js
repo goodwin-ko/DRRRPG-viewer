@@ -26,10 +26,9 @@ const UPBOOK_TO_SLOT = {
     22: 22,  // 인조인간20호
     23: 45,  // 자넨바(쟈넨바)
     24: 43,  // 농부
-    25: 1,   // 손오공(카카로트)
-    26: 9,   // 베지터
-    27: 28,  // 야콩
-    28: 47   // 브로리(약해진)
+    // UpBook 25~27: 아직 미확인 슬롯 (필요시 추가)
+    28: 1,   // 손오공(카카로트) ← PDATA1 인덱스 28 검증 완료
+    29: 9,   // 베지터 ← PDATA1 인덱스 29 검증 완료
 };
 
 // Reverse map: slot number → UpBook 1-based index (built automatically)
@@ -125,41 +124,56 @@ const LINK_NAME_MAPPING = {
 const ITEM_MAPPING = {
     743: { name: '오천크스 수련팔찌', color: 'standard' },
     747: { name: '베이비의신발', color: 'standard' },
+    846: { name: '마인부우의 신발', color: 'purple' },
     879: { name: '베이비의 신발v2', color: 'standard' },
-    1036: { name: '지구인의생명!', color: 'blue' },
+    932: { name: '쿠우라의 갑옷', color: 'green' },
+    999: { name: '새로운 시작', color: 'purple' },
+    1036: { name: '지구인의 생명', color: 'blue' },
+    1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
     1086: { name: '베이비의신발', color: 'standard' },
     1087: { name: '베이비의반지', color: 'standard' },
     1088: { name: '베이비의보석', color: 'standard' },
     1160: { name: '오천크스 가방', color: 'standard' },
     1162: { name: '오천크스 갑옷', color: 'standard' },
-    1163: { name: '토독(base)', color: 'green' },
-    1168: { name: '토독(base)', color: 'green' },
+    1163: { name: '개발자의 헬멧(base)', color: 'green' },
+    1168: { name: '개발자의 헬멧(base)', color: 'green' },
+    1176: { name: '탐험일지-닥터위로', color: 'standard' },
     1179: { name: '베이비의 보석v2', color: 'standard' },
     1181: { name: '베이비의 반지v2', color: 'standard' },
     1182: { name: '베이비의 신발v2', color: 'standard' },
-    1189: { name: '토독(base)', color: 'green' },
-    1193: { name: '토독+1', color: 'green' },
-    1194: { name: '토독(base)', color: 'green' },
+    1189: { name: '개발자의 헬멧(base)', color: 'green' },
+    1193: { name: '개발자의 헬멧+1', color: 'green' },
+    1194: { name: '개발자의 헬멧(base)', color: 'green' },
     1201: { name: '자넨바 팔찌', color: 'standard' },
     1202: { name: '자넨바 신발', color: 'standard' },
     1203: { name: '자넨바 보석', color: 'standard' },
-    1346: { name: '토독(base)', color: 'green' },
-    1348: { name: '지구인의생명!', color: 'blue' },
+    1346: { name: '개발자의 헬멧(base)', color: 'green' },
+    1348: { name: '지구인의 생명', color: 'blue' },
     1355: { name: '자넨바의팔찌 v2', color: 'standard' },
     1356: { name: '자넨바의신발 v2', color: 'standard' },
-    1368: { name: '토독+3', color: 'green' },
+    1368: { name: '개발자의 헬멧+3', color: 'green' },
+    1369: { name: '개발자의 헬멧+4', color: 'green' },
     1373: { name: '베이비의반지', color: 'standard' },
-    1374: { name: '베이비의신발', color: 'standard' },
+    1374: { name: '베이비의 신발', color: 'standard' },
     1375: { name: '베이비의보석', color: 'standard' },
-    1437: { name: '토독+2', color: 'green' },
-    1448: { name: '지구인의생명!', color: 'blue' },
-    1466: { name: '베이비의 보석v2', color: 'standard' },
+    1437: { name: '개발자의 헬멧+2', color: 'green' },
+    1448: { name: '영웅의 증표Lv22', color: 'purple' },
+    1458: { name: '베이비의 반지Lv2', color: 'standard' },
+    1459: { name: '베이비의 보석Lv2', color: 'standard' },
+    1460: { name: '베이비의 신발Lv2', color: 'standard' },
+    1463: { name: '브로리의 최종힘', color: 'purple' },
+    1465: { name: '베지트의 체력장갑', color: 'cyan' },
+    1466: { name: '베지트의 전투장갑', color: 'cyan' },
+    1467: { name: '베지트의 기력장갑', color: 'cyan' },
+    1469: { name: '베지트의 전투반지', color: 'purple' },
+    1470: { name: '베지트의 기력반지', color: 'cyan' },
     1471: { name: '베이비의 보석v2', color: 'standard' },
-    1472: { name: '(Vegito) 신발', color: 'cyan' },
-    1473: { name: '(Vegito) 도복', color: 'cyan' },
-    1474: { name: '(Vegito) 만능장갑', color: 'cyan' },
-    1476: { name: '토독+1', color: 'green' },
-    1482: { name: '[Event]손오반의 힘', color: 'purple' }
+    1472: { name: '베지트의 신발', color: 'cyan' },
+    1473: { name: '베지트의 도복', color: 'cyan' },
+    1474: { name: '베지트의 만능장갑', color: 'cyan' },
+    1476: { name: '개발자의 헬멧+1', color: 'green' },
+    1482: { name: '손오반의 힘', color: 'purple' },
+    1484: { name: '영웅의 신전', color: 'purple' }
 };
 
 // DOM Elements
@@ -179,7 +193,8 @@ const columns = {
     db: document.getElementById('col-db'),
     potion: document.getElementById('col-potion'),
     other: document.getElementById('col-other'),
-    link: document.getElementById('col-link')
+    link: document.getElementById('col-link'),
+    rank: document.getElementById('col-rank')
 };
 
 // Dashboard Column Section wrappers for active tab display
@@ -191,7 +206,8 @@ const columnSections = {
     db: document.getElementById('col-db').closest('.grid-column'),
     potion: document.getElementById('col-potion').closest('.grid-column'),
     other: document.getElementById('col-other').closest('.grid-column'),
-    link: document.getElementById('col-link').closest('.grid-column')
+    link: document.getElementById('col-link').closest('.grid-column'),
+    rank: document.getElementById('col-rank').closest('.grid-column')
 };
 
 // Switch active category tab
@@ -208,7 +224,9 @@ function switchTab(category) {
     // 2. Toggle active class on column sections
     for (let key in columnSections) {
         if (columnSections[key]) {
-            if (key === category) {
+            const isRankTab = ['user-rank', 'contrib-rank', 'passion-rank'].includes(category);
+            const isMatch = (key === category) || (key === 'rank' && isRankTab);
+            if (isMatch) {
                 columnSections[key].classList.add('active');
             } else {
                 columnSections[key].classList.remove('active');
@@ -390,6 +408,13 @@ function createEquipmentCard(char) {
     nameSpan.className = 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
+    
+    if (char.isCorrupted) {
+        const errorBadge = document.createElement('span');
+        errorBadge.className = 'char-error-badge';
+        errorBadge.textContent = '오류';
+        nameRow.appendChild(errorBadge);
+    }
     card.appendChild(nameRow);
 
     // Equip List container
@@ -525,6 +550,13 @@ function createCharacterCard(char) {
     nameSpan.className = 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
+
+    if (char.isCorrupted) {
+        const errorBadge = document.createElement('span');
+        errorBadge.className = 'char-error-badge';
+        errorBadge.textContent = '오류';
+        nameRow.appendChild(errorBadge);
+    }
     card.appendChild(nameRow);
 
     // Body container holding two halves
@@ -643,13 +675,70 @@ function createCharacterCard(char) {
     return card;
 }
 
-// Fetch and Display Logs
+// Fetch player rankings and update ranks in the independent ranks summary card (3 lines 1 column)
+async function updatePlayerRanksInHeader(nickname) {
+    const userRankVal = document.getElementById('header-user-rank');
+    const contribRankVal = document.getElementById('header-contrib-rank');
+    const passionRankVal = document.getElementById('header-passion-rank');
+    
+    // Set default empty state to "--"
+    if (userRankVal) userRankVal.textContent = '--';
+    if (contribRankVal) contribRankVal.textContent = '--';
+    if (passionRankVal) passionRankVal.textContent = '--';
 
+    try {
+        const cleanNickname = nickname.toLowerCase().trim();
+        
+        // Fetch all three boards in parallel
+        const [resUser, resContrib, resPassion] = await Promise.all([
+            fetch('/api/rankings?board=' + encodeURIComponent('유저랭킹')).then(r => r.json()),
+            fetch('/api/rankings?board=' + encodeURIComponent('기여랭킹')).then(r => r.json()),
+            fetch('/api/rankings?board=' + encodeURIComponent('열정랭킹')).then(r => r.json())
+        ]);
+
+        let userRank = -1;
+        let contribRank = -1;
+        let passionRank = -1;
+
+        if (resUser.success && resUser.rankings) {
+            const found = resUser.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) userRank = found.rank;
+        }
+        if (resContrib.success && resContrib.rankings) {
+            const found = resContrib.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) contribRank = found.rank;
+        }
+        if (resPassion.success && resPassion.rankings) {
+            const found = resPassion.rankings.find(r => r.nicname.toLowerCase().trim() === cleanNickname);
+            if (found) passionRank = found.rank;
+        }
+
+        // Render values
+        if (userRankVal) {
+            userRankVal.textContent = userRank !== -1 ? `${userRank}위` : '--';
+        }
+        if (contribRankVal) {
+            contribRankVal.textContent = contribRank !== -1 ? `${contribRank}위` : '--';
+        }
+        if (passionRankVal) {
+            passionRankVal.textContent = passionRank !== -1 ? `${passionRank}위` : '--';
+        }
+    } catch (e) {
+        console.error("Failed to update player ranks in header:", e);
+    }
+}
+
+// Fetch and Display Logs
 async function fetchAndRenderLogs(nicName) {
     // UI transition
     loadingSpinner.classList.remove('hidden');
     errorMessage.classList.add('hidden');
     playerProfile.classList.add('hidden');
+
+    const warningEl = document.getElementById('corruption-warning');
+    if (warningEl) {
+        warningEl.classList.add('hidden');
+    }
 
     // Clear columns
     for (let key in columns) {
@@ -668,6 +757,7 @@ async function fetchAndRenderLogs(nicName) {
 
         // 1. Render Player Header Metrics
         document.getElementById('player-name').textContent = result.nicName;
+        updatePlayerRanksInHeader(result.nicName);
 
         const rankScore = data.RANK_SCORE || 0;
         
@@ -734,6 +824,7 @@ async function fetchAndRenderLogs(nicName) {
                 const d3 = decodeBase64ToArray(d3B64);
 
                 if (d1.length > 72) {
+                    const isCorrupted = d1.length !== 97 || (d1[0] !== "" && !/^\d+$/.test(d1[0]));
                     const charId = parseInt(d1[2]);
 
                     // Determine if this is the active hero slot
@@ -827,6 +918,7 @@ async function fetchAndRenderLogs(nicName) {
                         slotNum: slotNumInt,
                         charId,
                         name: charName,
+                        isCorrupted,
                         category,
                         level,
                         adventure: adv,
@@ -888,8 +980,31 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
-        // Sort characters by slotNum ascending (so they are listed in the link order 1 to 61)
-        uniqueCharacters.sort((a, b) => a.slotNum - b.slotNum);
+        // Sort characters: corrupted characters first, then by slotNum ascending
+        uniqueCharacters.sort((a, b) => {
+            if (a.isCorrupted && !b.isCorrupted) return -1;
+            if (!a.isCorrupted && b.isCorrupted) return 1;
+            return a.slotNum - b.slotNum;
+        });
+
+        // Check for corrupted characters and display warning at the top
+        const corruptedChars = uniqueCharacters.filter(char => char.isCorrupted);
+        const warningEl = document.getElementById('corruption-warning');
+        const corruptedCharsListEl = document.getElementById('corrupted-chars-list');
+        if (warningEl && corruptedCharsListEl) {
+            corruptedCharsListEl.innerHTML = '';
+            if (corruptedChars.length > 0) {
+                corruptedChars.forEach(char => {
+                    const badge = document.createElement('span');
+                    badge.className = 'corrupted-char-badge';
+                    badge.textContent = char.name;
+                    corruptedCharsListEl.appendChild(badge);
+                });
+                warningEl.classList.remove('hidden');
+            } else {
+                warningEl.classList.add('hidden');
+            }
+        }
 
         // 4. Render cards to columns
         uniqueCharacters.forEach(char => {
@@ -950,6 +1065,129 @@ searchForm.addEventListener('submit', (e) => {
     }
 });
 
+// Fetch and Render Rankings Page
+async function fetchAndRenderRankings(boardName = '유저랭킹') {
+    const colRank = columns['rank'];
+    if (!colRank) return;
+
+    // Dynamically update the section header text
+    const rankHeader = document.querySelector('.rank-header');
+    if (rankHeader) {
+        rankHeader.textContent = boardName;
+    }
+
+    try {
+        colRank.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>랭킹 정보를 불러오는 중입니다...</p></div>';
+        const response = await fetch('/api/rankings?board=' + encodeURIComponent(boardName));
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.error || '랭킹 데이터를 가져오지 못했습니다.');
+        }
+
+        const rankings = result.rankings || [];
+        if (rankings.length === 0) {
+            colRank.innerHTML = '<div class="empty-placeholder">등록된 랭킹 정보가 없습니다.</div>';
+            return;
+        }
+
+        colRank.innerHTML = '';
+
+        // Slice into 3 ranges: 1-50, 51-100, 101-150
+        const slices = [
+            { label: '1위 ~ 50위', range: [0, 50] },
+            { label: '51위 ~ 100위', range: [50, 100] },
+            { label: '101위 ~ 150위', range: [100, 150] }
+        ];
+
+        let titleEmoji = '🏆';
+        if (boardName === '기여랭킹') titleEmoji = '🎖️';
+        else if (boardName === '열정랭킹') titleEmoji = '🔥';
+
+        const boardTitle = boardName === '유저랭킹' ? '유저 랭킹' : boardName === '기여랭킹' ? '기여 랭킹' : '열정 랭킹';
+
+        slices.forEach(slice => {
+            const subRankings = rankings.slice(slice.range[0], slice.range[1]);
+            if (subRankings.length === 0) return;
+
+            // Create a card holding the rankings list
+            const card = document.createElement('div');
+            card.className = 'char-card rankings-card';
+
+            const nameRow = document.createElement('div');
+            nameRow.className = 'char-name-row';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'char-name';
+            nameSpan.textContent = `${titleEmoji} ${boardTitle} (${slice.label})`;
+            nameRow.appendChild(nameSpan);
+            card.appendChild(nameRow);
+
+            const tableContainer = document.createElement('div');
+            tableContainer.className = 'rankings-table-container';
+
+            const table = document.createElement('table');
+            table.className = 'rankings-table';
+
+            // Table Header
+            const thead = document.createElement('thead');
+            
+            let scoreHeader = '랭킹점수';
+            if (boardName === '기여랭킹') scoreHeader = '기여도';
+            else if (boardName === '열정랭킹') scoreHeader = '열정점수';
+
+            thead.innerHTML = `
+                <tr>
+                    <th style="width: 20%; text-align: center;">순위</th>
+                    <th style="width: 50%; text-align: left;">닉네임</th>
+                    <th style="width: 30%; text-align: right;">${scoreHeader}</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            // Table Body
+            const tbody = document.createElement('tbody');
+            subRankings.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                // Format rank with medals for top 3
+                let rankDisplay = item.rank;
+                if (item.rank === 1) rankDisplay = '🥇';
+                else if (item.rank === 2) rankDisplay = '🥈';
+                else if (item.rank === 3) rankDisplay = '🥉';
+
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
+                    <td style="text-align: left;">
+                        <span class="rank-nickname" data-nickname="${item.nicname}">${item.nicname}</span>
+                    </td>
+                    <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+            card.appendChild(tableContainer);
+
+            colRank.appendChild(card);
+        });
+
+        // Add click events to nicknames for instant search
+        colRank.querySelectorAll('.rank-nickname').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const nickname = e.target.dataset.nickname;
+                if (nickname) {
+                    nicnameInput.value = nickname;
+                    fetchAndRenderLogs(nickname);
+                }
+            });
+        });
+
+    } catch (e) {
+        console.error(e);
+        colRank.innerHTML = `<div class="error-message"><p>랭킹 로드 중 오류가 발생했습니다: ${e.message}</p></div>`;
+    }
+}
+
 // Load default lookup on page load (optional but helpful)
 window.addEventListener('DOMContentLoaded', () => {
     // Set up tab button event listeners
@@ -957,6 +1195,13 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             switchTab(category);
+            if (category === 'user-rank') {
+                fetchAndRenderRankings('유저랭킹');
+            } else if (category === 'contrib-rank') {
+                fetchAndRenderRankings('기여랭킹');
+            } else if (category === 'passion-rank') {
+                fetchAndRenderRankings('열정랭킹');
+            }
         });
     });
 
