@@ -157,6 +157,7 @@ const ITEM_MAPPING = {
     1448: { name: '영웅의 증표Lv22', color: 'purple' },
     1458: { name: '베이비의 반지Lv2', color: 'standard' },
     1459: { name: '베이비의 보석Lv2', color: 'standard' },
+    1460: { name: '베이비의 신발Lv2', color: 'standard' },
     1463: { name: '브로리의 최종힘', color: 'purple' },
     1466: { name: '베이비의 보석v2', color: 'standard' },
     1469: { name: '베지트의 전투반지', color: 'purple' },
