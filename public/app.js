@@ -415,6 +415,12 @@ function createEquipmentCard(char) {
         errorBadge.textContent = '오류';
         nameRow.appendChild(errorBadge);
     }
+    if (char.isLatestSave) {
+        const latestBadge = document.createElement('span');
+        latestBadge.className = 'char-latest-badge';
+        latestBadge.textContent = '최근저장';
+        nameRow.appendChild(latestBadge);
+    }
     card.appendChild(nameRow);
 
     // Equip List container
@@ -556,6 +562,12 @@ function createCharacterCard(char) {
         errorBadge.className = 'char-error-badge';
         errorBadge.textContent = '오류';
         nameRow.appendChild(errorBadge);
+    }
+    if (char.isLatestSave) {
+        const latestBadge = document.createElement('span');
+        latestBadge.className = 'char-latest-badge';
+        latestBadge.textContent = '최근저장';
+        nameRow.appendChild(latestBadge);
     }
     card.appendChild(nameRow);
 
@@ -980,10 +992,14 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
-        // Sort characters: corrupted characters first, then by slotNum ascending
+        // Sort characters: corrupted first, then most recently saved, then by slotNum
+        const maxSaveDate = Math.max(...uniqueCharacters.map(c => c.saveDate || 0));
+        uniqueCharacters.forEach(c => { c.isLatestSave = !c.isCorrupted && c.saveDate === maxSaveDate && maxSaveDate > 0; });
         uniqueCharacters.sort((a, b) => {
             if (a.isCorrupted && !b.isCorrupted) return -1;
             if (!a.isCorrupted && b.isCorrupted) return 1;
+            if (a.isLatestSave && !b.isLatestSave) return -1;
+            if (!a.isLatestSave && b.isLatestSave) return 1;
             return a.slotNum - b.slotNum;
         });
 
