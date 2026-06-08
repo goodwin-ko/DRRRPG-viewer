@@ -417,9 +417,14 @@ function createEquipmentCard(char) {
     }
     if (char.isLatestSave) {
         const latestBadge = document.createElement('span');
-        latestBadge.className = 'char-latest-badge';
-        latestBadge.textContent = '최근저장';
+        latestBadge.className = 'char-latest-badge char-latest-top';
+        latestBadge.textContent = '제일최신저장';
         nameRow.appendChild(latestBadge);
+    } else if (char.isTodaySave) {
+        const todayBadge = document.createElement('span');
+        todayBadge.className = 'char-latest-badge';
+        todayBadge.textContent = '최근저장';
+        nameRow.appendChild(todayBadge);
     }
     card.appendChild(nameRow);
 
@@ -565,9 +570,14 @@ function createCharacterCard(char) {
     }
     if (char.isLatestSave) {
         const latestBadge = document.createElement('span');
-        latestBadge.className = 'char-latest-badge';
-        latestBadge.textContent = '최근저장';
+        latestBadge.className = 'char-latest-badge char-latest-top';
+        latestBadge.textContent = '제일최신저장';
         nameRow.appendChild(latestBadge);
+    } else if (char.isTodaySave) {
+        const todayBadge = document.createElement('span');
+        todayBadge.className = 'char-latest-badge';
+        todayBadge.textContent = '최근저장';
+        nameRow.appendChild(todayBadge);
     }
     card.appendChild(nameRow);
 
@@ -992,14 +1002,39 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
-        // Sort characters: corrupted first, then most recently saved, then by slotNum
-        const maxSaveDate = Math.max(...uniqueCharacters.map(c => c.saveDate || 0));
-        uniqueCharacters.forEach(c => { c.isLatestSave = !c.isCorrupted && c.saveDate === maxSaveDate && maxSaveDate > 0; });
+        // Sort characters: corrupted first, then today's saves, then by slotNum
+        // saveDate format: YYYYMMDD integer (KST)
+        const nowKST = new Date(Date.now() + 9 * 60 * 60 * 1000); // UTC → KST
+        const todayYYYYMMDD = parseInt(
+            nowKST.getUTCFullYear().toString() +
+            String(nowKST.getUTCMonth() + 1).padStart(2, '0') +
+            String(nowKST.getUTCDate()).padStart(2, '0')
+        );
+
+        // Flag: saved today
+        uniqueCharacters.forEach(c => {
+            c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYYYYMMDD && c.saveDate > 0;
+        });
+        // Among today's saves, find the highest saveDate (and highest slotNum as tiebreaker)
+        const todaySaves = uniqueCharacters.filter(c => c.isTodaySave);
+        let latestChar = null;
+        if (todaySaves.length > 0) {
+            latestChar = todaySaves.reduce((best, c) =>
+                (c.saveDate > best.saveDate || (c.saveDate === best.saveDate && c.slotNum > best.slotNum))
+                    ? c : best
+            );
+        }
+        uniqueCharacters.forEach(c => {
+            c.isLatestSave = latestChar !== null && c === latestChar;
+        });
+
         uniqueCharacters.sort((a, b) => {
             if (a.isCorrupted && !b.isCorrupted) return -1;
             if (!a.isCorrupted && b.isCorrupted) return 1;
             if (a.isLatestSave && !b.isLatestSave) return -1;
             if (!a.isLatestSave && b.isLatestSave) return 1;
+            if (a.isTodaySave && !b.isTodaySave) return -1;
+            if (!a.isTodaySave && b.isTodaySave) return 1;
             return a.slotNum - b.slotNum;
         });
 
