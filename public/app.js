@@ -568,6 +568,7 @@ function createCharacterCard(char) {
     nameRow.className = 'char-name-row';
 
     // Name color: green if attended today
+    const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
