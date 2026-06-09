@@ -405,10 +405,10 @@ function createEquipmentCard(char) {
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
     const nameSpan = document.createElement('span');
-    nameSpan.className = 'char-name';
-    nameSpan.textContent = char.name;
+    // Name color: green if attended today
+    nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameRow.appendChild(nameSpan);
-    
+
     if (char.isCorrupted) {
         const errorBadge = document.createElement('span');
         errorBadge.className = 'char-error-badge';
@@ -420,13 +420,13 @@ function createEquipmentCard(char) {
         latestBadge.className = 'char-latest-badge char-latest-top';
         latestBadge.textContent = '제일최신저장';
         nameRow.appendChild(latestBadge);
-    } else if (char.isTodaySave) {
-        const todayBadge = document.createElement('span');
-        todayBadge.className = 'char-latest-badge';
-        todayBadge.textContent = '최근저장';
-        nameRow.appendChild(todayBadge);
     }
-    if (char.missedDays > 0) {
+    if (char.isTodaySave) {
+        const attendBadge = document.createElement('span');
+        attendBadge.className = 'char-attend-badge';
+        attendBadge.textContent = '출첵완';
+        nameRow.appendChild(attendBadge);
+    } else if (char.missedDays > 0) {
         const missedBadge = document.createElement('span');
         const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
         const ratio = char.missedDays / maxDays;
@@ -567,8 +567,8 @@ function createCharacterCard(char) {
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
 
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'char-name';
+    // Name color: green if attended today
+    nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
 
@@ -583,13 +583,13 @@ function createCharacterCard(char) {
         latestBadge.className = 'char-latest-badge char-latest-top';
         latestBadge.textContent = '제일최신저장';
         nameRow.appendChild(latestBadge);
-    } else if (char.isTodaySave) {
-        const todayBadge = document.createElement('span');
-        todayBadge.className = 'char-latest-badge';
-        todayBadge.textContent = '최근저장';
-        nameRow.appendChild(todayBadge);
     }
-    if (char.missedDays > 0) {
+    if (char.isTodaySave) {
+        const attendBadge = document.createElement('span');
+        attendBadge.className = 'char-attend-badge';
+        attendBadge.textContent = '출첵완';
+        nameRow.appendChild(attendBadge);
+    } else if (char.missedDays > 0) {
         const missedBadge = document.createElement('span');
         const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
         const ratio = char.missedDays / maxDays;
@@ -1060,23 +1060,28 @@ async function fetchAndRenderLogs(nicName) {
         });
 
         // Calculate missed attendance days per character
-        // Grace days per grade: 아이언(0)=0, 브론즈(1)=1, 실버(2)=2, ... each grade +1 day
+        // Max cap scales with grade: 아이언(0)=7, 브론즈(1)=8, 실버(2)=9, 골드(3)=10, ...
+        // Monthly reset: on the 1st of each month, non-attended characters show full maxDays
         function yyyymmddToDate(yyyymmdd) {
             const s = String(yyyymmdd);
             return new Date(+s.slice(0,4), +s.slice(4,6) - 1, +s.slice(6,8));
         }
         const todayDate = yyyymmddToDate(todayYYYYMMDD);
+        const isFirstOfMonth = String(todayYYYYMMDD).slice(6, 8) === '01';
         uniqueCharacters.forEach(c => {
             if (!c.saveDate || c.saveDate <= 0 || c.isCorrupted) {
                 c.missedDays = 0;
                 return;
             }
+            const maxDays = 7 + (c.ttType !== undefined ? c.ttType : 2);
+            // On the 1st of month → monthly reset: if not saved today, show full cap
+            if (isFirstOfMonth && !c.isTodaySave) {
+                c.missedDays = maxDays;
+                return;
+            }
             const savedDate = yyyymmddToDate(c.saveDate);
             const msPerDay = 24 * 60 * 60 * 1000;
             const daysSinceSave = Math.floor((todayDate - savedDate) / msPerDay);
-            // No grace period — show from day 1
-            // Max cap scales with grade: 아이언(0)=7, 브론즈(1)=8, 실버(2)=9, 골드(3)=10, ...
-            const maxDays = 7 + (c.ttType !== undefined ? c.ttType : 2);
             c.missedDays = Math.min(daysSinceSave, maxDays);
         });
 
