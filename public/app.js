@@ -428,10 +428,12 @@ function createEquipmentCard(char) {
     }
     if (char.missedDays > 0) {
         const missedBadge = document.createElement('span');
-        const severity = char.missedDays >= 5 ? 'high' : char.missedDays >= 3 ? 'mid' : 'low';
+        const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
+        const ratio = char.missedDays / maxDays;
+        const severity = ratio >= 0.7 ? 'high' : ratio >= 0.4 ? 'mid' : 'low';
         missedBadge.className = `char-missed-badge char-missed-${severity}`;
         missedBadge.textContent = `${char.missedDays}d`;
-        missedBadge.title = `미접속 ${char.missedDays}일`;
+        missedBadge.title = `미접속 ${char.missedDays}일 (상한 ${maxDays}일)`;
         nameRow.appendChild(missedBadge);
     }
     card.appendChild(nameRow);
@@ -589,10 +591,12 @@ function createCharacterCard(char) {
     }
     if (char.missedDays > 0) {
         const missedBadge = document.createElement('span');
-        const severity = char.missedDays >= 5 ? 'high' : char.missedDays >= 3 ? 'mid' : 'low';
+        const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
+        const ratio = char.missedDays / maxDays;
+        const severity = ratio >= 0.7 ? 'high' : ratio >= 0.4 ? 'mid' : 'low';
         missedBadge.className = `char-missed-badge char-missed-${severity}`;
         missedBadge.textContent = `${char.missedDays}d`;
-        missedBadge.title = `미접속 ${char.missedDays}일`;
+        missedBadge.title = `미접속 ${char.missedDays}일 (상한 ${maxDays}일)`;
         nameRow.appendChild(missedBadge);
     }
     card.appendChild(nameRow);
@@ -1070,9 +1074,10 @@ async function fetchAndRenderLogs(nicName) {
             const savedDate = yyyymmddToDate(c.saveDate);
             const msPerDay = 24 * 60 * 60 * 1000;
             const daysSinceSave = Math.floor((todayDate - savedDate) / msPerDay);
-            const graceDays = c.ttType !== undefined ? c.ttType : 2; // default 실버
-            const missed = Math.max(0, daysSinceSave - graceDays);
-            c.missedDays = Math.min(missed, 7);
+            // No grace period — show from day 1
+            // Max cap scales with grade: 아이언(0)=7, 브론즈(1)=8, 실버(2)=9, 골드(3)=10, ...
+            const maxDays = 7 + (c.ttType !== undefined ? c.ttType : 2);
+            c.missedDays = Math.min(daysSinceSave, maxDays);
         });
 
         // Check for corrupted characters and display warning at the top
