@@ -426,6 +426,14 @@ function createEquipmentCard(char) {
         todayBadge.textContent = '최근저장';
         nameRow.appendChild(todayBadge);
     }
+    if (char.missedDays > 0) {
+        const missedBadge = document.createElement('span');
+        const severity = char.missedDays >= 5 ? 'high' : char.missedDays >= 3 ? 'mid' : 'low';
+        missedBadge.className = `char-missed-badge char-missed-${severity}`;
+        missedBadge.textContent = `${char.missedDays}d`;
+        missedBadge.title = `미접속 ${char.missedDays}일`;
+        nameRow.appendChild(missedBadge);
+    }
     card.appendChild(nameRow);
 
     // Equip List container
@@ -578,6 +586,14 @@ function createCharacterCard(char) {
         todayBadge.className = 'char-latest-badge';
         todayBadge.textContent = '최근저장';
         nameRow.appendChild(todayBadge);
+    }
+    if (char.missedDays > 0) {
+        const missedBadge = document.createElement('span');
+        const severity = char.missedDays >= 5 ? 'high' : char.missedDays >= 3 ? 'mid' : 'low';
+        missedBadge.className = `char-missed-badge char-missed-${severity}`;
+        missedBadge.textContent = `${char.missedDays}d`;
+        missedBadge.title = `미접속 ${char.missedDays}일`;
+        nameRow.appendChild(missedBadge);
     }
     card.appendChild(nameRow);
 
@@ -979,7 +995,8 @@ async function fetchAndRenderLogs(nicName) {
                         maxFriendStat,
                         gold,
                         goldBars,
-                        blueDiamonds
+                        blueDiamonds,
+                        ttType
                     });
                 }
             }
@@ -1036,6 +1053,26 @@ async function fetchAndRenderLogs(nicName) {
             if (a.isTodaySave && !b.isTodaySave) return -1;
             if (!a.isTodaySave && b.isTodaySave) return 1;
             return a.slotNum - b.slotNum;
+        });
+
+        // Calculate missed attendance days per character
+        // Grace days per grade: 아이언(0)=0, 브론즈(1)=1, 실버(2)=2, ... each grade +1 day
+        function yyyymmddToDate(yyyymmdd) {
+            const s = String(yyyymmdd);
+            return new Date(+s.slice(0,4), +s.slice(4,6) - 1, +s.slice(6,8));
+        }
+        const todayDate = yyyymmddToDate(todayYYYYMMDD);
+        uniqueCharacters.forEach(c => {
+            if (!c.saveDate || c.saveDate <= 0 || c.isCorrupted) {
+                c.missedDays = 0;
+                return;
+            }
+            const savedDate = yyyymmddToDate(c.saveDate);
+            const msPerDay = 24 * 60 * 60 * 1000;
+            const daysSinceSave = Math.floor((todayDate - savedDate) / msPerDay);
+            const graceDays = c.ttType !== undefined ? c.ttType : 2; // default 실버
+            const missed = Math.max(0, daysSinceSave - graceDays);
+            c.missedDays = Math.min(missed, 7);
         });
 
         // Check for corrupted characters and display warning at the top

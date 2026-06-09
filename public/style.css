@@ -1223,6 +1223,50 @@ body {
     50% { box-shadow: 0 0 18px rgba(255, 200, 0, 0.55); border-color: rgba(255, 200, 0, 0.8); }
 }
 
+/* Missed attendance badge */
+.char-missed-badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    margin-left: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+.char-missed-low {
+    background-color: rgba(255, 150, 0, 0.15);
+    color: #ff9600;
+    border: 1px solid rgba(255, 150, 0, 0.45);
+    text-shadow: 0 0 5px rgba(255, 150, 0, 0.5);
+    box-shadow: 0 0 6px rgba(255, 150, 0, 0.15);
+}
+.char-missed-mid {
+    background-color: rgba(255, 80, 0, 0.15);
+    color: #ff5000;
+    border: 1px solid rgba(255, 80, 0, 0.5);
+    text-shadow: 0 0 6px rgba(255, 80, 0, 0.6);
+    box-shadow: 0 0 8px rgba(255, 80, 0, 0.2);
+    animation: missed-mid-pulse 2s ease-in-out infinite;
+}
+.char-missed-high {
+    background-color: rgba(255, 30, 30, 0.18);
+    color: #ff2020;
+    border: 1px solid rgba(255, 30, 30, 0.55);
+    text-shadow: 0 0 8px rgba(255, 30, 30, 0.7);
+    box-shadow: 0 0 10px rgba(255, 30, 30, 0.25);
+    animation: missed-high-pulse 1.2s ease-in-out infinite;
+}
+@keyframes missed-mid-pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 80, 0, 0.2); }
+    50% { box-shadow: 0 0 14px rgba(255, 80, 0, 0.45); border-color: rgba(255, 80, 0, 0.8); }
+}
+@keyframes missed-high-pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 30, 30, 0.25); }
+    50% { box-shadow: 0 0 18px rgba(255, 30, 30, 0.55); border-color: rgba(255, 30, 30, 0.85); }
+}
+
 .corruption-warning {
     background: linear-gradient(135deg, rgba(255, 68, 68, 0.12) 0%, rgba(255, 120, 0, 0.08) 100%);
     border: 1px solid rgba(255, 68, 68, 0.35);
