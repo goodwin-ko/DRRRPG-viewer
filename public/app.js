@@ -407,6 +407,7 @@ function createEquipmentCard(char) {
     const nameSpan = document.createElement('span');
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+    nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
