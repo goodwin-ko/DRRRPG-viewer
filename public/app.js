@@ -133,6 +133,7 @@ const ITEM_MAPPING = {
     1086: { name: '베이비의신발', color: 'standard' },
     1087: { name: '베이비의반지', color: 'standard' },
     1088: { name: '베이비의보석', color: 'standard' },
+    1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
     1160: { name: '오천크스 가방', color: 'standard' },
     1162: { name: '오천크스 갑옷', color: 'standard' },
     1163: { name: '개발자의 헬멧(base)', color: 'green' },
@@ -397,7 +398,7 @@ function getAdventureStage(val) {
 }
 
 // Render Equipment Card (for 장비현황 tab)
-function createEquipmentCard(char, playerName) {
+function createEquipmentCard(char) {
     const card = document.createElement('div');
     card.className = 'equip-card';
 
@@ -407,7 +408,7 @@ function createEquipmentCard(char, playerName) {
     const nameSpan = document.createElement('span');
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
-    nameSpan.textContent = `[${playerName}] ${char.name}`;
+    nameSpan.textContent = char.name;
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
@@ -803,11 +804,6 @@ async function fetchAndRenderLogs(nicName) {
         document.getElementById('player-name').textContent = result.nicName;
         updatePlayerRanksInHeader(result.nicName);
 
-        const equipHeader = document.querySelector('.equip-header');
-        if (equipHeader) {
-            equipHeader.textContent = `${result.nicName} 장비현황`;
-        }
-
         const rankScore = data.RANK_SCORE || 0;
         
         // Render TT_TYPE1 (등급) in place of player-tier (removing Bronze/Diamond tiers)
@@ -1127,7 +1123,7 @@ async function fetchAndRenderLogs(nicName) {
             }
 
             // Render equipment card to the equip column for ALL characters
-            const equipCard = createEquipmentCard(char, result.nicName);
+            const equipCard = createEquipmentCard(char);
             columns['equip'].appendChild(equipCard);
         });
 
