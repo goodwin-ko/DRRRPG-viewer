@@ -14,7 +14,7 @@ const UPBOOK_TO_SLOT = {
     10: 11,  // 리쿰
     11: 13,  // 버터
     12: 12,  // 지스
-    13: 10,  // 골드(굴드)
+    13: 10,  // 굴드
     14: 14,  // 기뉴(캡틴 기뉴)
     15: 15,  // 사탄(미스터 사탄)
     16: 27,  // 부르마
@@ -66,7 +66,7 @@ const LINK_NAME_MAPPING = {
     7: '라데츠',
     8: '내퍼',
     9: '베지터',
-    10: '골드',
+    10: '굴드',
     11: '리쿰',
     12: '지스',
     13: '버터',
@@ -397,7 +397,7 @@ function getAdventureStage(val) {
 }
 
 // Render Equipment Card (for 장비현황 tab)
-function createEquipmentCard(char) {
+function createEquipmentCard(char, playerName) {
     const card = document.createElement('div');
     card.className = 'equip-card';
 
@@ -407,7 +407,7 @@ function createEquipmentCard(char) {
     const nameSpan = document.createElement('span');
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
-    nameSpan.textContent = char.name;
+    nameSpan.textContent = `[${playerName}] ${char.name}`;
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
@@ -803,6 +803,11 @@ async function fetchAndRenderLogs(nicName) {
         document.getElementById('player-name').textContent = result.nicName;
         updatePlayerRanksInHeader(result.nicName);
 
+        const equipHeader = document.querySelector('.equip-header');
+        if (equipHeader) {
+            equipHeader.textContent = `${result.nicName} 장비현황`;
+        }
+
         const rankScore = data.RANK_SCORE || 0;
         
         // Render TT_TYPE1 (등급) in place of player-tier (removing Bronze/Diamond tiers)
@@ -1122,7 +1127,7 @@ async function fetchAndRenderLogs(nicName) {
             }
 
             // Render equipment card to the equip column for ALL characters
-            const equipCard = createEquipmentCard(char);
+            const equipCard = createEquipmentCard(char, result.nicName);
             columns['equip'].appendChild(equipCard);
         });
 
