@@ -109,29 +109,26 @@ def get_logs():
         # Merge character states (newest overwrites oldest)
         merged_data = {}
         latest_date = ""
+        latest_slot_num = None  # 가장 최근 로그 항목의 파일명 기준 슬롯번호
         slot_dates = {}
         for entry in log_entries:
             merged_data.update(entry['data'])
-            latest_date = entry['date'] # Keep track of the absolute newest save date
+            latest_date = entry['date']  # Keep track of the absolute newest save date
             
-            # Extract slot number from char_file (e.g., "goodwin_13.txt")
+            # Extract slot number from char_file (e.g., "goodwin_1.txt")
+            # 파일명에서 슬롯번호를 추출 — 이게 실제 저장된 캐릭터의 슬롯번호
             m_slot = re.search(r'_(\d+)(?:\.txt)?$', entry['char_file'])
             if m_slot:
                 slot_num = int(m_slot.group(1))
                 slot_dates[str(slot_num)] = entry['date']
-                
-            # Also associate the entry's date with all slots present in this entry's data keys (e.g. DATA1_X)
-            for key in entry['data']:
-                m_key = re.match(r'^DATA1_(\d+)$', key)
-                if m_key:
-                    slot_num = int(m_key.group(1))
-                    slot_dates[str(slot_num)] = entry['date']
+                latest_slot_num = slot_num  # 업로드된 순서상 마지막 항목이 가장 최근 저장
             
         # Also clean up merged_data values (some might have double spaces or be strings)
         return jsonify({
             "success": True,
             "nicName": nicName,
             "latest_date": latest_date,
+            "latest_slot_num": latest_slot_num,
             "slot_dates": slot_dates,
             "data": merged_data
         })

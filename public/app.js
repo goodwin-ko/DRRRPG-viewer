@@ -1060,14 +1060,20 @@ async function fetchAndRenderLogs(nicName) {
             return parseInt(match[3] + match[1].padStart(2, '0') + match[2].padStart(2, '0'));
         }
 
-        // slot_dates: 각 슬롯 파일(goodwin_1.txt 등)이 로그에 업로드된 시각 (초 단위 정밀도)
-        // 조건 없이 직접 사용 — 파일마다 별도 업로드 시각이 있으므로 가장 최근 저장 캐릭터를 구분할 수 있음
+        // fullSaveTime 계산: 슬롯 업로드 시각 vs 인게임 저장날짜(d3[6]) 일치 여부로 판별
+        // - 일치: 해당 슬롯 파일이 실제 저장 직후 업로드된 것 → 초 단위 정밀도 사용
+        // - 불일치: 자동저장이 이전 데이터를 오늘 날짜로 재업로드한 것 → d3[6] 날짜만 사용
         const slotDates = result.slot_dates || {};
         uniqueCharacters.forEach(c => {
             const dateStr = slotDates[String(c.slotNum)];
-            if (dateStr) {
+            if (dateStr && c.saveDate === getYYYYMMDD(dateStr)) {
+                // 업로드 날짜 == 인게임 저장날짜 → 수동저장 직후 업로드 → 초 단위 시간 사용
                 c.fullSaveTime = parseFullDate(dateStr);
+            } else if (result.latest_date && c.saveDate === getYYYYMMDD(result.latest_date)) {
+                // slot_dates에 없지만 최신 업로드 날짜와 인게임 날짜가 일치 → 같은 배치로 저장됨
+                c.fullSaveTime = parseFullDate(result.latest_date);
             } else {
+                // 날짜 불일치 → 자동저장이 과거 데이터를 재업로드한 것 → 날짜만 사용 (시간 정밀도 없음)
                 c.fullSaveTime = yyyymmddToTimestamp(c.saveDate);
             }
         });
@@ -1086,25 +1092,31 @@ async function fetchAndRenderLogs(nicName) {
             c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYYYYMMDD && c.saveDate > 0;
         });
 
-        // 제일마지막저장 판별:
-        // 1순위: fullSaveTime — slot_dates의 슬롯 파일 업로드 타임스탬프 (초 단위, 슬롯별 개별 업로드)
-        // 2순위: saveDate (d3[6]) — 인게임 저장 날짜 (YYYYMMDD)
-        // ※ 인증 Final 캐릭터는 이벤트로그 기반이므로 사용하지 않음
+        // 제일마지막저장 판별 우선순위:
+        // 1순위: latest_slot_num — 가장 최근 로그 항목의 파일명 기준 슬롯번호 (서버가 제공, 가장 정확)
+        // 2순위: fullSaveTime — 슬롯 업로드 타임스탬프 (업로드날짜 == 인게임저장날짜 일치 시 초 단위)
+        // 3순위: saveDate (d3[6]) — 인게임 저장 날짜 (YYYYMMDD)
         let latestChar = null;
         if (uniqueCharacters.length > 0) {
-            latestChar = uniqueCharacters.reduce((best, c) => {
-                const cTime = c.fullSaveTime || 0;
-                const bestTime = best.fullSaveTime || 0;
-                if (cTime !== bestTime) {
-                    return cTime > bestTime ? c : best;
-                }
-                // 2순위: 인게임 저장 날짜
-                if (c.saveDate !== best.saveDate) {
-                    return (c.saveDate || 0) > (best.saveDate || 0) ? c : best;
-                }
-                // 완전 동점: 현재 best 유지
-                return best;
-            });
+            // 1순위: 서버가 알려준 latest_slot_num (복수 저장 중 마지막 저장된 파일의 슬롯번호)
+            if (result.latest_slot_num != null) {
+                latestChar = uniqueCharacters.find(c => c.slotNum === result.latest_slot_num) || null;
+            }
+
+            // 2&3순위: fallback — fullSaveTime 다음 saveDate
+            if (!latestChar) {
+                latestChar = uniqueCharacters.reduce((best, c) => {
+                    const cTime = c.fullSaveTime || 0;
+                    const bestTime = best.fullSaveTime || 0;
+                    if (cTime !== bestTime) {
+                        return cTime > bestTime ? c : best;
+                    }
+                    if (c.saveDate !== best.saveDate) {
+                        return (c.saveDate || 0) > (best.saveDate || 0) ? c : best;
+                    }
+                    return best;
+                });
+            }
         }
         uniqueCharacters.forEach(c => {
             c.isLatestSave = latestChar !== null && c === latestChar;
@@ -1203,8 +1215,11 @@ async function fetchAndRenderLogs(nicName) {
         // Show profile
         playerProfile.classList.remove('hidden');
 
-        // Show basic tab by default on load
+        // Show basic tab by default on load (PC only)
         switchTab('basic');
+
+        // 모바일이면 모바일 뷰로 전환
+        applyResponsiveLayout(uniqueCharacters, data, result, totalBlueDiamonds);
 
     } catch (e) {
         console.error(e);
@@ -1373,3 +1388,171 @@ window.addEventListener('DOMContentLoaded', () => {
         nicnameInput.value = '';
     }
 });
+
+// ═══════════════════════════════════════════════════════
+//  모바일 전용 UI
+// ═══════════════════════════════════════════════════════
+
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
+// 모바일 배지 HTML
+function mobileBadgesHtml(char) {
+    let h = '';
+    if (char.isCorrupted)   h += '<span class="mb-badge mb-err">오류</span>';
+    if (char.isLatestSave)  h += '<span class="mb-badge mb-latest">제일마지막저장</span>';
+    if (char.isTodaySave)   h += '<span class="mb-badge mb-attend">출첵완</span>';
+    else if (char.missedDays > 0) {
+        const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
+        const ratio = char.missedDays / maxDays;
+        const cls = ratio >= 0.7 ? 'mb-miss-h' : ratio >= 0.4 ? 'mb-miss-m' : 'mb-miss-l';
+        h += `<span class="mb-badge ${cls}">${char.missedDays}d 미접속</span>`;
+    }
+    return h;
+}
+
+// 숫자 포맷 (모바일용)
+function mbFmt(v) { return formatNumber(parseInt(v) || 0); }
+function mbFmtMax(cur, max) {
+    const cv = parseInt(cur)||0, mv = parseInt(max)||0;
+    return cv >= mv ? mbFmt(mv) : `${mbFmt(cv)}/${mbFmt(mv)}`;
+}
+
+// 모바일 기본현황 카드
+function createMobileBasicCard(char) {
+    const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
+    const awakening = char.awakeningLevel > 0
+        ? `<span class="mc-awakening">각성:${char.awakeningLevel}</span>` : '';
+    const limitBlock = (char.limit !== null) ? `
+        <div class="mc-section">
+            <div class="mc-section-title">극한: ${mbFmt(char.limit)} (${mbFmt(char.limitPt)}pt)</div>
+            <div class="mc-row"><span>근력 ${mbFmt(char.strength)}</span><span>근성 ${mbFmt(char.grit)}</span></div>
+            <div class="mc-row"><span>탐구 ${mbFmt(char.search)}</span><span>행운 ${mbFmt(char.luck)}</span></div>
+        </div>` : '';
+
+    return `<div class="mc-card">
+        <div class="mc-header">
+            <span class="${nameClass}">${char.name}</span>
+            <span class="mc-badges">${mobileBadgesHtml(char)}</span>
+        </div>
+        <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)}</span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
+        <div class="mc-cp">투력 <b>${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-divider"></div>
+        <div class="mc-row"><span>공격 ${mbFmt(char.attack)}</span><span>방어 ${mbFmt(char.defense)}</span></div>
+        <div class="mc-row"><span>기 ${mbFmt(char.ki)}</span><span>체력 ${mbFmt(char.hp)}</span></div>
+        <div class="mc-row"><span>공속 ${mbFmt(char.speed)}</span><span>불굴 ${mbFmt(char.fortitude)}</span></div>
+        ${limitBlock}
+        <div class="mc-divider"></div>
+        <div class="mc-sublabel">내 스텟</div>
+        <div class="mc-row"><span class="mc-str">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
+        <div class="mc-sublabel">친구 스텟</div>
+        <div class="mc-row"><span class="mc-str">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
+        <div class="mc-divider"></div>
+        <div class="mc-row"><span>도감 <b class="mc-dogam">${mbFmt(char.doGam)}</b></span><span>💰 <b class="mc-gold">${mbFmt(char.gold)}</b></span></div>
+        <div class="mc-row"><span>금괴 <b class="mc-goldbar">${mbFmt(char.goldBars)}</b></span><span>💎 <b class="mc-bd">${mbFmt(char.blueDiamonds)}</b></span></div>
+    </div>`;
+}
+
+// 모바일 장비현황 카드
+function createMobileEquipCard(char) {
+    function itemHtml(id) {
+        const item = ITEM_MAPPING[id] || { name: `아이템 ${id}`, color: 'standard' };
+        return `<span class="mc-item mc-item-${item.color}">${item.name}</span>`;
+    }
+    const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
+    const myItems = char.myItems.length > 0
+        ? char.myItems.map(itemHtml).join('')
+        : '<span class="mc-noitem">없음</span>';
+    const friendItems = char.friendItems.length > 0
+        ? char.friendItems.map(itemHtml).join('')
+        : '<span class="mc-noitem">없음</span>';
+
+    return `<div class="mc-card">
+        <div class="mc-header">
+            <span class="${nameClass}">${char.name}</span>
+            <span class="mc-badges">${mobileBadgesHtml(char)}</span>
+        </div>
+        <div class="mc-items">${myItems}</div>
+        <div class="mc-friend-div">— 친구 —</div>
+        <div class="mc-items">${friendItems}</div>
+    </div>`;
+}
+
+// 모바일 뷰 렌더링 메인
+function renderMobileView(chars, data) {
+    const mobileView = document.getElementById('mobile-view');
+    const mobileChars = document.getElementById('mobile-chars');
+    if (!mobileView || !mobileChars) return;
+
+    // 모바일 탭 상태
+    let currentMobileTab = 'basic';
+
+    function renderMobileCards() {
+        mobileChars.innerHTML = '';
+        chars.forEach(char => {
+            const html = currentMobileTab === 'basic'
+                ? createMobileBasicCard(char)
+                : createMobileEquipCard(char);
+            mobileChars.insertAdjacentHTML('beforeend', html);
+        });
+    }
+
+    // 헤더 요약
+    const nicName = data['NICNAME'] || nicnameInput.value || '';
+    const totalBD = parseInt(data['BD_POINT'] || data['BDPOINT'] || 0);
+    const spPoint = parseInt(data['SP_POINT'] || 0);
+    const latestDate = data._latest_date || '';
+
+    mobileView.innerHTML = `
+        <div class="mv-header">
+            <div class="mv-nick">${nicName}</div>
+            <div class="mv-summary">
+                <span>💎 <b class="mc-bd">${mbFmt(totalBD)}</b></span>
+                <span>✨ SP <b class="mc-gold">${mbFmt(spPoint)}</b></span>
+            </div>
+            <div class="mv-tabs">
+                <button class="mv-tab active" data-tab="basic">📊 기본현황</button>
+                <button class="mv-tab" data-tab="equip">⚔️ 장비현황</button>
+            </div>
+        </div>
+        <div id="mobile-chars" class="mobile-chars-grid"></div>`;
+
+    // 탭 이벤트
+    mobileView.querySelectorAll('.mv-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            mobileView.querySelectorAll('.mv-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMobileTab = btn.dataset.tab;
+            renderMobileCards();
+        });
+    });
+
+    // 카드 렌더
+    const mobileCharsEl = mobileView.querySelector('#mobile-chars');
+    chars.forEach(char => {
+        const html = createMobileBasicCard(char);
+        mobileCharsEl.insertAdjacentHTML('beforeend', html);
+    });
+
+    mobileView.classList.remove('hidden');
+}
+
+// 모바일 여부에 따라 PC / 모바일 뷰 전환
+function applyResponsiveLayout(chars, data) {
+    const dashboardGrid = document.querySelector('.dashboard-grid');
+    const categoryTabs = document.querySelector('.category-tabs');
+    const mobileView = document.getElementById('mobile-view');
+
+    if (isMobile()) {
+        // 모바일: PC UI 숨기고 모바일 뷰 표시
+        if (dashboardGrid) dashboardGrid.style.display = 'none';
+        if (categoryTabs) categoryTabs.style.display = 'none';
+        renderMobileView(chars, data);
+    } else {
+        // PC: 모바일 뷰 숨기고 PC UI 표시
+        if (mobileView) mobileView.classList.add('hidden');
+        if (dashboardGrid) dashboardGrid.style.display = '';
+        if (categoryTabs) categoryTabs.style.display = '';
+    }
+}

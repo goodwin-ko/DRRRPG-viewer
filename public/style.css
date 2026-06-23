@@ -1066,13 +1066,24 @@ body {
 
 /* Mobile & Responsive Layout Overrides */
 @media (max-width: 768px) {
+    /* 모바일: 일반 스크롤 모드 — body/container 고정 높이 해제 */
     body {
         padding: 10px;
+        overflow: auto;          /* PC: hidden → mobile: 스크롤 허용 */
+        height: auto;            /* PC: 100vh → mobile: 콘텐츠 높이로 */
+        -webkit-overflow-scrolling: touch;
     }
 
     .app-container {
-        height: calc(100vh - 20px);
+        height: auto;            /* PC: calc(100vh-40px) → mobile: 자동 */
+        min-height: 100dvh;      /* 최소 화면 높이는 유지 */
         gap: 10px;
+    }
+
+    /* 콘텐츠 영역도 overflow 해제 */
+    .dashboard-grid {
+        overflow-y: visible;
+        height: auto;
     }
 
     .main-header {
@@ -1155,6 +1166,12 @@ body {
     .rank-summary-card {
         grid-column: auto;
         grid-row: auto;
+    }
+
+    /* grid-column 높이 고정 해제 */
+    .grid-column {
+        min-height: unset;
+        height: auto;
     }
 }
 
@@ -1364,5 +1381,193 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* ═══════════════════════════════════════════════════════
+   모바일 전용 UI (mc-* / mv-* / mb-*)
+   ═══════════════════════════════════════════════════════ */
+.mobile-view { display: block; }
+.mobile-view.hidden { display: none; }
 
+/* 모바일 헤더 */
+.mv-header {
+    background: linear-gradient(135deg, #1e0d3a, #120824);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border: 1px solid #231240;
+}
+.mv-nick {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #00e5ff;
+    margin-bottom: 4px;
+    font-family: var(--font-heading);
+}
+.mv-summary {
+    display: flex;
+    gap: 14px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+.mv-summary b { font-weight: 700; }
+.mv-tabs {
+    display: flex;
+    gap: 8px;
+}
+.mv-tab {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #2d1850;
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+}
+.mv-tab.active {
+    background: linear-gradient(135deg, #1f0e38, #2f1754);
+    border-color: #00e5ff;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(0,229,255,0.2);
+}
 
+/* 카드 그리드 */
+.mobile-chars-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 개별 카드 */
+.mc-card {
+    background: linear-gradient(135deg, #0d0617, #140b20);
+    border: 1px solid #231240;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    color: var(--text-main);
+}
+.mc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+.mc-name {
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+}
+.mc-attended { color: #00ff88; }
+.mc-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+
+/* 배지 */
+.mb-badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.mb-latest  { background: rgba(255,60,100,0.15); color: #ff4488; border: 1px solid rgba(255,60,100,0.3); }
+.mb-attend  { background: rgba(0,255,136,0.12); color: #00ff88; border: 1px solid rgba(0,255,136,0.3); }
+.mb-err     { background: rgba(255,68,68,0.15); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+.mb-miss-h  { background: rgba(255,51,85,0.15); color: #ff4466; border: 1px solid rgba(255,51,85,0.3); }
+.mb-miss-m  { background: rgba(255,170,0,0.15); color: #ffaa00; border: 1px solid rgba(255,170,0,0.3); }
+.mb-miss-l  { background: rgba(160,160,160,0.1); color: #a0a0a0; border: 1px solid rgba(160,160,160,0.2); }
+
+/* 행 */
+.mc-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 3px 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+.mc-row span { flex: 1; min-width: 60px; }
+
+.mc-lv  { color: #00e5ff; font-weight: 700; }
+.mc-adv { color: var(--text-muted); }
+.mc-cp  { font-size: 0.88rem; color: var(--text-main); margin: 4px 0; }
+.mc-cp b { color: #ffd000; }
+.mc-awakening {
+    margin-left: 8px;
+    font-size: 0.7rem;
+    background: rgba(192,132,252,0.15);
+    color: #c084fc;
+    border: 1px solid rgba(192,132,252,0.3);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-weight: 800;
+}
+
+.mc-divider {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 6px 0;
+}
+.mc-sublabel {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+/* 스텟 색상 */
+.mc-str { color: #ff8a65; }
+.mc-agi { color: #81d4fa; }
+.mc-int { color: #ce93d8; }
+.mc-dogam  { color: #80cbc4; }
+.mc-gold   { color: #ffaa00; }
+.mc-goldbar { color: #a5d6a7; }
+.mc-bd     { color: #00e5ff; }
+
+/* 극한 섹션 */
+.mc-section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #1e1030;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 4px 0;
+}
+.mc-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #c084fc;
+    margin-bottom: 3px;
+}
+
+/* 장비 */
+.mc-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 4px 0;
+}
+.mc-item {
+    font-size: 0.72rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-muted);
+}
+.mc-item-legendary { color: #ff6680; border-color: rgba(255,60,60,0.3); background: rgba(255,30,60,0.1); }
+.mc-item-unique     { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.08); }
+.mc-item-advanced   { color: #ffd000; border-color: rgba(255,208,0,0.3); background: rgba(255,208,0,0.08); }
+.mc-item-standard   { color: var(--text-muted); }
+.mc-noitem { font-size: 0.72rem; color: rgba(255,255,255,0.25); font-style: italic; }
+
+.mc-friend-div {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-align: center;
+    border-top: 1px dashed rgba(255,255,255,0.08);
+    padding-top: 4px;
+    margin: 4px 0;
+}
