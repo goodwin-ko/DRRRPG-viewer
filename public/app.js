@@ -178,7 +178,32 @@ const ITEM_MAPPING = {
     1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
     1362: { name: '브로리의 힘Lv4[고유]', color: 'purple' },
     1493: { name: '타레스의 반지[전설]', color: 'red' },
-    1494: { name: '타레스의 보물반지[전설]', color: 'red' }
+    1494: { name: '타레스의 보물반지[전설]', color: 'red' },
+    // 신규 아이템
+    1161: { name: '여성용 리본[유물]', color: 'purple' },
+    1037: { name: '중급자 신발', color: 'standard' },
+    589:  { name: '재배맨s 퇴치[칭호]', color: 'standard' },
+    590:  { name: '초급자 신발', color: 'standard' },
+    553:  { name: '라데츠의 다리띠', color: 'standard' },
+    524:  { name: '피콜로의 두건', color: 'standard' },
+    525:  { name: '빨간 공룡의 가죽', color: 'standard' },
+    557:  { name: '재배맨a의 눈물', color: 'standard' },
+    558:  { name: '재배맨b의 눈물', color: 'standard' },
+    559:  { name: '재배맨c의 눈물', color: 'standard' },
+    577:  { name: '손오공의 추억', color: 'standard' },
+    604:  { name: '카린의증표lv4', color: 'standard' },
+    606:  { name: '카린의 증표lv5', color: 'standard' },
+    608:  { name: '카린의 증표 lv6', color: 'standard' },
+    610:  { name: '카린의 증표 lv7', color: 'standard' },
+    612:  { name: '카린의 증표 lv8', color: 'standard' },
+    613:  { name: '카린의 증표lv9 조합서', color: 'standard' },
+    614:  { name: '카린의 증표 lv9', color: 'standard' },
+    615:  { name: '카린의 증표10 조합서', color: 'standard' },
+    616:  { name: '카린의 증표lv10', color: 'standard' },
+    617:  { name: '카린의 증표 11조합서', color: 'standard' },
+    618:  { name: '카린의 증표lv11', color: 'standard' },
+    619:  { name: '카린의 증표12조합서', color: 'standard' },
+    620:  { name: '카린의 증표lv12', color: 'standard' }
 };
 
 // DOM Elements
@@ -398,8 +423,9 @@ function getAdventureStage(val) {
     if (v < 17001) return "그림자물약";
     if (v < 18001) return "자연의물약";
     if (v < 19001) return "타차원 오우거";
-    if (v < 21001) return "자연의 물약Lv2";
-    if (v < 22000) return "개발중";
+    if (v < 20001) return "자연의 물약Lv2";
+    if (v < 21001) return "타레스";
+    return "개발중";
 }
 
 // Render Equipment Card (for 장비현황 tab)
