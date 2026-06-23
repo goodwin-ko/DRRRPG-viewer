@@ -136,19 +136,19 @@ const ITEM_MAPPING = {
     1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
     1160: { name: '오천크스 가방', color: 'standard' },
     1162: { name: '오천크스 갑옷', color: 'standard' },
-    1163: { name: '개발자의 헬멧(base)', color: 'green' },
-    1168: { name: '개발자의 헬멧(base)', color: 'green' },
+    1163: { name: '개발자의 헬멧', color: 'green' },
+    1168: { name: '개발자의 헬멧', color: 'green' },
     1176: { name: '탐험일지-닥터위로', color: 'standard' },
     1179: { name: '베이비의 보석v2', color: 'standard' },
     1181: { name: '베이비의 반지v2', color: 'standard' },
     1182: { name: '베이비의 신발v2', color: 'standard' },
-    1189: { name: '개발자의 헬멧(base)', color: 'green' },
+    1189: { name: '개발자의 헬멧', color: 'green' },
     1193: { name: '개발자의 헬멧+1', color: 'green' },
-    1194: { name: '개발자의 헬멧(base)', color: 'green' },
+    1194: { name: '개발자의 헬멧', color: 'green' },
     1201: { name: '자넨바 팔찌', color: 'standard' },
     1202: { name: '자넨바 신발', color: 'standard' },
     1203: { name: '자넨바 보석', color: 'standard' },
-    1346: { name: '개발자의 헬멧(base)', color: 'green' },
+    1346: { name: '개발자의 헬멧', color: 'green' },
     1348: { name: '지구인의 생명', color: 'blue' },
     1355: { name: '자넨바의팔찌 v2', color: 'standard' },
     1356: { name: '자넨바의신발 v2', color: 'standard' },
@@ -174,7 +174,11 @@ const ITEM_MAPPING = {
     1474: { name: '베지트의 만능장갑', color: 'cyan' },
     1476: { name: '개발자의 헬멧+1', color: 'green' },
     1482: { name: '손오반의 힘', color: 'purple' },
-    1484: { name: '영웅의 신전', color: 'purple' }
+    1484: { name: '영웅의 신전', color: 'purple' },
+    1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
+    1362: { name: '브로리의 힘Lv4[고유]', color: 'purple' },
+    1493: { name: '타레스의 반지[전설]', color: 'red' },
+    1494: { name: '타레스의 보물반지[전설]', color: 'red' }
 };
 
 // DOM Elements
@@ -394,7 +398,8 @@ function getAdventureStage(val) {
     if (v < 17001) return "그림자물약";
     if (v < 18001) return "자연의물약";
     if (v < 19001) return "타차원 오우거";
-    if (v < 20000) return "개발중";
+    if (v < 21001) return "자연의 물약Lv2";
+    if (v < 22000) return "개발중";
 }
 
 // Render Equipment Card (for 장비현황 tab)
@@ -420,7 +425,7 @@ function createEquipmentCard(char) {
     if (char.isLatestSave) {
         const latestBadge = document.createElement('span');
         latestBadge.className = 'char-latest-badge char-latest-top';
-        latestBadge.textContent = '제일최신저장';
+        latestBadge.textContent = '제일마지막저장';
         nameRow.appendChild(latestBadge);
     }
     if (char.isTodaySave) {
@@ -584,7 +589,7 @@ function createCharacterCard(char) {
     if (char.isLatestSave) {
         const latestBadge = document.createElement('span');
         latestBadge.className = 'char-latest-badge char-latest-top';
-        latestBadge.textContent = '제일최신저장';
+        latestBadge.textContent = '제일마지막저장';
         nameRow.appendChild(latestBadge);
     }
     if (char.isTodaySave) {
@@ -969,6 +974,7 @@ async function fetchAndRenderLogs(nicName) {
                         adventure: adv,
                         upgrade,
                         cp,
+                        playtime: rawLvlVal,
                         attack,
                         defense,
                         ki,
@@ -1026,6 +1032,47 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
+        // Helper to parse MM/DD/YYYY HH:MM:SS to epoch ms
+        function parseFullDate(dateStr) {
+            if (!dateStr) return 0;
+            const match = dateStr.match(/^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+):(\d+)$/);
+            if (!match) return 0;
+            const [_, month, day, year, hour, minute, second] = match.map(Number);
+            return new Date(year, month - 1, day, hour, minute, second).getTime();
+        }
+
+        // Helper to convert YYYYMMDD integer to timestamp
+        function yyyymmddToTimestamp(yyyymmdd) {
+            if (!yyyymmdd) return 0;
+            const s = String(yyyymmdd);
+            if (s.length !== 8) return 0;
+            const year = parseInt(s.slice(0, 4));
+            const month = parseInt(s.slice(4, 6));
+            const day = parseInt(s.slice(6, 8));
+            return new Date(year, month - 1, day, 0, 0, 0).getTime();
+        }
+
+        // Helper to parse MM/DD/YYYY to YYYYMMDD integer
+        function getYYYYMMDD(dateStr) {
+            if (!dateStr) return 0;
+            const match = dateStr.match(/^(\d+)\/(\d+)\/(\d+)/);
+            if (!match) return 0;
+            return parseInt(match[3] + match[1].padStart(2, '0') + match[2].padStart(2, '0'));
+        }
+
+        const slotDates = result.slot_dates || {};
+        uniqueCharacters.forEach(c => {
+            const dateStr = slotDates[String(c.slotNum)];
+            // Verify if the slot saveDate matches the upload file date, or fallback to latest_date upload date if matches
+            if (dateStr && c.saveDate === getYYYYMMDD(dateStr)) {
+                c.fullSaveTime = parseFullDate(dateStr);
+            } else if (result.latest_date && c.saveDate === getYYYYMMDD(result.latest_date)) {
+                c.fullSaveTime = parseFullDate(result.latest_date);
+            } else {
+                c.fullSaveTime = yyyymmddToTimestamp(c.saveDate);
+            }
+        });
+
         // Sort characters: corrupted first, then today's saves, then by slotNum
         // saveDate format: YYYYMMDD integer (KST)
         const nowKST = new Date(Date.now() + 9 * 60 * 60 * 1000); // UTC → KST
@@ -1039,14 +1086,51 @@ async function fetchAndRenderLogs(nicName) {
         uniqueCharacters.forEach(c => {
             c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYYYYMMDD && c.saveDate > 0;
         });
-        // Among today's saves, find the highest saveDate (and highest slotNum as tiebreaker)
-        const todaySaves = uniqueCharacters.filter(c => c.isTodaySave);
+
+        // Find the character with the absolute maximum save time
         let latestChar = null;
-        if (todaySaves.length > 0) {
-            latestChar = todaySaves.reduce((best, c) =>
-                (c.saveDate > best.saveDate || (c.saveDate === best.saveDate && c.slotNum > best.slotNum))
-                    ? c : best
+        if (uniqueCharacters.length > 0) {
+            const activeSlotNum = getActiveSlotNum(data);
+            const maxNonGokuPlaytime = Math.max(
+                ...uniqueCharacters
+                    .filter(x => x.slotNum !== 1)
+                    .map(x => x.playtime || 0),
+                0
             );
+            latestChar = uniqueCharacters.reduce((best, c) => {
+                const cTime = c.fullSaveTime || 0;
+                const bestTime = best.fullSaveTime || 0;
+                if (cTime !== bestTime) {
+                    return cTime > bestTime ? c : best;
+                }
+                if (c.saveDate !== best.saveDate) {
+                    return (c.saveDate || 0) > (best.saveDate || 0) ? c : best;
+                }
+
+                // Tiebreaker: Effective Playtime (exclude slot 1 unless no other slot has significant playtime)
+                const getEffectivePlaytime = (char) => {
+                    if (char.slotNum === 1) {
+                        return (maxNonGokuPlaytime > 120) ? -1 : (char.playtime || 0);
+                    }
+                    return char.playtime || 0;
+                };
+
+                const cPlaytime = getEffectivePlaytime(c);
+                const bestPlaytime = getEffectivePlaytime(best);
+                if (cPlaytime !== bestPlaytime) {
+                    return cPlaytime > bestPlaytime ? c : best;
+                }
+
+                // Fallback 1: Active character slot
+                const isCActive = (c.slotNum === activeSlotNum);
+                const isBestActive = (best.slotNum === activeSlotNum);
+                if (isCActive !== isBestActive) {
+                    return isCActive ? c : best;
+                }
+
+                // Fallback 2: slotNum
+                return c.slotNum > best.slotNum ? c : best;
+            });
         }
         uniqueCharacters.forEach(c => {
             c.isLatestSave = latestChar !== null && c === latestChar;
