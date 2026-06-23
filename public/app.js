@@ -1060,14 +1060,13 @@ async function fetchAndRenderLogs(nicName) {
             return parseInt(match[3] + match[1].padStart(2, '0') + match[2].padStart(2, '0'));
         }
 
+        // slot_dates: 각 슬롯 파일(goodwin_1.txt 등)이 로그에 업로드된 시각 (초 단위 정밀도)
+        // 조건 없이 직접 사용 — 파일마다 별도 업로드 시각이 있으므로 가장 최근 저장 캐릭터를 구분할 수 있음
         const slotDates = result.slot_dates || {};
         uniqueCharacters.forEach(c => {
             const dateStr = slotDates[String(c.slotNum)];
-            // Verify if the slot saveDate matches the upload file date, or fallback to latest_date upload date if matches
-            if (dateStr && c.saveDate === getYYYYMMDD(dateStr)) {
+            if (dateStr) {
                 c.fullSaveTime = parseFullDate(dateStr);
-            } else if (result.latest_date && c.saveDate === getYYYYMMDD(result.latest_date)) {
-                c.fullSaveTime = parseFullDate(result.latest_date);
             } else {
                 c.fullSaveTime = yyyymmddToTimestamp(c.saveDate);
             }
@@ -1087,49 +1086,24 @@ async function fetchAndRenderLogs(nicName) {
             c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYYYYMMDD && c.saveDate > 0;
         });
 
-        // Find the character with the absolute maximum save time
+        // 제일마지막저장 판별:
+        // 1순위: fullSaveTime — slot_dates의 슬롯 파일 업로드 타임스탬프 (초 단위, 슬롯별 개별 업로드)
+        // 2순위: saveDate (d3[6]) — 인게임 저장 날짜 (YYYYMMDD)
+        // ※ 인증 Final 캐릭터는 이벤트로그 기반이므로 사용하지 않음
         let latestChar = null;
         if (uniqueCharacters.length > 0) {
-            const activeSlotNum = getActiveSlotNum(data);
-            const maxNonGokuPlaytime = Math.max(
-                ...uniqueCharacters
-                    .filter(x => x.slotNum !== 1)
-                    .map(x => x.playtime || 0),
-                0
-            );
             latestChar = uniqueCharacters.reduce((best, c) => {
                 const cTime = c.fullSaveTime || 0;
                 const bestTime = best.fullSaveTime || 0;
                 if (cTime !== bestTime) {
                     return cTime > bestTime ? c : best;
                 }
+                // 2순위: 인게임 저장 날짜
                 if (c.saveDate !== best.saveDate) {
                     return (c.saveDate || 0) > (best.saveDate || 0) ? c : best;
                 }
-
-                // Tiebreaker: Effective Playtime (exclude slot 1 unless no other slot has significant playtime)
-                const getEffectivePlaytime = (char) => {
-                    if (char.slotNum === 1) {
-                        return (maxNonGokuPlaytime > 120) ? -1 : (char.playtime || 0);
-                    }
-                    return char.playtime || 0;
-                };
-
-                const cPlaytime = getEffectivePlaytime(c);
-                const bestPlaytime = getEffectivePlaytime(best);
-                if (cPlaytime !== bestPlaytime) {
-                    return cPlaytime > bestPlaytime ? c : best;
-                }
-
-                // Fallback 1: Active character slot
-                const isCActive = (c.slotNum === activeSlotNum);
-                const isBestActive = (best.slotNum === activeSlotNum);
-                if (isCActive !== isBestActive) {
-                    return isCActive ? c : best;
-                }
-
-                // Fallback 2: slotNum
-                return c.slotNum > best.slotNum ? c : best;
+                // 완전 동점: 현재 best 유지
+                return best;
             });
         }
         uniqueCharacters.forEach(c => {

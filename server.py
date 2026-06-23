@@ -44,6 +44,10 @@ def parse_log_td(td_html):
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/multi')
+def multi():
+    return app.send_static_file('multi.html')
+
 @app.route('/api/logs')
 def get_logs():
     nicName = request.args.get('nicName', '').strip()
