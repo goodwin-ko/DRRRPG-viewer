@@ -120,6 +120,12 @@ const LINK_NAME_MAPPING = {
     61: '유린'
 };
 
+// Friend ID to Name Mapping (캐릭터 슬롯과 번호가 다름)
+const FRIEND_NAME_MAPPING = {
+    // 나중에 여기에 매핑을 추가하면 됩니다.
+    // 예: 32: '메탈 쿠우라(약해진)'
+};
+
 // Item ID to Name and Color Mapping Table
 const ITEM_MAPPING = {
     743: { name: '오천크스 수련팔찌', color: 'standard' },
@@ -975,7 +981,7 @@ async function fetchAndRenderLogs(nicName) {
                     const friendSlot = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
                     const friendExp = d1.length > 39 ? (parseInt(d1[39]) || 0) : 0;
                     const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
-                    const friendName = LINK_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
+                    const friendName = FRIEND_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
 
                     const gold = d1.length > 0 ? (parseInt(d1[0]) || 0) : 0;
                     const goldBars = d1.length > 1 ? (parseInt(d1[1]) || 0) : 0;

@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRR 멀티 대시보드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0e0916;
+            --bg-header: #160d26;
+            --bg-panel: #12092a;
+            --bg-card: #0a0512;
+            --border-card: #231240;
+            --border-hover: #00d2ff;
+            --text-main: #f0ebf7;
+            --text-muted: #9589b2;
+            --cyan: #00e5ff;
+            --green: #00ff66;
+            --yellow: #ffd000;
+            --red: #ff3355;
+            --gold: #ffaa00;
+            --purple: #c084fc;
+            --font-heading: 'Outfit', 'Noto Sans KR', sans-serif;
+            --font-body: 'Noto Sans KR', 'Outfit', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        /* ─── Header ─── */
+        .top-header {
+            background: linear-gradient(135deg, #1e0d3a, #120824);
+            border-radius: 12px;
+            padding: 16px 24px;
+            border: 1px solid var(--border-card);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(0,229,255,0.4);
+        }
+
+        .logo-text span { color: var(--cyan); }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #1a0f35, #0d0720);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(0,229,255,0.15);
+            box-shadow: 0 0 12px rgba(0,229,255,0.3);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .last-updated {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* ─── Tab Bar ─── */
+        .tab-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-card);
+            color: var(--text-muted);
+            padding: 8px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0,229,255,0.18), rgba(0,229,255,0.05));
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0,229,255,0.2);
+        }
+
+        /* ─── Grid: 4 columns side by side ─── */
+        .multi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        /* ─── Per-user panel ─── */
+        .user-panel {
+            background: linear-gradient(180deg, #150c28 0%, #0e0819 100%);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 14px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .user-nick {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--cyan);
+        }
+
+        .user-grade {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.06);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .panel-loading {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mini-spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(0,229,255,0.2);
+            border-top-color: var(--cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .panel-error {
+            color: var(--red);
+            font-size: 0.82rem;
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        /* ─── Character card (compact) ─── */
+        .char-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 10px 12px;
+            transition: border-color 0.2s;
+        }
+
+        .char-card:hover { border-color: rgba(0,229,255,0.35); }
+
+        .char-name-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .char-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .char-name--attended { color: var(--green); }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-latest {
+            background: linear-gradient(135deg, #7c1a1a, #b22222);
+            color: #ffd0d0;
+            border: 1px solid rgba(255,60,60,0.5);
+        }
+
+        .badge-attend {
+            background: rgba(0,255,102,0.18);
+            color: var(--green);
+            border: 1px solid rgba(0,255,102,0.4);
+        }
+
+        .badge-missed-low {
+            background: rgba(255,208,0,0.15);
+            color: var(--yellow);
+            border: 1px solid rgba(255,208,0,0.35);
+        }
+
+        .badge-missed-mid {
+            background: rgba(255,120,0,0.15);
+            color: #ff8c00;
+            border: 1px solid rgba(255,120,0,0.35);
+        }
+
+        .badge-missed-high {
+            background: rgba(255,51,85,0.18);
+            color: var(--red);
+            border: 1px solid rgba(255,51,85,0.4);
+        }
+
+        .badge-error {
+            background: rgba(255,51,85,0.2);
+            color: var(--red);
+            border: 1px solid rgba(255,51,85,0.5);
+        }
+
+        /* ─── Stat rows ─── */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .stat-row span:first-child { color: var(--text-main); }
+        .stat-row .alt { color: var(--text-muted); }
+
+        .char-level {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .char-level span { color: var(--yellow); font-weight: 700; }
+
+        .char-adventure {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .char-adventure span { color: #a0c4ff; }
+
+        .char-cp {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .char-cp span:first-of-type {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .awakening-badge {
+            font-size: 0.65rem;
+            background: rgba(192,132,252,0.2);
+            color: var(--purple);
+            border: 1px solid rgba(192,132,252,0.4);
+            padding: 1px 5px;
+            border-radius: 6px;
+        }
+
+        .limit-block {
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .limit-block .limit-title { color: var(--gold); font-weight: 700; margin-bottom: 2px; }
+
+        /* ─── Equipment items ─── */
+        .equip-items {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .equip-item {
+            font-size: 0.72rem;
+            padding: 2px 7px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .item-standard { color: var(--text-main); border-color: rgba(255,255,255,0.1); }
+        .item-green { color: var(--green); border-color: rgba(0,255,102,0.25); background: rgba(0,255,102,0.06); }
+        .item-blue { color: #60b4ff; border-color: rgba(96,180,255,0.25); background: rgba(96,180,255,0.06); }
+        .item-purple { color: var(--purple); border-color: rgba(192,132,252,0.25); background: rgba(192,132,252,0.06); }
+        .item-cyan { color: var(--cyan); border-color: rgba(0,229,255,0.25); background: rgba(0,229,255,0.06); }
+        .item-red { color: #ff6680; border-color: rgba(255,60,60,0.3); background: rgba(255,30,60,0.1); }
+
+        .equip-friend-divider {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-align: center;
+            border-top: 1px dashed rgba(255,255,255,0.08);
+            padding-top: 4px;
+            margin-top: 4px;
+        }
+
+        /* ─── Sub-section divider & label ─── */
+        .sub-divider {
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin: 6px 0 4px;
+        }
+        .sub-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .val-str  { color: #ff8a65; }
+        .val-agi  { color: #81d4fa; }
+        .val-int  { color: #ce93d8; }
+        .val-dogam { color: #80cbc4; }
+        .val-gold  { color: var(--gold); }
+        .val-goldbar { color: #a5d6a7; }
+        .val-bd    { color: var(--cyan); }
+
+        /* ─── Section tab views ─── */
+        .tab-view { display: none; }
+        .tab-view.active { display: block; }
+
+        /* ─── Summary bar at top of each panel ─── */
+        .user-summary-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .summary-item { display: flex; gap: 4px; align-items: center; }
+        .summary-item .sval { color: var(--text-main); font-weight: 700; }
+        .summary-item .sval.cyan { color: var(--cyan); }
+        .summary-item .sval.gold { color: var(--gold); }
+        .summary-item .sval.green { color: var(--green); }
+
+        /* ─── Scrollable card list ─── */
+        .cards-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            max-height: calc(100vh - 220px);
+            padding-right: 2px;
+        }
+
+        .cards-scroll::-webkit-scrollbar { width: 4px; }
+        .cards-scroll::-webkit-scrollbar-track { background: transparent; }
+        .cards-scroll::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.25); border-radius: 4px; }
+
+        /* ─── Empty state ─── */
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            padding: 20px 0;
+        }
+
+        /* ─── Save date ─── */
+        .save-date-row {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .save-date-row span { color: #a0c4ff; }
+
+        /* responsive */
+        @media (max-width: 1200px) {
+            .multi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 700px) {
+            .multi-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-header">
+    <div>
+        <div class="logo-text">🐉 DRR <span>멀티</span> 대시보드</div>
+    </div>
+    <div class="header-actions">
+        <span class="last-updated" id="last-updated-text">-</span>
+        <button class="refresh-btn" id="refresh-btn" onclick="loadAll()">
+            <span>🔄</span> 전체 새로고침
+        </button>
+    </div>
+</div>
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="basic" onclick="switchTab('basic', this)">📊 기본현황</button>
+    <button class="tab-btn" data-tab="equip" onclick="switchTab('equip', this)">⚔️ 장비현황</button>
+</div>
+
+<!-- Multi-grid -->
+<div class="multi-grid" id="multi-grid">
+    <!-- JS가 동적으로 생성 -->
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  고정 아이디 목록
+// ═══════════════════════════════════════════════════════
+const FIXED_IDS = ['goodwin', 'gowin2', 'goodsee', 'godwin'];
+
+// ═══════════════════════════════════════════════════════
+//  매핑 테이블 (app.js와 동일)
+// ═══════════════════════════════════════════════════════
+const UPBOOK_TO_SLOT = {
+    1: 4, 2: 6, 3: 32, 4: 16, 5: 5, 6: 2, 7: 3, 8: 17, 9: 25,
+    10: 11, 11: 13, 12: 12, 13: 10, 14: 14, 15: 15, 16: 27, 17: 7,
+    18: 18, 19: 19, 20: 20, 21: 21, 22: 22, 23: 45, 24: 43, 28: 1, 29: 9
+};
+const SLOT_TO_UPBOOK = {};
+for (const [k, v] of Object.entries(UPBOOK_TO_SLOT)) SLOT_TO_UPBOOK[v] = parseInt(k);
+
+const SLOT_CATEGORY_MAPPING = {
+    43: 'basic', 51: 'basic',
+    44: 'detail', 52: 'detail',
+    45: 'equip', 53: 'equip',
+    46: 'hell', 47: 'hell',
+    48: 'db', 55: 'db',
+    49: 'potion', 56: 'potion',
+    50: 'other'
+};
+
+const LINK_NAME_MAPPING = {
+    1:'손오공', 2:'크리링', 3:'야무치', 4:'천진반', 5:'무천도사', 6:'피콜로', 7:'라데츠',
+    8:'내퍼', 9:'베지터', 10:'굴드', 11:'리쿰', 12:'지스', 13:'버터', 14:'기뉴', 15:'사탄',
+    16:'어린손오반', 17:'프리저', 18:'콜드대왕', 19:'네일', 20:'인조인간16호', 21:'인조인간19호',
+    22:'인조인간20호', 23:'인조인간17호', 24:'인조인간18호', 25:'셀', 26:'트랭크스(미래)',
+    27:'부르마', 28:'야콩', 29:'데브라', 30:'비비디', 31:'마인부우', 32:'손오반',
+    33:'도도리아', 34:'비델', 35:'손오천', 36:'트랭크스(어린)', 37:'자붕', 38:'쿠우라',
+    39:'인조인간15호', 40:'리루도', 41:'우부', 42:'타피온', 43:'농부', 44:'인조인간13호',
+    45:'자넨바', 46:'블루장군', 47:'브로리(약해진)', 48:'버독', 49:'타레스', 50:'박테리안',
+    51:'우마왕', 52:'팡', 53:'하야이드래곤', 54:'브로리(전설)', 55:'아리', 56:'파이크한',
+    57:'베이비', 58:'인조인간14호', 59:'인조인간8호', 60:'심벌', 61:'유린'
+};
+
+const ITEM_MAPPING = {
+    743:{name:'오천크스 수련팔찌',color:'standard'}, 747:{name:'베이비의신발',color:'standard'},
+    846:{name:'마인부우의 신발',color:'purple'}, 879:{name:'베이비의 신발v2',color:'standard'},
+    932:{name:'쿠우라의 갑옷',color:'green'}, 999:{name:'새로운 시작',color:'purple'},
+    1036:{name:'지구인의 생명',color:'blue'}, 1039:{name:'드래곤볼 탐지기Lv2',color:'standard'},
+    1086:{name:'베이비의신발',color:'standard'}, 1087:{name:'베이비의반지',color:'standard'},
+    1088:{name:'베이비의보석',color:'standard'}, 1119:{name:'변신한 쟈넨바의 갑옷',color:'purple'},
+    1160:{name:'오천크스 가방',color:'standard'}, 1162:{name:'오천크스 갑옷',color:'standard'},
+    1163:{name:'개발자의 헬멧',color:'green'}, 1168:{name:'개발자의 헬멧',color:'green'},
+    1176:{name:'탐험일지-닥터위로',color:'standard'}, 1179:{name:'베이비의 보석v2',color:'standard'},
+    1181:{name:'베이비의 반지v2',color:'standard'}, 1182:{name:'베이비의 신발v2',color:'standard'},
+    1189:{name:'개발자의 헬멧',color:'green'}, 1193:{name:'개발자의 헬멧+1',color:'green'},
+    1194:{name:'개발자의 헬멧',color:'green'}, 1201:{name:'자넨바 팔찌',color:'standard'},
+    1202:{name:'자넨바 신발',color:'standard'}, 1203:{name:'자넨바 보석',color:'standard'},
+    1346:{name:'개발자의 헬멧',color:'green'}, 1348:{name:'지구인의 생명',color:'blue'},
+    1355:{name:'자넨바의팔찌 v2',color:'standard'}, 1356:{name:'자넨바의신발 v2',color:'standard'},
+    1368:{name:'개발자의 헬멧+3',color:'green'}, 1369:{name:'개발자의 헬멧+4',color:'green'},
+    1373:{name:'베이비의반지',color:'standard'}, 1374:{name:'베이비의 신발',color:'standard'},
+    1375:{name:'베이비의보석',color:'standard'}, 1437:{name:'개발자의 헬멧+2',color:'green'},
+    1448:{name:'영웅의 증표Lv22',color:'purple'}, 1458:{name:'베이비의 반지Lv2',color:'standard'},
+    1459:{name:'베이비의 보석Lv2',color:'standard'}, 1460:{name:'베이비의 신발Lv2',color:'standard'},
+    1463:{name:'브로리의 최종힘',color:'purple'}, 1465:{name:'베지트의 체력장갑',color:'cyan'},
+    1466:{name:'베지트의 전투장갑',color:'cyan'}, 1467:{name:'베지트의 기력장갑',color:'cyan'},
+    1469:{name:'베지트의 전투반지',color:'purple'}, 1470:{name:'베지트의 기력반지',color:'cyan'},
+    1471:{name:'베이비의 보석v2',color:'standard'}, 1472:{name:'베지트의 신발',color:'cyan'},
+    1473:{name:'베지트의 도복',color:'cyan'}, 1474:{name:'베지트의 만능장갑',color:'cyan'},
+    1476:{name:'개발자의 헬멧+1',color:'green'}, 1482:{name:'손오반의 힘',color:'purple'},
+    1484:{name:'영웅의 신전',color:'purple'}, 1208:{name:'브로리의 힘Lv3[고유]',color:'purple'},
+    1362:{name:'브로리의 힘Lv4[고유]',color:'purple'}, 1493:{name:'타레스의 반지[전설]',color:'red'},
+    1494:{name:'타레스의 보물반지[전설]',color:'red'},
+    1161:{name:'여성용 리본[유물]',color:'purple'},
+    1037:{name:'중급자 신발',color:'standard'},
+    589:{name:'재배맨s 퇴치[칭호]',color:'standard'},
+    590:{name:'초급자 신발',color:'standard'},
+    553:{name:'라데츠의 다리띠',color:'standard'},
+    524:{name:'피콜로의 두건',color:'standard'},
+    525:{name:'빨간 공룡의 가죽',color:'standard'},
+    557:{name:'재배맨a의 눈물',color:'standard'},
+    558:{name:'재배맨b의 눈물',color:'standard'},
+    559:{name:'재배맨c의 눈물',color:'standard'},
+    577:{name:'손오공의 추억',color:'standard'},
+    604:{name:'카린의증표lv4',color:'standard'},
+    606:{name:'카린의 증표lv5',color:'standard'},
+    608:{name:'카린의 증표 lv6',color:'standard'},
+    610:{name:'카린의 증표 lv7',color:'standard'},
+    612:{name:'카린의 증표 lv8',color:'standard'},
+    613:{name:'카린의 증표lv9 조합서',color:'standard'},
+    614:{name:'카린의 증표 lv9',color:'standard'},
+    615:{name:'카린의 증표10 조합서',color:'standard'},
+    616:{name:'카린의 증표lv10',color:'standard'},
+    617:{name:'카린의 증표 11조합서',color:'standard'},
+    618:{name:'카린의 증표lv11',color:'standard'},
+    619:{name:'카린의 증표12조합서',color:'standard'},
+    620:{name:'카린의 증표lv12',color:'standard'}
+};
+
+const TT_GRADE_MAPPING = {
+    0:'아이언', 1:'브론즈', 2:'실버', 3:'골드', 4:'다이아', 5:'마스터',
+    6:'그랜드', 7:'챌린저', 8:'조커', 9:'로얄', 10:'G.O.D', 11:'SUPER G.O.D'
+};
+
+const GRADE_MULTIPLIERS = {
+    0:{own:70,friend:50}, 1:{own:100,friend:70}, 2:{own:130,friend:90},
+    3:{own:160,friend:110}, 4:{own:190,friend:130}, 5:{own:220,friend:150},
+    6:{own:250,friend:170}, 7:{own:280,friend:190}, 8:{own:310,friend:210},
+    9:{own:340,friend:230}, 10:{own:370,friend:250}, 11:{own:400,friend:270}
+};
+
+// ═══════════════════════════════════════════════════════
+//  Utility Functions
+// ═══════════════════════════════════════════════════════
+function fmt(num) {
+    if (num === undefined || num === null || isNaN(num)) return '0';
+    return Number(num).toLocaleString('ko-KR');
+}
+
+function decodeB64(b64) {
+    if (!b64) return [];
+    try { return atob(b64.trim()).split(',').map(s => s.trim()); }
+    catch(e) { return []; }
+}
+
+function getAdventureStage(val) {
+    const v = parseInt(val) || 0;
+    if (v < 67) return "태초";
+    if (v < 301) return "오자루";
+    if (v < 460) return "나메물약";
+    if (v < 751) return "셀주";
+    if (v < 1001) return "마인물약";
+    if (v < 1502) return "부우물약";
+    if (v < 2000) return "평화물약";
+    if (v < 2501) return "사이어맨";
+    if (v < 3001) return "학습물약";
+    if (v < 3501) return "우부";
+    if (v < 4001) return "학물LV2";
+    if (v < 4501) return "인조물약";
+    if (v < 5001) return "13호";
+    if (v < 6001) return "변화의물약";
+    if (v < 7001) return "비델사탄";
+    if (v < 7501) return "변화의물약2";
+    if (v < 8501) return "어둠의물약";
+    if (v < 9001) return "어둠의물약2";
+    if (v < 10001) return "다크사우르스";
+    if (v < 11001) return "슈퍼13호";
+    if (v < 12001) return "초1라데츠";
+    if (v < 13000) return "나무꾼의물약";
+    if (v < 13001) return "스테이지7";
+    if (v < 14001) return "초3라데츠";
+    if (v < 15001) return "약탈꾼의물약";
+    if (v < 16001) return "거대 오자루";
+    if (v < 17001) return "그림자물약";
+    if (v < 18001) return "자연의물약";
+    if (v < 19001) return "타차원 오우거";
+    if (v < 20001) return "자연의 물약Lv2";
+    if (v < 21001) return "타레스";
+    return "개발중";
+}
+
+function getActiveSlotNum(data) {
+    let finalChar = data["인증 Final 캐릭터"];
+    if (!finalChar) {
+        const key = Object.keys(data).find(k => k.includes("Final"));
+        if (key) finalChar = data[key];
+    }
+    if (!finalChar) return -1;
+    let clean = finalChar.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '');
+    clean = clean.replace(/『[^』]+』/g, '').replace(/\[[^\]]+\]/g, '');
+    clean = clean.replace(/^(초사이어인\d*|초|약해진)\s*-\s*/, '').trim();
+    for (let slotNum in LINK_NAME_MAPPING) {
+        const n = LINK_NAME_MAPPING[slotNum];
+        if (clean.includes(n) || n.includes(clean)) return parseInt(slotNum);
+    }
+    return -1;
+}
+
+const FRIEND_NAME_MAPPING = {};
+
+function getAwakeningLevel(pdata1Arr, slotNum) {
+    if (!pdata1Arr || pdata1Arr.length === 0) return 0;
+    const upBookIdx = SLOT_TO_UPBOOK[slotNum];
+    if (upBookIdx === undefined) return 0;
+    const idx = upBookIdx - 1;
+    return (idx >= 0 && idx < pdata1Arr.length) ? (pdata1Arr[idx] || 0) : 0;
+}
+
+function parseFullDate(dateStr) {
+    if (!dateStr) return 0;
+    const m = dateStr.match(/^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+):(\d+)$/);
+    if (!m) return 0;
+    const [_, mo, d, y, h, mi, s] = m.map(Number);
+    return new Date(y, mo - 1, d, h, mi, s).getTime();
+}
+
+function yyyymmddToTs(yyyymmdd) {
+    if (!yyyymmdd) return 0;
+    const s = String(yyyymmdd);
+    if (s.length !== 8) return 0;
+    return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8)).getTime();
+}
+
+function getYMD(dateStr) {
+    if (!dateStr) return 0;
+    const m = dateStr.match(/^(\d+)\/(\d+)\/(\d+)/);
+    if (!m) return 0;
+    return parseInt(m[3] + m[1].padStart(2,'0') + m[2].padStart(2,'0'));
+}
+
+function formatKoreanDate(dateStr) {
+    if (!dateStr) return '-';
+    const m = dateStr.match(/^(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+):(\d+)$/);
+    if (m) {
+        const [_, mo, d, y, h, mi, s] = m;
+        const hr = parseInt(h);
+        const ampm = hr >= 12 ? '오후' : '오전';
+        const dh = hr > 12 ? hr - 12 : (hr === 0 ? 12 : hr);
+        return `${y}년 ${mo}월 ${d}일 ${ampm} ${String(dh).padStart(2,'0')}:${mi}:${s}`;
+    }
+    return dateStr;
+}
+
+// ═══════════════════════════════════════════════════════
+//  Data Processing
+// ═══════════════════════════════════════════════════════
+function processData(result) {
+    const data = result.data;
+    const pdata1Arr = decodeB64(data.PDATA1 || "").map(s => parseInt(s) || 0);
+    const slotData = [];
+
+    for (let key in data) {
+        const match = key.match(/^DATA1_(\d+)$/);
+        if (!match) continue;
+        const slotNum = match[1];
+        const d1 = decodeB64(data[`DATA1_${slotNum}`]);
+        const d2 = decodeB64(data[`DATA2_${slotNum}`] || "");
+        const d3 = decodeB64(data[`DATA3_${slotNum}`] || "");
+
+        if (d1.length <= 72) continue;
+
+        const isCorrupted = d1.length !== 97 || (d1[0] !== "" && !/^\d+$/.test(d1[0]));
+        const slotNumInt = parseInt(slotNum);
+        const activeSlotNum = getActiveSlotNum(data);
+
+        const rawLvlVal = parseInt(d1[17]) || 0;
+        const expVal = parseInt(d1[3]) || 0;
+        const expLvl = Math.floor(Math.sqrt(expVal / 25));
+        const rawLvlCalc = Math.floor(rawLvlVal / 3.28);
+        const level = (slotNumInt === activeSlotNum || Math.abs(rawLvlCalc - expLvl) > 100)
+            ? expLvl : rawLvlCalc;
+
+        const adv = parseInt(d1[16]) || 0;
+        const cp = parseInt(d1[55]) || 0;
+        const attack = parseInt(d1[33]) || 0;
+        const defense = parseInt(d1[34]) || 0;
+        const ki = parseInt(d1[35]) || 0;
+        const hp = parseInt(d1[36]) || 0;
+        const speed = parseInt(d1[37]) || 0;
+        const fortitude = d2.length > 12 ? parseInt(d2[12]) || 0 : 0;
+
+        let limit = null, limitPt = 0, strength = 0, grit = 0, search = 0, luck = 0, saveDate = 0;
+        if (d3.length > 5) {
+            limit = parseInt(d3[0]) || 0;
+            limitPt = parseInt(d3[1]) || 0;
+            strength = parseInt(d3[2]) || 0;
+            grit = parseInt(d3[3]) || 0;
+            search = parseInt(d3[4]) || 0;
+            luck = parseInt(d3[5]) || 0;
+            saveDate = parseInt(d3[6]) || 0;
+        }
+
+        const myItems = [4,6,8,10,12,14].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
+        const friendItems = [40,42,44,46,48,50].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
+        const gold = parseInt(d1[0]) || 0;
+        const goldBars = parseInt(d1[1]) || 0;
+        const blueDiamonds = d2.length > 95 ? parseInt(d2[95]) || 0 : 0;
+        const str = d1.length > 18 ? parseInt(d1[18]) || 0 : 0;
+        const agi = d1.length > 19 ? parseInt(d1[19]) || 0 : 0;
+        const intVal = d1.length > 20 ? parseInt(d1[20]) || 0 : 0;
+        const friendStr = d1.length > 52 ? parseInt(d1[52]) || 0 : 0;
+        const friendAgi = d1.length > 53 ? parseInt(d1[53]) || 0 : 0;
+        const friendInt = d1.length > 54 ? parseInt(d1[54]) || 0 : 0;
+        const friendSlot = d1.length > 95 ? parseInt(d1[95]) || 0 : 0;
+        const friendExp = d1.length > 39 ? parseInt(d1[39]) || 0 : 0;
+        const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
+        const friendName = FRIEND_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
+        const doGam = d3.length > 9 ? parseInt(d3[9]) || 0 : 0;
+        const charName = LINK_NAME_MAPPING[slotNumInt] || `캐릭터 ${slotNumInt}`;
+        const awakeningLevel = getAwakeningLevel(pdata1Arr, slotNumInt);
+        const ttType = data.TT_TYPE1 !== undefined ? parseInt(data.TT_TYPE1) : 2;
+        const mults = GRADE_MULTIPLIERS[ttType] || GRADE_MULTIPLIERS[2];
+        const maxOwnStat = (adv + 1) * mults.own;
+        const maxFriendStat = (adv + 1) * mults.friend;
+
+        slotData.push({
+            slotNum: slotNumInt, charName, isCorrupted,
+            level, adv, cp, attack, defense, ki, hp, speed, fortitude,
+            limit, limitPt, strength, grit, search, luck, saveDate,
+            myItems, friendItems, gold, goldBars, blueDiamonds,
+            str, agi, intVal, friendStr, friendAgi, friendInt,
+            friendSlot, friendLevel, friendName, doGam,
+            awakeningLevel, maxOwnStat, maxFriendStat,
+            playtime: rawLvlVal, ttType
+        });
+    }
+
+    // Deduplicate by slot (keep latest saveDate)
+    const bySlot = {};
+    slotData.forEach(c => {
+        if (!bySlot[c.slotNum] || c.saveDate > bySlot[c.slotNum].saveDate)
+            bySlot[c.slotNum] = c;
+    });
+    const chars = Object.values(bySlot);
+
+    // Apply slot dates / fullSaveTime
+    // slot_dates의 타임스탬프를 조건 없이 직접 사용 (초 단위 정밀도, 슬롯별 개별 업로드)
+    const slotDates = result.slot_dates || {};
+    chars.forEach(c => {
+        const dateStr = slotDates[String(c.slotNum)];
+        if (dateStr && c.saveDate === getYMD(dateStr)) {
+            // 업로드날짜 == 인게임저장날짜 → 수동저장 직후 업로드 → 초 단위 사용
+            c.fullSaveTime = parseFullDate(dateStr);
+        } else if (result.latest_date && c.saveDate === getYMD(result.latest_date)) {
+            c.fullSaveTime = parseFullDate(result.latest_date);
+        } else {
+            // 날짜 불일치 → 자동저장 재업로드 → 날짜만 사용
+            c.fullSaveTime = yyyymmddToTs(c.saveDate);
+        }
+    });
+
+    // Today check
+    const nowKST = new Date(Date.now() + 9 * 60 * 60 * 1000);
+    const todayYMD = parseInt(
+        nowKST.getUTCFullYear().toString() +
+        String(nowKST.getUTCMonth() + 1).padStart(2,'0') +
+        String(nowKST.getUTCDate()).padStart(2,'0')
+    );
+    chars.forEach(c => {
+        c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYMD && c.saveDate > 0;
+    });
+
+    // 제일마지막저장 판별:
+    // 1순위: 인증 Final 캐릭터 → 현재 플레이 중인(마지막으로 진입한) 캐릭터 = 마지막 저장
+    // 2순위: d3[6] saveDate 최댓값 fallback (같은 날이면 slotNum 낮은 캐릭터 우선)
+    if (chars.length > 0) {
+        let latestChar = null;
+        const activeSlot = getActiveSlotNum(data);
+        if (activeSlot > 0) {
+            latestChar = chars.find(c => c.slotNum === activeSlot) || null;
+        }
+        if (!latestChar) {
+            latestChar = chars.reduce((best, c) => {
+                const cDate = c.saveDate || 0, bestDate = best.saveDate || 0;
+                if (cDate !== bestDate) return cDate > bestDate ? c : best;
+                return c.slotNum < best.slotNum ? c : best;
+            });
+        }
+        chars.forEach(c => { c.isLatestSave = (c === latestChar); });
+    }
+
+
+    // Missed days
+    const todayDate = new Date(Math.floor(todayYMD / 10000), Math.floor((todayYMD % 10000) / 100) - 1, todayYMD % 100);
+    const isFirstOfMonth = String(todayYMD).slice(6, 8) === '01';
+    chars.forEach(c => {
+        if (!c.saveDate || c.saveDate <= 0 || c.isCorrupted) { c.missedDays = 0; return; }
+        const maxDays = 7 + (c.ttType !== undefined ? c.ttType : 2);
+        if (isFirstOfMonth && !c.isTodaySave) { c.missedDays = maxDays; return; }
+        const sd = c.saveDate;
+        const savedDate = new Date(Math.floor(sd/10000), Math.floor((sd%10000)/100)-1, sd%100);
+        const diff = Math.floor((todayDate - savedDate) / 86400000);
+        c.missedDays = Math.min(diff, maxDays);
+    });
+
+    // Sort
+    chars.sort((a, b) => {
+        if (a.isCorrupted && !b.isCorrupted) return -1;
+        if (!a.isCorrupted && b.isCorrupted) return 1;
+        if (a.isLatestSave && !b.isLatestSave) return -1;
+        if (!a.isLatestSave && b.isLatestSave) return 1;
+        if (a.isTodaySave && !b.isTodaySave) return -1;
+        if (!a.isTodaySave && b.isTodaySave) return 1;
+        return a.slotNum - b.slotNum;
+    });
+
+    // Account summary
+    const ttType = data.TT_TYPE1 !== undefined ? parseInt(data.TT_TYPE1) : 2;
+    const gradeName = TT_GRADE_MAPPING[ttType] || `등급 ${ttType}`;
+    const totalBD = chars.reduce((s, c) => s + (c.blueDiamonds || 0), 0);
+    let spPoint = parseInt(data.SPECIAL_POINT || 0);
+    let ap = parseInt(data.AP || 0);
+
+    return {
+        chars, ttType, gradeName, totalBD, spPoint, ap,
+        saveDate: formatKoreanDate(result.latest_date),
+        nicName: result.nicName
+    };
+}
+
+// ═══════════════════════════════════════════════════════
+//  Render helpers
+// ═══════════════════════════════════════════════════════
+function fmtStatWithMax(cur, max) {
+    const c = parseInt(cur) || 0, m = parseInt(max) || 0;
+    return c >= m ? fmt(m) : `${fmt(c)} / ${fmt(m)}`;
+}
+
+function renderBadges(c) {
+    let html = '';
+    if (c.isCorrupted) html += `<span class="badge badge-error">오류</span>`;
+    if (c.isLatestSave) html += `<span class="badge badge-latest">제일마지막저장</span>`;
+    if (c.isTodaySave) {
+        html += `<span class="badge badge-attend">출첵완</span>`;
+    } else if (c.missedDays > 0) {
+        const maxDays = 7 + (c.ttType !== undefined ? c.ttType : 2);
+        const ratio = c.missedDays / maxDays;
+        const sev = ratio >= 0.7 ? 'high' : ratio >= 0.4 ? 'mid' : 'low';
+        html += `<span class="badge badge-missed-${sev}" title="미접속 ${c.missedDays}일 (상한 ${maxDays}일)">${c.missedDays}d</span>`;
+    }
+    return html;
+}
+
+function fmtMax(cur, max) {
+    const cv = parseInt(cur) || 0, mv = parseInt(max) || 0;
+    return cv >= mv ? fmt(mv) : `${fmt(cv)} / ${fmt(mv)}`;
+}
+
+function renderBasicCard(c) {
+    const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+    return [
+        `<div class="char-card">`,
+        `<div class="char-name-row"><span class="${nameClass}">${c.charName}</span>${renderBadges(c)}</div>`,
+        `<div class="char-level">레벨: <span>${fmt(c.level)}</span></div>`,
+        `<div class="char-adventure">모험: <span>${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
+        `<div class="stat-row"><span>공격: ${fmt(c.attack)}</span><span class="alt">방어: ${fmt(c.defense)}</span></div>`,
+        `<div class="stat-row"><span>기: ${fmt(c.ki)}</span><span class="alt">체력: ${fmt(c.hp)}</span></div>`,
+        `<div class="stat-row"><span>공속: ${fmt(c.speed)}</span><span class="alt">불굴: ${fmt(c.fortitude)}</span></div>`,
+        `<div class="char-cp">투력:<span>${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge">각성:' + c.awakeningLevel + '</span>' : ''}</div>`,
+        c.limit !== null ? [
+            `<div class="limit-block">`,
+            `<div class="limit-title">극한: ${fmt(c.limit)} (${fmt(c.limitPt)}pt)</div>`,
+            `<div class="stat-row"><span>근력: ${fmt(c.strength)}</span><span class="alt">근성: ${fmt(c.grit)}</span></div>`,
+            `<div class="stat-row"><span>탐구: ${fmt(c.search)}</span><span class="alt">행운: ${fmt(c.luck)}</span></div>`,
+            `</div>`
+        ].join('') : '',
+        `<div class="sub-divider"></div>`,
+        `<div class="sub-label">내 스텟</div>`,
+        `<div class="stat-row"><span class="val-str">힘: ${fmtMax(c.str, c.maxOwnStat)}</span><span class="alt val-agi">민: ${fmtMax(c.agi, c.maxOwnStat)}</span></div>`,
+        `<div class="stat-row"><span class="val-int">지: ${fmtMax(c.intVal, c.maxOwnStat)}</span></div>`,
+        `<div class="sub-label">${c.friendSlot > 0 ? 'Lv' + c.friendLevel + ' ' + c.friendName : '친구 스텟'}</div>`,
+        `<div class="stat-row"><span class="val-str">힘: ${fmtMax(c.friendStr, c.maxFriendStat)}</span><span class="alt val-agi">민: ${fmtMax(c.friendAgi, c.maxFriendStat)}</span></div>`,
+        `<div class="stat-row"><span class="val-int">지: ${fmtMax(c.friendInt, c.maxFriendStat)}</span></div>`,
+        `<div class="sub-divider"></div>`,
+        `<div class="stat-row"><span>도감: <span class="val-dogam">${fmt(c.doGam)}</span></span><span class="alt">💰 <span class="val-gold">${fmt(c.gold)}</span></span></div>`,
+        `<div class="stat-row"><span>금괴: <span class="val-goldbar">${fmt(c.goldBars)}</span></span><span class="alt">💎 <span class="val-bd">${fmt(c.blueDiamonds)}</span></span></div>`,
+        `</div>`
+    ].join('');
+}
+
+function renderEquipCard(c) {
+    const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+
+    function itemHtml(id) {
+        const item = ITEM_MAPPING[id] || { name: `아이템 ${id}`, color: 'standard' };
+        return `<div class="equip-item item-${item.color}">${item.name}</div>`;
+    }
+
+    const myHtml = c.myItems.length > 0
+        ? c.myItems.map(id => itemHtml(id)).join('')
+        : '<div style="font-size:0.7rem;color:var(--text-muted);padding:2px 0">없음</div>';
+
+    const friendHtml = c.friendItems.length > 0
+        ? c.friendItems.map(id => itemHtml(id)).join('')
+        : '<div style="font-size:0.7rem;color:var(--text-muted);padding:2px 0">없음</div>';
+
+    return `
+        <div class="char-card">
+            <div class="char-name-row">
+                <span class="${nameClass}">${c.charName}</span>
+                ${renderBadges(c)}
+            </div>
+            <div class="equip-items">
+                ${myHtml}
+                <div class="equip-friend-divider">— ${c.friendSlot > 0 ? 'Lv' + c.friendLevel + ' ' + c.friendName : '친구'} —</div>
+                ${friendHtml}
+            </div>
+        </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  Panel Rendering
+// ═══════════════════════════════════════════════════════
+function renderPanel(panelEl, processed) {
+    const { chars, gradeName, totalBD, spPoint, ap, saveDate, nicName } = processed;
+
+    const headerEl = panelEl.querySelector('.user-panel-header');
+    headerEl.innerHTML = `
+        <span class="user-nick">${nicName}</span>
+        <span class="user-grade">${gradeName}</span>`;
+
+    const summaryEl = panelEl.querySelector('.user-summary-bar');
+    summaryEl.innerHTML = `
+        <div class="summary-item">💎 <span class="sval cyan">${fmt(totalBD)}</span></div>
+        <div class="summary-item">✨ SP <span class="sval gold">${fmt(spPoint)}</span></div>
+        <div class="summary-item">👼 AP <span class="sval">${fmt(ap)}</span></div>`;
+
+    const saveDateEl = panelEl.querySelector('.save-date-row');
+    saveDateEl.innerHTML = `최근저장: <span>${saveDate}</span>`;
+
+    const basicView = panelEl.querySelector('.tab-view[data-tab="basic"]');
+    const equipView = panelEl.querySelector('.tab-view[data-tab="equip"]');
+
+    if (chars.length === 0) {
+        basicView.innerHTML = '<div class="empty-state">캐릭터 데이터 없음</div>';
+        equipView.innerHTML = '<div class="empty-state">장비 데이터 없음</div>';
+        return;
+    }
+
+    basicView.innerHTML = `<div class="cards-scroll">${chars.map(renderBasicCard).join('')}</div>`;
+    equipView.innerHTML = `<div class="cards-scroll">${chars.map(renderEquipCard).join('')}</div>`;
+
+    // Show correct tab
+    const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'basic';
+    panelEl.querySelectorAll('.tab-view').forEach(v => {
+        v.classList.toggle('active', v.dataset.tab === activeTab);
+    });
+}
+
+function setPanelLoading(panelEl, nick) {
+    panelEl.querySelector('.user-panel-header').innerHTML =
+        `<span class="user-nick">${nick}</span><span class="user-grade">-</span>`;
+    panelEl.querySelector('.user-summary-bar').innerHTML = '';
+    panelEl.querySelector('.save-date-row').innerHTML = '';
+    panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
+        `<div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>`;
+    panelEl.querySelector('.tab-view[data-tab="equip"]').innerHTML = '';
+}
+
+function setPanelError(panelEl, nick, errMsg) {
+    panelEl.querySelector('.user-panel-header').innerHTML =
+        `<span class="user-nick">${nick}</span><span class="user-grade">오류</span>`;
+    panelEl.querySelector('.user-summary-bar').innerHTML = '';
+    panelEl.querySelector('.save-date-row').innerHTML = '';
+    panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
+        `<div class="panel-error">⚠️ ${errMsg}</div>`;
+    panelEl.querySelector('.tab-view[data-tab="equip"]').innerHTML = '';
+}
+
+// ═══════════════════════════════════════════════════════
+//  Tab switching
+// ═══════════════════════════════════════════════════════
+let currentTab = 'basic';
+
+function switchTab(tab, btnEl) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    document.querySelectorAll('.user-panel').forEach(panel => {
+        panel.querySelectorAll('.tab-view').forEach(v => {
+            v.classList.toggle('active', v.dataset.tab === tab);
+        });
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+//  Main Load
+// ═══════════════════════════════════════════════════════
+function buildPanels() {
+    const grid = document.getElementById('multi-grid');
+    grid.innerHTML = '';
+    FIXED_IDS.forEach(nick => {
+        const panel = document.createElement('div');
+        panel.className = 'user-panel';
+        panel.id = `panel-${nick}`;
+        panel.innerHTML = `
+            <div class="user-panel-header">
+                <span class="user-nick">${nick}</span>
+                <span class="user-grade">-</span>
+            </div>
+            <div class="user-summary-bar"></div>
+            <div class="save-date-row"></div>
+            <div class="tab-view active" data-tab="basic">
+                <div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>
+            </div>
+            <div class="tab-view" data-tab="equip"></div>`;
+        grid.appendChild(panel);
+    });
+}
+
+async function loadOne(nick) {
+    const panelEl = document.getElementById(`panel-${nick}`);
+    if (!panelEl) return;
+    setPanelLoading(panelEl, nick);
+    try {
+        const res = await fetch(`/api/logs?nicName=${encodeURIComponent(nick)}`);
+        const result = await res.json();
+        if (!result.success) throw new Error(result.error || '조회 실패');
+        const processed = processData(result);
+        renderPanel(panelEl, processed);
+    } catch(e) {
+        setPanelError(panelEl, nick, e.message);
+    }
+}
+
+async function loadAll() {
+    const btn = document.getElementById('refresh-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span>⏳</span> 불러오는 중...';
+    document.getElementById('last-updated-text').textContent = '조회 중...';
+
+    buildPanels();
+    await Promise.all(FIXED_IDS.map(nick => loadOne(nick)));
+
+    const now = new Date();
+    document.getElementById('last-updated-text').textContent =
+        `최종 조회: ${now.toLocaleTimeString('ko-KR')}`;
+    btn.disabled = false;
+    btn.innerHTML = '<span>🔄</span> 전체 새로고침';
+
+    // Restore active tab state
+    switchTab(currentTab);
+}
+
+// ─── Init ───
+buildPanels();
+window.addEventListener('DOMContentLoaded', () => {
+    loadAll();
+});
+</script>
+</body>
+</html>
