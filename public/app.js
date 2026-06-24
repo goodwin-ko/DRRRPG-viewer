@@ -975,7 +975,7 @@ async function fetchAndRenderLogs(nicName) {
                     const friendSlot = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
                     const friendExp = d1.length > 39 ? (parseInt(d1[39]) || 0) : 0;
                     const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
-                    const friendName = LINK_NAME_MAPPING[friendSlot] || "친구";
+                    const friendName = LINK_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
 
                     const gold = d1.length > 0 ? (parseInt(d1[0]) || 0) : 0;
                     const goldBars = d1.length > 1 ? (parseInt(d1[1]) || 0) : 0;
