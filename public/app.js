@@ -1515,12 +1515,15 @@ function renderMobileView(chars, data) {
     let currentMobileTab = 'basic';
 
     function renderMobileCards() {
-        mobileChars.innerHTML = '';
+        // innerHTML 덮어쓰기 이후 항상 최신 DOM 참조 사용
+        const el = mobileView.querySelector('#mobile-chars');
+        if (!el) return;
+        el.innerHTML = '';
         chars.forEach(char => {
             const html = currentMobileTab === 'basic'
                 ? createMobileBasicCard(char)
                 : createMobileEquipCard(char);
-            mobileChars.insertAdjacentHTML('beforeend', html);
+            el.insertAdjacentHTML('beforeend', html);
         });
     }
 
@@ -1554,12 +1557,8 @@ function renderMobileView(chars, data) {
         });
     });
 
-    // 카드 렌더
-    const mobileCharsEl = mobileView.querySelector('#mobile-chars');
-    chars.forEach(char => {
-        const html = createMobileBasicCard(char);
-        mobileCharsEl.insertAdjacentHTML('beforeend', html);
-    });
+    // 초기 카드 렌더 (renderMobileCards로 통합)
+    renderMobileCards();
 
     mobileView.classList.remove('hidden');
 }
