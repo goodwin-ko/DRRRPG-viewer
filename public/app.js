@@ -1058,6 +1058,22 @@ async function fetchAndRenderLogs(nicName) {
         });
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
+        // 제일마지막저장 판별:
+        // - 가장 큰 saveDate(d3[6]) 를 가진 캐릭터 = 마지막 저장
+        // - saveDate 동일 시 → slotNum이 낮은 캐릭터 우선 (손오공=1 이 기본 슬롯이므로)
+        let latestChar = null;
+        if (uniqueCharacters.length > 0) {
+            latestChar = uniqueCharacters.reduce((best, c) => {
+                const cDate = c.saveDate || 0;
+                const bestDate = best.saveDate || 0;
+                if (cDate !== bestDate) {
+                    return cDate > bestDate ? c : best;
+                }
+                // saveDate 동일 → slotNum 낮은 캐릭터 우선
+                return c.slotNum < best.slotNum ? c : best;
+            });
+        }
+
         // Helper to parse MM/DD/YYYY HH:MM:SS to epoch ms
         function parseFullDate(dateStr) {
             if (!dateStr) return 0;
@@ -1118,32 +1134,6 @@ async function fetchAndRenderLogs(nicName) {
             c.isTodaySave = !c.isCorrupted && (c.saveDate || 0) >= todayYYYYMMDD && c.saveDate > 0;
         });
 
-        // 제일마지막저장 판별 우선순위:
-        // 1순위: latest_slot_num — 가장 최근 로그 항목의 파일명 기준 슬롯번호 (서버가 제공, 가장 정확)
-        // 2순위: fullSaveTime — 슬롯 업로드 타임스탬프 (업로드날짜 == 인게임저장날짜 일치 시 초 단위)
-        // 3순위: saveDate (d3[6]) — 인게임 저장 날짜 (YYYYMMDD)
-        let latestChar = null;
-        if (uniqueCharacters.length > 0) {
-            // 1순위: 서버가 알려준 latest_slot_num (복수 저장 중 마지막 저장된 파일의 슬롯번호)
-            if (result.latest_slot_num != null) {
-                latestChar = uniqueCharacters.find(c => c.slotNum === result.latest_slot_num) || null;
-            }
-
-            // 2&3순위: fallback — fullSaveTime 다음 saveDate
-            if (!latestChar) {
-                latestChar = uniqueCharacters.reduce((best, c) => {
-                    const cTime = c.fullSaveTime || 0;
-                    const bestTime = best.fullSaveTime || 0;
-                    if (cTime !== bestTime) {
-                        return cTime > bestTime ? c : best;
-                    }
-                    if (c.saveDate !== best.saveDate) {
-                        return (c.saveDate || 0) > (best.saveDate || 0) ? c : best;
-                    }
-                    return best;
-                });
-            }
-        }
         uniqueCharacters.forEach(c => {
             c.isLatestSave = latestChar !== null && c === latestChar;
         });
