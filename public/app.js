@@ -726,7 +726,7 @@ function createCharacterCard(char) {
     const friendBlock = document.createElement('div');
     friendBlock.className = 'friend-stats-block';
     friendBlock.innerHTML = `
-        <div class="friend-title">친구</div>
+        <div class="friend-title">${char.friendSlot > 0 ? 'Lv' + char.friendLevel + ' ' + char.friendName : '친구'}</div>
         <div>힘: <span class="val-str">${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
         <div>민: <span class="val-agi">${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
         <div>지: <span class="val-int">${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
@@ -1495,7 +1495,7 @@ function createMobileEquipCard(char) {
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
         <div class="mc-items">${myItems}</div>
-        <div class="mc-friend-div">— 친구 —</div>
+        <div class="mc-friend-div">— ${char.friendSlot > 0 ? 'Lv' + char.friendLevel + ' ' + char.friendName : '친구'} —</div>
         <div class="mc-items">${friendItems}</div>
     </div>`;
 }
