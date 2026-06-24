@@ -138,75 +138,15 @@ function getFriendNameFromExp(friendExp, friendSlot) {
 
 // Item ID to Name and Color Mapping Table
 const ITEM_MAPPING = {
-    743: { name: '오천크스 수련팔찌', color: 'standard' },
-    747: { name: '베이비의신발', color: 'standard' },
-    846: { name: '마인부우의 신발', color: 'purple' },
-    879: { name: '베이비의 신발v2', color: 'standard' },
-    932: { name: '쿠우라의 갑옷', color: 'green' },
-    999: { name: '새로운 시작', color: 'purple' },
-    1036: { name: '지구인의 생명', color: 'blue' },
-    1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
-    1086: { name: '베이비의신발', color: 'standard' },
-    1087: { name: '베이비의반지', color: 'standard' },
-    1088: { name: '베이비의보석', color: 'standard' },
-    1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
-    1160: { name: '오천크스 가방', color: 'standard' },
-    1162: { name: '오천크스 갑옷', color: 'standard' },
-    1163: { name: '개발자의 헬멧', color: 'green' },
-    1168: { name: '개발자의 헬멧', color: 'green' },
-    1176: { name: '탐험일지-닥터위로', color: 'standard' },
-    1179: { name: '베이비의 보석v2', color: 'standard' },
-    1181: { name: '베이비의 반지v2', color: 'standard' },
-    1182: { name: '베이비의 신발v2', color: 'standard' },
-    1189: { name: '개발자의 헬멧', color: 'green' },
-    1193: { name: '개발자의 헬멧+1', color: 'green' },
-    1194: { name: '개발자의 헬멧', color: 'green' },
-    1201: { name: '자넨바 팔찌', color: 'standard' },
-    1202: { name: '자넨바 신발', color: 'standard' },
-    1203: { name: '자넨바 보석', color: 'standard' },
-    1346: { name: '개발자의 헬멧', color: 'green' },
-    1348: { name: '지구인의 생명', color: 'blue' },
-    1355: { name: '자넨바의팔찌 v2', color: 'standard' },
-    1356: { name: '자넨바의신발 v2', color: 'standard' },
-    1368: { name: '개발자의 헬멧+3', color: 'green' },
-    1369: { name: '개발자의 헬멧+4', color: 'green' },
-    1373: { name: '베이비의반지', color: 'standard' },
-    1374: { name: '베이비의 신발', color: 'standard' },
-    1375: { name: '베이비의보석', color: 'standard' },
-    1437: { name: '개발자의 헬멧+2', color: 'green' },
-    1448: { name: '영웅의 증표Lv22', color: 'purple' },
-    1458: { name: '베이비의 반지Lv2', color: 'standard' },
-    1459: { name: '베이비의 보석Lv2', color: 'standard' },
-    1460: { name: '베이비의 신발Lv2', color: 'standard' },
-    1463: { name: '브로리의 최종힘', color: 'purple' },
-    1465: { name: '베지트의 체력장갑', color: 'cyan' },
-    1466: { name: '베지트의 전투장갑', color: 'cyan' },
-    1467: { name: '베지트의 기력장갑', color: 'cyan' },
-    1469: { name: '베지트의 전투반지', color: 'purple' },
-    1470: { name: '베지트의 기력반지', color: 'cyan' },
-    1471: { name: '베이비의 보석v2', color: 'standard' },
-    1472: { name: '베지트의 신발', color: 'cyan' },
-    1473: { name: '베지트의 도복', color: 'cyan' },
-    1474: { name: '베지트의 만능장갑', color: 'cyan' },
-    1476: { name: '개발자의 헬멧+1', color: 'green' },
-    1482: { name: '손오반의 힘', color: 'purple' },
-    1484: { name: '영웅의 신전', color: 'purple' },
-    1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
-    1362: { name: '브로리의 힘Lv4[고유]', color: 'purple' },
-    1493: { name: '타레스의 반지[전설]', color: 'red' },
-    1494: { name: '타레스의 보물반지[전설]', color: 'red' },
-    // 신규 아이템
-    1161: { name: '여성용 리본[유물]', color: 'purple' },
-    1037: { name: '중급자 신발', color: 'standard' },
-    589:  { name: '재배맨s 퇴치[칭호]', color: 'standard' },
-    590:  { name: '초급자 신발', color: 'standard' },
-    553:  { name: '라데츠의 다리띠', color: 'standard' },
     524:  { name: '피콜로의 두건', color: 'standard' },
     525:  { name: '빨간 공룡의 가죽', color: 'standard' },
+    553:  { name: '라데츠의 다리띠', color: 'standard' },
     557:  { name: '재배맨a의 눈물', color: 'standard' },
     558:  { name: '재배맨b의 눈물', color: 'standard' },
     559:  { name: '재배맨c의 눈물', color: 'standard' },
     577:  { name: '손오공의 추억', color: 'standard' },
+    589:  { name: '재배맨s 퇴치[칭호]', color: 'standard' },
+    590:  { name: '초급자 신발', color: 'standard' },
     604:  { name: '카린의증표lv4', color: 'standard' },
     606:  { name: '카린의 증표lv5', color: 'standard' },
     608:  { name: '카린의 증표 lv6', color: 'standard' },
@@ -219,7 +159,74 @@ const ITEM_MAPPING = {
     617:  { name: '카린의 증표 11조합서', color: 'standard' },
     618:  { name: '카린의 증표lv11', color: 'standard' },
     619:  { name: '카린의 증표12조합서', color: 'standard' },
-    620:  { name: '카린의 증표lv12', color: 'standard' }
+    620:  { name: '카린의 증표lv12', color: 'standard' },
+    743:  { name: '오천크스 수련팔찌', color: 'standard' },
+    747:  { name: '인조인간 저지 [칭호]', color: 'purple' },
+    846:  { name: '마인부우의 신발', color: 'purple' },
+    879:  { name: '베이비의 신발v2', color: 'standard' },
+    932:  { name: '쿠우라의 갑옷', color: 'green' },
+    999:  { name: '새로운 시작', color: 'purple' },
+    1036: { name: '지구인의 생명', color: 'blue' },
+    1037: { name: '중급자 신발', color: 'standard' },
+    1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
+    1086: { name: '베이비의신발', color: 'standard' },
+    1087: { name: '베이비의반지', color: 'standard' },
+    1088: { name: '베이비의보석', color: 'standard' },
+    1099: { name: '사오공의 도복 [유물]', color: 'purple' },
+    1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
+    1127: { name: '탐험일지-닥터 위로', color: 'standard' },
+    1129: { name: '변신한 쟈넨바의 힘 [고유]', color: 'purple' },
+    1160: { name: '오천크스 가방', color: 'standard' },
+    1161: { name: '여성용 리본[유물]', color: 'purple' },
+    1162: { name: '오천크스 갑옷', color: 'standard' },
+    1163: { name: '개발용 헬멧 [기본]', color: 'green' },
+    1168: { name: '개발자의 헬멧', color: 'green' },
+    1176: { name: '브로리의 힘 Lv3 [고유]', color: 'purple' },
+    1179: { name: '오천크스의 수련팔찌 [유물]', color: 'purple' },
+    1181: { name: '오천크스의 갑옷 [유물]', color: 'purple' },
+    1182: { name: '오천크스의 가방 [유물]', color: 'purple' },
+    1187: { name: '인조인간 슈퍼 13호의 오만 [칭호]', color: 'purple' },
+    1189: { name: '개발자의 헬멧', color: 'green' },
+    1190: { name: '브로리의 분노 Lv2 [유물]', color: 'purple' },
+    1193: { name: '개발자의 헬멧+1', color: 'green' },
+    1194: { name: '개발자의 헬멧', color: 'green' },
+    1201: { name: '자넨바 팔찌', color: 'standard' },
+    1202: { name: '자넨바 신발', color: 'standard' },
+    1203: { name: '자넨바 보석', color: 'standard' },
+    1208: { name: '개발용 헬멧 +4 [유물]', color: 'purple' },
+    1346: { name: '개발자의 헬멧', color: 'green' },
+    1348: { name: '지구인의 생명', color: 'blue' },
+    1355: { name: '자넨바의팔찌 v2', color: 'standard' },
+    1356: { name: '자넨바의신발 v2', color: 'standard' },
+    1362: { name: '베지트의 만능장갑 [영웅]', color: 'cyan' },
+    1368: { name: '개발용 헬멧 [+3]', color: 'green' },
+    1369: { name: '베지트의 도복 [영웅]', color: 'cyan' },
+    1373: { name: '베이비의 반지 [기본]', color: 'standard' },
+    1374: { name: '베이비의 신발 [기본]', color: 'standard' },
+    1375: { name: '베이비의 보석 [기본]', color: 'standard' },
+    1404: { name: '진화의 증표 Lv22 [신화]', color: 'red' },
+    1437: { name: '개발자의 헬멧+2', color: 'green' },
+    1445: { name: '영웅의 증표 Lv19', color: 'purple' },
+    1447: { name: '영웅의 증표 Lv21', color: 'purple' },
+    1448: { name: '영웅의 증표 Lv22', color: 'purple' },
+    1458: { name: '베이비의 반지 Lv2 [유물]', color: 'purple' },
+    1459: { name: '베이비의 보석 Lv2 [유물]', color: 'purple' },
+    1460: { name: '베이비의 신발 Lv2 [유물]', color: 'purple' },
+    1463: { name: '브로리의 최종힘', color: 'purple' },
+    1465: { name: '베지트의 체력장갑', color: 'cyan' },
+    1466: { name: '베지트의 전투장갑', color: 'cyan' },
+    1467: { name: '베지트의 기력장갑', color: 'cyan' },
+    1469: { name: '베지트의 전투반지', color: 'purple' },
+    1470: { name: '베지트의 기력반지', color: 'cyan' },
+    1471: { name: '베지트의 만능반지 [유물]', color: 'purple' },
+    1472: { name: '베지트의 신발 [영웅]', color: 'cyan' },
+    1473: { name: '베지트의 도복 [영웅]', color: 'cyan' },
+    1474: { name: '베지트의 만능장갑 [영웅]', color: 'cyan' },
+    1476: { name: '개발자의 헬멧+1', color: 'green' },
+    1482: { name: '손오반의 힘', color: 'purple' },
+    1484: { name: '영웅의 신전', color: 'purple' },
+    1493: { name: '타레스의 반지 [전설]', color: 'red' },
+    1494: { name: '타레스의 보물반지 [전설]', color: 'red' }
 };
 
 // DOM Elements
@@ -281,37 +288,7 @@ function switchTab(category) {
     }
 }
 
-// Utility: Determine active slot number using "인증 Final 캐릭터" name matching
-function getActiveSlotNum(data) {
-    let finalChar = data["인증 Final 캐릭터"];
-    if (!finalChar) {
-        // Fallback for corrupted key names (like " Final ĳ")
-        const key = Object.keys(data).find(k => k.includes("Final"));
-        if (key) {
-            finalChar = data[key];
-        }
-    }
-    if (!finalChar) return -1;
 
-    // Clean up color codes like |cffff0303 and |r
-    let clean = finalChar.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '');
-    // Clean up brackets like 『영웅』 or 『친구』
-    clean = clean.replace(/『[^』]+』/g, '');
-    // Remove awakening suffix like [2차 각성] or [1차 각성] or [각성]
-    clean = clean.replace(/\[[^\]]+\]/g, '');
-    // Remove prefixes like "초사이어인2 - " or "초사이어인3 - " or "초사이어인 - " or "초 - " or "약해진 - "
-    clean = clean.replace(/^(초사이어인\d*|초|약해진)\s*-\s*/, '');
-    clean = clean.trim();
-
-    // Now match with LINK_NAME_MAPPING names
-    for (let slotNum in LINK_NAME_MAPPING) {
-        const charName = LINK_NAME_MAPPING[slotNum];
-        if (clean.includes(charName) || charName.includes(clean)) {
-            return parseInt(slotNum);
-        }
-    }
-    return -1;
-}
 
 // Utility: Get awakening level for a slot using SLOT_TO_UPBOOK reverse map
 // PDATA1[upBookIdx - 1] = awakening level for that character
@@ -919,8 +896,6 @@ async function fetchAndRenderLogs(nicName) {
                     const isCorrupted = d1.length !== 97 || (d1[0] !== "" && !/^\d+$/.test(d1[0]));
                     const charId = parseInt(d1[2]);
 
-                    // Determine if this is the active hero slot
-                    const activeSlotNum = getActiveSlotNum(data);
                     const slotNumInt = parseInt(slotNum);
 
                     let level = 0;
@@ -930,7 +905,7 @@ async function fetchAndRenderLogs(nicName) {
                     const expLvl = Math.floor(Math.sqrt(expVal / 25));
                     const rawLvlCalculated = Math.floor(rawLvlVal / 3.28);
 
-                    if (slotNumInt === activeSlotNum || Math.abs(rawLvlCalculated - expLvl) > 100) {
+                    if (Math.abs(rawLvlCalculated - expLvl) > 100) {
                         level = expLvl;
                     } else {
                         level = rawLvlCalculated;
@@ -1075,23 +1050,33 @@ async function fetchAndRenderLogs(nicName) {
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
         // 제일마지막저장 판별:
-        // 1순위: 인증 Final 캐릭터 → 현재 플레이 중인(마지막으로 진입한) 캐릭터 = 마지막 저장
-        // 2순위: d3[6] saveDate 최댓값 fallback (같은 날이면 slotNum 낮은 캐릭터 우선)
+        // 1. AJAX 플레이 로그(result.latest_log_character) 매칭
+        // 2. 매칭 실패 시 d3[6] saveDate 최댓값 (같은 날이면 slotNum 높은 캐릭터 우선)
         let latestChar = null;
-        if (uniqueCharacters.length > 0) {
-            // 1순위: 인증 Final 캐릭터 슬롯
-            const activeSlot = getActiveSlotNum(data);
-            if (activeSlot > 0) {
-                latestChar = uniqueCharacters.find(c => c.slotNum === activeSlot) || null;
+        if (result.latest_log_character && uniqueCharacters.length > 0) {
+            const cleanLogName = result.latest_log_character.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/『[^』]+』/g, '').trim();
+            const mappingEntries = Object.entries(LINK_NAME_MAPPING)
+                .map(([slot, name]) => ({ slot: parseInt(slot), name }))
+                .sort((a, b) => b.name.length - a.name.length);
+                
+            let matchedSlot = null;
+            for (const entry of mappingEntries) {
+                if (cleanLogName.includes(entry.name)) {
+                    matchedSlot = entry.slot;
+                    break;
+                }
             }
-            // 2순위: d3[6] saveDate 기반 fallback
-            if (!latestChar) {
-                latestChar = uniqueCharacters.reduce((best, c) => {
-                    const cDate = c.saveDate || 0, bestDate = best.saveDate || 0;
-                    if (cDate !== bestDate) return cDate > bestDate ? c : best;
-                    return c.slotNum < best.slotNum ? c : best;
-                });
+            if (matchedSlot !== null) {
+                latestChar = uniqueCharacters.find(c => c.slotNum === matchedSlot) || null;
             }
+        }
+
+        if (!latestChar && uniqueCharacters.length > 0) {
+            latestChar = uniqueCharacters.reduce((best, c) => {
+                const cDate = c.saveDate || 0, bestDate = best.saveDate || 0;
+                if (cDate !== bestDate) return cDate > bestDate ? c : best;
+                return c.slotNum > best.slotNum ? c : best;
+            });
         }
 
 

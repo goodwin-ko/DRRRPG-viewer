@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 import os
+import datetime
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
@@ -39,6 +40,67 @@ def parse_log_td(td_html):
                     pass
             data[key] = val
         return data
+
+def iso_to_m16_date(iso_str):
+    if not iso_str:
+        return None
+    try:
+        # Match YYYY-MM-DDTHH:MM:SS
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})", iso_str)
+        if m:
+            year, month, day, hour, minute, second = m.groups()
+            return f"{month}/{day}/{year} {hour}:{minute}:{second}"
+    except:
+        pass
+    return None
+
+def get_latest_log_char(nicName):
+    url = "https://logs2.m16tool.xyz/Game/DRR/UserLog/GetLog2"
+    current_month = datetime.datetime.now().strftime("%Y-%m")
+    
+    data = {
+        "nicName": nicName,
+        "character": "JN_DATA_1",
+        "index": "0",
+        "search": "",
+        "Month": current_month
+    }
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+    
+    try:
+        response = requests.post(url, data=data, headers=headers, timeout=10)
+        if response.status_code != 200:
+            return None, None
+            
+        decoded_text = response.content.decode('utf-8', errors='ignore')
+        res = json.loads(decoded_text)
+        
+        if not res.get("success") or "data" not in res or not res["data"]:
+            return None, None
+            
+        log_texts = []
+        latest_date_iso = None
+        for item in res["data"][:3]:
+            obj = json.loads(item)
+            if latest_date_iso is None:
+                latest_date_iso = obj.get("CreateDate")
+            log_texts.append(obj.get("Loging", ""))
+                
+        full_text = "\n".join(log_texts)
+        full_text_clean = full_text.replace("<br>", "\n").replace("<br/>", "\n")
+        
+        match = re.search(r"영웅\s*:\s*Lv\d+\s*(?:\|c[0-9a-fA-F]{8})?(?:『영웅』|『친구』)?(?:\|r)?\s*([^\n\r]+)", full_text_clean)
+        if match:
+            char_name = match.group(1).strip()
+            formatted_date = iso_to_m16_date(latest_date_iso)
+            return char_name, formatted_date
+            
+    except:
+        pass
+        
+    return None, None
 
 @app.route('/')
 def index():
@@ -123,10 +185,18 @@ def get_logs():
                 slot_num = int(m_slot.group(1))
                 slot_dates[str(slot_num)] = entry['date']
 
+        # Fetch latest played character & date from logs2 AJAX endpoint
+        latest_log_char, latest_log_date = get_latest_log_char(nicName)
+        if latest_log_date and latest_log_char:
+            if parse_date(latest_log_date) > parse_date(latest_date):
+                latest_date = latest_log_date
+
         return jsonify({
             "success": True,
             "nicName": nicName,
             "latest_date": latest_date,
+            "latest_log_character": latest_log_char,
+            "latest_log_date": latest_log_date,
             "slot_dates": slot_dates,
             "data": merged_data
         })
