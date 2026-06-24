@@ -121,10 +121,20 @@ const LINK_NAME_MAPPING = {
 };
 
 // Friend ID to Name Mapping (캐릭터 슬롯과 번호가 다름)
-const FRIEND_NAME_MAPPING = {
-    // 나중에 여기에 매핑을 추가하면 됩니다.
-    // 예: 32: '메탈 쿠우라(약해진)'
-};
+const FRIEND_NAME_MAPPING = {};
+
+// 경험치(friendExp) 기반 친구 캐릭터 판별
+function getFriendNameFromExp(friendExp, friendSlot) {
+    if (!friendExp) return friendSlot > 0 ? `친구(${friendSlot})` : "친구";
+    
+    const expStr = String(friendExp);
+    if (expStr.startsWith('839')) return "메탈 쿠우라(약해진)";
+    if (expStr.startsWith('814')) return "키드부우(약해진)";
+    if (expStr.startsWith('336') || expStr.startsWith('320') || expStr.startsWith('327')) return "황소 Lv2";
+    
+    // 미등록인 경우 앞 3자리를 코드로 표시하여 유저가 확인할 수 있도록 함
+    return `미등록(코드:${expStr.substring(0,3)})`;
+}
 
 // Item ID to Name and Color Mapping Table
 const ITEM_MAPPING = {
@@ -981,7 +991,7 @@ async function fetchAndRenderLogs(nicName) {
                     const friendSlot = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
                     const friendExp = d1.length > 39 ? (parseInt(d1[39]) || 0) : 0;
                     const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
-                    const friendName = FRIEND_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
+                    const friendName = getFriendNameFromExp(friendExp, friendSlot);
 
                     const gold = d1.length > 0 ? (parseInt(d1[0]) || 0) : 0;
                     const goldBars = d1.length > 1 ? (parseInt(d1[1]) || 0) : 0;

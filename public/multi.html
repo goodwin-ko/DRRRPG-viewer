@@ -644,6 +644,19 @@ function getActiveSlotNum(data) {
 
 const FRIEND_NAME_MAPPING = {};
 
+// 경험치(friendExp) 기반 친구 캐릭터 판별
+function getFriendNameFromExp(friendExp, friendSlot) {
+    if (!friendExp) return friendSlot > 0 ? `친구(${friendSlot})` : "친구";
+    
+    const expStr = String(friendExp);
+    if (expStr.startsWith('839')) return "메탈 쿠우라(약해진)";
+    if (expStr.startsWith('814')) return "키드부우(약해진)";
+    if (expStr.startsWith('336') || expStr.startsWith('320') || expStr.startsWith('327')) return "황소 Lv2";
+    
+    // 미등록인 경우 앞 3자리를 코드로 표시
+    return `미등록(코드:${expStr.substring(0,3)})`;
+}
+
 function getAwakeningLevel(pdata1Arr, slotNum) {
     if (!pdata1Arr || pdata1Arr.length === 0) return 0;
     const upBookIdx = SLOT_TO_UPBOOK[slotNum];
@@ -750,7 +763,7 @@ function processData(result) {
         const friendSlot = d1.length > 95 ? parseInt(d1[95]) || 0 : 0;
         const friendExp = d1.length > 39 ? parseInt(d1[39]) || 0 : 0;
         const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
-        const friendName = FRIEND_NAME_MAPPING[friendSlot] || (friendSlot > 0 ? `친구(${friendSlot})` : "친구");
+        const friendName = getFriendNameFromExp(friendExp, friendSlot);
         const doGam = d3.length > 9 ? parseInt(d3[9]) || 0 : 0;
         const charName = LINK_NAME_MAPPING[slotNumInt] || `캐릭터 ${slotNumInt}`;
         const awakeningLevel = getAwakeningLevel(pdata1Arr, slotNumInt);
