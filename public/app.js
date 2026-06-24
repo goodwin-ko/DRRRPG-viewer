@@ -1059,20 +1059,25 @@ async function fetchAndRenderLogs(nicName) {
         document.getElementById('stat-blue-diamond').textContent = formatNumber(totalBlueDiamonds);
 
         // 제일마지막저장 판별:
-        // - 가장 큰 saveDate(d3[6]) 를 가진 캐릭터 = 마지막 저장
-        // - saveDate 동일 시 → slotNum이 낮은 캐릭터 우선 (손오공=1 이 기본 슬롯이므로)
+        // 1순위: 인증 Final 캐릭터 → 현재 플레이 중인(마지막으로 진입한) 캐릭터 = 마지막 저장
+        // 2순위: d3[6] saveDate 최댓값 fallback (같은 날이면 slotNum 낮은 캐릭터 우선)
         let latestChar = null;
         if (uniqueCharacters.length > 0) {
-            latestChar = uniqueCharacters.reduce((best, c) => {
-                const cDate = c.saveDate || 0;
-                const bestDate = best.saveDate || 0;
-                if (cDate !== bestDate) {
-                    return cDate > bestDate ? c : best;
-                }
-                // saveDate 동일 → slotNum 낮은 캐릭터 우선
-                return c.slotNum < best.slotNum ? c : best;
-            });
+            // 1순위: 인증 Final 캐릭터 슬롯
+            const activeSlot = getActiveSlotNum(data);
+            if (activeSlot > 0) {
+                latestChar = uniqueCharacters.find(c => c.slotNum === activeSlot) || null;
+            }
+            // 2순위: d3[6] saveDate 기반 fallback
+            if (!latestChar) {
+                latestChar = uniqueCharacters.reduce((best, c) => {
+                    const cDate = c.saveDate || 0, bestDate = best.saveDate || 0;
+                    if (cDate !== bestDate) return cDate > bestDate ? c : best;
+                    return c.slotNum < best.slotNum ? c : best;
+                });
+            }
         }
+
 
         // Helper to parse MM/DD/YYYY HH:MM:SS to epoch ms
         function parseFullDate(dateStr) {
