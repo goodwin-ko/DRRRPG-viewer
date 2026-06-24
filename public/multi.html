@@ -914,7 +914,7 @@ function renderBasicCard(c) {
         `<div class="sub-label">내 스텟</div>`,
         `<div class="stat-row"><span class="val-str">힘: ${fmtMax(c.str, c.maxOwnStat)}</span><span class="alt val-agi">민: ${fmtMax(c.agi, c.maxOwnStat)}</span></div>`,
         `<div class="stat-row"><span class="val-int">지: ${fmtMax(c.intVal, c.maxOwnStat)}</span></div>`,
-        `<div class="sub-label">${c.friendSlot > 0 ? 'Lv' + c.friendLevel + ' ' + c.friendName : '친구 스텟'}</div>`,
+        `<div class="sub-label">${c.friendSlot > 0 ? c.friendName : '친구 스텟'}</div>`,
         `<div class="stat-row"><span class="val-str">힘: ${fmtMax(c.friendStr, c.maxFriendStat)}</span><span class="alt val-agi">민: ${fmtMax(c.friendAgi, c.maxFriendStat)}</span></div>`,
         `<div class="stat-row"><span class="val-int">지: ${fmtMax(c.friendInt, c.maxFriendStat)}</span></div>`,
         `<div class="sub-divider"></div>`,
@@ -948,7 +948,7 @@ function renderEquipCard(c) {
             </div>
             <div class="equip-items">
                 ${myHtml}
-                <div class="equip-friend-divider">— ${c.friendSlot > 0 ? 'Lv' + c.friendLevel + ' ' + c.friendName : '친구'} —</div>
+                <div class="equip-friend-divider">— ${c.friendName} —</div>
                 ${friendHtml}
             </div>
         </div>`;
