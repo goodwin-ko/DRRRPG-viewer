@@ -667,15 +667,7 @@ const FRIEND_NAME_MAPPING = {};
 
 // 경험치(friendExp) 기반 친구 캐릭터 판별
 function getFriendNameFromExp(friendExp, friendSlot) {
-    if (!friendExp) return friendSlot > 0 ? `친구(${friendSlot})` : "친구";
-    
-    const expStr = String(friendExp);
-    if (expStr.startsWith('839')) return "메탈 쿠우라(약해진)";
-    if (expStr.startsWith('814')) return "키드부우(약해진)";
-    if (expStr.startsWith('336') || expStr.startsWith('320') || expStr.startsWith('327')) return "황소 Lv2";
-    
-    // 미등록인 경우 앞 3자리를 코드로 표시
-    return `미등록(코드:${expStr.substring(0,3)})`;
+    return "친구";
 }
 
 function getAwakeningLevel(pdata1Arr, slotNum) {
