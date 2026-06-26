@@ -721,6 +721,26 @@ function formatKoreanDate(dateStr) {
     return dateStr;
 }
 
+function getStarGrade(val) {
+    const v = parseInt(val) || 0;
+    if (v <= 0) return '-';
+    const grades = [
+        { name: '노멀', min: 1, max: 8 },
+        { name: '녹색', min: 9, max: 16 },
+        { name: '청색', min: 17, max: 24 },
+        { name: '퍼플', min: 25, max: 32 },
+        { name: '레드', min: 33, max: 40 },
+        { name: '닼레', min: 41, max: 48 }
+    ];
+    for (const g of grades) {
+        if (v >= g.min && v <= g.max) {
+            const level = v - g.min + 1;
+            return `${g.name} ${level}`;
+        }
+    }
+    return `레벨 ${v}`;
+}
+
 // ═══════════════════════════════════════════════════════
 //  Data Processing
 // ═══════════════════════════════════════════════════════
@@ -791,6 +811,9 @@ function processData(result) {
         const maxOwnStat = (adv + 1) * mults.own;
         const maxFriendStat = (adv + 1) * mults.friend;
 
+        const starGradeVal = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
+        const starGrade = getStarGrade(starGradeVal);
+
         slotData.push({
             slotNum: slotNumInt, charName, isCorrupted,
             level, adv, cp, attack, defense, ki, hp, speed, fortitude,
@@ -799,7 +822,7 @@ function processData(result) {
             str, agi, intVal, friendStr, friendAgi, friendInt,
             friendSlot, friendLevel, friendName, doGam,
             awakeningLevel, maxOwnStat, maxFriendStat,
-            playtime: rawLvlVal, ttType
+            playtime: rawLvlVal, ttType, starGrade
         });
     }
 
@@ -966,6 +989,7 @@ function renderBasicCard(c) {
         `<div class="sub-divider"></div>`,
         `<div class="stat-row"><span>도감: <span class="val-dogam">${fmt(c.doGam)}</span></span><span class="alt">💰 <span class="val-gold">${fmt(c.gold)}</span></span></div>`,
         `<div class="stat-row"><span>금괴: <span class="val-goldbar">${fmt(c.goldBars)}</span></span><span class="alt">💎 <span class="val-bd">${fmt(c.blueDiamonds)}</span></span></div>`,
+        `<div class="stat-row"><span>성급: <span class="val-star">${c.starGrade}</span></span></div>`,
         `</div>`
     ].join('');
 }

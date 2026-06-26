@@ -136,6 +136,30 @@ function getFriendNameFromExp(friendExp, friendSlot) {
     return `미등록(코드:${expStr.substring(0,3)})`;
 }
 
+// Determine Star Grade (성급) based on 0-based index value
+function getStarGrade(val) {
+    const v = parseInt(val) || 0;
+    if (v <= 0) return '-';
+    
+    // Group ranges (each has 8 steps: 1 to 8)
+    const grades = [
+        { name: '노멀', min: 1, max: 8 },
+        { name: '녹색', min: 9, max: 16 },
+        { name: '청색', min: 17, max: 24 },
+        { name: '퍼플', min: 25, max: 32 },
+        { name: '레드', min: 33, max: 40 },
+        { name: '닼레', min: 41, max: 48 }
+    ];
+    
+    for (const g of grades) {
+        if (v >= g.min && v <= g.max) {
+            const level = v - g.min + 1;
+            return `${g.name} ${level}`;
+        }
+    }
+    return `레벨 ${v}`; // Fallback if it exceeds 48
+}
+
 // Item ID to Name and Color Mapping Table
 const ITEM_MAPPING = {
     524:  { name: '피콜로의 두건', color: 'standard' },
@@ -730,7 +754,7 @@ function createCharacterCard(char) {
     const extraBlock = document.createElement('div');
     extraBlock.className = 'extra-stats-block';
     extraBlock.innerHTML = `
-        <div>성급: <span class="val-star">-</span></div>
+        <div>성급: <span class="val-star">${char.starGrade}</span></div>
         <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
         <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
         <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
@@ -981,6 +1005,9 @@ async function fetchAndRenderLogs(nicName) {
                     const maxOwnStat = (adv + 1) * mults.own;
                     const maxFriendStat = (adv + 1) * mults.friend;
 
+                    const starGradeVal = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
+                    const starGrade = getStarGrade(starGradeVal);
+
                     slotData.push({
                         slotNum: slotNumInt,
                         charId,
@@ -1026,7 +1053,8 @@ async function fetchAndRenderLogs(nicName) {
                         gold,
                         goldBars,
                         blueDiamonds,
-                        ttType
+                        ttType,
+                        starGrade
                     });
                 }
             }
