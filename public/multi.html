@@ -100,6 +100,86 @@
             color: var(--text-muted);
         }
 
+        /* ─── Search Bar ─── */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 4px 8px 4px 12px;
+            transition: border-color 0.2s;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--cyan);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            width: 140px;
+            transition: width 0.2s;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-btn {
+            background: var(--cyan);
+            color: #000;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #00b8cc;
+        }
+
+        /* ─── Pin Checkbox ─── */
+        .pin-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .pin-checkbox {
+            cursor: pointer;
+            accent-color: var(--cyan);
+        }
+
+        /* ─── Panel Close Button ─── */
+        .panel-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+            padding: 2px;
+        }
+
+        .panel-close-btn:hover {
+            color: var(--red);
+        }
+
         /* ─── Tab Bar ─── */
         .tab-bar {
             display: flex;
@@ -449,6 +529,10 @@
         <div class="logo-text">🐉 DRR <span>멀티</span> 대시보드</div>
     </div>
     <div class="header-actions">
+        <form class="search-container" id="search-form" onsubmit="handleSearch(event)">
+            <input type="text" class="search-input" id="search-input" placeholder="유저 검색..." autocomplete="off">
+            <button type="submit" class="search-btn">검색</button>
+        </form>
         <span class="last-updated" id="last-updated-text">-</span>
         <button class="refresh-btn" id="refresh-btn" onclick="loadAll()">
             <span>🔄</span> 전체 새로고침
@@ -469,9 +553,34 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  고정 아이디 목록
+//  고정 및 동적 아이디 목록 관리 (localStorage 연동)
 // ═══════════════════════════════════════════════════════
-const FIXED_IDS = ['goodwin', 'gowin2', 'goodsee', 'godwin'];
+const DEFAULT_IDS = ['goodwin', 'gowin2', 'goodsee', 'godwin'];
+
+// 로컬 스토리지 또는 기본값 복원
+let activeIds = [];
+try {
+    const saved = localStorage.getItem('DRR_MULTI_IDS');
+    if (saved) activeIds = JSON.parse(saved);
+} catch (e) {}
+if (!activeIds || activeIds.length === 0) {
+    activeIds = [...DEFAULT_IDS];
+}
+
+// 핀(고정) 정보 관리 (localStorage)
+let pinnedIds = {};
+try {
+    const savedPin = localStorage.getItem('DRR_MULTI_PINNED');
+    if (savedPin) pinnedIds = JSON.parse(savedPin);
+} catch (e) {}
+
+function savePins() {
+    localStorage.setItem('DRR_MULTI_PINNED', JSON.stringify(pinnedIds));
+}
+
+function saveActiveIds() {
+    localStorage.setItem('DRR_MULTI_IDS', JSON.stringify(activeIds));
+}
 
 // ═══════════════════════════════════════════════════════
 //  매핑 테이블 (app.js와 동일)
@@ -1022,10 +1131,19 @@ function renderEquipCard(c) {
 function renderPanel(panelEl, processed) {
     const { chars, gradeName, totalBD, spPoint, ap, saveDate, nicName } = processed;
 
+    const isPinned = pinnedIds[nicName.toLowerCase()] === true;
+
     const headerEl = panelEl.querySelector('.user-panel-header');
     headerEl.innerHTML = `
         <span class="user-nick">${nicName}</span>
-        <span class="user-grade">${gradeName}</span>`;
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span class="user-grade">${gradeName}</span>
+            <label class="pin-wrapper" onclick="event.stopPropagation()">
+                <input type="checkbox" class="pin-checkbox" ${isPinned ? 'checked' : ''} onchange="togglePin('${nicName}', this.checked)">
+                고정
+            </label>
+            <button class="panel-close-btn" onclick="removePanel('${nicName}')" title="제거">×</button>
+        </div>`;
 
     const summaryEl = panelEl.querySelector('.user-summary-bar');
     summaryEl.innerHTML = `
@@ -1056,8 +1174,17 @@ function renderPanel(panelEl, processed) {
 }
 
 function setPanelLoading(panelEl, nick) {
-    panelEl.querySelector('.user-panel-header').innerHTML =
-        `<span class="user-nick">${nick}</span><span class="user-grade">-</span>`;
+    const isPinned = pinnedIds[nick.toLowerCase()] === true;
+    panelEl.querySelector('.user-panel-header').innerHTML = `
+        <span class="user-nick">${nick}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span class="user-grade">-</span>
+            <label class="pin-wrapper" onclick="event.stopPropagation()">
+                <input type="checkbox" class="pin-checkbox" ${isPinned ? 'checked' : ''} onchange="togglePin('${nick}', this.checked)">
+                고정
+            </label>
+            <button class="panel-close-btn" onclick="removePanel('${nick}')" title="제거">×</button>
+        </div>`;
     panelEl.querySelector('.user-summary-bar').innerHTML = '';
     panelEl.querySelector('.save-date-row').innerHTML = '';
     panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
@@ -1066,8 +1193,17 @@ function setPanelLoading(panelEl, nick) {
 }
 
 function setPanelError(panelEl, nick, errMsg) {
-    panelEl.querySelector('.user-panel-header').innerHTML =
-        `<span class="user-nick">${nick}</span><span class="user-grade">오류</span>`;
+    const isPinned = pinnedIds[nick.toLowerCase()] === true;
+    panelEl.querySelector('.user-panel-header').innerHTML = `
+        <span class="user-nick">${nick}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span class="user-grade">오류</span>
+            <label class="pin-wrapper" onclick="event.stopPropagation()">
+                <input type="checkbox" class="pin-checkbox" ${isPinned ? 'checked' : ''} onchange="togglePin('${nick}', this.checked)">
+                고정
+            </label>
+            <button class="panel-close-btn" onclick="removePanel('${nick}')" title="제거">×</button>
+        </div>`;
     panelEl.querySelector('.user-summary-bar').innerHTML = '';
     panelEl.querySelector('.save-date-row').innerHTML = '';
     panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
@@ -1092,15 +1228,16 @@ function switchTab(tab, btnEl) {
 }
 
 // ═══════════════════════════════════════════════════════
-//  Main Load
+//  Main Load & Search Controls
 // ═══════════════════════════════════════════════════════
 function buildPanels() {
     const grid = document.getElementById('multi-grid');
     grid.innerHTML = '';
-    FIXED_IDS.forEach(nick => {
+    activeIds.forEach(nick => {
+        const lowerNick = nick.toLowerCase();
         const panel = document.createElement('div');
         panel.className = 'user-panel';
-        panel.id = `panel-${nick}`;
+        panel.id = `panel-${lowerNick}`;
         panel.innerHTML = `
             <div class="user-panel-header">
                 <span class="user-nick">${nick}</span>
@@ -1117,7 +1254,8 @@ function buildPanels() {
 }
 
 async function loadOne(nick) {
-    const panelEl = document.getElementById(`panel-${nick}`);
+    const lowerNick = nick.toLowerCase();
+    const panelEl = document.getElementById(`panel-${lowerNick}`);
     if (!panelEl) return;
     setPanelLoading(panelEl, nick);
     try {
@@ -1137,8 +1275,18 @@ async function loadAll() {
     btn.innerHTML = '<span>⏳</span> 불러오는 중...';
     document.getElementById('last-updated-text').textContent = '조회 중...';
 
+    // 핀 고정되지 않은 것은 로드 목록에서 비우고 싶을 수 있지만, 
+    // 사용자는 '검색해서 넣고, 고정을 체크하면 계속 남아있게'라고 하였으므로
+    // 1. 전체 조회 시 고정되지 않은(핀 해제된) 아이디는 activeIds 목록에서 삭제(필터링) 후 저장
+    activeIds = activeIds.filter(nick => {
+        const key = nick.toLowerCase();
+        // DEFAULT_IDS는 고정이 없더라도 기본 노출
+        return DEFAULT_IDS.map(n => n.toLowerCase()).includes(key) || pinnedIds[key] === true;
+    });
+    saveActiveIds();
+
     buildPanels();
-    await Promise.all(FIXED_IDS.map(nick => loadOne(nick)));
+    await Promise.all(activeIds.map(nick => loadOne(nick)));
 
     const now = new Date();
     document.getElementById('last-updated-text').textContent =
@@ -1148,6 +1296,77 @@ async function loadAll() {
 
     // Restore active tab state
     switchTab(currentTab);
+}
+
+// 검색 핸들러
+async function handleSearch(event) {
+    event.preventDefault();
+    const input = document.getElementById('search-input');
+    const nick = input.value.trim();
+    if (!nick) return;
+
+    input.value = '';
+    const lowerNick = nick.toLowerCase();
+
+    // 이미 존재하는지 확인
+    if (activeIds.map(n => n.toLowerCase()).includes(lowerNick)) {
+        alert('이미 대시보드에 표시 중인 아이디입니다.');
+        return;
+    }
+
+    // 아이디 목록에 추가하고 저장
+    activeIds.push(nick);
+    saveActiveIds();
+    
+    // UI 패널 생성 및 로드
+    const grid = document.getElementById('multi-grid');
+    const panel = document.createElement('div');
+    panel.className = 'user-panel';
+    panel.id = `panel-${lowerNick}`;
+    panel.innerHTML = `
+        <div class="user-panel-header">
+            <span class="user-nick">${nick}</span>
+            <span class="user-grade">-</span>
+        </div>
+        <div class="user-summary-bar"></div>
+        <div class="save-date-row"></div>
+        <div class="tab-view active" data-tab="basic">
+            <div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>
+        </div>
+        <div class="tab-view" data-tab="equip"></div>`;
+    grid.appendChild(panel);
+
+    await loadOne(nick);
+    switchTab(currentTab);
+}
+
+// 고정(핀) 체크 토글 핸들러
+function togglePin(nick, checked) {
+    const key = nick.toLowerCase();
+    if (checked) {
+        pinnedIds[key] = true;
+    } else {
+        delete pinnedIds[key];
+    }
+    savePins();
+}
+
+// 패널 제거 핸들러
+function removePanel(nick) {
+    const key = nick.toLowerCase();
+
+    // activeIds 리스트에서 제외
+    activeIds = activeIds.filter(n => n.toLowerCase() !== key);
+    saveActiveIds();
+
+    // 핀 상태에서도 제거
+    if (pinnedIds[key]) {
+        delete pinnedIds[key];
+        savePins();
+    }
+
+    const panelEl = document.getElementById(`panel-${key}`);
+    if (panelEl) panelEl.remove();
 }
 
 // ─── Init ───
