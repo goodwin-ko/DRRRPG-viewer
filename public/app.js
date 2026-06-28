@@ -716,45 +716,37 @@ function createCharacterCard(char) {
 
     bodyContainer.appendChild(leftCol);
 
-    // Right Column (New Stats, Friend info, Extra info)
-    const rightCol = document.createElement('div');
-    rightCol.className = 'char-card-right';
-
-    // Own stats (힘, 민, 지) block
-    const ownStatsBlock = document.createElement('div');
-    ownStatsBlock.className = 'own-stats-block';
-    ownStatsBlock.innerHTML = `
-        <div>힘: <span class="val-str">${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
-        <div>민: <span class="val-agi">${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
-        <div>지: <span class="val-int">${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
-    `;
-    rightCol.appendChild(ownStatsBlock);
-
-    // Friend block
-    const friendBlock = document.createElement('div');
-    friendBlock.className = 'friend-stats-block';
-    friendBlock.innerHTML = `
-        <div class="friend-title">${char.friendName}</div>
-        <div>힘: <span class="val-str">${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
-        <div>민: <span class="val-agi">${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
-        <div>지: <span class="val-int">${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
-    `;
-    rightCol.appendChild(friendBlock);
-
-    // Extra block: 성급, 도감, 금화, 금괴, 블다
-    const extraBlock = document.createElement('div');
-    extraBlock.className = 'extra-stats-block';
-    extraBlock.innerHTML = `
-        <div>성급: <span class="val-star">${char.starGrade}</span></div>
-        <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
-        <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
-        <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
-        <div>블다: <span class="val-bluedia">${formatNumber(char.blueDiamonds)}</span></div>
-    `;
-    rightCol.appendChild(extraBlock);
-
-    bodyContainer.appendChild(rightCol);
     card.appendChild(bodyContainer);
+
+    // Bottom Stats Section: 
+    // Left: 영웅 스텟 + 도감 + 성급
+    // Right: 친구 스텟 + 금화 + 금괴 + 블다
+    const bottomStats = document.createElement('div');
+    bottomStats.className = 'char-card-bottom-stats';
+    bottomStats.innerHTML = `
+        <div class="bottom-stats-col">
+            <div class="stats-col-title">영웅</div>
+            <div class="stat-row"><span class="val-str">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
+            <div class="stat-row"><span class="val-agi">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
+            <div class="stat-row"><span class="val-int">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
+            <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
+                <div>성급: <span class="val-star">${char.starGrade}</span></div>
+                <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
+            </div>
+        </div>
+        <div class="bottom-stats-col">
+            <div class="stats-col-title">${char.friendName}</div>
+            <div class="stat-row"><span class="val-str">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
+            <div class="stat-row"><span class="val-agi">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
+            <div class="stat-row"><span class="val-int">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
+            <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
+                <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
+                <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
+                <div>블다: <span class="val-bluedia">${formatNumber(char.blueDiamonds)}</span></div>
+            </div>
+        </div>
+    `;
+    card.appendChild(bottomStats);
 
     return card;
 }
@@ -1276,6 +1268,11 @@ searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const nicName = nicnameInput.value.trim();
     if (nicName) {
+        // 고정 체크 상태면 검색 시 로컬 스토리지에 유저명 즉시 갱신 저장
+        const pinCheckbox = document.getElementById('pin-checkbox');
+        if (pinCheckbox && pinCheckbox.checked) {
+            localStorage.setItem('DRR_SINGLE_PINNED_USER', nicName);
+        }
         fetchAndRenderLogs(nicName);
     }
 });
@@ -1420,13 +1417,40 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 고정 체크박스 이벤트 및 로컬 스토리지 연동
+    const pinCheckbox = document.getElementById('pin-checkbox');
+    if (pinCheckbox) {
+        // 로컬스토리지에서 고정된 유저명 조회
+        const savedPinnedUser = localStorage.getItem('DRR_SINGLE_PINNED_USER');
+        if (savedPinnedUser) {
+            nicnameInput.value = savedPinnedUser;
+            pinCheckbox.checked = true;
+            fetchAndRenderLogs(savedPinnedUser);
+        }
+
+        pinCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                const user = nicnameInput.value.trim();
+                if (user) {
+                    localStorage.setItem('DRR_SINGLE_PINNED_USER', user);
+                }
+            } else {
+                localStorage.removeItem('DRR_SINGLE_PINNED_USER');
+            }
+        });
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const userParam = urlParams.get('nicName');
     if (userParam) {
         nicnameInput.value = userParam;
         fetchAndRenderLogs(userParam);
     } else {
-        nicnameInput.value = '';
+        // 고정된 값이 없을 경우에만 비우기
+        const savedPinnedUser = localStorage.getItem('DRR_SINGLE_PINNED_USER');
+        if (!savedPinnedUser) {
+            nicnameInput.value = '';
+        }
     }
 });
 

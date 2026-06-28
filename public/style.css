@@ -513,7 +513,7 @@ body {
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 430px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 16px;
     width: 100%;
 }
@@ -563,7 +563,7 @@ body {
     gap: 6px;
     border-left: 1px dashed var(--border-card);
     padding-left: 12px;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
 }
 
@@ -580,7 +580,7 @@ body {
 
 .friend-title {
     color: var(--cyan);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 800;
     margin-bottom: 2px;
 }
@@ -588,6 +588,32 @@ body {
 .extra-stats-block {
     border-top: 1px dashed var(--border-card);
     padding-top: 6px;
+}
+
+/* Bottom Stats (Hero vs Friend) */
+.char-card-bottom-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid var(--border-card);
+    padding-top: 8px;
+    margin-top: 4px;
+    font-size: 0.78rem;
+}
+
+.bottom-stats-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stats-col-title {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-bottom: 2px;
+    border-bottom: 1px dashed var(--border-card);
+    padding-bottom: 2px;
 }
 
 /* Value Color Coding */
@@ -634,7 +660,7 @@ body {
 }
 
 .char-name {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 800;
     color: var(--text-main);
 }
@@ -653,12 +679,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 700;
 }
 
 .char-level {
     color: var(--cyan);
+    font-size: 0.78rem;
 }
 
 .char-level span {
@@ -667,6 +694,7 @@ body {
 
 .char-adventure {
     color: var(--text-main);
+    font-size: 0.78rem;
 }
 
 .char-adventure span {
@@ -681,6 +709,7 @@ body {
     color: #4dc3ff;
     display: flex;
     justify-content: space-between;
+    font-size: 0.78rem;
 }
 
 .stat-row span.alt-value {
@@ -695,6 +724,7 @@ body {
     display: flex;
     gap: 8px;
     align-items: center;
+    font-size: 0.78rem;
 }
 
 .char-cp span {
@@ -707,7 +737,7 @@ body {
     color: #e0aaff;
     padding: 1px 8px;
     border-radius: 10px;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-shadow: 0 0 6px rgba(180, 100, 255, 0.5);
