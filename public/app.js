@@ -615,54 +615,78 @@ function createBackpackCard(char) {
     }
     card.appendChild(nameRow);
 
-    // Backpack List container
-    const bagList = document.createElement('div');
-    bagList.className = 'bag-list';
-    bagList.style.display = 'flex';
-    bagList.style.flexDirection = 'column';
-    bagList.style.gap = '6px';
-    bagList.style.marginTop = '10px';
+    // Section Renderer helper
+    function renderSection(title, items, icon) {
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'bag-section';
+        sectionDiv.style.marginTop = '12px';
 
-    if (char.backpackItems && char.backpackItems.length > 0) {
-        char.backpackItems.forEach(itemInfo => {
-            const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
-            const itemRow = document.createElement('div');
-            itemRow.className = 'bag-item-row';
-            itemRow.style.display = 'flex';
-            itemRow.style.justifyContent = 'space-between';
-            itemRow.style.alignItems = 'center';
-            itemRow.style.padding = '5px 10px';
-            itemRow.style.borderRadius = '5px';
-            itemRow.style.background = 'rgba(255, 255, 255, 0.02)';
-            itemRow.style.border = '1px solid rgba(255, 255, 255, 0.05)';
+        const titleEl = document.createElement('div');
+        titleEl.className = 'bag-section-title';
+        titleEl.style.fontSize = '0.82rem';
+        titleEl.style.fontWeight = 'bold';
+        titleEl.style.color = 'var(--cyan)';
+        titleEl.style.marginBottom = '6px';
+        titleEl.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+        titleEl.style.paddingBottom = '3px';
+        titleEl.innerHTML = `${icon} ${title}`;
+        sectionDiv.appendChild(titleEl);
 
-            const nameEl = document.createElement('span');
-            nameEl.className = `equip-item item-${item.color} equip-item-clickable`;
-            nameEl.textContent = item.name;
-            nameEl.style.fontSize = '0.85rem';
-            nameEl.setAttribute('onclick', `showItemModal(${itemInfo.id})`);
+        const listDiv = document.createElement('div');
+        listDiv.style.display = 'flex';
+        listDiv.style.flexDirection = 'column';
+        listDiv.style.gap = '4px';
 
-            const countEl = document.createElement('span');
-            countEl.style.fontSize = '0.82rem';
-            countEl.style.fontWeight = '750';
-            countEl.style.color = 'var(--gold)';
-            countEl.textContent = `${itemInfo.count}개`;
+        if (items && items.length > 0) {
+            items.forEach(itemInfo => {
+                const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+                const itemRow = document.createElement('div');
+                itemRow.className = 'bag-item-row';
+                itemRow.style.display = 'flex';
+                itemRow.style.justifyContent = 'space-between';
+                itemRow.style.alignItems = 'center';
+                itemRow.style.padding = '4px 8px';
+                itemRow.style.borderRadius = '4px';
+                itemRow.style.background = 'rgba(255, 255, 255, 0.02)';
+                itemRow.style.border = '1px solid rgba(255, 255, 255, 0.05)';
 
-            itemRow.appendChild(nameEl);
-            itemRow.appendChild(countEl);
-            bagList.appendChild(itemRow);
-        });
-    } else {
-        const emptyEl = document.createElement('div');
-        emptyEl.style.fontSize = '0.8rem';
-        emptyEl.style.color = 'var(--text-muted)';
-        emptyEl.style.fontStyle = 'italic';
-        emptyEl.style.padding = '8px 0';
-        emptyEl.textContent = '배낭이 비어있습니다.';
-        bagList.appendChild(emptyEl);
+                const nameEl = document.createElement('span');
+                nameEl.className = `equip-item item-${item.color} equip-item-clickable`;
+                nameEl.textContent = item.name;
+                nameEl.style.fontSize = '0.8rem';
+                nameEl.setAttribute('onclick', `showItemModal(${itemInfo.id})`);
+
+                const countEl = document.createElement('span');
+                countEl.style.fontSize = '0.78rem';
+                countEl.style.fontWeight = '750';
+                countEl.style.color = 'var(--gold)';
+                countEl.textContent = `${itemInfo.count}개`;
+
+                itemRow.appendChild(nameEl);
+                itemRow.appendChild(countEl);
+                listDiv.appendChild(itemRow);
+            });
+        } else {
+            const emptyEl = document.createElement('div');
+            emptyEl.style.fontSize = '0.75rem';
+            emptyEl.style.color = 'var(--text-muted)';
+            emptyEl.style.fontStyle = 'italic';
+            emptyEl.style.paddingLeft = '6px';
+            emptyEl.textContent = '비어있음';
+            listDiv.appendChild(emptyEl);
+        }
+
+        sectionDiv.appendChild(listDiv);
+        return sectionDiv;
     }
 
-    card.appendChild(bagList);
+    const bagContainer = document.createElement('div');
+    bagContainer.className = 'bag-sections-container';
+    bagContainer.appendChild(renderSection('배낭 아이템', char.backpackItems, '🎒'));
+    bagContainer.appendChild(renderSection('창고 배낭', char.warehouseItems, '📦'));
+    bagContainer.appendChild(renderSection('후원 배낭', char.sponsorItems, '🎁'));
+    card.appendChild(bagContainer);
+
     return card;
 }
 
@@ -1099,6 +1123,9 @@ async function fetchAndRenderLogs(nicName) {
                     const friendItems = [40, 42, 44, 46, 48, 50].map(idx => parseInt(d1[idx]) || 0).filter(id => id > 0);
 
                     let backpackItems = [];
+                    let warehouseItems = [];
+                    let sponsorItems = [];
+
                     if (d1.length >= 95) {
                         const startIdx = 71;
                         for (let idx = startIdx; idx < 95; idx += 2) {
@@ -1108,6 +1135,14 @@ async function fetchAndRenderLogs(nicName) {
                                 backpackItems.push({ id: itemId, count: count });
                             }
                         }
+                        const whStartIdx = 21;
+                        for (let idx = whStartIdx; idx < 33; idx += 2) {
+                            const itemId = parseInt(d1[idx]) || 0;
+                            const count = parseInt(d1[idx + 1]) || 0;
+                            if (itemId > 0 && count > 0) {
+                                warehouseItems.push({ id: itemId, count: count });
+                            }
+                        }
                     } else if (d1.length >= 88) {
                         const startIdx = 64;
                         for (let idx = startIdx; idx < 88; idx += 2) {
@@ -1115,6 +1150,25 @@ async function fetchAndRenderLogs(nicName) {
                             const count = parseInt(d1[idx + 1]) || 0;
                             if (itemId > 0 && count > 0) {
                                 backpackItems.push({ id: itemId, count: count });
+                            }
+                        }
+                        const whStartIdx = 14;
+                        for (let idx = whStartIdx; idx < 26; idx += 2) {
+                            const itemId = parseInt(d1[idx]) || 0;
+                            const count = parseInt(d1[idx + 1]) || 0;
+                            if (itemId > 0 && count > 0) {
+                                warehouseItems.push({ id: itemId, count: count });
+                            }
+                        }
+                    }
+
+                    if (d2.length >= 38) {
+                        const startIdx = 14;
+                        for (let idx = startIdx; idx < 38; idx += 2) {
+                            const itemId = parseInt(d2[idx]) || 0;
+                            const count = parseInt(d2[idx + 1]) || 0;
+                            if (itemId > 0 && count > 0) {
+                                sponsorItems.push({ id: itemId, count: count });
                             }
                         }
                     }
@@ -1191,6 +1245,8 @@ async function fetchAndRenderLogs(nicName) {
                         myItems,
                         friendItems,
                         backpackItems,
+                        warehouseItems,
+                        sponsorItems,
                         item1Max, item1Cur, item2Max, item2Cur, item3Max, item3Cur,
                         fItem1Max, fItem1Cur, fItem2Max, fItem2Cur, fItem3Max, fItem3Cur,
                         doGam,
@@ -1722,24 +1778,38 @@ function createMobileEquipCard(char) {
 
 // 모바일 배낭현황 카드
 function createMobileBagCard(char) {
-    function itemRowHtml(itemInfo) {
-        const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
-        return `<div class="mc-item-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin:3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom:3px;">
-            <span class="mc-item mc-item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})">${item.name}</span>
-            <span style="font-size:0.8rem; font-weight:700; color:var(--gold); margin-left: 10px;">${itemInfo.count}개</span>
-        </div>`;
-    }
-    const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
-    const myBagItems = char.backpackItems && char.backpackItems.length > 0
-        ? char.backpackItems.map(itemRowHtml).join('')
-        : '<span class="mc-noitem" style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">배낭이 비어있습니다.</span>';
+    function renderSectionHtml(title, items, icon) {
+        let itemsHtml = '';
+        if (items && items.length > 0) {
+            itemsHtml = items.map(itemInfo => {
+                const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+                return `<div class="mc-item-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin:3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom:3px;">
+                    <span class="mc-item mc-item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})">${item.name}</span>
+                    <span style="font-size:0.8rem; font-weight:700; color:var(--gold); margin-left: 10px;">${itemInfo.count}개</span>
+                </div>`;
+            }).join('');
+        } else {
+            itemsHtml = `<span style="font-size:0.72rem; color:var(--text-muted); font-style:italic; padding-left:4px;">비어있음</span>`;
+        }
 
-    return `<div class="mc-card">
-        <div class="mc-header">
+        return `
+            <div class="mc-bag-section" style="margin-top:8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top:6px; width: 100%;">
+                <div style="font-size:0.75rem; font-weight:bold; color:var(--cyan); margin-bottom:4px;">${icon} ${title}</div>
+                <div style="display:flex; flex-direction:column; gap:4px; width: 100%;">${itemsHtml}</div>
+            </div>
+        `;
+    }
+
+    const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
+    
+    return `<div class="mc-card" style="display:flex; flex-direction:column; align-items:flex-start;">
+        <div class="mc-header" style="width: 100%;">
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
-        <div class="mc-items" style="display:flex; flex-direction:column; gap:6px; margin-top:8px; width:100%;">${myBagItems}</div>
+        ${renderSectionHtml('배낭 아이템', char.backpackItems, '🎒')}
+        ${renderSectionHtml('창고 배낭', char.warehouseItems, '📦')}
+        ${renderSectionHtml('후원 배낭', char.sponsorItems, '🎁')}
     </div>`;
 }
 

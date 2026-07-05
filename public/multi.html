@@ -1100,6 +1100,9 @@ function processData(result) {
         const friendItems = [40,42,44,46,48,50].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
 
         let backpackItems = [];
+        let warehouseItems = [];
+        let sponsorItems = [];
+
         if (d1.length >= 95) {
             const startIdx = 71;
             for (let idx = startIdx; idx < 95; idx += 2) {
@@ -1109,6 +1112,14 @@ function processData(result) {
                     backpackItems.push({ id: itemId, count: count });
                 }
             }
+            const whStartIdx = 21;
+            for (let idx = whStartIdx; idx < 33; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0 && count > 0) {
+                    warehouseItems.push({ id: itemId, count: count });
+                }
+            }
         } else if (d1.length >= 88) {
             const startIdx = 64;
             for (let idx = startIdx; idx < 88; idx += 2) {
@@ -1116,6 +1127,25 @@ function processData(result) {
                 const count = parseInt(d1[idx + 1]) || 0;
                 if (itemId > 0 && count > 0) {
                     backpackItems.push({ id: itemId, count: count });
+                }
+            }
+            const whStartIdx = 14;
+            for (let idx = whStartIdx; idx < 26; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0 && count > 0) {
+                    warehouseItems.push({ id: itemId, count: count });
+                }
+            }
+        }
+
+        if (d2.length >= 38) {
+            const startIdx = 14;
+            for (let idx = startIdx; idx < 38; idx += 2) {
+                const itemId = parseInt(d2[idx]) || 0;
+                const count = parseInt(d2[idx + 1]) || 0;
+                if (itemId > 0 && count > 0) {
+                    sponsorItems.push({ id: itemId, count: count });
                 }
             }
         }
@@ -1148,7 +1178,7 @@ function processData(result) {
             slotNum: slotNumInt, charName, isCorrupted,
             level, adv, cp, attack, defense, ki, hp, speed, fortitude,
             limit, limitPt, strength, grit, search, luck, saveDate,
-            myItems, friendItems, backpackItems, gold, goldBars, blueDiamonds,
+            myItems, friendItems, backpackItems, warehouseItems, sponsorItems, gold, goldBars, blueDiamonds,
             str, agi, intVal, friendStr, friendAgi, friendInt,
             friendSlot, friendLevel, friendName, doGam,
             awakeningLevel, maxOwnStat, maxFriendStat,
@@ -1357,17 +1387,27 @@ function renderEquipCard(c) {
 function renderBagCard(c) {
     const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
 
-    function itemRowHtml(itemInfo) {
-        const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
-        return `<div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:4px; width: 100%;">
-            <span class="equip-item item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})" style="font-size:0.72rem; padding: 2px 4px; border:none; background:none;">${item.name}</span>
-            <span style="font-size:0.7rem; font-weight:700; color:var(--gold); padding-right: 4px;">${itemInfo.count}개</span>
-        </div>`;
-    }
+    function renderSectionHtml(title, items, icon) {
+        let itemsHtml = '';
+        if (items && items.length > 0) {
+            itemsHtml = items.map(itemInfo => {
+                const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+                return `<div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:3px; width: 100%;">
+                    <span class="equip-item item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})" style="font-size:0.72rem; padding: 2px 4px; border:none; background:none;">${item.name}</span>
+                    <span style="font-size:0.7rem; font-weight:700; color:var(--gold); padding-right: 4px;">${itemInfo.count}개</span>
+                </div>`;
+            }).join('');
+        } else {
+            itemsHtml = `<div style="font-size:0.68rem; color:var(--text-muted); font-style:italic; padding-left:4px;">비어있음</div>`;
+        }
 
-    const bagHtml = c.backpackItems && c.backpackItems.length > 0
-        ? c.backpackItems.map(itemInfo => itemRowHtml(itemInfo)).join('')
-        : '<div style="font-size:0.7rem;color:var(--text-muted);padding:2px 0;font-style:italic;">비어있음</div>';
+        return `
+            <div class="multi-bag-section" style="margin-top:8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top:6px; width: 100%;">
+                <div style="font-size:0.72rem; font-weight:bold; color:var(--cyan); margin-bottom:4px; text-align:left;">${icon} ${title}</div>
+                <div style="display:flex; flex-direction:column; gap:2px; width: 100%;">${itemsHtml}</div>
+            </div>
+        `;
+    }
 
     return `
         <div class="char-card">
@@ -1375,9 +1415,9 @@ function renderBagCard(c) {
                 <span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}
             </div>
-            <div class="equip-items" style="display:flex; flex-direction:column; gap:4px; margin-top:8px;">
-                ${bagHtml}
-            </div>
+            ${renderSectionHtml('배낭 아이템', c.backpackItems, '🎒')}
+            ${renderSectionHtml('창고 배낭', c.warehouseItems, '📦')}
+            ${renderSectionHtml('후원 배낭', c.sponsorItems, '🎁')}
         </div>`;
 }
 
