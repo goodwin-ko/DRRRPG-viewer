@@ -1298,10 +1298,27 @@ function processData(result) {
     let spPoint = parseInt(data.SPECIAL_POINT || 0);
     let ap = parseInt(data.AP || 0);
 
+    const accountSponsorItems = [];
+    for (let key in data) {
+        if (key.startsWith('SPON_') && !key.startsWith('SPON_POKET')) {
+            const count = parseInt(data[key]) || 0;
+            if (count > 0) {
+                let displayName = key.replace('SPON_', '');
+                displayName = displayName.replace('BOX', '후원 상자 ')
+                                         .replace('HERO', '후원 영웅 ')
+                                         .replace('SPET', '후원 스페셜 펫 ')
+                                         .replace('POKET', '피규어 ');
+                accountSponsorItems.push({ name: displayName, count });
+            }
+        }
+    }
+    accountSponsorItems.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
+
     return {
         chars, ttType, gradeName, totalBD, spPoint, ap,
         saveDate: formatKoreanDate(result.latest_date),
-        nicName: result.nicName
+        nicName: result.nicName,
+        accountSponsorItems
     };
 }
 
@@ -1466,6 +1483,8 @@ function renderPanel(panelEl, processed) {
     const equipView = panelEl.querySelector('.tab-view[data-tab="equip"]');
     const bagView = panelEl.querySelector('.tab-view[data-tab="bag"]');
 
+    const { chars, gradeName, totalBD, spPoint, ap, saveDate, nicName, accountSponsorItems } = processed;
+
     if (chars.length === 0) {
         basicView.innerHTML = '<div class="empty-state">캐릭터 데이터 없음</div>';
         equipView.innerHTML = '<div class="empty-state">장비 데이터 없음</div>';
@@ -1473,9 +1492,30 @@ function renderPanel(panelEl, processed) {
         return;
     }
 
+    let accSponsorHtml = '';
+    if (accountSponsorItems && accountSponsorItems.length > 0) {
+        const itemsHtml = accountSponsorItems.map(item => `
+            <div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,215,0,0.03); border:1px solid rgba(255,215,0,0.08); margin-bottom:3px; width: 100%;">
+                <span style="font-size:0.72rem; color:var(--gold); font-weight:bold;">${item.name}</span>
+                <span style="font-size:0.7rem; font-weight:700; color:#fff; padding-right: 4px;">${item.count}개</span>
+            </div>
+        `).join('');
+
+        accSponsorHtml = `
+            <div class="char-card" style="border: 1px solid rgba(255, 215, 0, 0.2); background: linear-gradient(135deg, rgba(30, 20, 45, 0.6) 0%, rgba(15, 10, 25, 0.8) 100%);">
+                <div class="char-name-row">
+                    <span class="char-name" style="color:var(--gold); font-weight:bold;">🎁 계정 공통 후원 아이템</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:2px; width: 100%; margin-top:8px;">
+                    ${itemsHtml}
+                </div>
+            </div>
+        `;
+    }
+
     basicView.innerHTML = `<div class="cards-scroll">${chars.map(renderBasicCard).join('')}</div>`;
     equipView.innerHTML = `<div class="cards-scroll">${chars.map(renderEquipCard).join('')}</div>`;
-    bagView.innerHTML = `<div class="cards-scroll">${chars.map(renderBagCard).join('')}</div>`;
+    bagView.innerHTML = `<div class="cards-scroll">${accSponsorHtml}${chars.map(renderBagCard).join('')}</div>`;
 
     // Show correct tab
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'basic';
