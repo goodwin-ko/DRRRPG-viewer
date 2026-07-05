@@ -1486,8 +1486,6 @@ function renderPanel(panelEl, processed) {
     const equipView = panelEl.querySelector('.tab-view[data-tab="equip"]');
     const bagView = panelEl.querySelector('.tab-view[data-tab="bag"]');
 
-    const { chars, gradeName, totalBD, spPoint, ap, saveDate, nicName } = processed;
-
     if (chars.length === 0) {
         basicView.innerHTML = '<div class="empty-state">캐릭터 데이터 없음</div>';
         equipView.innerHTML = '<div class="empty-state">장비 데이터 없음</div>';
