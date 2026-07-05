@@ -162,84 +162,138 @@ const ITEM_MAPPING = {
     577:  { name: '손오공의 추억', color: 'standard' },
     589:  { name: '재배맨s 퇴치[칭호]', color: 'standard' },
     590:  { name: '초급자 신발', color: 'standard' },
-    604:  { name: '카린의증표lv4', color: 'standard' },
-    606:  { name: '카린의 증표lv5', color: 'standard' },
-    608:  { name: '카린의 증표 lv6', color: 'standard' },
-    610:  { name: '카린의 증표 lv7', color: 'standard' },
-    612:  { name: '카린의 증표 lv8', color: 'standard' },
-    613:  { name: '카린의 증표lv9 조합서', color: 'standard' },
-    614:  { name: '카린의 증표 lv9', color: 'standard' },
-    615:  { name: '카린의 증표10 조합서', color: 'standard' },
-    616:  { name: '카린의 증표lv10', color: 'standard' },
-    617:  { name: '카린의 증표 11조합서', color: 'standard' },
-    618:  { name: '카린의 증표lv11', color: 'standard' },
-    619:  { name: '카린의 증표12조합서', color: 'standard' },
-    620:  { name: '카린의 증표lv12', color: 'standard' },
-    743:  { name: '오천크스 수련팔찌', color: 'standard' },
-    747:  { name: '인조인간 저지 [칭호]', color: 'purple' },
-    846:  { name: '마인부우의 신발', color: 'purple' },
-    879:  { name: '베이비의 신발v2', color: 'standard' },
-    932:  { name: '쿠우라의 갑옷', color: 'green' },
-    999:  { name: '새로운 시작', color: 'purple' },
+    597:  { name: '카린의 증표Lv1 조합서', color: 'standard' },
+    598:  { name: '카린의증표Lv1', color: 'standard' },
+    599:  { name: '카린의 증표Lv2 조합서', color: 'standard' },
+    600:  { name: '카린의증표Lv2', color: 'standard' },
+    601:  { name: '카린의 증표Lv3 조합서', color: 'standard' },
+    602:  { name: '카린의증표Lv3', color: 'standard' },
+    603:  { name: '카린의 증표Lv4 조합서', color: 'standard' },
+    604:  { name: '카린의증표Lv4', color: 'standard' },
+    605:  { name: '카린의 증표Lv5 조합서', color: 'standard' },
+    606:  { name: '카린의 증표Lv5', color: 'standard' },
+    607:  { name: '카린의 증표Lv6 조합서', color: 'standard' },
+    608:  { name: '카린의 증표Lv6', color: 'standard' },
+    609:  { name: '카린의 증표Lv7 조합서', color: 'standard' },
+    610:  { name: '카린의 증표Lv7', color: 'standard' },
+    611:  { name: '카린의 증표Lv8 조합서', color: 'standard' },
+    612:  { name: '카린의 증표Lv8', color: 'standard' },
+    613:  { name: '카린의 증표Lv9 조합서', color: 'standard' },
+    614:  { name: '카린의 증표Lv9', color: 'standard' },
+    615:  { name: '카린의 증표Lv10 조합서', color: 'standard' },
+    616:  { name: '카린의 증표Lv10', color: 'standard' },
+    617:  { name: '카린의 증표Lv11 조합서', color: 'standard' },
+    618:  { name: '카린의 증표Lv11', color: 'standard' },
+    619:  { name: '카린의 증표Lv12 조합서', color: 'standard' },
+    620:  { name: '카린의 증표Lv12', color: 'standard' },
+    747:  { name: '인조인간 저지 [칭호]', color: 'standard' },
+    846:  { name: '마인부우의 신발', color: 'standard' },
+    932:  { name: '쿠우라의 갑옷', color: 'standard' },
+    999:  { name: '새로운 시작[칭호]', color: 'purple' },
     1036: { name: '지구인의 생명', color: 'blue' },
     1037: { name: '중급자 신발', color: 'standard' },
     1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
-    1086: { name: '베이비의신발', color: 'standard' },
-    1087: { name: '베이비의반지', color: 'standard' },
-    1088: { name: '베이비의보석', color: 'standard' },
-    1099: { name: '사오공의 도복 [유물]', color: 'purple' },
+    1096: { name: '사오공의 낡은 여의봉', color: 'standard' },
+    1097: { name: '사오공의 낡은 도복', color: 'standard' },
+    1098: { name: '사오공의 여의봉 [유물]', color: 'blue' },
+    1099: { name: '사오공의 도복 [유물]', color: 'blue' },
+    1100: { name: '사오공의 가방 [유물]', color: 'blue' },
     1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
-    1127: { name: '탐험일지-닥터 위로', color: 'standard' },
-    1129: { name: '변신한 쟈넨바의 힘 [고유]', color: 'purple' },
-    1160: { name: '오천크스 가방', color: 'standard' },
+    1127: { name: '탐험일지-닥터 위로', color: 'blue' },
+    1129: { name: '변신한 쟈넨바의 힘[고유]', color: 'purple' },
+    1159: { name: '낡은 손오반의 모자[유물]', color: 'purple' },
+    1160: { name: '손오반의 모자[유물]', color: 'purple' },
     1161: { name: '여성용 리본[유물]', color: 'purple' },
-    1162: { name: '오천크스 갑옷', color: 'standard' },
-    1163: { name: '개발용 헬멧 [기본]', color: 'green' },
-    1168: { name: '개발자의 헬멧', color: 'green' },
+    1162: { name: '부르마의 토끼띠[유물]', color: 'purple' },
+    1163: { name: '개발용 헬멧[유물]', color: 'green' },
     1176: { name: '브로리의 힘 Lv3 [고유]', color: 'purple' },
-    1179: { name: '오천크스의 수련팔찌 [유물]', color: 'purple' },
-    1181: { name: '오천크스의 갑옷 [유물]', color: 'purple' },
-    1182: { name: '오천크스의 가방 [유물]', color: 'purple' },
-    1187: { name: '인조인간 슈퍼 13호의 오만 [칭호]', color: 'purple' },
-    1189: { name: '개발자의 헬멧', color: 'green' },
-    1190: { name: '브로리의 분노 Lv2 [유물]', color: 'purple' },
-    1193: { name: '개발자의 헬멧+1', color: 'green' },
-    1194: { name: '개발자의 헬멧', color: 'green' },
-    1201: { name: '자넨바 팔찌', color: 'standard' },
-    1202: { name: '자넨바 신발', color: 'standard' },
-    1203: { name: '자넨바 보석', color: 'standard' },
-    1208: { name: '개발용 헬멧 +4 [유물]', color: 'purple' },
-    1346: { name: '개발자의 헬멧', color: 'green' },
-    1348: { name: '지구인의 생명', color: 'blue' },
-    1355: { name: '자넨바의팔찌 v2', color: 'standard' },
-    1356: { name: '자넨바의신발 v2', color: 'standard' },
-    1362: { name: '베지트의 만능장갑 [영웅]', color: 'cyan' },
-    1368: { name: '개발용 헬멧 [+3]', color: 'green' },
-    1369: { name: '베지트의 도복 [영웅]', color: 'cyan' },
-    1373: { name: '베이비의 반지 [기본]', color: 'standard' },
-    1374: { name: '베이비의 신발 [기본]', color: 'standard' },
-    1375: { name: '베이비의 보석 [기본]', color: 'standard' },
-    1404: { name: '진화의 증표 Lv22 [신화]', color: 'red' },
-    1437: { name: '개발자의 헬멧+2', color: 'green' },
+    1177: { name: '오천크스의 낡은 수련팔찌', color: 'standard' },
+    1178: { name: '오천크스의 낡은  갑옷', color: 'standard' },
+    1179: { name: '오천크스의 수련팔찌 [유물]', color: 'blue' },
+    1181: { name: '오천크스의 갑옷 [유물]', color: 'blue' },
+    1182: { name: '오천크스의 가방 [유물]', color: 'blue' },
+    1187: { name: '인조인간 슈퍼 13호의 오만 [칭호]', color: 'blue' },
+    1190: { name: '브로리의 분노 Lv2 [고유]', color: 'purple' },
+    1194: { name: '개발용 헬멧[+2]', color: 'green' },
+    1199: { name: '자넨바의 낡은 팔찌', color: 'standard' },
+    1200: { name: '자넨바의 낡은 신발', color: 'standard' },
+    1201: { name: '자넨바 팔찌', color: 'blue' },
+    1202: { name: '자넨바 신발', color: 'blue' },
+    1203: { name: '자넨바 보석', color: 'blue' },
+    1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
+    1353: { name: '자넨바의 낡은 팔찌 Lv2', color: 'standard' },
+    1354: { name: '자넨바의 낡은 신발 Lv2', color: 'standard' },
+    1355: { name: '자넨바의 팔찌 Lv2', color: 'blue' },
+    1356: { name: '자넨바의 신발 Lv2', color: 'blue' },
+    1357: { name: '자넨바의 보석 Lv2', color: 'blue' },
+    1362: { name: '브로리의 힘Lv4[고유]', color: 'purple' },
+    1368: { name: '개발용 헬멧[+3]', color: 'green' },
+    1369: { name: '개발용 헬멧[+4]', color: 'green' },
+    1373: { name: '베이비의 반지', color: 'purple' },
+    1374: { name: '베이비의 신발', color: 'purple' },
+    1375: { name: '베이비의 보석', color: 'purple' },
+    1383: { name: '진화의 증표 Lv1', color: 'purple' },
+    1384: { name: '진화의 증표 Lv2', color: 'purple' },
+    1385: { name: '진화의 증표 Lv3', color: 'purple' },
+    1386: { name: '진화의 증표 Lv4', color: 'purple' },
+    1387: { name: '진화의 증표 Lv5', color: 'purple' },
+    1388: { name: '진화의 증표 Lv6', color: 'purple' },
+    1389: { name: '진화의 증표 Lv7', color: 'purple' },
+    1390: { name: '진화의 증표 Lv8', color: 'purple' },
+    1391: { name: '진화의 증표 Lv9', color: 'purple' },
+    1392: { name: '진화의 증표 Lv10', color: 'purple' },
+    1393: { name: '진화의 증표 Lv11', color: 'purple' },
+    1394: { name: '진화의 증표 Lv12', color: 'purple' },
+    1395: { name: '진화의 증표 Lv13', color: 'purple' },
+    1396: { name: '진화의 증표 Lv14', color: 'purple' },
+    1397: { name: '진화의 증표 Lv15', color: 'purple' },
+    1398: { name: '진화의 증표 Lv16', color: 'purple' },
+    1399: { name: '진화의 증표 Lv17', color: 'purple' },
+    1400: { name: '진화의 증표 Lv18', color: 'purple' },
+    1401: { name: '진화의 증표 Lv19', color: 'purple' },
+    1402: { name: '진화의 증표 Lv20', color: 'purple' },
+    1403: { name: '진화의 증표 Lv21', color: 'purple' },
+    1404: { name: '진화의 증표 Lv22', color: 'purple' },
+    1427: { name: '영웅의 증표 Lv1', color: 'purple' },
+    1428: { name: '영웅의 증표 Lv2', color: 'purple' },
+    1429: { name: '영웅의 증표 Lv3', color: 'purple' },
+    1430: { name: '영웅의 증표 Lv4', color: 'purple' },
+    1431: { name: '영웅의 증표 Lv5', color: 'purple' },
+    1432: { name: '영웅의 증표 Lv6', color: 'purple' },
+    1433: { name: '영웅의 증표 Lv7', color: 'purple' },
+    1434: { name: '영웅의 증표 Lv8', color: 'purple' },
+    1435: { name: '영웅의 증표 Lv9', color: 'purple' },
+    1436: { name: '영웅의 증표 Lv10', color: 'purple' },
+    1437: { name: '영웅의 증표 Lv11', color: 'purple' },
+    1438: { name: '영웅의 증표 Lv12', color: 'purple' },
+    1439: { name: '영웅의 증표 Lv13', color: 'purple' },
+    1440: { name: '영웅의 증표 Lv14', color: 'purple' },
+    1441: { name: '영웅의 증표 Lv15', color: 'purple' },
+    1442: { name: '영웅의 증표 Lv16', color: 'purple' },
+    1443: { name: '영웅의 증표 Lv17', color: 'purple' },
+    1444: { name: '영웅의 증표 Lv18', color: 'purple' },
     1445: { name: '영웅의 증표 Lv19', color: 'purple' },
+    1446: { name: '영웅의 증표 Lv20', color: 'purple' },
     1447: { name: '영웅의 증표 Lv21', color: 'purple' },
     1448: { name: '영웅의 증표 Lv22', color: 'purple' },
-    1458: { name: '베이비의 반지 Lv2 [유물]', color: 'purple' },
-    1459: { name: '베이비의 보석 Lv2 [유물]', color: 'purple' },
-    1460: { name: '베이비의 신발 Lv2 [유물]', color: 'purple' },
-    1463: { name: '브로리의 최종힘', color: 'purple' },
+    1458: { name: '베이비의 반지 Lv2', color: 'purple' },
+    1459: { name: '베이비의 보석 Lv2', color: 'purple' },
+    1460: { name: '베이비의 신발 Lv2', color: 'purple' },
+    1463: { name: '브로리의 최종힘[고유]', color: 'rainbow' },
     1465: { name: '베지트의 체력장갑', color: 'cyan' },
     1466: { name: '베지트의 전투장갑', color: 'cyan' },
     1467: { name: '베지트의 기력장갑', color: 'cyan' },
-    1469: { name: '베지트의 전투반지', color: 'purple' },
+    1468: { name: '베지트의 체력반지', color: 'cyan' },
+    1469: { name: '베지트의 전투반지', color: 'cyan' },
     1470: { name: '베지트의 기력반지', color: 'cyan' },
-    1471: { name: '베지트의 만능반지 [유물]', color: 'purple' },
-    1472: { name: '베지트의 신발 [영웅]', color: 'cyan' },
-    1473: { name: '베지트의 도복 [영웅]', color: 'cyan' },
-    1474: { name: '베지트의 만능장갑 [영웅]', color: 'cyan' },
-    1476: { name: '개발자의 헬멧+1', color: 'green' },
-    1482: { name: '손오반의 힘', color: 'purple' },
-    1484: { name: '영웅의 신전', color: 'purple' },
+    1471: { name: '베지트의 만능반지 [유물]', color: 'rainbow' },
+    1472: { name: '베지트의 신발 [영웅]', color: 'rainbow' },
+    1473: { name: '베지트의 도복 [영웅]', color: 'rainbow' },
+    1474: { name: '베지트의 만능장갑 [영웅]', color: 'rainbow' },
+    1482: { name: '손오반의 힘[고유]', color: 'rainbow' },
+    1484: { name: '영웅의 신전', color: 'rainbow' },
+    1491: { name: '자연의 물약lv2', color: 'standard' },
+    1492: { name: '명예의 주화[event]', color: 'standard' },
     1493: { name: '타레스의 반지 [전설]', color: 'red' },
     1494: { name: '타레스의 보물반지 [전설]', color: 'red' }
 };
@@ -487,8 +541,9 @@ function createEquipmentCard(char) {
     function renderItem(itemId) {
         const item = ITEM_MAPPING[itemId] || { name: `아이템 ${itemId}`, color: 'standard' };
         const itemDiv = document.createElement('div');
-        itemDiv.className = `equip-item item-${item.color}`;
+        itemDiv.className = `equip-item item-${item.color} equip-item-clickable`;
         itemDiv.textContent = item.name;
+        itemDiv.setAttribute('onclick', `showItemModal(${itemId})`);
         return itemDiv;
     }
 
@@ -1523,7 +1578,7 @@ function createMobileBasicCard(char) {
 function createMobileEquipCard(char) {
     function itemHtml(id) {
         const item = ITEM_MAPPING[id] || { name: `아이템 ${id}`, color: 'standard' };
-        return `<span class="mc-item mc-item-${item.color}">${item.name}</span>`;
+        return `<span class="mc-item mc-item-${item.color} equip-item-clickable" onclick="showItemModal(${id})">${item.name}</span>`;
     }
     const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
     const myItems = char.myItems.length > 0
@@ -1620,3 +1675,80 @@ function applyResponsiveLayout(chars, data) {
         if (categoryTabs) categoryTabs.style.display = '';
     }
 }
+
+// ─── Modal Control (Item Map Lookup) ───
+function showItemModal(id) {
+    const modal = document.getElementById('item-modal');
+    const titleEl = document.getElementById('modal-item-title');
+    const bodyEl = document.getElementById('modal-item-body');
+    if (!modal || !bodyEl) return;
+
+    const item = ITEM_MAPPING[id];
+    if (item) {
+        titleEl.textContent = `아이템 정보: ${item.name}`;
+        
+        let gradeText = '일반';
+        let gradeColorStyle = 'color: var(--text-main)';
+        if (item.color === 'green') { gradeText = '레어'; gradeColorStyle = 'color: var(--green); font-weight: 700;'; }
+        else if (item.color === 'blue') { gradeText = '매직'; gradeColorStyle = 'color: #60b4ff; font-weight: 700;'; }
+        else if (item.color === 'purple') { gradeText = '유물'; gradeColorStyle = 'color: var(--purple); font-weight: 700;'; }
+        else if (item.color === 'cyan') { gradeText = '에픽'; gradeColorStyle = 'color: var(--cyan); font-weight: 700;'; }
+        else if (item.color === 'red') { gradeText = '신화'; gradeColorStyle = 'color: #ff6680; font-weight: 700;'; }
+        else if (item.color === 'rainbow') { gradeText = '레인보우'; gradeColorStyle = 'background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; font-weight: 900;'; }
+
+        bodyEl.innerHTML = `
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>정보</th>
+                </tr>
+                <tr>
+                    <td>아이템 코드</td>
+                    <td><strong style="color: var(--cyan);">${id}</strong></td>
+                </tr>
+                <tr>
+                    <td>아이템 이름</td>
+                    <td><strong>${item.name}</strong></td>
+                </tr>
+                <tr>
+                    <td>아이템 등급</td>
+                    <td><span style="${gradeColorStyle}">${gradeText}</span></td>
+                </tr>
+            </table>
+        `;
+    } else {
+        titleEl.textContent = '아이템 정보';
+        bodyEl.innerHTML = `
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>정보</th>
+                </tr>
+                <tr>
+                    <td>아이템 코드</td>
+                    <td><strong style="color: var(--cyan);">${id}</strong></td>
+                </tr>
+                <tr>
+                    <td>아이템 이름</td>
+                    <td><span style="color: var(--text-muted);">미등록 아이템</span></td>
+                </tr>
+            </table>
+        `;
+    }
+    
+    modal.classList.add('active');
+}
+
+function closeItemModal() {
+    const modal = document.getElementById('item-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// ESC 키로 모달 닫기 지원
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeItemModal();
+    }
+});

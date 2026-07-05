@@ -231,6 +231,20 @@
             <div id="mobile-chars" class="mobile-chars-grid"></div>
         </div>
     </div>
+
+    <!-- Item Details Modal -->
+    <div class="modal-overlay" id="item-modal" onclick="closeItemModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-item-title">아이템 상세 정보</h3>
+                <button class="modal-close" onclick="closeItemModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-item-body">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
