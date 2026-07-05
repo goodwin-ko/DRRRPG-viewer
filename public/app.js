@@ -702,88 +702,6 @@ function createBackpackCard(char) {
     return card;
 }
 
-// Render Account Sponsor Items Card (for 배낭현황 tab)
-function createAccountSponsorCard(data) {
-    const card = document.createElement('div');
-    card.className = 'equip-card bag-card sponsor-account-card';
-    card.style.border = '1px solid rgba(255, 215, 0, 0.2)';
-    card.style.background = 'linear-gradient(135deg, rgba(30, 20, 45, 0.6) 0%, rgba(15, 10, 25, 0.8) 100%)';
-
-    const nameRow = document.createElement('div');
-    nameRow.className = 'char-name-row';
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'char-name';
-    nameSpan.style.color = 'var(--gold)';
-    nameSpan.style.fontWeight = 'bold';
-    nameSpan.textContent = '🎁 계정 공통 후원 아이템';
-    nameRow.appendChild(nameSpan);
-    card.appendChild(nameRow);
-
-    const listDiv = document.createElement('div');
-    listDiv.style.display = 'flex';
-    listDiv.style.flexDirection = 'column';
-    listDiv.style.gap = '5px';
-    listDiv.style.marginTop = '12px';
-
-    const sponsorItems = [];
-    for (let key in data) {
-        if (key.startsWith('SPON_') && !key.startsWith('SPON_POKET')) {
-            const count = parseInt(data[key]) || 0;
-            if (count > 0) {
-                let displayName = key.replace('SPON_', '');
-                displayName = displayName.replace('BOX', '후원 상자 ')
-                                         .replace('HERO', '후원 영웅 ')
-                                         .replace('SPET', '후원 스페셜 펫 ')
-                                         .replace('POKET', '피규어 ');
-
-                sponsorItems.push({ key, name: displayName, count });
-            }
-        }
-    }
-
-    if (sponsorItems.length > 0) {
-        sponsorItems.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-        sponsorItems.forEach(item => {
-            const itemRow = document.createElement('div');
-            itemRow.className = 'bag-item-row';
-            itemRow.style.display = 'flex';
-            itemRow.style.justifyContent = 'space-between';
-            itemRow.style.alignItems = 'center';
-            itemRow.style.padding = '5px 10px';
-            itemRow.style.borderRadius = '5px';
-            itemRow.style.background = 'rgba(255, 215, 0, 0.03)';
-            itemRow.style.border = '1px solid rgba(255, 215, 0, 0.08)';
-
-            const nameEl = document.createElement('span');
-            nameEl.style.fontSize = '0.85rem';
-            nameEl.style.color = 'var(--gold)';
-            nameEl.style.fontWeight = '500';
-            nameEl.textContent = item.name;
-
-            const countEl = document.createElement('span');
-            countEl.style.fontSize = '0.82rem';
-            countEl.style.fontWeight = '750';
-            countEl.style.color = '#fff';
-            countEl.textContent = `${item.count}개`;
-
-            itemRow.appendChild(nameEl);
-            itemRow.appendChild(countEl);
-            listDiv.appendChild(itemRow);
-        });
-    } else {
-        const emptyEl = document.createElement('div');
-        emptyEl.style.fontSize = '0.8rem';
-        emptyEl.style.color = 'var(--text-muted)';
-        emptyEl.style.fontStyle = 'italic';
-        emptyEl.style.padding = '8px 0';
-        emptyEl.textContent = '계정 공통 후원 아이템이 없습니다.';
-        listDiv.appendChild(emptyEl);
-    }
-
-    card.appendChild(listDiv);
-    return card;
-}
-
 // Render Account Figures Card
 function createFiguresCard(data) {
     const card = document.createElement('div');
@@ -1556,10 +1474,6 @@ async function fetchAndRenderLogs(nicName) {
             columns['bag'].appendChild(backpackCard);
         });
 
-        // Render Account Sponsor Items Card in "배낭현황" (Bag) Tab at the top
-        const accountSponsorCard = createAccountSponsorCard(data);
-        columns['bag'].insertBefore(accountSponsorCard, columns['bag'].firstChild);
-
         // Render Account Figures Card in "기타" (Other) Tab at the top
         const figuresCard = createFiguresCard(data);
         columns['other'].insertBefore(figuresCard, columns['other'].firstChild);
@@ -1911,45 +1825,6 @@ function createMobileBagCard(char) {
     </div>`;
 }
 
-// 모바일 계정 후원 아이템 카드
-function createMobileAccountSponsorCard(data) {
-    const sponsorItems = [];
-    for (let key in data) {
-        if (key.startsWith('SPON_') && !key.startsWith('SPON_POKET')) {
-            const count = parseInt(data[key]) || 0;
-            if (count > 0) {
-                let displayName = key.replace('SPON_', '');
-                displayName = displayName.replace('BOX', '후원 상자 ')
-                                         .replace('HERO', '후원 영웅 ')
-                                         .replace('SPET', '후원 스페셜 펫 ')
-                                         .replace('POKET', '피규어 ');
-                sponsorItems.push({ name: displayName, count });
-            }
-        }
-    }
-
-    if (sponsorItems.length === 0) return '';
-
-    sponsorItems.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-    const itemsHtml = sponsorItems.map(item => `
-        <div class="mc-item-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin:3px 0; border-bottom: 1px solid rgba(255,215,0,0.05); padding-bottom:3px;">
-            <span style="font-size:0.75rem; color:var(--gold); font-weight:bold;">${item.name}</span>
-            <span style="font-size:0.75rem; font-weight:700; color:#fff;">${item.count}개</span>
-        </div>
-    `).join('');
-
-    return `
-        <div class="mc-card" style="border: 1px solid rgba(255,215,0,0.2); background: linear-gradient(135deg, rgba(30, 20, 45, 0.6) 0%, rgba(15, 10, 25, 0.8) 100%); width: 100%;">
-            <div class="mc-header" style="width: 100%;">
-                <span class="mc-name" style="color:var(--gold); font-weight:bold;">🎁 계정 공통 후원 아이템</span>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:4px; width: 100%; margin-top:6px;">
-                ${itemsHtml}
-            </div>
-        </div>
-    `;
-}
-
 // 모바일 뷰 렌더링 메인
 function renderMobileView(chars, data) {
     const mobileView = document.getElementById('mobile-view');
@@ -1964,13 +1839,6 @@ function renderMobileView(chars, data) {
         const el = mobileView.querySelector('#mobile-chars');
         if (!el) return;
         el.innerHTML = '';
-
-        if (currentMobileTab === 'bag') {
-            const accSponHtml = createMobileAccountSponsorCard(data);
-            if (accSponHtml) {
-                el.insertAdjacentHTML('beforeend', accSponHtml);
-            }
-        }
 
         chars.forEach(char => {
             const html = currentMobileTab === 'basic'
