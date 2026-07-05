@@ -311,6 +311,7 @@ const columns = {
     basic: document.getElementById('col-basic'),
     detail: document.getElementById('col-detail'),
     equip: document.getElementById('col-equip'),
+    bag: document.getElementById('col-bag'),
     hell: document.getElementById('col-hell'),
     db: document.getElementById('col-db'),
     potion: document.getElementById('col-potion'),
@@ -324,6 +325,7 @@ const columnSections = {
     basic: document.getElementById('col-basic').closest('.grid-column'),
     detail: document.getElementById('col-detail').closest('.grid-column'),
     equip: document.getElementById('col-equip').closest('.grid-column'),
+    bag: document.getElementById('col-bag').closest('.grid-column'),
     hell: document.getElementById('col-hell').closest('.grid-column'),
     db: document.getElementById('col-db').closest('.grid-column'),
     potion: document.getElementById('col-potion').closest('.grid-column'),
@@ -568,6 +570,99 @@ function createEquipmentCard(char) {
     }
 
     card.appendChild(equipList);
+    return card;
+}
+
+// Render Backpack Card (for 배낭현황 tab)
+function createBackpackCard(char) {
+    const card = document.createElement('div');
+    card.className = 'equip-card bag-card';
+
+    // Name Row
+    const nameRow = document.createElement('div');
+    nameRow.className = 'char-name-row';
+    const nameSpan = document.createElement('span');
+    nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+    nameSpan.textContent = char.name;
+    nameRow.appendChild(nameSpan);
+
+    if (char.isCorrupted) {
+        const errorBadge = document.createElement('span');
+        errorBadge.className = 'char-error-badge';
+        errorBadge.textContent = '오류';
+        nameRow.appendChild(errorBadge);
+    }
+    if (char.isLatestSave) {
+        const latestBadge = document.createElement('span');
+        latestBadge.className = 'char-latest-badge char-latest-top';
+        latestBadge.textContent = '제일마지막저장';
+        nameRow.appendChild(latestBadge);
+    }
+    if (char.isTodaySave) {
+        const attendBadge = document.createElement('span');
+        attendBadge.className = 'char-attend-badge';
+        attendBadge.textContent = '출첵완';
+        nameRow.appendChild(attendBadge);
+    } else if (char.missedDays > 0) {
+        const missedBadge = document.createElement('span');
+        const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
+        const ratio = char.missedDays / maxDays;
+        const severity = ratio >= 0.7 ? 'high' : ratio >= 0.4 ? 'mid' : 'low';
+        missedBadge.className = `char-missed-badge char-missed-${severity}`;
+        missedBadge.textContent = `${char.missedDays}d`;
+        missedBadge.title = `미접속 ${char.missedDays}일 (상한 ${maxDays}일)`;
+        nameRow.appendChild(missedBadge);
+    }
+    card.appendChild(nameRow);
+
+    // Backpack List container
+    const bagList = document.createElement('div');
+    bagList.className = 'bag-list';
+    bagList.style.display = 'flex';
+    bagList.style.flexDirection = 'column';
+    bagList.style.gap = '6px';
+    bagList.style.marginTop = '10px';
+
+    if (char.backpackItems && char.backpackItems.length > 0) {
+        char.backpackItems.forEach(itemInfo => {
+            const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+            const itemRow = document.createElement('div');
+            itemRow.className = 'bag-item-row';
+            itemRow.style.display = 'flex';
+            itemRow.style.justifyContent = 'space-between';
+            itemRow.style.alignItems = 'center';
+            itemRow.style.padding = '5px 10px';
+            itemRow.style.borderRadius = '5px';
+            itemRow.style.background = 'rgba(255, 255, 255, 0.02)';
+            itemRow.style.border = '1px solid rgba(255, 255, 255, 0.05)';
+
+            const nameEl = document.createElement('span');
+            nameEl.className = `equip-item item-${item.color} equip-item-clickable`;
+            nameEl.textContent = item.name;
+            nameEl.style.fontSize = '0.85rem';
+            nameEl.setAttribute('onclick', `showItemModal(${itemInfo.id})`);
+
+            const countEl = document.createElement('span');
+            countEl.style.fontSize = '0.82rem';
+            countEl.style.fontWeight = '750';
+            countEl.style.color = 'var(--gold)';
+            countEl.textContent = `${itemInfo.count}개`;
+
+            itemRow.appendChild(nameEl);
+            itemRow.appendChild(countEl);
+            bagList.appendChild(itemRow);
+        });
+    } else {
+        const emptyEl = document.createElement('div');
+        emptyEl.style.fontSize = '0.8rem';
+        emptyEl.style.color = 'var(--text-muted)';
+        emptyEl.style.fontStyle = 'italic';
+        emptyEl.style.padding = '8px 0';
+        emptyEl.textContent = '배낭이 비어있습니다.';
+        bagList.appendChild(emptyEl);
+    }
+
+    card.appendChild(bagList);
     return card;
 }
 
@@ -1003,6 +1098,27 @@ async function fetchAndRenderLogs(nicName) {
                     const myItems = [4, 6, 8, 10, 12, 14].map(idx => parseInt(d1[idx]) || 0).filter(id => id > 0);
                     const friendItems = [40, 42, 44, 46, 48, 50].map(idx => parseInt(d1[idx]) || 0).filter(id => id > 0);
 
+                    let backpackItems = [];
+                    if (d1.length >= 95) {
+                        const startIdx = 71;
+                        for (let idx = startIdx; idx < 95; idx += 2) {
+                            const itemId = parseInt(d1[idx]) || 0;
+                            const count = parseInt(d1[idx + 1]) || 0;
+                            if (itemId > 0 && count > 0) {
+                                backpackItems.push({ id: itemId, count: count });
+                            }
+                        }
+                    } else if (d1.length >= 88) {
+                        const startIdx = 64;
+                        for (let idx = startIdx; idx < 88; idx += 2) {
+                            const itemId = parseInt(d1[idx]) || 0;
+                            const count = parseInt(d1[idx + 1]) || 0;
+                            if (itemId > 0 && count > 0) {
+                                backpackItems.push({ id: itemId, count: count });
+                            }
+                        }
+                    }
+
                     // Item enhancement stats from d2: even idx=max, odd idx=current
                     const item1Max = d2.length > 14 ? parseInt(d2[14]) || 0 : 0;
                     const item1Cur = d2.length > 15 ? parseInt(d2[15]) || 0 : 0;
@@ -1074,6 +1190,7 @@ async function fetchAndRenderLogs(nicName) {
                         saveDate,
                         myItems,
                         friendItems,
+                        backpackItems,
                         item1Max, item1Cur, item2Max, item2Cur, item3Max, item3Cur,
                         fItem1Max, fItem1Cur, fItem2Max, fItem2Cur, fItem3Max, fItem3Cur,
                         doGam,
@@ -1268,7 +1385,7 @@ async function fetchAndRenderLogs(nicName) {
         // 4. Render cards to columns
         uniqueCharacters.forEach(char => {
             // Render stats cards to its specific category column (except equip tab)
-            if (char.category !== 'equip') {
+            if (char.category !== 'equip' && char.category !== 'bag') {
                 const card = createCharacterCard(char);
                 const col = columns[char.category] || columns['other'];
                 col.appendChild(card);
@@ -1283,6 +1400,10 @@ async function fetchAndRenderLogs(nicName) {
             // Render equipment card to the equip column for ALL characters
             const equipCard = createEquipmentCard(char);
             columns['equip'].appendChild(equipCard);
+
+            // Render backpack card to the bag column for ALL characters
+            const backpackCard = createBackpackCard(char);
+            columns['bag'].appendChild(backpackCard);
         });
 
         // Render Account Figures Card in "기타" (Other) Tab at the top
@@ -1599,6 +1720,29 @@ function createMobileEquipCard(char) {
     </div>`;
 }
 
+// 모바일 배낭현황 카드
+function createMobileBagCard(char) {
+    function itemRowHtml(itemInfo) {
+        const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+        return `<div class="mc-item-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin:3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom:3px;">
+            <span class="mc-item mc-item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})">${item.name}</span>
+            <span style="font-size:0.8rem; font-weight:700; color:var(--gold); margin-left: 10px;">${itemInfo.count}개</span>
+        </div>`;
+    }
+    const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
+    const myBagItems = char.backpackItems && char.backpackItems.length > 0
+        ? char.backpackItems.map(itemRowHtml).join('')
+        : '<span class="mc-noitem" style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">배낭이 비어있습니다.</span>';
+
+    return `<div class="mc-card">
+        <div class="mc-header">
+            <span class="${nameClass}">${char.name}</span>
+            <span class="mc-badges">${mobileBadgesHtml(char)}</span>
+        </div>
+        <div class="mc-items" style="display:flex; flex-direction:column; gap:6px; margin-top:8px; width:100%;">${myBagItems}</div>
+    </div>`;
+}
+
 // 모바일 뷰 렌더링 메인
 function renderMobileView(chars, data) {
     const mobileView = document.getElementById('mobile-view');
@@ -1616,7 +1760,9 @@ function renderMobileView(chars, data) {
         chars.forEach(char => {
             const html = currentMobileTab === 'basic'
                 ? createMobileBasicCard(char)
-                : createMobileEquipCard(char);
+                : currentMobileTab === 'equip'
+                ? createMobileEquipCard(char)
+                : createMobileBagCard(char);
             el.insertAdjacentHTML('beforeend', html);
         });
     }
@@ -1635,8 +1781,9 @@ function renderMobileView(chars, data) {
                 <span>✨ SP <b class="mc-gold">${mbFmt(spPoint)}</b></span>
             </div>
             <div class="mv-tabs">
-                <button class="mv-tab active" data-tab="basic">📊 기본현황</button>
-                <button class="mv-tab" data-tab="equip">⚔️ 장비현황</button>
+                <button class="mv-tab active" data-tab="basic">📊 기본</button>
+                <button class="mv-tab" data-tab="equip">⚔️ 장비</button>
+                <button class="mv-tab" data-tab="bag">🎒 배낭</button>
             </div>
         </div>
         <div id="mobile-chars" class="mobile-chars-grid"></div>`;

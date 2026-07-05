@@ -511,6 +511,11 @@ body {
     border-radius: 4px;
 }
 
+.bag-header {
+    background: linear-gradient(135deg, #b388ff 0%, #7c4dff 100%);
+    box-shadow: 0 4px 15px rgba(124, 77, 255, 0.4);
+}
+
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));

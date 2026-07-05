@@ -683,6 +683,7 @@
 <div class="tab-bar">
     <button class="tab-btn active" data-tab="basic" onclick="switchTab('basic', this)">📊 기본현황</button>
     <button class="tab-btn" data-tab="equip" onclick="switchTab('equip', this)">⚔️ 장비현황</button>
+    <button class="tab-btn" data-tab="bag" onclick="switchTab('bag', this)">🎒 배낭현황</button>
 </div>
 
 <!-- Multi-grid -->
@@ -1097,6 +1098,28 @@ function processData(result) {
 
         const myItems = [4,6,8,10,12,14].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
         const friendItems = [40,42,44,46,48,50].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
+
+        let backpackItems = [];
+        if (d1.length >= 95) {
+            const startIdx = 71;
+            for (let idx = startIdx; idx < 95; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0 && count > 0) {
+                    backpackItems.push({ id: itemId, count: count });
+                }
+            }
+        } else if (d1.length >= 88) {
+            const startIdx = 64;
+            for (let idx = startIdx; idx < 88; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0 && count > 0) {
+                    backpackItems.push({ id: itemId, count: count });
+                }
+            }
+        }
+
         const gold = parseInt(d1[0]) || 0;
         const goldBars = parseInt(d1[1]) || 0;
         const blueDiamonds = d2.length > 95 ? parseInt(d2[95]) || 0 : 0;
@@ -1125,7 +1148,7 @@ function processData(result) {
             slotNum: slotNumInt, charName, isCorrupted,
             level, adv, cp, attack, defense, ki, hp, speed, fortitude,
             limit, limitPt, strength, grit, search, luck, saveDate,
-            myItems, friendItems, gold, goldBars, blueDiamonds,
+            myItems, friendItems, backpackItems, gold, goldBars, blueDiamonds,
             str, agi, intVal, friendStr, friendAgi, friendInt,
             friendSlot, friendLevel, friendName, doGam,
             awakeningLevel, maxOwnStat, maxFriendStat,
@@ -1331,6 +1354,33 @@ function renderEquipCard(c) {
         </div>`;
 }
 
+function renderBagCard(c) {
+    const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+
+    function itemRowHtml(itemInfo) {
+        const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+        return `<div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:4px; width: 100%;">
+            <span class="equip-item item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})" style="font-size:0.72rem; padding: 2px 4px; border:none; background:none;">${item.name}</span>
+            <span style="font-size:0.7rem; font-weight:700; color:var(--gold); padding-right: 4px;">${itemInfo.count}개</span>
+        </div>`;
+    }
+
+    const bagHtml = c.backpackItems && c.backpackItems.length > 0
+        ? c.backpackItems.map(itemInfo => itemRowHtml(itemInfo)).join('')
+        : '<div style="font-size:0.7rem;color:var(--text-muted);padding:2px 0;font-style:italic;">비어있음</div>';
+
+    return `
+        <div class="char-card">
+            <div class="char-name-row">
+                <span class="${nameClass}">${c.charName}</span>
+                ${renderBadges(c)}
+            </div>
+            <div class="equip-items" style="display:flex; flex-direction:column; gap:4px; margin-top:8px;">
+                ${bagHtml}
+            </div>
+        </div>`;
+}
+
 // ═══════════════════════════════════════════════════════
 //  Panel Rendering
 // ═══════════════════════════════════════════════════════
@@ -1362,15 +1412,18 @@ function renderPanel(panelEl, processed) {
 
     const basicView = panelEl.querySelector('.tab-view[data-tab="basic"]');
     const equipView = panelEl.querySelector('.tab-view[data-tab="equip"]');
+    const bagView = panelEl.querySelector('.tab-view[data-tab="bag"]');
 
     if (chars.length === 0) {
         basicView.innerHTML = '<div class="empty-state">캐릭터 데이터 없음</div>';
         equipView.innerHTML = '<div class="empty-state">장비 데이터 없음</div>';
+        bagView.innerHTML = '<div class="empty-state">배낭 데이터 없음</div>';
         return;
     }
 
     basicView.innerHTML = `<div class="cards-scroll">${chars.map(renderBasicCard).join('')}</div>`;
     equipView.innerHTML = `<div class="cards-scroll">${chars.map(renderEquipCard).join('')}</div>`;
+    bagView.innerHTML = `<div class="cards-scroll">${chars.map(renderBagCard).join('')}</div>`;
 
     // Show correct tab
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'basic';
@@ -1396,6 +1449,7 @@ function setPanelLoading(panelEl, nick) {
     panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
         `<div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>`;
     panelEl.querySelector('.tab-view[data-tab="equip"]').innerHTML = '';
+    panelEl.querySelector('.tab-view[data-tab="bag"]').innerHTML = '';
 }
 
 function setPanelError(panelEl, nick, errMsg) {
@@ -1415,6 +1469,7 @@ function setPanelError(panelEl, nick, errMsg) {
     panelEl.querySelector('.tab-view[data-tab="basic"]').innerHTML =
         `<div class="panel-error">⚠️ ${errMsg}</div>`;
     panelEl.querySelector('.tab-view[data-tab="equip"]').innerHTML = '';
+    panelEl.querySelector('.tab-view[data-tab="bag"]').innerHTML = '';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1454,7 +1509,8 @@ function buildPanels() {
             <div class="tab-view active" data-tab="basic">
                 <div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>
             </div>
-            <div class="tab-view" data-tab="equip"></div>`;
+            <div class="tab-view" data-tab="equip"></div>
+            <div class="tab-view" data-tab="bag"></div>`;
         grid.appendChild(panel);
     });
 }
@@ -1539,7 +1595,8 @@ async function handleSearch(event) {
         <div class="tab-view active" data-tab="basic">
             <div class="panel-loading"><div class="mini-spinner"></div><span>불러오는 중...</span></div>
         </div>
-        <div class="tab-view" data-tab="equip"></div>`;
+        <div class="tab-view" data-tab="equip"></div>
+        <div class="tab-view" data-tab="bag"></div>`;
     grid.appendChild(panel);
 
     await loadOne(nick);
