@@ -1,6 +1,7 @@
 ﻿코드,아이템 이름,등급 색상
 524,피콜로의 두건,standard
 525,빨간 공룡의 가죽,standard
+528,선두콩,standard
 553,라데츠의 다리띠,standard
 557,재배맨a의 눈물,standard
 558,재배맨b의 눈물,standard
@@ -34,7 +35,9 @@
 620,카린의 증표Lv12,standard
 747,인조인간 저지 [칭호],standard
 846,마인부우의 신발,standard
+910,기념주화,standard
 932,쿠우라의 갑옷,standard
+952,기념 주화V2,standard
 999,새로운 시작[칭호],purple
 1036,지구인의 생명,blue
 1037,중급자 신발,standard
@@ -73,11 +76,16 @@
 1356,자넨바의 신발 Lv2,blue
 1357,자넨바의 보석 Lv2,blue
 1362,브로리의 힘Lv4[고유],purple
+1367,콜든 프리저[조각],standard
 1368,개발용 헬멧[+3],green
 1369,개발용 헬멧[+4],green
+1370,초사이언4-손오공[조각],standard
+1372,초사이언 로제-라데츠[조각],standard
 1373,베이비의 반지,purple
 1374,베이비의 신발,purple
 1375,베이비의 보석,purple
+1377,알 수 없는 캐릭터[조각],standard
+1382,자연의 물약,standard
 1383,진화의 증표 Lv1,purple
 1384,진화의 증표 Lv2,purple
 1385,진화의 증표 Lv3,purple
@@ -107,21 +115,24 @@
 1431,영웅의 증표 Lv5,purple
 1432,영웅의 증표 Lv6,purple
 1433,영웅의 증표 Lv7,purple
-1434,영웅의 증표 lv8,purple
-1435,영웅의 증표 lv9,purple
-1436,영웅의 증표 lv10,purple
-1437,영웅의 증표 lv11,purple
-1438,영웅의 증표 lv12,purple
-1439,영웅의 증표 lv13,purple
-1440,영웅의 증표 lv14,purple
-1441,영웅의 증표 lv15,purple
-1442,영웅의 증표 lv16,purple
-1443,영웅의 증표 lv17,purple
-1444,영웅의 증표 lv18,purple
-1445,영웅의 증표 lv19,purple
-1446,영웅의 증표 lv20,purple
-1447,영웅의 증표 lv21,purple
-1448,영웅의 증표 lv22,purple
+1434,영웅의 증표 Lv8,purple
+1435,영웅의 증표 Lv9,purple
+1436,영웅의 증표 Lv10,purple
+1437,영웅의 증표 Lv11,purple
+1438,영웅의 증표 Lv12,purple
+1439,영웅의 증표 Lv13,purple
+1440,영웅의 증표 Lv14,purple
+1441,영웅의 증표 Lv15,purple
+1442,영웅의 증표 Lv16,purple
+1443,영웅의 증표 Lv17,purple
+1444,영웅의 증표 Lv18,purple
+1445,영웅의 증표 Lv19,purple
+1446,영웅의 증표 Lv20,purple
+1447,영웅의 증표 Lv21,purple
+1448,영웅의 증표 Lv22,purple
+1449,힐데던 성충 소환장치,standard
+1455,초사이언4-베지터[조각],standard
+1456,풀파워 셀[조각],standard
 1458,베이비의 반지 Lv2,purple
 1459,베이비의 보석 Lv2,purple
 1460,베이비의 신발 Lv2,purple
@@ -136,6 +147,7 @@
 1472,베지트의 신발 [영웅],rainbow
 1473,베지트의 도복 [영웅],rainbow
 1474,베지트의 만능장갑 [영웅],rainbow
+1476,단풍잎[Event],standard
 1482,손오반의 힘[고유],rainbow
 1484,영웅의 신전,rainbow
 1491,자연의 물약lv2,standard
