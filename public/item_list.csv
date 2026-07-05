@@ -1,4 +1,4 @@
-﻿코드,아이템 이름,등급 색상
+코드,아이템 이름,등급 색상
 524,피콜로의 두건,standard
 525,빨간 공룡의 가죽,standard
 528,선두콩,standard
@@ -85,13 +85,18 @@
 1203,자넨바 보석,blue
 1205,나무꾼의 물약,standard
 1208,브로리의 힘Lv3[고유],purple
+1349,타임캡슐 우주선Lv1,cyan
+1350,타임캡슐 우주선Lv2,cyan
+1351,타임캡슐 우주선Lv3,cyan
+1352,타임캡슐 우주선Lv4,cyan
 1353,자넨바의 낡은 팔찌 Lv2,standard
 1354,자넨바의 낡은 신발 Lv2,standard
 1355,자넨바의 팔찌 Lv2,blue
 1356,자넨바의 신발 Lv2,blue
 1357,자넨바의 보석 Lv2,blue
 1362,브로리의 힘Lv4[고유],purple
-1365,헬타임캡슐 우주선Lv1,standard
+1365,헬타임캡슐 우주선Lv1,cyan
+1366,헬타임캡슐 우주선Lv2,cyan
 1367,콜든 프리저[조각],standard
 1368,개발용 헬멧[+3],green
 1369,개발용 헬멧[+4],green
@@ -150,7 +155,7 @@
 1446,영웅의 증표 Lv20,purple
 1447,영웅의 증표 Lv21,purple
 1448,영웅의 증표 Lv22,purple
-1449,힐데던 성충 소환장치,standard
+1449,힐데건 성충 소환장치,cyan
 1455,초사이언4-베지터[조각],standard
 1456,풀파워 셀[조각],standard
 1458,베이비의 반지 Lv2,purple
