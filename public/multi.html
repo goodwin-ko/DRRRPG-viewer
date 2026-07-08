@@ -779,6 +779,7 @@ const ITEM_MAPPING = {
     558:  { name: '재배맨b의 눈물', color: 'standard' },
     559:  { name: '재배맨c의 눈물', color: 'standard' },
     577:  { name: '손오공의 추억', color: 'standard' },
+    584:  { name: '모험의 물약', color: 'standard' },
     589:  { name: '재배맨s 퇴치[칭호]', color: 'standard' },
     590:  { name: '초급자 신발', color: 'standard' },
     597:  { name: '카린의 증표Lv1 조합서', color: 'standard' },
@@ -808,14 +809,18 @@ const ITEM_MAPPING = {
     637:  { name: '나메크성인의 물약', color: 'standard' },
     706:  { name: '메카 프리저의 조각', color: 'standard' },
     707:  { name: '콜드대왕의 뿔', color: 'standard' },
+    708:  { name: '기계 물약', color: 'standard' },
+    735:  { name: '신 낭아풍풍권Lv3[스킬북]', color: 'standard' },
     747:  { name: '인조인간 저지 [칭호]', color: 'standard' },
     785:  { name: '마인의 물약', color: 'standard' },
     846:  { name: '마인부우의 신발', color: 'standard' },
     910:  { name: '기념주화', color: 'standard' },
+    918:  { name: '평화의 물약', color: 'standard' },
     921:  { name: '각성책:천진반', color: 'standard' },
     932:  { name: '쿠우라의 갑옷', color: 'standard' },
     952:  { name: '기념 주화V2', color: 'standard' },
     999:  { name: '새로운 시작[칭호]', color: 'purple' },
+    1000: { name: '학습의 물약', color: 'standard' },
     1007: { name: '각성책:야무치', color: 'standard' },
     1019: { name: '인조인간 스톤', color: 'standard' },
     1035: { name: '나메크 드래곤볼[7성구셋트]', color: 'standard' },
@@ -867,7 +872,7 @@ const ITEM_MAPPING = {
     1357: { name: '자넨바의 보석 Lv2', color: 'blue' },
     1362: { name: '브로리의 힘Lv4[고유]', color: 'purple' },
     1365: { name: '헬타임캡슐 우주선Lv1', color: 'cyan' },
-    1366: { name: '헬타임캡슐 우주선Lv2', color: 'cyan' },
+    1366: { name: '키드부우(약해진) 소환피리', color: 'cyan' },
     1367: { name: '콜든 프리저[조각]', color: 'standard' },
     1368: { name: '개발용 헬멧[+3]', color: 'green' },
     1369: { name: '개발용 헬멧[+4]', color: 'green' },
@@ -929,9 +934,11 @@ const ITEM_MAPPING = {
     1449: { name: '힐데건 성충 소환장치', color: 'cyan' },
     1455: { name: '초사이언4-베지터[조각]', color: 'standard' },
     1456: { name: '풀파워 셀[조각]', color: 'standard' },
+    1457: { name: '헬타임캡슐 우주선Lv2', color: 'cyan' },
     1458: { name: '베이비의 반지 Lv2', color: 'purple' },
     1459: { name: '베이비의 보석 Lv2', color: 'purple' },
     1460: { name: '베이비의 신발 Lv2', color: 'purple' },
+    1461: { name: '메탈쿠우라(약해진) 소환피리', color: 'cyan' },
     1463: { name: '브로리의 최종힘[고유]', color: 'rainbow' },
     1465: { name: '베지트의 체력장갑', color: 'cyan' },
     1466: { name: '베지트의 전투장갑', color: 'cyan' },
@@ -946,6 +953,7 @@ const ITEM_MAPPING = {
     1476: { name: '단풍잎[Event]', color: 'standard' },
     1482: { name: '손오반의 힘[고유]', color: 'rainbow' },
     1484: { name: '영웅의 신전', color: 'rainbow' },
+    1485: { name: '영웅의 신전 조합서', color: 'rainbow' },
     1491: { name: '자연의 물약lv2', color: 'standard' },
     1492: { name: '명예의 주화[event]', color: 'standard' },
     1493: { name: '타레스의 반지 [전설]', color: 'red' },
@@ -1137,52 +1145,100 @@ function processData(result) {
         const friendItems = [40,42,44,46,48,50].map(i => parseInt(d1[i]) || 0).filter(id => id > 0);
 
         let backpackItems = [];
-        let warehouseItems = [];
-        let sponsorItems = [];
+        let warehouseBags = [[], [], [], []];
+        let sponsorWarehouseBags = [[], [], [], []];
 
         if (d1.length >= 95) {
-            const startIdx = 71;
-            for (let idx = startIdx; idx < 95; idx += 2) {
-                const itemId = parseInt(d1[idx]) || 0;
-                const count = parseInt(d1[idx + 1]) || 0;
-                if (itemId > 0 && count > 0) {
-                    backpackItems.push({ id: itemId, count: count });
-                }
-            }
+            // 진짜 개인 배낭 (기존의 warehouseItems)
             const whStartIdx = 21;
             for (let idx = whStartIdx; idx < 33; idx += 2) {
                 const itemId = parseInt(d1[idx]) || 0;
                 const count = parseInt(d1[idx + 1]) || 0;
                 if (itemId > 0 && count > 0) {
-                    warehouseItems.push({ id: itemId, count: count });
+                    backpackItems.push({ id: itemId, count: count });
+                }
+            }
+
+            // 창고배낭 1 (d1[71~82])
+            for (let idx = 71; idx < 83; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0) {
+                    warehouseBags[0].push({ id: itemId, count: count });
+                }
+            }
+
+            // 창고배낭 2 (d1[83~94])
+            for (let idx = 83; idx < 95; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0) {
+                    warehouseBags[1].push({ id: itemId, count: count });
                 }
             }
         } else if (d1.length >= 88) {
-            const startIdx = 64;
-            for (let idx = startIdx; idx < 88; idx += 2) {
+            // 진짜 개인 배낭 (기존의 warehouseItems)
+            const whStartIdx = 14;
+            for (let idx = whStartIdx; idx < 26; idx += 2) {
                 const itemId = parseInt(d1[idx]) || 0;
                 const count = parseInt(d1[idx + 1]) || 0;
                 if (itemId > 0 && count > 0) {
                     backpackItems.push({ id: itemId, count: count });
                 }
             }
-            const whStartIdx = 14;
-            for (let idx = whStartIdx; idx < 26; idx += 2) {
+
+            // 창고배낭 1 (d1[64~75])
+            for (let idx = 64; idx < 76; idx += 2) {
                 const itemId = parseInt(d1[idx]) || 0;
                 const count = parseInt(d1[idx + 1]) || 0;
-                if (itemId > 0 && count > 0) {
-                    warehouseItems.push({ id: itemId, count: count });
+                if (itemId > 0) {
+                    warehouseBags[0].push({ id: itemId, count: count });
+                }
+            }
+
+            // 창고배낭 2 (d1[76~87])
+            for (let idx = 76; idx < 88; idx += 2) {
+                const itemId = parseInt(d1[idx]) || 0;
+                const count = parseInt(d1[idx + 1]) || 0;
+                if (itemId > 0) {
+                    warehouseBags[1].push({ id: itemId, count: count });
                 }
             }
         }
 
-        if (d2.length >= 38) {
-            const startIdx = 14;
-            for (let idx = startIdx; idx < 38; idx += 2) {
+        // 창고배낭 3 (d2[14~25])
+        if (d2.length >= 26) {
+            for (let idx = 14; idx < 26; idx += 2) {
                 const itemId = parseInt(d2[idx]) || 0;
                 const count = parseInt(d2[idx + 1]) || 0;
-                if (itemId > 0 && count > 0) {
-                    sponsorItems.push({ id: itemId, count: count });
+                if (itemId > 0) {
+                    warehouseBags[2].push({ id: itemId, count: count });
+                }
+            }
+        }
+
+        // 창고배낭 4 (d2[26~37])
+        if (d2.length >= 38) {
+            for (let idx = 26; idx < 38; idx += 2) {
+                const itemId = parseInt(d2[idx]) || 0;
+                const count = parseInt(d2[idx + 1]) || 0;
+                if (itemId > 0) {
+                    warehouseBags[3].push({ id: itemId, count: count });
+                }
+            }
+        }
+
+        // 후원창고배낭 1~4 파싱 (d2[38~85], 각 배낭당 6쌍=12인덱스)
+        for (let bagIdx = 0; bagIdx < 4; bagIdx++) {
+            const bagStart = 38 + bagIdx * 12;
+            const bagEnd = bagStart + 12;
+            if (d2.length >= bagEnd) {
+                for (let idx = bagStart; idx < bagEnd; idx += 2) {
+                    const itemId = parseInt(d2[idx]) || 0;
+                    const count = parseInt(d2[idx + 1]) || 0;
+                    if (itemId > 0) {
+                        sponsorWarehouseBags[bagIdx].push({ id: itemId, count: count });
+                    }
                 }
             }
         }
@@ -1215,7 +1271,7 @@ function processData(result) {
             slotNum: slotNumInt, charName, isCorrupted,
             level, adv, cp, attack, defense, ki, hp, speed, fortitude,
             limit, limitPt, strength, grit, search, luck, saveDate,
-            myItems, friendItems, backpackItems, warehouseItems, sponsorItems, gold, goldBars, blueDiamonds,
+            myItems, friendItems, backpackItems, warehouseItems, sponsorItems, warehouseBags, sponsorWarehouseBags, gold, goldBars, blueDiamonds,
             str, agi, intVal, friendStr, friendAgi, friendInt,
             friendSlot, friendLevel, friendName, doGam,
             awakeningLevel, maxOwnStat, maxFriendStat,
@@ -1429,9 +1485,11 @@ function renderBagCard(c) {
         if (items && items.length > 0) {
             itemsHtml = items.map(itemInfo => {
                 const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
+                const countColor = itemInfo.count > 0 ? 'var(--gold)' : 'var(--text-muted)';
+                const countText = itemInfo.count > 0 ? `${itemInfo.count}개` : '소지';
                 return `<div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:3px; width: 100%;">
                     <span class="equip-item item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})" style="font-size:0.72rem; padding: 2px 4px; border:none; background:none;">${item.name}</span>
-                    <span style="font-size:0.7rem; font-weight:700; color:var(--gold); padding-right: 4px;">${itemInfo.count}개</span>
+                    <span style="font-size:0.7rem; font-weight:700; color:${countColor}; padding-right: 4px;">${countText}</span>
                 </div>`;
             }).join('');
         } else {
@@ -1446,15 +1504,45 @@ function renderBagCard(c) {
         `;
     }
 
+    // 창고배낭1~4 중 아이템이 있는 가방만 필터링
+    let warehouseBagsHtml = '';
+    const activeWarehouseBags = (c.warehouseBags || []).map((bagItems, idx) => ({
+        idx: idx + 1,
+        items: bagItems
+    })).filter(b => b.items.length > 0);
+
+    if (activeWarehouseBags.length > 0) {
+        warehouseBagsHtml = `<div style="font-size:0.75rem;font-weight:bold;color:var(--gold);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">📦 창고배낭</div>`;
+        activeWarehouseBags.forEach(bag => {
+            warehouseBagsHtml += renderSectionHtml(`창고배낭${bag.idx}`, bag.items, '📦');
+        });
+    }
+
+    // 후원창고배낭1~4 중 아이템이 있는 가방만 필터링
+    let sponsorWarehouseBagsHtml = '';
+    const activeSponsorBags = (c.sponsorWarehouseBags || []).map((bagItems, idx) => ({
+        idx: idx + 1,
+        items: bagItems
+    })).filter(b => b.items.length > 0);
+
+    if (activeSponsorBags.length > 0) {
+        sponsorWarehouseBagsHtml = `<div style="font-size:0.75rem;font-weight:bold;color:var(--cyan);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">🎁 후원창고배낭</div>`;
+        activeSponsorBags.forEach(bag => {
+            sponsorWarehouseBagsHtml += renderSectionHtml(`후원창고배낭${bag.idx}`, bag.items, '🎁');
+        });
+    }
+
     return `
-        <div class="char-card">
+        <div class="char-card" style="box-sizing:border-box; width:100%;">
             <div class="char-name-row">
                 <span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}
             </div>
-            ${renderSectionHtml('배낭 아이템', c.backpackItems, '🎒')}
-            ${renderSectionHtml('창고 배낭', c.warehouseItems, '📦')}
-            ${renderSectionHtml('후원 배낭', c.sponsorItems, '🎁')}
+            <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
+                ${renderSectionHtml('배낭 아이템', c.backpackItems, '🎒')}
+                ${warehouseBagsHtml}
+                ${sponsorWarehouseBagsHtml}
+            </div>
         </div>`;
 }
 
