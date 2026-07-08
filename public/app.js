@@ -1212,8 +1212,6 @@ async function fetchAndRenderLogs(nicName) {
                     const friendItems = [40, 42, 44, 46, 48, 50].map(idx => parseInt(d1[idx]) || 0).filter(id => id > 0);
 
                     let backpackItems = [];
-                    let warehouseItems = [];
-                    let sponsorItems = [];
                     // 창고배낭1~4: d1[71~82], d1[83~94], d2[14~25], d2[26~37] (각 6쌍)
                     let warehouseBags = [[], [], [], []];
                     // 후원창고배낭1~4: d2[38~49], d2[50~61], d2[62~73], d2[74~85] (각 6쌍)
@@ -1386,8 +1384,6 @@ async function fetchAndRenderLogs(nicName) {
                         myItems,
                         friendItems,
                         backpackItems,
-                        warehouseItems,
-                        sponsorItems,
                         warehouseBags,
                         sponsorWarehouseBags,
                         item1Max, item1Cur, item2Max, item2Cur, item3Max, item3Cur,
