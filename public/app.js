@@ -154,11 +154,24 @@ function getStarGrade(val) {
 // Item ID to Name and Color Mapping Table
 const ITEM_MAPPING = {
     120:  { name: '야무치의 이빨', color: 'standard' },
+    276:  { name: '사과파이', color: 'standard' },
     524:  { name: '피콜로의 두건', color: 'standard' },
     525:  { name: '빨간 공룡의 가죽', color: 'standard' },
     528:  { name: '선두콩', color: 'standard' },
+    533:  { name: '드래곤볼[1성구]', color: 'standard' },
+    534:  { name: '드래곤볼[2성구]', color: 'standard' },
+    535:  { name: '드래곤볼[3성구]', color: 'standard' },
+    536:  { name: '드래곤볼[4성구]', color: 'standard' },
+    537:  { name: '드래곤볼[5성구]', color: 'standard' },
+    538:  { name: '드래곤볼[6성구]', color: 'standard' },
+    539:  { name: '드래곤볼[7성구]', color: 'standard' },
     541:  { name: '드래곤볼[7성구셋트]', color: 'cyan' },
+    542:  { name: '드래곤볼 탐지기', color: 'standard' },
     547:  { name: '바바의 1관문[칭호]', color: 'standard' },
+    548:  { name: '바바의 2관문[칭호]', color: 'standard' },
+    549:  { name: '바바의 3관문[칭호]', color: 'standard' },
+    550:  { name: '바바의 4관문[칭호]', color: 'standard' },
+    551:  { name: '바바의 5관문[칭호]', color: 'standard' },
     553:  { name: '라데츠의 다리띠', color: 'standard' },
     557:  { name: '재배맨a의 눈물', color: 'standard' },
     558:  { name: '재배맨b의 눈물', color: 'standard' },
@@ -191,13 +204,26 @@ const ITEM_MAPPING = {
     618:  { name: '카린의 증표Lv11', color: 'standard' },
     619:  { name: '카린의 증표Lv12 조합서', color: 'standard' },
     620:  { name: '카린의 증표Lv12', color: 'standard' },
+    635:  { name: '오자루의 꼬리', color: 'standard' },
     637:  { name: '나메크성인의 물약', color: 'standard' },
+    641:  { name: '굴드의 신발', color: 'standard' },
+    645:  { name: '리쿰의 장갑', color: 'standard' },
+    650:  { name: '지스의 눈물', color: 'standard' },
+    652:  { name: '기뉴 격퇴[칭호]', color: 'standard' },
+    654:  { name: '프리저의 꼬리', color: 'standard' },
     706:  { name: '메카 프리저의 조각', color: 'standard' },
     707:  { name: '콜드대왕의 뿔', color: 'standard' },
     708:  { name: '기계 물약', color: 'standard' },
     735:  { name: '신 낭아풍풍권Lv3[스킬북]', color: 'standard' },
+    723:  { name: '셀의 꼬리', color: 'standard' },
+    724:  { name: '셀 완전체 격퇴[칭호]', color: 'standard' },
     747:  { name: '인조인간 저지 [칭호]', color: 'standard' },
     785:  { name: '마인의 물약', color: 'standard' },
+    830:  { name: '인조인간 18호의 팬티', color: 'standard' },
+    831:  { name: '치치의 팬티', color: 'standard' },
+    832:  { name: '런치의 팬티', color: 'standard' },
+    834:  { name: '오룡의 팬티 컬렉션 조합서', color: 'standard' },
+    836:  { name: '마인부우의 사탕', color: 'standard' },
     846:  { name: '마인부우의 신발', color: 'standard' },
     853:  { name: '레드 스톤', color: 'standard' },
     854:  { name: '그린 스톤', color: 'standard' },
@@ -205,12 +231,17 @@ const ITEM_MAPPING = {
     910:  { name: '기념주화', color: 'standard' },
     918:  { name: '평화의 물약', color: 'standard' },
     921:  { name: '각성책:천진반', color: 'standard' },
-    932:  { name: '쿠우라의 갑옷', color: 'standard' },
+    932:  { name: '쿠우라의 갑옷[세트]', color: 'standard' },
+    933:  { name: '쿠우라의 각반[세트]', color: 'standard' },
+    934:  { name: '쿠우라의 장갑[세트]', color: 'standard' },
     952:  { name: '기념 주화V2', color: 'standard' },
     999:  { name: '새로운 시작[칭호]', color: 'purple' },
     1000: { name: '학습의 물약', color: 'standard' },
     1007: { name: '각성책:야무치', color: 'standard' },
     1019: { name: '인조인간 스톤', color: 'standard' },
+    1023: { name: '고급 인조인간의 갑옷[세트]', color: 'standard' },
+    1024: { name: '고급 인조인간의 바지[세트]', color: 'standard' },
+    1025: { name: '고급 인조인간의 장갑[세트]', color: 'standard' },
     1027: { name: '나메크 드래곤볼[1성구]', color: 'standard' },
     1028: { name: '나메크 드래곤볼[2성구]', color: 'standard' },
     1029: { name: '나메크 드래곤볼[3성구]', color: 'standard' },
@@ -222,6 +253,7 @@ const ITEM_MAPPING = {
     1036: { name: '지구인의 생명', color: 'blue' },
     1037: { name: '중급자 신발', color: 'standard' },
     1039: { name: '드래곤볼 탐지기Lv2', color: 'standard' },
+    1042: { name: '각성책:지스', color: 'standard' },
     1043: { name: '각성책:굴드', color: 'standard' },
     1045: { name: '학습의 물약Lv2', color: 'standard' },
     1046: { name: '인조 물약', color: 'standard' },
@@ -233,6 +265,7 @@ const ITEM_MAPPING = {
     1099: { name: '사오공의 도복 [유물]', color: 'blue' },
     1100: { name: '사오공의 가방 [유물]', color: 'blue' },
     1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
+    1125: { name: '변화의 물약', color: 'standard' },
     1126: { name: '변화의 물약Lv2', color: 'standard' },
     1127: { name: '사오공의가방', color: 'standard' },
     1129: { name: '변신한 쟈넨바의 힘[고유]', color: 'purple' },
@@ -260,7 +293,7 @@ const ITEM_MAPPING = {
     1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
     1349: { name: '타임캡슐 우주선Lv1', color: 'cyan' },
     1350: { name: '타임캡슐 우주선Lv2', color: 'cyan' },
-    1351: { name: '타임캡슐 우주선Lv3', color: 'cyan' },
+    1351: { name: '각성책:농부', color: 'standard' },
     1352: { name: '타임캡슐 우주선Lv4', color: 'cyan' },
     1353: { name: '자넨바의 낡은 팔찌 Lv2', color: 'standard' },
     1354: { name: '자넨바의 낡은 신발 Lv2', color: 'standard' },
@@ -1000,14 +1033,23 @@ function createCharacterCard(char) {
     // Bottom Stats Section: 
     // Left: 영웅 스텟 + 도감 + 성급
     // Right: 친구 스텟 + 금화 + 금괴 + 블다
+    const isOwnMaxed = (parseInt(char.str)||0) >= (parseInt(char.maxOwnStat)||0) &&
+                       (parseInt(char.agi)||0) >= (parseInt(char.maxOwnStat)||0) &&
+                       (parseInt(char.intVal)||0) >= (parseInt(char.maxOwnStat)||0);
+    const isFriendMaxed = (parseInt(char.friendStr)||0) >= (parseInt(char.maxFriendStat)||0) &&
+                          (parseInt(char.friendAgi)||0) >= (parseInt(char.maxFriendStat)||0) &&
+                          (parseInt(char.friendInt)||0) >= (parseInt(char.maxFriendStat)||0);
+    const ownMaxedClass = isOwnMaxed ? 'stat-maxed-completed' : '';
+    const friendMaxedClass = isFriendMaxed ? 'stat-maxed-completed' : '';
+
     const bottomStats = document.createElement('div');
     bottomStats.className = 'char-card-bottom-stats';
     bottomStats.innerHTML = `
         <div class="bottom-stats-col">
             <div class="stats-col-title">영웅</div>
-            <div class="stat-row"><span class="val-str">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
-            <div class="stat-row"><span class="val-agi">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
-            <div class="stat-row"><span class="val-int">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-str">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-agi">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-int">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div>성급: <span class="val-star">${char.starGrade}</span></div>
                 <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
@@ -1015,9 +1057,9 @@ function createCharacterCard(char) {
         </div>
         <div class="bottom-stats-col">
             <div class="stats-col-title">${char.friendName}</div>
-            <div class="stat-row"><span class="val-str">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
-            <div class="stat-row"><span class="val-agi">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
-            <div class="stat-row"><span class="val-int">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-str">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-agi">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-int">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
                 <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
@@ -1897,9 +1939,9 @@ function createMobileBasicCard(char) {
         ${limitBlock}
         <div class="mc-divider"></div>
         <div class="mc-sublabel">내 스텟</div>
-        <div class="mc-row"><span class="mc-str">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
+        <div class="mc-row ${char.str >= char.maxOwnStat && char.agi >= char.maxOwnStat && char.intVal >= char.maxOwnStat ? 'mc-maxed-completed' : ''}"><span class="mc-str">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
         <div class="mc-sublabel">친구 스텟</div>
-        <div class="mc-row"><span class="mc-str">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
+        <div class="mc-row ${char.friendStr >= char.maxFriendStat && char.friendAgi >= char.maxFriendStat && char.friendInt >= char.maxFriendStat ? 'mc-maxed-completed' : ''}"><span class="mc-str">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span>도감 <b class="mc-dogam">${mbFmt(char.doGam)}</b></span><span>💰 <b class="mc-gold">${mbFmt(char.gold)}</b></span></div>
         <div class="mc-row"><span>금괴 <b class="mc-goldbar">${mbFmt(char.goldBars)}</b></span><span>💎 <b class="mc-bd">${mbFmt(char.blueDiamonds)}</b></span></div>

@@ -1745,3 +1745,16 @@ body {
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
     border-color: var(--cyan) !important;
 }
+
+/* 힘/민/지 전체 맥스 달성 시 스타일 (완성) */
+.stat-row.stat-maxed-completed span {
+    color: #ffd700 !important;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.45) !important;
+}
+
+.mc-row.mc-maxed-completed span {
+    color: #ffd700 !important;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.45) !important;
+}
