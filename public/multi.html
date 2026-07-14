@@ -52,6 +52,39 @@
             flex-wrap: wrap;
         }
 
+        /* 페이지 전환 탭 */
+        .page-switch-tabs {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .switch-tab {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.2s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .switch-tab:hover {
+            color: var(--cyan);
+            background: rgba(0, 229, 255, 0.08);
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+
+        .switch-tab.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--cyan), #0084ff);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+            border-color: transparent;
+        }
+
         .logo-text {
             font-family: var(--font-heading);
             font-weight: 800;
@@ -663,8 +696,12 @@
 <body>
 
 <div class="top-header">
-    <div>
-        <div class="logo-text">🐉 DRR <span>멀티</span> 대시보드</div>
+    <div class="logo-area" style="display: flex; align-items: center; gap: 16px;">
+        <div class="logo-text" style="margin: 0;">Dragonball_Manager<span>_Multi</span></div>
+        <div class="page-switch-tabs">
+            <a href="index.html" class="switch-tab">개인 조회</a>
+            <a href="multi.html" class="switch-tab active">멀티 조회</a>
+        </div>
     </div>
     <div class="header-actions">
         <form class="search-container" id="search-form" onsubmit="handleSearch(event)">

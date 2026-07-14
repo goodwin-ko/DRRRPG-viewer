@@ -1749,12 +1749,46 @@ body {
 /* 힘/민/지 전체 맥스 달성 시 스타일 (완성) */
 .stat-row.stat-maxed-completed span {
     color: #ffd700 !important;
-    font-weight: 800;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.45) !important;
+    font-weight: 900 !important;
 }
 
 .mc-row.mc-maxed-completed span {
     color: #ffd700 !important;
-    font-weight: 800;
+    font-weight: 900 !important;
+}
+
+/* 페이지 전환 탭 */
+.page-switch-tabs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.switch-tab {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.switch-tab:hover {
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.08);
+    border-color: rgba(0, 229, 255, 0.2);
+}
+
+.switch-tab.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--cyan), #0084ff);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+    border-color: transparent;
+}
     text-shadow: 0 0 8px rgba(255, 215, 0, 0.45) !important;
 }

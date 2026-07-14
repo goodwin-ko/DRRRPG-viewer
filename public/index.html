@@ -12,9 +12,15 @@
     <div class="app-container">
         <!-- Header Section -->
         <header class="main-header">
-            <div class="search-section">
-                <h1 class="logo-text">Dragonball_Manager</h1>
-                <form id="search-form" class="search-form">
+            <div class="search-section" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                <div class="logo-area" style="display: flex; align-items: center; gap: 16px;">
+                    <h1 class="logo-text" style="margin: 0;">Dragonball_Manager</h1>
+                    <div class="page-switch-tabs">
+                        <a href="index.html" class="switch-tab active">개인 조회</a>
+                        <a href="multi.html" class="switch-tab">멀티 조회</a>
+                    </div>
+                </div>
+                <form id="search-form" class="search-form" style="margin: 0;">
                     <input type="text" id="nicname-input" placeholder="닉네임을 입력하세요 (예: goodwin)" required autocomplete="off">
                     <button type="submit" id="search-btn">조회</button>
                     <label class="pin-wrapper" style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--text-muted);cursor:pointer;user-select:none;margin-left:4px;">
