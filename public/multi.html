@@ -705,12 +705,15 @@
     </div>
     <div class="header-actions">
         <form class="search-container" id="search-form" onsubmit="handleSearch(event)">
-            <input type="text" class="search-input" id="search-input" placeholder="유저 검색..." autocomplete="off">
+            <input type="text" class="search-input" id="search-input" placeholder="쉼표(,)로 아이디 구분 입력 (예: goodwin, user2)" autocomplete="off">
             <button type="submit" class="search-btn">검색</button>
         </form>
         <span class="last-updated" id="last-updated-text">-</span>
         <button class="refresh-btn" id="refresh-btn" onclick="loadAll()">
-            <span>🔄</span> 전체 새로고침
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+            새로고침
         </button>
     </div>
 </div>
@@ -744,7 +747,7 @@
 // ═══════════════════════════════════════════════════════
 //  고정 및 동적 아이디 목록 관리 (localStorage 연동)
 // ═══════════════════════════════════════════════════════
-const DEFAULT_IDS = ['goodwin', 'gowin2', 'goodsee', 'godwin'];
+const DEFAULT_IDS = ['goodwin'];
 
 // 로컬 스토리지 또는 기본값 복원
 let activeIds = [];
@@ -1810,7 +1813,7 @@ async function loadAll() {
     activeIds = activeIds.filter(nick => {
         const key = nick.toLowerCase();
         // DEFAULT_IDS는 고정이 없더라도 기본 노출
-        return DEFAULT_IDS.map(n => n.toLowerCase()).includes(key) || pinnedIds[key] === true;
+        return true;
     });
     saveActiveIds();
 
@@ -1831,10 +1834,32 @@ async function loadAll() {
 async function handleSearch(event) {
     event.preventDefault();
     const input = document.getElementById('search-input');
-    const nick = input.value.trim();
-    if (!nick) return;
+    const value = input.value.trim();
+    if (!value) return;
 
     input.value = '';
+    
+    // 쉼표, 세미콜론, 공백 등으로 구분하여 여러 닉네임 추출
+    const nicks = value.split(/[,;\s]+/).map(n => n.trim()).filter(Boolean);
+    if (nicks.length === 0) return;
+
+    let addedAny = false;
+    for (const nick of nicks) {
+        const lowerNick = nick.toLowerCase();
+        if (activeIds.map(n => n.toLowerCase()).includes(lowerNick)) {
+            continue;
+        }
+        activeIds.push(nick);
+        addedAny = true;
+    }
+
+    if (addedAny) {
+        saveActiveIds();
+        buildPanels();
+        await Promise.all(activeIds.map(nick => loadOne(nick)));
+        switchTab(currentTab);
+    }
+    return;
     const lowerNick = nick.toLowerCase();
 
     // 이미 존재하는지 확인
