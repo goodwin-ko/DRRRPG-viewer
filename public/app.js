@@ -1011,10 +1011,11 @@ function createCharacterCard(char) {
     row3.innerHTML = `<span>공속: ${formatNumber(char.speed)}</span><span class="alt-value">불굴: ${formatNumber(char.fortitude)}</span>`;
     leftCol.appendChild(row3);
 
-    // Combat Power (투력) + 각성 on same row, number immediately next to label, no spaces in colon
+    const cpValue = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
+    const isCpMaxed = (cpValue || 0) >= 500000;
     const cpRow = document.createElement('div');
-    cpRow.className = 'char-cp';
-    let cpHtml = `투력:<span>${formatNumber(char.cp)}</span>`;
+    cpRow.className = isCpMaxed ? 'char-cp cp-maxed-box' : 'char-cp';
+    let cpHtml = `투력:<span class="${isCpMaxed ? 'cp-maxed-completed' : ''}">${formatNumber(char.cp)}</span>`;
     if (char.awakeningLevel > 0) {
         cpHtml += `<span class="char-awakening-badge">각성:${char.awakeningLevel}</span>`;
     }
@@ -1948,7 +1949,7 @@ function createMobileBasicCard(char) {
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
         <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)}</span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
-        <div class="mc-cp ${char.cp >= 500000 ? 'cp-maxed-box' : ''}">투력 <b class="${char.cp >= 500000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-cp ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 500000 ? 'cp-maxed-box' : ''}">투력 <b class="${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 500000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span>공격 ${mbFmt(char.attack)}</span><span>방어 ${mbFmt(char.defense)}</span></div>
         <div class="mc-row"><span>기 ${mbFmt(char.ki)}</span><span>체력 ${mbFmt(char.hp)}</span></div>
