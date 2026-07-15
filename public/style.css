@@ -1807,10 +1807,7 @@ body {
     display: inline-block;
 }
 
-.cp-maxed-box {
-    border-bottom: 1px dashed rgba(255, 215, 0, 0.4) !important;
-    padding-bottom: 2px;
-}
+
 
 /* 페이지 전환 탭 */
 .page-switch-tabs {

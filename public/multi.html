@@ -1529,7 +1529,7 @@ function renderBasicCard(c) {
         `<div class="stat-row"><span>공격: ${fmt(c.attack)}</span><span class="alt">방어: ${fmt(c.defense)}</span></div>`,
         `<div class="stat-row"><span>기: ${fmt(c.ki)}</span><span class="alt">체력: ${fmt(c.hp)}</span></div>`,
         `<div class="stat-row"><span>공속: ${fmt(c.speed)}</span><span class="alt">불굴: ${fmt(c.fortitude)}</span></div>`,
-        `<div class="char-cp ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 500000 ? 'cp-maxed-box' : ''}">투력:<span class="${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 500000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge">각성:' + c.awakeningLevel + '</span>' : ''}</div>`,
+        `<div class="char-cp">투력:<span class="${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge">각성:' + c.awakeningLevel + '</span>' : ''}</div>`,
         c.limit !== null ? [
             `<div class="limit-block">`,
             `<div class="limit-title">극한: ${fmt(c.limit)} (${fmt(c.limitPt)}pt)</div>`,
