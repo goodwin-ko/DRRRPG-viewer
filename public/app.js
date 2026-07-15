@@ -1065,9 +1065,9 @@ function createCharacterCard(char) {
     bottomStats.innerHTML = `
         <div class="bottom-stats-col">
             <div class="stats-col-title">영웅</div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-str">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-agi">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-int">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-str ${parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-agi ${parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-int ${parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div>성급: <span class="val-star">${char.starGrade}</span></div>
                 <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
@@ -1075,9 +1075,9 @@ function createCharacterCard(char) {
         </div>
         <div class="bottom-stats-col">
             <div class="stats-col-title">${char.friendName}</div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-str">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-agi">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-int">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-str ${parseInt(char.friendStr.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-agi ${parseInt(char.friendAgi.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-int ${parseInt(char.friendInt.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
                 <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
