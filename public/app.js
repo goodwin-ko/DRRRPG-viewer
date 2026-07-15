@@ -1948,7 +1948,7 @@ function createMobileBasicCard(char) {
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
         <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)}</span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
-        <div class="mc-cp">투력 <b>${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-cp ${char.cp >= 500000 ? 'cp-maxed-box' : ''}">투력 <b class="${char.cp >= 500000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span>공격 ${mbFmt(char.attack)}</span><span>방어 ${mbFmt(char.defense)}</span></div>
         <div class="mc-row"><span>기 ${mbFmt(char.ki)}</span><span>체력 ${mbFmt(char.hp)}</span></div>
@@ -1956,9 +1956,9 @@ function createMobileBasicCard(char) {
         ${limitBlock}
         <div class="mc-divider"></div>
         <div class="mc-sublabel">내 스텟</div>
-        <div class="mc-row ${char.str >= char.maxOwnStat && char.agi >= char.maxOwnStat && char.intVal >= char.maxOwnStat ? 'mc-maxed-completed' : ''}"><span class="mc-str">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
+        <div class="mc-row ${char.str >= char.maxOwnStat && char.agi >= char.maxOwnStat && char.intVal >= char.maxOwnStat ? 'mc-maxed-completed' : ''}"><span class="mc-str ${char.str >= char.maxOwnStat ? 'stat-val-maxed' : ''}">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi ${char.agi >= char.maxOwnStat ? 'stat-val-maxed' : ''}">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int ${char.intVal >= char.maxOwnStat ? 'stat-val-maxed' : ''}">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
         <div class="mc-sublabel">친구 스텟</div>
-        <div class="mc-row ${char.friendStr >= char.maxFriendStat && char.friendAgi >= char.maxFriendStat && char.friendInt >= char.maxFriendStat ? 'mc-maxed-completed' : ''}"><span class="mc-str">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
+        <div class="mc-row ${char.friendStr >= char.maxFriendStat && char.friendAgi >= char.maxFriendStat && char.friendInt >= char.maxFriendStat ? 'mc-maxed-completed' : ''}"><span class="mc-str ${char.friendStr >= char.maxFriendStat ? 'stat-val-maxed' : ''}">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi ${char.friendAgi >= char.maxFriendStat ? 'stat-val-maxed' : ''}">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int ${char.friendInt >= char.maxFriendStat ? 'stat-val-maxed' : ''}">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span>도감 <b class="mc-dogam">${mbFmt(char.doGam)}</b></span><span>💰 <b class="mc-gold">${mbFmt(char.gold)}</b></span></div>
         <div class="mc-row"><span>금괴 <b class="mc-goldbar">${mbFmt(char.goldBars)}</b></span><span>💎 <b class="mc-bd">${mbFmt(char.blueDiamonds)}</b></span></div>

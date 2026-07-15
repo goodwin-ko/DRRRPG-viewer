@@ -1746,15 +1746,70 @@ body {
     border-color: var(--cyan) !important;
 }
 
-/* 힘/민/지 전체 맥스 달성 시 스타일 (완성) */
+/* 힘/민/지 전체 맥스 달성 시 스타일 (완성) - 금빛 오라 & 펄스 애니메이션 추가 */
+@keyframes goldPulse {
+    0% { text-shadow: 0 0 4px rgba(255, 215, 0, 0.4); }
+    50% { text-shadow: 0 0 12px rgba(255, 215, 0, 0.85), 0 0 20px rgba(255, 215, 0, 0.5); }
+    100% { text-shadow: 0 0 4px rgba(255, 215, 0, 0.4); }
+}
+
+.stat-row.stat-maxed-completed {
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+    background: rgba(255, 215, 0, 0.05) !important;
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin: 2px 0;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.15);
+}
+
 .stat-row.stat-maxed-completed span {
     color: #ffd700 !important;
     font-weight: 900 !important;
+    animation: goldPulse 2.5s infinite ease-in-out;
+}
+
+.mc-row.mc-maxed-completed {
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+    background: rgba(255, 215, 0, 0.05) !important;
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin: 2px 0;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.15);
 }
 
 .mc-row.mc-maxed-completed span {
     color: #ffd700 !important;
     font-weight: 900 !important;
+    animation: goldPulse 2.5s infinite ease-in-out;
+}
+
+/* 개별 스탯 만스텟 도달 시 금색 표시 */
+.stat-val-maxed {
+    color: #ffd700 !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.4) !important;
+}
+
+/* 전투력 50만 만스텟 달성 시 효과 */
+@keyframes cpGoldPulse {
+    0% { text-shadow: 0 0 6px rgba(255, 215, 0, 0.6); }
+    50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.4); }
+    100% { text-shadow: 0 0 6px rgba(255, 215, 0, 0.6); }
+}
+
+.cp-maxed-completed {
+    color: #ffd700 !important;
+    font-weight: 900 !important;
+    animation: cpGoldPulse 2s infinite ease-in-out;
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.cp-maxed-box {
+    border-bottom: 1px dashed rgba(255, 215, 0, 0.4) !important;
+    padding-bottom: 2px;
 }
 
 /* 페이지 전환 탭 */
