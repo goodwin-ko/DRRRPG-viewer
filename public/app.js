@@ -1186,7 +1186,8 @@ function createCharacterCard(char) {
             <div class="stat-row ${ownMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${char.starGrade}</span></div>
-                <div><span class="stat-label">도감:</span> <span class="stat-value val-dogam">${formatNumber(char.doGam)}</span></div>
+                <div><span class="stat-label">도감:</span> <span class="stat-value val-dogam">-</span></div>
+                <div><span class="stat-label">자동선두:</span> <span class="stat-value val-autosundu">${formatNumber(char.doGam)}</span></div>
             </div>
         </div>
         <div class="bottom-stats-col">
@@ -2101,9 +2102,9 @@ function createMobileBasicCard(char) {
             <span class="mc-agi"><span class="stat-label">민:</span> <b class="mc-val ${char.friendAgi >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendAgi, char.maxFriendStat)}</b></span>
             <span class="mc-int"><span class="stat-label">지:</span> <b class="mc-val ${char.friendInt >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendInt, char.maxFriendStat)}</b></span>
         </div>
-        <div class="mc-divider"></div>
-        <div class="mc-row"><span><span class="stat-label">도감:</span> <b class="mc-dogam mc-val">${mbFmt(char.doGam)}</b></span><span><span class="stat-label">금화:</span> <b class="mc-gold mc-val">${mbFmt(char.gold)}</b></span></div>
-        <div class="mc-row"><span><span class="stat-label">금괴:</span> <b class="mc-goldbar mc-val">${mbFmt(char.goldBars)}</b></span><span><span class="stat-label">블다:</span> <b class="mc-bd mc-val">${mbFmt(char.blueDiamonds)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">도감:</span> <b class="mc-dogam mc-val">-</b></span><span><span class="stat-label">금화:</span> <b class="mc-gold mc-val">${mbFmt(char.gold)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">자동선두:</span> <b class="mc-autosundu mc-val">${mbFmt(char.doGam)}</b></span><span><span class="stat-label">금괴:</span> <b class="mc-goldbar mc-val">${mbFmt(char.goldBars)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">블다:</span> <b class="mc-bd mc-val">${mbFmt(char.blueDiamonds)}</b></span></div>
     </div>`;
 }
 

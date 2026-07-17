@@ -817,6 +817,7 @@
         .stat-row span,
         .bottom-stats-col span,
         .val-dogam,
+        .val-autosundu,
         .val-gold,
         .val-goldbar,
         .val-bluedia {
@@ -1814,9 +1815,9 @@ function renderBasicCard(c) {
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendStr, c.maxFriendStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendAgi, c.maxFriendStat)}</span></span></div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendInt, c.maxFriendStat)}</span></span></div>`,
         `<div class="sub-divider"></div>`,
-        `<div class="stat-row"><span><span class="stat-label">도감:</span> <span class="stat-value val-dogam">${fmt(c.doGam)}</span></span><span class="alt"><span class="stat-label">💰 금화:</span> <span class="stat-value val-gold">${fmt(c.gold)}</span></span></div>`,
-        `<div class="stat-row"><span><span class="stat-label">금괴:</span> <span class="stat-value val-goldbar">${fmt(c.goldBars)}</span></span><span class="alt"><span class="stat-label">💎 블다:</span> <span class="stat-value val-bd">${fmt(c.blueDiamonds)}</span></span></div>`,
-        `<div class="stat-row"><span><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${c.starGrade}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">도감:</span> <span class="stat-value val-dogam">-</span></span><span class="alt"><span class="stat-label">💰 금화:</span> <span class="stat-value val-gold">${fmt(c.gold)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">자동선두:</span> <span class="stat-value val-autosundu">${fmt(c.doGam)}</span></span><span class="alt"><span class="stat-label">금괴:</span> <span class="stat-value val-goldbar">${fmt(c.goldBars)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">💎 블다:</span> <span class="stat-value val-bd">${fmt(c.blueDiamonds)}</span></span><span class="alt"><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${c.starGrade}</span></span></div>`,
         `</div>`
     ].join('');
 }
