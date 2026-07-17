@@ -288,6 +288,7 @@ const ITEM_MAPPING = {
     723:  { name: '셀의 꼬리', color: 'standard' },
     724:  { name: '셀 완전체 격퇴[칭호]', color: 'standard' },
     747:  { name: '인조인간 저지 [칭호]', color: 'standard' },
+    778:  { name: '셀의 점퍼[세트]', color: 'standard' },
     785:  { name: '마인의 물약', color: 'standard' },
     830:  { name: '인조인간 18호의 팬티', color: 'standard' },
     831:  { name: '치치의 팬티', color: 'standard' },
@@ -336,6 +337,7 @@ const ITEM_MAPPING = {
     1046: { name: '인조 물약', color: 'standard' },
     1092: { name: '용권[스킬북]', color: 'standard' },
     1094: { name: '명절 선물셋트[Event]', color: 'standard' },
+    1095: { name: '타임캡슐 우주선Lv1', color: 'standard' },
     1096: { name: '사오공의 낡은 여의봉', color: 'standard' },
     1097: { name: '사오공의 낡은 도복', color: 'standard' },
     1098: { name: '사오공의 여의봉 [유물]', color: 'blue' },
@@ -343,10 +345,38 @@ const ITEM_MAPPING = {
     1100: { name: '사오공의 가방 [유물]', color: 'blue' },
     1119: { name: '변신한 쟈넨바의 갑옷', color: 'purple' },
     1125: { name: '변화의 물약', color: 'standard' },
-    1126: { name: '변화의 물약Lv2', color: 'standard' },
-    1127: { name: '사오공의가방', color: 'standard' },
-    1136: { name: '각성책:라데츠', color: 'standard' },
-    1129: { name: '변신한 쟈넨바의 힘[고유]', color: 'purple' },
+    1126: { name: '발전의 증표Lv1', color: 'standard' },
+    1127: { name: '발전의 증표Lv2', color: 'standard' },
+    1128: { name: '발전의 증표Lv3', color: 'standard' },
+    1129: { name: '발전의 증표Lv4', color: 'standard' },
+    1130: { name: '발전의 증표Lv5', color: 'standard' },
+    1131: { name: '발전의 증표Lv6', color: 'standard' },
+    1132: { name: '발전의 증표Lv7', color: 'standard' },
+    1133: { name: '발전의 증표Lv8', color: 'standard' },
+    1134: { name: '발전의 증표Lv9', color: 'standard' },
+    1135: { name: '발전의 증표Lv10', color: 'standard' },
+    1136: { name: '발전의 증표Lv11', color: 'standard' },
+    1137: { name: '발전의 증표Lv12', color: 'standard' },
+    1138: { name: '발전의 증표Lv13', color: 'standard' },
+    1139: { name: '발전의 증표Lv14', color: 'standard' },
+    1140: { name: '발전의 증표Lv15', color: 'standard' },
+    1141: { name: '발전의 증표Lv16', color: 'standard' },
+    1142: { name: '발전의 증표Lv17', color: 'standard' },
+    1143: { name: '발전의 증표Lv18', color: 'standard' },
+    1144: { name: '발전의 증표Lv19', color: 'standard' },
+    1145: { name: '발전의 증표Lv20', color: 'standard' },
+    1146: { name: '발전의 증표Lv21', color: 'standard' },
+    1147: { name: '발전의 증표Lv22', color: 'standard' },
+    1148: { name: '발전의 증표Lv23', color: 'standard' },
+    1149: { name: '발전의 증표Lv24', color: 'standard' },
+    1150: { name: '발전의 증표Lv25', color: 'standard' },
+    1151: { name: '발전의 증표Lv26', color: 'standard' },
+    1152: { name: '발전의 증표Lv27', color: 'standard' },
+    1153: { name: '발전의 증표Lv28', color: 'standard' },
+    1154: { name: '발전의 증표Lv29', color: 'standard' },
+    1155: { name: '발전의 증표Lv30', color: 'standard' },
+    1156: { name: '발전의 증표Lv31', color: 'standard' },
+    1157: { name: '발전의 증표Lv32', color: 'standard' },
     1159: { name: '낡은 손오반의 모자[유물]', color: 'purple' },
     1160: { name: '손오반의 모자[유물]', color: 'purple' },
     1161: { name: '여성용 리본[유물]', color: 'purple' },
@@ -360,6 +390,7 @@ const ITEM_MAPPING = {
     1179: { name: '오천크스의 수련팔찌 [유물]', color: 'blue' },
     1181: { name: '오천크스의 갑옷 [유물]', color: 'blue' },
     1182: { name: '오천크스의 가방 [유물]', color: 'blue' },
+    1183: { name: '타임캡슐 우주선Lv2', color: 'standard' },
     1187: { name: '인조인간 슈퍼 13호의 오만 [칭호]', color: 'blue' },
     1190: { name: '브로리의 분노 Lv2 [고유]', color: 'purple' },
     1193: { name: '개발용 헬멧[+1]', color: 'green' },
@@ -369,6 +400,7 @@ const ITEM_MAPPING = {
     1201: { name: '자넨바 팔찌', color: 'blue' },
     1202: { name: '자넨바 신발', color: 'blue' },
     1203: { name: '자넨바 보석', color: 'blue' },
+    1204: { name: '타임캡슐 우주선Lv3', color: 'standard' },
     1205: { name: '나무꾼의 물약', color: 'standard' },
     1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
     1332: { name: '방심의 라데츠의 갑옷', color: 'standard' },
@@ -445,6 +477,7 @@ const ITEM_MAPPING = {
     1447: { name: '영웅의 증표 Lv21', color: 'purple' },
     1448: { name: '영웅의 증표 Lv22', color: 'purple' },
     1449: { name: '힐데건 성충 소환장치', color: 'cyan' },
+    1450: { name: '무차별 폭행[스킬북]', color: 'standard' },
     1455: { name: '초사이언4-베지터[조각]', color: 'standard' },
     1452: { name: '전신 트레이닝MAX[스킬북]', color: 'standard' },
     1456: { name: '풀파워 셀[조각]', color: 'standard' },
@@ -1045,45 +1078,61 @@ function createCharacterCard(char) {
     const leftCol = document.createElement('div');
     leftCol.className = 'char-card-left';
 
+    // 8가지 만스텟 조건 판정
+    const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
+    const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
+    const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
+    const isCpMaxedForAll = (cpValueForMax || 0) >= 600000;
+    const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
+    const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
+    const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnAgiMaxed = char.agi && char.maxOwnStat && parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnIntMaxed = char.intVal && char.maxOwnStat && parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    
+    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxedForAll && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
+    if (isAllMaxed) {
+        card.className += ' char-card-all-maxed';
+    }
+
     // Level
     const maxSpd = MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-';
     const lvlDiv = document.createElement('div');
     lvlDiv.className = 'char-level';
-    lvlDiv.innerHTML = `레벨: <span>${formatNumber(char.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${maxSpd})</span>`;
+    lvlDiv.innerHTML = `<span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${formatNumber(char.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${maxSpd})</span>`;
     leftCol.appendChild(lvlDiv);
 
     // Adventure
     const advDiv = document.createElement('div');
     advDiv.className = 'char-adventure';
     const stageName = getAdventureStage(char.adventure);
-    advDiv.innerHTML = `모험: <span>${formatNumber(char.adventure)} (${stageName})</span>`;
+    advDiv.innerHTML = `<span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${formatNumber(char.adventure)} (${stageName})</span>`;
     leftCol.appendChild(advDiv);
 
     // Attack & Defense
     const row1 = document.createElement('div');
     row1.className = 'stat-row';
-    row1.innerHTML = `<span>공격력: ${formatNumber(char.attack)}</span><span class="alt-value">방어력: ${formatNumber(char.defense)}</span>`;
+    row1.innerHTML = `<span><span class="stat-label">공격력:</span> <span class="stat-value">${formatNumber(char.attack)}</span></span><span class="alt-value"><span class="stat-label">방어력:</span> <span class="stat-value">${formatNumber(char.defense)}</span></span>`;
     leftCol.appendChild(row1);
 
     // Ki & HP
     const row2 = document.createElement('div');
     row2.className = 'stat-row';
-    row2.innerHTML = `<span>기: ${formatNumber(char.ki)}</span><span class="alt-value">체력: ${formatNumber(char.hp)}</span>`;
+    row2.innerHTML = `<span><span class="stat-label">기:</span> <span class="stat-value">${formatNumber(char.ki)}</span></span><span class="alt-value"><span class="stat-label">체력:</span> <span class="stat-value">${formatNumber(char.hp)}</span></span>`;
     leftCol.appendChild(row2);
 
     // Speed (공속) & Fortitude (불굴)
     const row3 = document.createElement('div');
     row3.className = 'stat-row';
-    row3.innerHTML = `<span>공속: ${formatNumber(char.speed)}</span><span class="alt-value">불굴: ${formatNumber(char.fortitude)}</span>`;
+    row3.innerHTML = `<span><span class="stat-label">공속:</span> <span class="stat-value">${formatNumber(char.speed)}</span></span><span class="alt-value"><span class="stat-label">불굴:</span> <span class="stat-value">${formatNumber(char.fortitude)}</span></span>`;
     leftCol.appendChild(row3);
 
     const cpValue = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
     const isCpMaxed = (cpValue || 0) >= 600000;
     const cpRow = document.createElement('div');
     cpRow.className = 'char-cp';
-    let cpHtml = `투력:<span class="${isCpMaxed ? 'cp-maxed-completed' : ''}">${formatNumber(char.cp)}</span>`;
+    let cpHtml = `<span class="stat-label">투력:</span> <span class="stat-value ${isCpMaxed ? 'cp-maxed-completed' : ''}">${formatNumber(char.cp)}</span>`;
     if (char.awakeningLevel > 0) {
-        cpHtml += `<span class="char-awakening-badge">각성:${char.awakeningLevel}</span>`;
+        cpHtml += `<span class="char-awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">${char.awakeningLevel}</span></span>`;
     }
     cpRow.innerHTML = cpHtml;
     leftCol.appendChild(cpRow);
@@ -1094,17 +1143,18 @@ function createCharacterCard(char) {
         limitBlock.className = 'char-limit-block';
 
         const limitHeader = document.createElement('div');
-        limitHeader.innerHTML = `극한: <span>${formatNumber(char.limit)}</span> (<span>${formatNumber(char.limitPt)}</span>pt)`;
+        limitHeader.className = 'limit-title';
+        limitHeader.innerHTML = `<span class="stat-label">극한:</span> <span class="stat-value ${isLimitMaxed ? 'stat-val-maxed' : ''}">${formatNumber(char.limit)}</span> <small style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(<span class="stat-value">${formatNumber(char.limitPt)}</span>pt)</small>`;
         limitBlock.appendChild(limitHeader);
 
         const limitStats = document.createElement('div');
         limitStats.className = 'stat-row';
-        limitStats.innerHTML = `<span>근력: ${formatNumber(char.strength)}</span><span class="alt-value">근성: ${formatNumber(char.grit)}</span>`;
+        limitStats.innerHTML = `<span><span class="stat-label">근력:</span> <span class="stat-value">${formatNumber(char.strength)}</span></span><span class="alt-value"><span class="stat-label">근성:</span> <span class="stat-value">${formatNumber(char.grit)}</span></span>`;
         limitBlock.appendChild(limitStats);
 
         const limitStats2 = document.createElement('div');
         limitStats2.className = 'stat-row';
-        limitStats2.innerHTML = `<span>탐구: ${formatNumber(char.search)}</span><span class="alt-value">행운: ${formatNumber(char.luck)}</span>`;
+        limitStats2.innerHTML = `<span><span class="stat-label">탐구:</span> <span class="stat-value">${formatNumber(char.search)}</span></span><span class="alt-value"><span class="stat-label">행운:</span> <span class="stat-value">${formatNumber(char.luck)}</span></span>`;
         limitBlock.appendChild(limitStats2);
 
         leftCol.appendChild(limitBlock);
@@ -1115,8 +1165,6 @@ function createCharacterCard(char) {
     card.appendChild(bodyContainer);
 
     // Bottom Stats Section: 
-    // Left: 영웅 스텟 + 도감 + 성급
-    // Right: 친구 스텟 + 금화 + 금괴 + 블다
     const isOwnMaxed = (parseInt(char.str)||0) >= (parseInt(char.maxOwnStat)||0) &&
                        (parseInt(char.agi)||0) >= (parseInt(char.maxOwnStat)||0) &&
                        (parseInt(char.intVal)||0) >= (parseInt(char.maxOwnStat)||0);
@@ -1131,23 +1179,23 @@ function createCharacterCard(char) {
     bottomStats.innerHTML = `
         <div class="bottom-stats-col">
             <div class="stats-col-title">영웅</div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-str ${parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">힘: ${formatStatWithMax(char.str, char.maxOwnStat)}</span></div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-agi ${parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">민: ${formatStatWithMax(char.agi, char.maxOwnStat)}</span></div>
-            <div class="stat-row ${ownMaxedClass}"><span class="val-int ${parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">지: ${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.str, char.maxOwnStat)}</span></span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-agi"><span class="stat-label">민:</span> <span class="stat-value ${parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.agi, char.maxOwnStat)}</span></span></div>
+            <div class="stat-row ${ownMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
-                <div>성급: <span class="val-star">${char.starGrade}</span></div>
-                <div>도감: <span class="val-dogam">${formatNumber(char.doGam)}</span></div>
+                <div><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${char.starGrade}</span></div>
+                <div><span class="stat-label">도감:</span> <span class="stat-value val-dogam">${formatNumber(char.doGam)}</span></div>
             </div>
         </div>
         <div class="bottom-stats-col">
             <div class="stats-col-title">${char.friendName}</div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-str ${parseInt(char.friendStr.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">힘: ${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-agi ${parseInt(char.friendAgi.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">민: ${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></div>
-            <div class="stat-row ${friendMaxedClass}"><span class="val-int ${parseInt(char.friendInt.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">지: ${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${parseInt(char.friendStr.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-agi"><span class="stat-label">민:</span> <span class="stat-value ${parseInt(char.friendAgi.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></span></div>
+            <div class="stat-row ${friendMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.friendInt.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
-                <div>금화: <span class="val-gold">${formatNumber(char.gold)}</span></div>
-                <div>금괴: <span class="val-goldbar">${formatNumber(char.goldBars)}</span></div>
-                <div>블다: <span class="val-bluedia">${formatNumber(char.blueDiamonds)}</span></div>
+                <div><span class="stat-label">금화:</span> <span class="stat-value val-gold">${formatNumber(char.gold)}</span></div>
+                <div><span class="stat-label">금괴:</span> <span class="stat-value val-goldbar">${formatNumber(char.goldBars)}</span></div>
+                <div><span class="stat-label">블다:</span> <span class="stat-value val-bluedia">${formatNumber(char.blueDiamonds)}</span></div>
             </div>
         </div>
     `;
@@ -2002,33 +2050,58 @@ function createMobileBasicCard(char) {
     const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
     const awakening = char.awakeningLevel > 0
         ? `<span class="mc-awakening">각성:${char.awakeningLevel}</span>` : '';
+
+    // 모바일 만스텟 조건 판정
+    const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
+    const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
+    const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
+    const isCpMaxed = (cpValueForMax || 0) >= 600000;
+    const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
+    const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
+    const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnAgiMaxed = char.agi && char.maxOwnStat && parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnIntMaxed = char.intVal && char.maxOwnStat && parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
+    
+    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxed && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
+
     const limitBlock = (char.limit !== null) ? `
         <div class="mc-section">
-            <div class="mc-section-title">극한: ${mbFmt(char.limit)} (${mbFmt(char.limitPt)}pt)</div>
-            <div class="mc-row"><span>근력 ${mbFmt(char.strength)}</span><span>근성 ${mbFmt(char.grit)}</span></div>
-            <div class="mc-row"><span>탐구 ${mbFmt(char.search)}</span><span>행운 ${mbFmt(char.luck)}</span></div>
+            <div class="mc-section-title"><span class="stat-label">극한:</span> <span class="mc-val ${isLimitMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.limit)}</span> <small style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(${mbFmt(char.limitPt)}pt)</small></div>
+            <div class="mc-row"><span><span class="stat-label">근력:</span> <b class="mc-val">${mbFmt(char.strength)}</b></span><span><span class="stat-label">근성:</span> <b class="mc-val">${mbFmt(char.grit)}</b></span></div>
+            <div class="mc-row"><span><span class="stat-label">탐구:</span> <b class="mc-val">${mbFmt(char.search)}</b></span><span><span class="stat-label">행운:</span> <b class="mc-val">${mbFmt(char.luck)}</b></span></div>
         </div>` : '';
 
-    return `<div class="mc-card">
+    return `<div class="mc-card ${isAllMaxed ? 'char-card-all-maxed' : ''}">
         <div class="mc-header">
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
-        <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)} <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-')})</small></span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
-        <div class="mc-cp">투력 <b class="${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-row">
+            <span class="mc-lv"><span class="stat-label">Lv:</span> <b class="mc-val ${isLvlMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.level)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-')})</small></span>
+            <span class="mc-adv"><span class="stat-label">모험:</span> <b class="mc-val ${isAdvMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.adventure)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${getAdventureStage(char.adventure)})</small></span>
+        </div>
+        <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
         <div class="mc-divider"></div>
-        <div class="mc-row"><span>공격 ${mbFmt(char.attack)}</span><span>방어 ${mbFmt(char.defense)}</span></div>
-        <div class="mc-row"><span>기 ${mbFmt(char.ki)}</span><span>체력 ${mbFmt(char.hp)}</span></div>
-        <div class="mc-row"><span>공속 ${mbFmt(char.speed)}</span><span>불굴 ${mbFmt(char.fortitude)}</span></div>
+        <div class="mc-row"><span><span class="stat-label">공격:</span> <b class="mc-val">${mbFmt(char.attack)}</b></span><span><span class="stat-label">방어:</span> <b class="mc-val">${mbFmt(char.defense)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">기:</span> <b class="mc-val">${mbFmt(char.ki)}</b></span><span><span class="stat-label">체력:</span> <b class="mc-val">${mbFmt(char.hp)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">공속:</span> <b class="mc-val">${mbFmt(char.speed)}</b></span><span><span class="stat-label">불굴:</span> <b class="mc-val">${mbFmt(char.fortitude)}</b></span></div>
         ${limitBlock}
         <div class="mc-divider"></div>
         <div class="mc-sublabel">내 스텟</div>
-        <div class="mc-row ${char.str >= char.maxOwnStat && char.agi >= char.maxOwnStat && char.intVal >= char.maxOwnStat ? 'mc-maxed-completed' : ''}"><span class="mc-str ${char.str >= char.maxOwnStat ? 'stat-val-maxed' : ''}">힘 ${mbFmtMax(char.str, char.maxOwnStat)}</span><span class="mc-agi ${char.agi >= char.maxOwnStat ? 'stat-val-maxed' : ''}">민 ${mbFmtMax(char.agi, char.maxOwnStat)}</span><span class="mc-int ${char.intVal >= char.maxOwnStat ? 'stat-val-maxed' : ''}">지 ${mbFmtMax(char.intVal, char.maxOwnStat)}</span></div>
+        <div class="mc-row ${char.str >= char.maxOwnStat && char.agi >= char.maxOwnStat && char.intVal >= char.maxOwnStat ? 'mc-maxed-completed' : ''}">
+            <span class="mc-str"><span class="stat-label">힘:</span> <b class="mc-val ${char.str >= char.maxOwnStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.str, char.maxOwnStat)}</b></span>
+            <span class="mc-agi"><span class="stat-label">민:</span> <b class="mc-val ${char.agi >= char.maxOwnStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.agi, char.maxOwnStat)}</b></span>
+            <span class="mc-int"><span class="stat-label">지:</span> <b class="mc-val ${char.intVal >= char.maxOwnStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.intVal, char.maxOwnStat)}</b></span>
+        </div>
         <div class="mc-sublabel">친구 스텟</div>
-        <div class="mc-row ${char.friendStr >= char.maxFriendStat && char.friendAgi >= char.maxFriendStat && char.friendInt >= char.maxFriendStat ? 'mc-maxed-completed' : ''}"><span class="mc-str ${char.friendStr >= char.maxFriendStat ? 'stat-val-maxed' : ''}">힘 ${mbFmtMax(char.friendStr, char.maxFriendStat)}</span><span class="mc-agi ${char.friendAgi >= char.maxFriendStat ? 'stat-val-maxed' : ''}">민 ${mbFmtMax(char.friendAgi, char.maxFriendStat)}</span><span class="mc-int ${char.friendInt >= char.maxFriendStat ? 'stat-val-maxed' : ''}">지 ${mbFmtMax(char.friendInt, char.maxFriendStat)}</span></div>
+        <div class="mc-row ${char.friendStr >= char.maxFriendStat && char.friendAgi >= char.maxFriendStat && char.friendInt >= char.maxFriendStat ? 'mc-maxed-completed' : ''}">
+            <span class="mc-str"><span class="stat-label">힘:</span> <b class="mc-val ${char.friendStr >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendStr, char.maxFriendStat)}</b></span>
+            <span class="mc-agi"><span class="stat-label">민:</span> <b class="mc-val ${char.friendAgi >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendAgi, char.maxFriendStat)}</b></span>
+            <span class="mc-int"><span class="stat-label">지:</span> <b class="mc-val ${char.friendInt >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendInt, char.maxFriendStat)}</b></span>
+        </div>
         <div class="mc-divider"></div>
-        <div class="mc-row"><span>도감 <b class="mc-dogam">${mbFmt(char.doGam)}</b></span><span>💰 <b class="mc-gold">${mbFmt(char.gold)}</b></span></div>
-        <div class="mc-row"><span>금괴 <b class="mc-goldbar">${mbFmt(char.goldBars)}</b></span><span>💎 <b class="mc-bd">${mbFmt(char.blueDiamonds)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">도감:</span> <b class="mc-dogam mc-val">${mbFmt(char.doGam)}</b></span><span><span class="stat-label">금화:</span> <b class="mc-gold mc-val">${mbFmt(char.gold)}</b></span></div>
+        <div class="mc-row"><span><span class="stat-label">금괴:</span> <b class="mc-goldbar mc-val">${mbFmt(char.goldBars)}</b></span><span><span class="stat-label">블다:</span> <b class="mc-bd mc-val">${mbFmt(char.blueDiamonds)}</b></span></div>
     </div>`;
 }
 

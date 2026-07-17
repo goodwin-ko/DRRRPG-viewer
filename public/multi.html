@@ -752,6 +752,100 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
+
+        /* All Max 달성 캐릭터 카드 프리미엄 테두리 & 뱃지 (애니메이션 이펙트 제외 버전) */
+        .char-card.char-card-all-maxed {
+            border: 2px solid rgba(255, 215, 0, 0.95) !important;
+            position: relative !important;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 35, 20, 0.95)) !important;
+            box-shadow: none !important;
+            animation: none !important;
+        }
+
+        .char-card.char-card-all-maxed::after {
+            content: '★ALL MAX★';
+            position: absolute;
+            top: -9px;
+            right: 12px;
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            color: #000 !important;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 4px;
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+            z-index: 10;
+        }
+
+        /* 8대 만스텟 조건 속성들의 글자크기를 힘, 민, 지 글자크기(0.78rem)로 완벽히 통일 */
+        .char-level, 
+        .char-level span,
+        .char-level small,
+        .char-adventure, 
+        .char-adventure span,
+        .char-cp, 
+        .char-cp span,
+        .char-cp b,
+        .char-limit-block, 
+        .char-limit-block span,
+        .limit-title,
+        .limit-title span,
+        .val-star,
+        .stat-row,
+        .stat-row span,
+        .bottom-stats-col .stat-row {
+            font-size: 0.78rem !important;
+        }
+
+        /* 캐릭터 한글 스탯/정보 레이블(한글 안쪽 내용)을 블루(프리미엄 네온블루)로 통일 (진하게 제거) */
+        .stat-label,
+        .sub-label,
+        .stats-col-title {
+            color: #00a2ff !important;
+            font-weight: normal !important;
+        }
+
+        /* 실질 수치 값(Value)들의 색상을 부드러운 화이트로 통일해 한글 레이블과 구분 */
+        .char-level span,
+        .char-level small,
+        .char-adventure span,
+        .char-cp span,
+        .char-cp b,
+        .char-limit-block span,
+        .limit-title span,
+        .val-star,
+        .stat-row span,
+        .bottom-stats-col span,
+        .val-dogam,
+        .val-gold,
+        .val-goldbar,
+        .val-bluedia {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 700 !important;
+            text-shadow: none !important;
+        }
+
+        /* 만스텟 황금색 수치들 우선순위 보존 (구체성 강화) */
+        .stat-val-maxed,
+        span.stat-val-maxed,
+        .bottom-stats-col span.stat-val-maxed,
+        .char-level span.stat-val-maxed,
+        .char-adventure span.stat-val-maxed,
+        .char-limit-block span.stat-val-maxed,
+        .limit-title span.stat-val-maxed,
+        .stat-row span.stat-val-maxed {
+            color: #ffd700 !important;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.5) !important;
+        }
+
+        .cp-maxed-completed {
+            color: #ffd700 !important;
+            animation: cpGoldPulse 2s infinite ease-in-out !important;
+            background: linear-gradient(90deg, #ffd700, #ffaa00) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            display: inline-block !important;
+        }
     </style>
 </head>
 <body>
@@ -1005,10 +1099,40 @@ const ITEM_MAPPING = {
     723:  { name: '셀의 꼬리', color: 'standard' },
     724:  { name: '셀 완전체 격퇴[칭호]', color: 'standard' },
     747:  { name: '인조인간 저지 [칭호]', color: 'standard' },
-    785:  { name: '마인의 물약', color: 'standard' },
-    830:  { name: '인조인간 18호의 팬티', color: 'standard' },
-    831:  { name: '치치의 팬티', color: 'standard' },
-    832:  { name: '런치의 팬티', color: 'standard' },
+    1125: { name: '변화의 물약', color: 'standard' },
+    1126: { name: '발전의 증표Lv1', color: 'standard' },
+    1127: { name: '발전의 증표Lv2', color: 'standard' },
+    1128: { name: '발전의 증표Lv3', color: 'standard' },
+    1129: { name: '발전의 증표Lv4', color: 'standard' },
+    1130: { name: '발전의 증표Lv5', color: 'standard' },
+    1131: { name: '발전의 증표Lv6', color: 'standard' },
+    1132: { name: '발전의 증표Lv7', color: 'standard' },
+    1133: { name: '발전의 증표Lv8', color: 'standard' },
+    1134: { name: '발전의 증표Lv9', color: 'standard' },
+    1135: { name: '발전의 증표Lv10', color: 'standard' },
+    1136: { name: '발전의 증표Lv11', color: 'standard' },
+    1137: { name: '발전의 증표Lv12', color: 'standard' },
+    1138: { name: '발전의 증표Lv13', color: 'standard' },
+    1139: { name: '발전의 증표Lv14', color: 'standard' },
+    1140: { name: '발전의 증표Lv15', color: 'standard' },
+    1141: { name: '발전의 증표Lv16', color: 'standard' },
+    1142: { name: '발전의 증표Lv17', color: 'standard' },
+    1143: { name: '발전의 증표Lv18', color: 'standard' },
+    1144: { name: '발전의 증표Lv19', color: 'standard' },
+    1145: { name: '발전의 증표Lv20', color: 'standard' },
+    1146: { name: '발전의 증표Lv21', color: 'standard' },
+    1147: { name: '발전의 증표Lv22', color: 'standard' },
+    1148: { name: '발전의 증표Lv23', color: 'standard' },
+    1149: { name: '발전의 증표Lv24', color: 'standard' },
+    1150: { name: '발전의 증표Lv25', color: 'standard' },
+    1151: { name: '발전의 증표Lv26', color: 'standard' },
+    1152: { name: '발전의 증표Lv27', color: 'standard' },
+    1153: { name: '발전의 증표Lv28', color: 'standard' },
+    1154: { name: '발전의 증표Lv29', color: 'standard' },
+    1155: { name: '발전의 증표Lv30', color: 'standard' },
+    1156: { name: '발전의 증표Lv31', color: 'standard' },
+    1157: { name: '발전의 증표Lv32', color: 'standard' },
+    1161: { name: '낡은 손오반의 모자[유물]', color: 'purple' },
     834:  { name: '오룡의 팬티 컬렉션 조합서', color: 'standard' },
     836:  { name: '마인부우의 사탕', color: 'standard' },
     846:  { name: '마인부우의 신발', color: 'standard' },
@@ -1053,6 +1177,7 @@ const ITEM_MAPPING = {
     1046: { name: '인조 물약', color: 'standard' },
     1092: { name: '용권[스킬북]', color: 'standard' },
     1094: { name: '명절 선물셋트[Event]', color: 'standard' },
+    1095: { name: '타임캡슐 우주선Lv1', color: 'standard' },
     1096: { name: '사오공의 낡은 여의봉', color: 'standard' },
     1097: { name: '사오공의 낡은 도복', color: 'standard' },
     1098: { name: '사오공의 여의봉 [유물]', color: 'blue' },
@@ -1077,6 +1202,7 @@ const ITEM_MAPPING = {
     1179: { name: '오천크스의 수련팔찌 [유물]', color: 'blue' },
     1181: { name: '오천크스의 갑옷 [유물]', color: 'blue' },
     1182: { name: '오천크스의 가방 [유물]', color: 'blue' },
+    1183: { name: '타임캡슐 우주선Lv2', color: 'standard' },
     1187: { name: '인조인간 슈퍼 13호의 오만 [칭호]', color: 'blue' },
     1190: { name: '브로리의 분노 Lv2 [고유]', color: 'purple' },
     1193: { name: '개발용 헬멧[+1]', color: 'green' },
@@ -1086,6 +1212,7 @@ const ITEM_MAPPING = {
     1201: { name: '자넨바 팔찌', color: 'blue' },
     1202: { name: '자넨바 신발', color: 'blue' },
     1203: { name: '자넨바 보석', color: 'blue' },
+    1204: { name: '타임캡슐 우주선Lv3', color: 'standard' },
     1205: { name: '나무꾼의 물약', color: 'standard' },
     1208: { name: '브로리의 힘Lv3[고유]', color: 'purple' },
     1332: { name: '방심의 라데츠의 갑옷', color: 'standard' },
@@ -1162,6 +1289,7 @@ const ITEM_MAPPING = {
     1447: { name: '영웅의 증표 lv21', color: 'purple' },
     1448: { name: '영웅의 증표 lv22', color: 'purple' },
     1449: { name: '힐데건 성충 소환장치', color: 'cyan' },
+    1450: { name: '무차별 폭행[스킬북]', color: 'standard' },
     1455: { name: '초사이언4-베지터[조각]', color: 'standard' },
     1452: { name: '전신 트레이닝MAX[스킬북]', color: 'standard' },
     1456: { name: '풀파워 셀[조각]', color: 'standard' },
@@ -1647,33 +1775,47 @@ function fmtMax(cur, max) {
 
 function renderBasicCard(c) {
     const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
+    const cpValue = typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp);
+    
+    // 만스텟 조건 판정
+    const isLvlMaxed = (parseInt(c.level) || 0) >= 6000;
+    const isAdvMaxed = (parseInt(c.adv) || 0) >= 21001;
+    const isCpMaxed = (cpValue || 0) >= 600000;
+    const isStarMaxed = c.starGrade && (c.starGrade.replace(/\s+/g, '') === '닼레8' || c.starGrade.replace(/\s+/g, '') === '다크레드8');
+    const isLimitMaxed = c.limit !== undefined && c.limit !== null && (parseInt(c.limit) || 0) >= 10;
+    const isOwnStrMaxed = c.str && c.maxOwnStat && parseInt(c.str.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnAgiMaxed = c.agi && c.maxOwnStat && parseInt(c.agi.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
+    const isOwnIntMaxed = c.intVal && c.maxOwnStat && parseInt(c.intVal.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
+    
+    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxed && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
+
     return [
-        `<div class="char-card">`,
+        `<div class="char-card ${isAllMaxed ? 'char-card-all-maxed' : ''}">`,
         `<div class="char-name-row"><span class="${nameClass}">${c.charName}</span>${renderBadges(c)}</div>`,
-        `<div class="char-level">레벨: <span>${fmt(c.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${(MAX_SPEED_MAPPING[c.charName] !== undefined ? MAX_SPEED_MAPPING[c.charName] : '-')})</span></div>`,
-        `<div class="char-adventure">모험: <span>${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
-        `<div class="stat-row"><span>공격: ${fmt(c.attack)}</span><span class="alt">방어: ${fmt(c.defense)}</span></div>`,
-        `<div class="stat-row"><span>기: ${fmt(c.ki)}</span><span class="alt">체력: ${fmt(c.hp)}</span></div>`,
-        `<div class="stat-row"><span>공속: ${fmt(c.speed)}</span><span class="alt">불굴: ${fmt(c.fortitude)}</span></div>`,
-        `<div class="char-cp">투력:<span class="${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge">각성:' + c.awakeningLevel + '</span>' : ''}</div>`,
+        `<div class="char-level"><span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${fmt(c.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${(MAX_SPEED_MAPPING[c.charName] !== undefined ? MAX_SPEED_MAPPING[c.charName] : '-')})</span></div>`,
+        `<div class="char-adventure"><span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span class="alt"><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">기:</span> <span class="stat-value">${fmt(c.ki)}</span></span><span class="alt"><span class="stat-label">체력:</span> <span class="stat-value">${fmt(c.hp)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">공속:</span> <span class="stat-value">${fmt(c.speed)}</span></span><span class="alt"><span class="stat-label">불굴:</span> <span class="stat-value">${fmt(c.fortitude)}</span></span></div>`,
+        `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
         c.limit !== null ? [
             `<div class="limit-block">`,
-            `<div class="limit-title">극한: ${fmt(c.limit)} (${fmt(c.limitPt)}pt)</div>`,
-            `<div class="stat-row"><span>근력: ${fmt(c.strength)}</span><span class="alt">근성: ${fmt(c.grit)}</span></div>`,
-            `<div class="stat-row"><span>탐구: ${fmt(c.search)}</span><span class="alt">행운: ${fmt(c.luck)}</span></div>`,
+            `<div class="limit-title"><span class="stat-label">극한:</span> <span class="stat-value ${isLimitMaxed ? 'stat-val-maxed' : ''}">${fmt(c.limit)}</span> <small style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(<span class="stat-value">${fmt(c.limitPt)}</span>pt)</small></div>`,
+            `<div class="stat-row"><span><span class="stat-label">근력:</span> <span class="stat-value">${fmt(c.strength)}</span></span><span class="alt"><span class="stat-label">근성:</span> <span class="stat-value">${fmt(c.grit)}</span></span></div>`,
+            `<div class="stat-row"><span><span class="stat-label">탐구:</span> <span class="stat-value">${fmt(c.search)}</span></span><span class="alt"><span class="stat-label">행운:</span> <span class="stat-value">${fmt(c.luck)}</span></span></div>`,
             `</div>`
         ].join('') : '',
         `<div class="sub-divider"></div>`,
         `<div class="sub-label">내 스텟</div>`,
-        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-str ${c.str >= c.maxOwnStat ? 'stat-val-maxed' : ''}">힘: ${fmtMax(c.str, c.maxOwnStat)}</span><span class="alt val-agi ${c.agi >= c.maxOwnStat ? 'stat-val-maxed' : ''}">민: ${fmtMax(c.agi, c.maxOwnStat)}</span></div>`,
-        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-int ${c.intVal >= c.maxOwnStat ? 'stat-val-maxed' : ''}">지: ${fmtMax(c.intVal, c.maxOwnStat)}</span></div>`,
+        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.str >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.str, c.maxOwnStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.agi >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.agi, c.maxOwnStat)}</span></span></div>`,
+        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.intVal >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.intVal, c.maxOwnStat)}</span></span></div>`,
         `<div class="sub-label">${c.friendSlot > 0 ? c.friendName : '친구 스텟'}</div>`,
-        `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">힘: ${fmtMax(c.friendStr, c.maxFriendStat)}</span><span class="alt val-agi ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">민: ${fmtMax(c.friendAgi, c.maxFriendStat)}</span></div>`,
-        `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">지: ${fmtMax(c.friendInt, c.maxFriendStat)}</span></div>`,
+        `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendStr, c.maxFriendStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendAgi, c.maxFriendStat)}</span></span></div>`,
+        `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendInt, c.maxFriendStat)}</span></span></div>`,
         `<div class="sub-divider"></div>`,
-        `<div class="stat-row"><span>도감: <span class="val-dogam">${fmt(c.doGam)}</span></span><span class="alt">💰 <span class="val-gold">${fmt(c.gold)}</span></span></div>`,
-        `<div class="stat-row"><span>금괴: <span class="val-goldbar">${fmt(c.goldBars)}</span></span><span class="alt">💎 <span class="val-bd">${fmt(c.blueDiamonds)}</span></span></div>`,
-        `<div class="stat-row"><span>성급: <span class="val-star">${c.starGrade}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">도감:</span> <span class="stat-value val-dogam">${fmt(c.doGam)}</span></span><span class="alt"><span class="stat-label">💰 금화:</span> <span class="stat-value val-gold">${fmt(c.gold)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">금괴:</span> <span class="stat-value val-goldbar">${fmt(c.goldBars)}</span></span><span class="alt"><span class="stat-label">💎 블다:</span> <span class="stat-value val-bd">${fmt(c.blueDiamonds)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${c.starGrade}</span></span></div>`,
         `</div>`
     ].join('');
 }

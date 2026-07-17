@@ -1842,5 +1842,108 @@ body {
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
     border-color: transparent;
 }
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.45) !important;
+
+/* All Max 달성 캐릭터 카드 프리미엄 테두리 & 뱃지 (애니메이션 이펙트 제외 버전) */
+.char-card.char-card-all-maxed,
+.mc-card.char-card-all-maxed {
+    border: 2px solid rgba(255, 215, 0, 0.95) !important;
+    position: relative !important;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 35, 20, 0.95)) !important;
+    box-shadow: none !important;
+    animation: none !important;
+}
+
+.char-card.char-card-all-maxed::after,
+.mc-card.char-card-all-maxed::after {
+    content: '★ALL MAX★';
+    position: absolute;
+    top: -9px;
+    right: 12px;
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    color: #000 !important;
+    font-size: 0.6rem;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+    z-index: 10;
+}
+
+/* 8대 만스텟 조건 속성들의 글자크기를 힘, 민, 지 글자크기(0.78rem)로 완벽히 통일 */
+.char-level, 
+.char-level span,
+.char-level small,
+.char-adventure, 
+.char-adventure span,
+.char-cp, 
+.char-cp span,
+.char-cp b,
+.char-limit-block, 
+.char-limit-block span,
+.limit-title,
+.limit-title span,
+.val-star,
+.stat-row,
+.stat-row span,
+.bottom-stats-col .stat-row,
+.mc-lv,
+.mc-adv,
+.mc-cp,
+.mc-section-title {
+    font-size: 0.78rem !important;
+}
+
+/* 캐릭터 한글 스탯/정보 레이블(한글 안쪽 내용)을 블루(프리미엄 네온블루)로 통일 (진하게 제거) */
+.stat-label,
+.mc-sublabel,
+.stats-col-title,
+.sub-label {
+    color: #00a2ff !important;
+    font-weight: normal !important;
+}
+
+/* 실질 수치 값(Value)들의 색상을 부드러운 화이트로 통일해 한글 레이블과 구분 */
+.stat-value,
+.val-star,
+.val-dogam,
+.val-gold,
+.val-goldbar,
+.val-bluedia,
+.mc-val,
+.mc-lv,
+.mc-adv,
+.mc-dogam,
+.mc-gold,
+.mc-goldbar,
+.mc-bd,
+.mc-noitem {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+}
+
+/* 만스텟 황금색 수치들 우선순위 보존 (구체성 강화) */
+.stat-val-maxed,
+span.stat-val-maxed,
+.bottom-stats-col span.stat-val-maxed,
+.char-level span.stat-val-maxed,
+.char-adventure span.stat-val-maxed,
+.char-limit-block span.stat-val-maxed,
+.limit-title span.stat-val-maxed,
+.stat-row span.stat-val-maxed,
+.mc-val.stat-val-maxed,
+.mc-row b.stat-val-maxed,
+.mc-row span.stat-val-maxed,
+span.stat-value.stat-val-maxed {
+    color: #ffd700 !important;
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.5) !important;
+}
+
+.cp-maxed-completed {
+    color: #ffd700 !important;
+    animation: cpGoldPulse 2s infinite ease-in-out !important;
+    background: linear-gradient(90deg, #ffd700, #ffaa00) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block !important;
 }
