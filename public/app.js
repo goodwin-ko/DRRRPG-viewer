@@ -36,6 +36,71 @@ for (const [upBookIdx, slotNum] of Object.entries(UPBOOK_TO_SLOT)) {
     SLOT_TO_UPBOOK[slotNum] = parseInt(upBookIdx);
 }
 
+// Character Maximum Speed Mapping Table
+const MAX_SPEED_MAPPING = {
+    '손오공': 10,
+    '크리링': 13.5,
+    '야무치': 4,
+    '천진반': 4.5,
+    '무천도사': 4.5,
+    '피콜로': 5,
+    '라데츠': 10,
+    '내퍼': 6.7,
+    '베지터': 16.7,
+    '굴드': 5,
+    '리쿰': 8.3,
+    '지스': 10,
+    '버터': 10,
+    '기뉴': 20,
+    '사탄': 5,
+    '어린손오반': 16.7,
+    '프리저': 10,
+    '콜드대왕': 11.1,
+    '네일': 5,
+    '인조인간16호': 6.7,
+    '인조인간19호': 6.7,
+    '인조인간20호': 6.7,
+    '인조인간17호': 16.7,
+    '인조인간18호': 16.7,
+    '셀': 16.7,
+    '트랭크스(미래)': 14.3,
+    '부르마': 3.3,
+    '야콩': 11.1,
+    '데브라': 8.3,
+    '비비디': 6.7,
+    '마인부우': 20,
+    '손오반': 16.7,
+    '도도리아': 6.25,
+    '비델': 12.5,
+    '손오천': 12.5,
+    '트랭크스(어린)': 16.7,
+    '자붕': 8.3,
+    '쿠우라': 16.7,
+    '인조인간15호': 16.7,
+    '인조인간14호': 16.7,
+    '우부': 10,
+    '타피온': 12.5,
+    '농부': 10,
+    '인조인간13호': 20,
+    '자넨바': 10,
+    '블루장군': 10,
+    '브로리(전설)': 20,
+    '버독': 16.7,
+    '타레스': 8.3,
+    '박테리안': 5,
+    '우마왕': 5,
+    '팡': 12.5,
+    '하야이드래곤': 10,
+    '브로리(약해진)': 20,
+    '아리': 10,
+    '파이크한': 16.7,
+    '베이비': 16.7,
+    '리루도': 10,
+    '인조인간8호': 10,
+    '심벌': 8.3,
+    '유린': 10
+};
+
 // Character ID Mapping Table
 // Slot number to UI category mapping
 const SLOT_CATEGORY_MAPPING = {
@@ -981,9 +1046,10 @@ function createCharacterCard(char) {
     leftCol.className = 'char-card-left';
 
     // Level
+    const maxSpd = MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-';
     const lvlDiv = document.createElement('div');
     lvlDiv.className = 'char-level';
-    lvlDiv.innerHTML = `레벨: <span>${formatNumber(char.level)}</span>`;
+    lvlDiv.innerHTML = `레벨: <span>${formatNumber(char.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${maxSpd})</span>`;
     leftCol.appendChild(lvlDiv);
 
     // Adventure
@@ -1948,7 +2014,7 @@ function createMobileBasicCard(char) {
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
-        <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)}</span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
+        <div class="mc-row"><span class="mc-lv">Lv.${mbFmt(char.level)} <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-')})</small></span><span class="mc-adv">모험 ${mbFmt(char.adventure)} (${getAdventureStage(char.adventure)})</span></div>
         <div class="mc-cp">투력 <b class="${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span>공격 ${mbFmt(char.attack)}</span><span>방어 ${mbFmt(char.defense)}</span></div>
