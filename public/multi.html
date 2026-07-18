@@ -319,21 +319,6 @@
             border-radius: 8px;
             padding: 10px 12px;
             transition: border-color 0.2s;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 탭별 캐릭터 카드 최소높이를 일치시켜 화면 일치감 향상 */
-        .tab-view[data-tab="basic"] .char-card {
-            min-height: 290px;
-        }
-        .tab-view[data-tab="equip"] .char-card {
-            min-height: 290px;
-            padding: 12px 12px;
-        }
-        .tab-view[data-tab="bag"] .char-card {
-            min-height: 290px;
         }
 
         .char-card:hover { border-color: rgba(0,229,255,0.35); }
@@ -405,27 +390,6 @@
             font-size: 0.78rem;
             color: var(--text-muted);
             margin-bottom: 2px;
-        }
-
-        .stat-row-3col {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.76rem;
-            color: var(--text-muted);
-            margin-bottom: 3px;
-            gap: 4px;
-            width: 100%;
-        }
-        .stat-row-3col > span {
-            flex: 1;
-            text-align: left;
-            white-space: nowrap;
-        }
-        .stat-row-3col > span:nth-child(2) {
-            text-align: center;
-        }
-        .stat-row-3col > span:nth-child(3) {
-            text-align: right;
         }
 
         .stat-row span:first-child { color: var(--text-main); }
@@ -1857,8 +1821,9 @@ function renderBasicCard(c) {
         `<div class="char-name-row"><span class="${nameClass}">${c.charName}</span>${renderBadges(c)}</div>`,
         `<div class="char-level"><span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${fmt(c.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${(MAX_SPEED_MAPPING[c.charName] !== undefined ? MAX_SPEED_MAPPING[c.charName] : '-')})</span></div>`,
         `<div class="char-adventure"><span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
-        `<div class="stat-row-3col"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span><span><span class="stat-label">기:</span> <span class="stat-value">${fmt(c.ki)}</span></span></div>`,
-        `<div class="stat-row-3col"><span><span class="stat-label">체력:</span> <span class="stat-value">${fmt(c.hp)}</span></span><span><span class="stat-label">공속:</span> <span class="stat-value">${fmt(c.speed)}</span></span><span><span class="stat-label">불굴:</span> <span class="stat-value">${fmt(c.fortitude)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span class="alt"><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">기:</span> <span class="stat-value">${fmt(c.ki)}</span></span><span class="alt"><span class="stat-label">체력:</span> <span class="stat-value">${fmt(c.hp)}</span></span></div>`,
+        `<div class="stat-row"><span><span class="stat-label">공속:</span> <span class="stat-value">${fmt(c.speed)}</span></span><span class="alt"><span class="stat-label">불굴:</span> <span class="stat-value">${fmt(c.fortitude)}</span></span></div>`,
         `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
         c.limit !== null ? [
             `<div class="limit-block">`,
