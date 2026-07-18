@@ -461,11 +461,36 @@
         }
 
         .item-standard { color: var(--text-main); border-color: rgba(255,255,255,0.1); }
-        .item-green { color: var(--green); border-color: rgba(0,255,102,0.25); background: rgba(0,255,102,0.06); }
-        .item-blue { color: #60b4ff; border-color: rgba(96,180,255,0.25); background: rgba(96,180,255,0.06); }
-        .item-purple { color: var(--purple); border-color: rgba(192,132,252,0.25); background: rgba(192,132,252,0.06); }
-        .item-cyan { color: var(--cyan); border-color: rgba(0,229,255,0.25); background: rgba(0,229,255,0.06); }
-        .item-red { color: #ff6680; border-color: rgba(255,60,60,0.3); background: rgba(255,30,60,0.1); }
+        .item-green { 
+            color: #00ff66 !important; 
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.3); 
+            border-color: rgba(0,255,102,0.25) !important;
+            background: rgba(0,255,102,0.06) !important;
+        }
+        .item-blue { 
+            color: #00e5ff !important; 
+            text-shadow: 0 0 8px rgba(0, 229, 255, 0.3); 
+            border-color: rgba(0,229,255,0.25) !important;
+            background: rgba(0,229,255,0.06) !important;
+        }
+        .item-purple { 
+            color: #e066ff !important; 
+            text-shadow: 0 0 8px rgba(224, 102, 255, 0.3); 
+            border-color: rgba(192,132,252,0.25) !important;
+            background: rgba(192,132,252,0.06) !important;
+        }
+        .item-cyan { 
+            color: #00ffcc !important; 
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.3); 
+            border-color: rgba(0,229,255,0.25) !important;
+            background: rgba(0,229,255,0.06) !important;
+        }
+        .item-red { 
+            color: var(--red) !important; 
+            text-shadow: 0 0 8px rgba(255, 51, 85, 0.4); 
+            border-color: rgba(255,60,60,0.3) !important;
+            background: rgba(255,30,60,0.1) !important;
+        }
         .item-rainbow {
             background: linear-gradient(
                 to right,
@@ -474,14 +499,14 @@
                 #f9e79f 50%,
                 #f5b041 75%,
                 #ffe066 100%
-            );
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldMetallicFlow 4s linear infinite;
-            border-color: rgba(255,215,0,0.2) !important;
-            background-color: rgba(255,215,0,0.02) !important;
-            font-weight: 850;
+            ) !important;
+            background-size: 200% auto !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            animation: goldMetallicFlow 4s linear infinite !important;
+            border-color: rgba(255,215,0,0.3) !important;
+            font-weight: 850 !important;
+            letter-spacing: 0.2px !important;
         }
 
         @keyframes goldMetallicFlow {
