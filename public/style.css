@@ -777,6 +777,8 @@ body {
     gap: 12px;
     transition: all 0.2s ease-in-out;
     text-align: center;
+    min-height: 310px;
+    box-sizing: border-box;
 }
 
 .equip-card:hover {
