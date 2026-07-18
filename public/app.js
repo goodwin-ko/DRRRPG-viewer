@@ -1110,23 +1110,25 @@ function createCharacterCard(char) {
     advDiv.innerHTML = `<span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${formatNumber(char.adventure)} (${stageName})</span>`;
     leftCol.appendChild(advDiv);
 
-    // Attack & Defense
+    // Row 1: 공격력, 방어력, 기
     const row1 = document.createElement('div');
-    row1.className = 'stat-row';
-    row1.innerHTML = `<span><span class="stat-label">공격력:</span> <span class="stat-value">${formatNumber(char.attack)}</span></span><span class="alt-value"><span class="stat-label">방어력:</span> <span class="stat-value">${formatNumber(char.defense)}</span></span>`;
+    row1.className = 'stat-row-3col';
+    row1.innerHTML = `
+        <span><span class="stat-label">공격력:</span> <span class="stat-value">${formatNumber(char.attack)}</span></span>
+        <span><span class="stat-label">방어력:</span> <span class="stat-value">${formatNumber(char.defense)}</span></span>
+        <span><span class="stat-label">기:</span> <span class="stat-value">${formatNumber(char.ki)}</span></span>
+    `;
     leftCol.appendChild(row1);
 
-    // Ki & HP
+    // Row 2: 체력, 공속, 불굴
     const row2 = document.createElement('div');
-    row2.className = 'stat-row';
-    row2.innerHTML = `<span><span class="stat-label">기:</span> <span class="stat-value">${formatNumber(char.ki)}</span></span><span class="alt-value"><span class="stat-label">체력:</span> <span class="stat-value">${formatNumber(char.hp)}</span></span>`;
+    row2.className = 'stat-row-3col';
+    row2.innerHTML = `
+        <span><span class="stat-label">체력:</span> <span class="stat-value">${formatNumber(char.hp)}</span></span>
+        <span><span class="stat-label">공속:</span> <span class="stat-value">${formatNumber(char.speed)}</span></span>
+        <span><span class="stat-label">불굴:</span> <span class="stat-value">${formatNumber(char.fortitude)}</span></span>
+    `;
     leftCol.appendChild(row2);
-
-    // Speed (공속) & Fortitude (불굴)
-    const row3 = document.createElement('div');
-    row3.className = 'stat-row';
-    row3.innerHTML = `<span><span class="stat-label">공속:</span> <span class="stat-value">${formatNumber(char.speed)}</span></span><span class="alt-value"><span class="stat-label">불굴:</span> <span class="stat-value">${formatNumber(char.fortitude)}</span></span>`;
-    leftCol.appendChild(row3);
 
     const cpValue = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
     const isCpMaxed = (cpValue || 0) >= 600000;
