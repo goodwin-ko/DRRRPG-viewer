@@ -1267,7 +1267,7 @@ function createCharacterCard(char) {
             </div>
         </div>
         <div class="bottom-stats-col">
-            <div class="stats-col-title">${char.friendName}</div>
+            <div class="stats-col-title friend-name-text">${char.friendName}</div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${parseInt(char.friendStr.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></span></div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-agi"><span class="stat-label">민:</span> <span class="stat-value ${parseInt(char.friendAgi.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></span></div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.friendInt.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></span></div>
@@ -2206,7 +2206,7 @@ function createMobileEquipCard(char) {
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
         <div class="mc-items">${myItems}</div>
-        <div class="mc-friend-div">— ${char.friendName} —</div>
+        <div class="mc-friend-div friend-name-text">— ${char.friendName} —</div>
         <div class="mc-items">${friendItems}</div>
     </div>`;
 }

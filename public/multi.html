@@ -830,6 +830,13 @@
             font-weight: normal !important;
         }
 
+        /* 친구 이름 가독성 극대화 스타일 */
+        .friend-name-text {
+            color: #FFD700 !important;
+            font-weight: 800 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6) !important;
+        }
+
         /* 실질 수치 값(Value)들의 색상을 부드러운 화이트로 통일해 한글 레이블과 구분 */
         .char-level span,
         .char-level small,
@@ -1911,7 +1918,7 @@ function renderBasicCard(c) {
         `<div class="sub-label">내 스텟</div>`,
         `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.str >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.str, c.maxOwnStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.agi >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.agi, c.maxOwnStat)}</span></span></div>`,
         `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.intVal >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.intVal, c.maxOwnStat)}</span></span></div>`,
-        `<div class="sub-label">${c.friendSlot > 0 ? c.friendName : '친구 스텟'}</div>`,
+        `<div class="sub-label friend-name-text">${c.friendSlot > 0 ? c.friendName : '친구 스텟'}</div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendStr, c.maxFriendStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendAgi, c.maxFriendStat)}</span></span></div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendInt, c.maxFriendStat)}</span></span></div>`,
         `<div class="sub-divider"></div>`,
@@ -1946,7 +1953,7 @@ function renderEquipCard(c) {
             </div>
             <div class="equip-items">
                 ${myHtml}
-                <div class="equip-friend-divider">— ${c.friendName} —</div>
+                <div class="equip-friend-divider friend-name-text">— ${c.friendName} —</div>
                 ${friendHtml}
             </div>
         </div>`;
