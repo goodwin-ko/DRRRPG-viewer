@@ -8,6 +8,59 @@ import datetime
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
+LINK_NAME_MAPPING = {
+    1: '손오공', 2: '크리링', 3: '야무치', 4: '천진반', 5: '무천도사',
+    6: '피콜로', 7: '라데츠', 8: '내퍼', 9: '베지터', 10: '굴드',
+    11: '리쿰', 12: '지스', 13: '버터', 14: '기뉴', 15: '사탄',
+    16: '어린손오반', 17: '프리저', 18: '콜드대왕', 19: '네일', 20: '인조인간16호',
+    21: '인조인간19호', 22: '인조인간20호', 23: '인조인간17호', 24: '인조인간18호', 25: '셀',
+    26: '트랭크스(미래)', 27: '부르마', 28: '야콩', 29: '데브라', 30: '비비디',
+    31: '마인부우', 32: '손오반', 33: '도도리아', 34: '비델', 35: '손오천',
+    36: '트랭크스(어린)', 37: '자붕', 38: '쿠우라', 39: '인조인간15호', 40: '인조인간14호',
+    41: '우부', 42: '타피온', 43: '농부', 44: '인조인간13호', 45: '자넨바',
+    46: '블루장군', 47: '브로리(전설)', 48: '버독', 49: '타레스', 50: '박테리안',
+    51: '우마왕', 52: '팡', 53: '하야이드래곤', 54: '브로리(약해진)', 55: '아리',
+    56: '파이크한', 57: '베이비', 58: '리루도', 59: '인조인간8호', 60: '심벌', 61: '유린'
+}
+
+HERO_COMPATIBILITY_GROUPS = {
+    "손오공": ["손오공", "유린"],
+    "유린": ["손오공", "유린"],
+    "우부": ["우부", "슈퍼우부"],
+    "슈퍼우부": ["우부", "슈퍼우부"]
+}
+
+import base64
+
+def get_slot_save_date(slot_str, merged_data):
+    k_d3 = f"DATA3_{slot_str}"
+    if k_d3 in merged_data:
+        try:
+            b64_val = merged_data[k_d3]
+            decoded = base64.b64decode(b64_val).decode('utf-8', errors='ignore')
+            m = re.search(r'\b(20\d{6})\b', decoded)
+            if m:
+                return m.group(1)
+        except:
+            pass
+    for k_prefix in ["DATA1_", "DATA2_"]:
+        k = f"{k_prefix}{slot_str}"
+        if k in merged_data:
+            try:
+                b64_val = merged_data[k]
+                decoded = base64.b64decode(b64_val).decode('utf-8', errors='ignore')
+                m = re.search(r'\b(20\d{6})\b', decoded)
+                if m:
+                    return m.group(1)
+            except:
+                pass
+    return None
+
+def parse_ymd_to_date(ymd_str):
+    try:
+        return datetime.date(int(ymd_str[0:4]), int(ymd_str[4:6]), int(ymd_str[6:8]))
+    except:
+        return None
 def parse_log_td(td_html):
     # Remove br tags and replace with newlines
     text = re.sub(r"<br\s*/?>", "\n", td_html)
@@ -20,8 +73,9 @@ def parse_log_td(td_html):
     # Clean up trailing commas before closing braces
     json_str = re.sub(r",\s*}", "}", json_str)
     
+    data = {}
     try:
-        return json.loads(json_str)
+        data = json.loads(json_str)
     except Exception as e:
         # Fallback to manual key-value extraction using regex
         data = {}
@@ -39,7 +93,37 @@ def parse_log_td(td_html):
                 except:
                     pass
             data[key] = val
-        return data
+
+    # 로그 텍스트 내의 친구 이름 동적 추출 로직 (유연한 라인 검출 및 정제)
+    slots = set(re.findall(r"DATA1_(\d+)", text))
+    if not slots:
+        slots = set(re.findall(r"DATA1.*?(\d+)", text))
+
+    friend_name = None
+    for line in text.split("\n"):
+        line = line.strip()
+        if "친구" in line:
+            if ":" in line:
+                parts = line.split(":", 1)
+                if len(parts) > 1:
+                    content = parts[1].strip()
+                    # 'Lv4341' 이나 'Lv 4341' 등 레벨 정보 제거
+                    content = re.sub(r"^Lv\s*\d+", "", content, flags=re.IGNORECASE).strip()
+                    # 워크래프트 컬러코드 및 특수태그 제거
+                    content = re.sub(r"\|c[0-9a-fA-F]{8}", "", content)
+                    content = re.sub(r"\|r", "", content)
+                    content = re.sub(r"『친구』", "", content)
+                    content = re.sub(r"\[친구\]", "", content)
+                    content = content.strip()
+                    if content:
+                        friend_name = content
+                        break
+
+    if friend_name:
+        for slot in slots:
+            data[f"FRIEND_NAME_{slot}"] = friend_name
+
+    return data
 
 def iso_to_m16_date(iso_str):
     if not iso_str:
@@ -94,6 +178,14 @@ def get_latest_log_char(nicName):
         match = re.search(r"영웅\s*:\s*Lv\d+\s*(?:\|c[0-9a-fA-F]{8})?(?:『영웅』|『친구』)?(?:\|r)?\s*([^\n\r]+)", full_text_clean)
         if match:
             char_name = match.group(1).strip()
+            # 워크래프트 컬러코드 및 태그 제거
+            char_name = re.sub(r"\|c[0-9a-fA-F]{8}", "", char_name)
+            char_name = re.sub(r"\|r", "", char_name)
+            char_name = re.sub(r"『영웅』", "", char_name)
+            # [2차 각성] 등은 공백으로 변환하여 표시명에 포함 (ex: "인조인간 16호[2차 각성]" → "인조인간 16호 2차 각성")
+            char_name = re.sub(r"\[", " ", char_name)
+            char_name = re.sub(r"\]", "", char_name)
+            char_name = re.sub(r"\s+", " ", char_name).strip()
             formatted_date = iso_to_m16_date(latest_date_iso)
             return char_name, formatted_date
             
@@ -116,9 +208,12 @@ def get_logs():
     if not nicName:
         return jsonify({"success": False, "error": "Nickname is required"}), 400
         
-    url = f"https://m16tool.xyz/Game/DRR/UserLog/LogResult?nicName={nicName}"
+    import time
+    url = f"https://m16tool.xyz/Game/DRR/UserLog/LogResult?nicName={nicName}&_={int(time.time() * 1000)}"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache"
     }
     
     try:
@@ -184,6 +279,143 @@ def get_logs():
             if m_slot and not char_file.upper().startswith('JN_'):
                 slot_num = int(m_slot.group(1))
                 slot_dates[str(slot_num)] = entry['date']
+
+        # Fetch additional recent logs from GetLog (without Month filter) to extract latest friend names
+        # Scan pages 4 to 0 (oldest to newest in the range) so that newer logs overwrite older ones.
+        try:
+            import time
+            ajax_url = f"https://logs2.m16tool.xyz/Game/DRR/UserLog/GetLog?_={int(time.time() * 1000)}"
+            ajax_headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            }
+            
+            pages_data = []
+            for page_idx in range(5):
+                ajax_data = {
+                    "nicName": nicName,
+                    "character": "JN_DATA_1",
+                    "index": page_idx
+                }
+                ajax_resp = requests.post(ajax_url, data=ajax_data, headers=ajax_headers, timeout=10)
+                if ajax_resp.status_code == 200:
+                    ajax_res = ajax_resp.json()
+                    if ajax_res.get("success") and "data" in ajax_res and ajax_res["data"]:
+                        pages_data.append(ajax_res["data"])
+                    else:
+                        break
+                else:
+                    break
+            
+            # 1. Collect all candidates from oldest to newest
+            candidates = []
+            for page_logs in reversed(pages_data):
+                # Reverse log entries inside each page to process oldest first
+                for item in reversed(page_logs):
+                    obj = json.loads(item)
+                    loging_html = obj.get("Loging", "")
+                    if loging_html:
+                        try:
+                            loging_html = loging_html.encode('latin1').decode('cp949', errors='ignore')
+                        except:
+                            pass
+                        # Clean up HTML tags and get raw text
+                        text_clean = re.sub(r"<br\s*/?>", "\n", loging_html)
+                        text_clean = re.sub(r"<[^>]+>", "", text_clean).strip()
+                        
+                        # Extract friend name
+                        friend_name = None
+                        for line in text_clean.split("\n"):
+                            line = line.strip()
+                            if "친구" in line:
+                                if ":" in line:
+                                    parts = line.split(":", 1)
+                                    if len(parts) > 1:
+                                        content = parts[1].strip()
+                                        content = re.sub(r"^Lv\s*\d+", "", content, flags=re.IGNORECASE).strip()
+                                        content = re.sub(r"\|c[0-9a-fA-F]{8}", "", content)
+                                        content = re.sub(r"\|r", "", content)
+                                        content = re.sub(r"『친구』", "", content)
+                                        content = re.sub(r"\[친구\]", "", content)
+                                        content = content.strip()
+                                        if content:
+                                            friend_name = content
+                                            break
+                        
+                        # Extract hero name
+                        hero_name = None
+                        hero_display_name = None
+                        hero_match = re.search(r"영웅\s*:\s*Lv\d+\s*(?:\|c[0-9a-fA-F]{8})?(?:『영웅』)?(?:\|r)?\s*([^\n\r]+)", text_clean)
+                        if hero_match:
+                            hero_raw = hero_match.group(1).strip()
+                            hero_raw = re.sub(r"\|c[0-9a-fA-F]{8}", "", hero_raw)
+                            hero_raw = re.sub(r"\|r", "", hero_raw)
+                            hero_raw = re.sub(r"『영웅』", "", hero_raw).strip()
+                            # 표시명: [] 기호를 고론로 삼아 공백 정희 (ex: "인조인간 16호[2차 각성]" → "인조인간 16호 2차 각성")
+                            display_raw = re.sub(r"\[", " ", hero_raw)
+                            display_raw = re.sub(r"\]", "", display_raw)
+                            hero_display_name = re.sub(r"\s+", " ", display_raw).strip()
+                            # 슬롯 매칭용: 공백 정규화 + [] 제거
+                            hero_line = re.sub(r"\[.*?\]", "", hero_raw)
+                            hero_line = re.sub(r"\s+", "", hero_line)
+                            
+                            for slot_id, char_basic_name in LINK_NAME_MAPPING.items():
+                                norm_name = re.sub(r"\s+", "", char_basic_name)
+                                if norm_name in hero_line or norm_name == hero_line:
+                                    hero_name = char_basic_name
+                                    break
+                                    
+                        if hero_name and friend_name:
+                            candidates.append({
+                                "hero_name": hero_name,
+                                "hero_display_name": hero_display_name or hero_name,
+                                "friend_name": friend_name,
+                                "CreateDate": obj.get("CreateDate")
+                            })
+            
+            # 2. Map candidates to corresponding slots
+            # The candidates list is ordered from oldest to newest.
+            # The last 3 items in candidates are the absolute most recent saves.
+            for idx, cand in enumerate(candidates):
+                hero_name = cand["hero_name"]
+                hero_display_name = cand.get("hero_display_name", hero_name)
+                friend_name = cand["friend_name"]
+                log_date_str = cand["CreateDate"]
+                
+                is_very_recent = (len(candidates) - idx) <= 10
+                
+                log_ymd = None
+                if log_date_str:
+                    m_log = re.match(r"(\d{4})-(\d{2})-(\d{2})", log_date_str)
+                    if m_log:
+                        log_ymd = m_log.group(1) + m_log.group(2) + m_log.group(3)
+                
+                for key in list(merged_data.keys()):
+                    if key.startswith("DATA1_"):
+                        slot_str = key.split("_")[1]
+                        slot_id_int = int(slot_str)
+                        slot_name = LINK_NAME_MAPPING.get(slot_id_int)
+                        is_hero_match = (slot_name == hero_name) or (slot_name in HERO_COMPATIBILITY_GROUPS.get(hero_name, []))
+                        if is_hero_match:
+                            if is_very_recent:
+                                # Absolute most recent saves bypass the YYYYMMDD date guard
+                                merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
+                                merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
+                            else:
+                                # Normal saves require the YYYYMMDD date guard (within 1 day diff)
+                                slot_ymd = get_slot_save_date(slot_str, merged_data)
+                                if slot_ymd and log_ymd:
+                                    slot_dt = parse_ymd_to_date(slot_ymd)
+                                    log_dt = parse_ymd_to_date(log_ymd)
+                                    if slot_dt and log_dt:
+                                        if abs((slot_dt - log_dt).days) <= 1:
+                                            merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
+                                            merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
+        except Exception as ex:
+            import traceback
+            traceback.print_exc()
 
         # Fetch latest played character & date from logs2 AJAX endpoint
         latest_log_char, latest_log_date = get_latest_log_char(nicName)

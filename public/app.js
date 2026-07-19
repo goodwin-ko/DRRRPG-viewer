@@ -189,8 +189,75 @@ const LINK_NAME_MAPPING = {
 // Friend ID to Name Mapping (캐릭터 슬롯과 번호가 다름)
 const FRIEND_NAME_MAPPING = {};
 
-// 경험치(friendExp) 기반 친구 캐릭터 판별
-function getFriendNameFromExp(friendExp, friendSlot) {
+// Base64 디코딩 후 숫자 배열로 변환하는 함수
+function decodeSaveCode(base64Str) {
+    try {
+        const binaryString = atob(base64Str);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        const text = new TextDecoder().decode(bytes);
+        // 마지막 쉼표 제거 후 배열 변환
+        return text.replace(/,$/, "").split(",").map(Number);
+    } catch (e) {
+        console.error("코드 디코딩 실패:", e);
+        return null;
+    }
+}
+
+// DATA1과 DATA2 배열을 크로스 체크하여 친구 이름을 특정하는 마스터 판정 함수
+function identifyFriendCharacter(data1Code, data2Code) {
+    const d1 = decodeSaveCode(data1Code);
+    const d2 = decodeSaveCode(data2Code);
+    
+    if (!d1 || !d2) return "친구";
+
+    // 1. 친구 슬롯 ID (Index 95) 추출
+    const friendSlot = d1.length > 95 ? Number(d1[95]) || 0 : 0;
+    if (friendSlot <= 0) {
+        return "친구"; // 친구가 장착되지 않은 경우
+    }
+
+    // [예외 매핑] 우마왕(51번 슬롯)은 인게임 한글 번역명인 "황소"로 표시
+    if (friendSlot === 51) {
+        return "황소";
+    }
+
+    // 2. DATA2 구조 기반의 특수 친구 마스터 키(1363) 포함 여부 검사
+    const has1363 = d2.slice(12, 25).some(val => {
+        const vStr = String(val);
+        return vStr === "1363" || vStr.includes("13;6");
+    });
+
+    // 3. 특수 친구 상태(1363 활성화)라면 이름 뒤에 '(약해진)' 접미사 부여
+    if (has1363) {
+        // 친구 스탯 영역(인덱스 52, 53, 54)의 최대값이 100만 이상이면 무조건 "메탈 쿠우라(약해진)"
+        const fStr = d1.length > 52 ? Number(d1[52]) || 0 : 0;
+        const fAgi = d1.length > 53 ? Number(d1[53]) || 0 : 0;
+        const fInt = d1.length > 54 ? Number(d1[54]) || 0 : 0;
+        const maxStat = Math.max(fStr, fAgi, fInt);
+
+        if (maxStat >= 1000000) {
+            return "메탈 쿠우라(약해진)";
+        }
+
+        // 특별히 키드부우 예외가 필요한 경우 치환 처리
+        const has1460 = d2.slice(12, 25).some(val => String(val) === "1460");
+        if (has1460) {
+            return "키드부우(약해진)";
+        }
+
+        // 진행도 그룹(이벤트 활성화 값) 추출
+        const progressGroup = d1[16]; 
+        if (progressGroup === 19001) {
+            return "마인부우(약해진)";
+        }
+
+        return "친구(약해진)";
+    }
+
+    // 일반 친구 상태인 경우 엉뚱한 영웅 도감을 불러오지 않고 기본 라벨인 "친구"로 안전하게 수렴
     return "친구";
 }
 
@@ -1097,7 +1164,8 @@ function createCharacterCard(char) {
     }
 
     // Level
-    const maxSpd = MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-';
+    const baseName = LINK_NAME_MAPPING[char.slotNum];
+    const maxSpd = (MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : (MAX_SPEED_MAPPING[baseName] !== undefined ? MAX_SPEED_MAPPING[baseName] : '-'));
     const lvlDiv = document.createElement('div');
     lvlDiv.className = 'char-level';
     lvlDiv.innerHTML = `<span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${formatNumber(char.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${maxSpd})</span>`;
@@ -1532,13 +1600,13 @@ async function fetchAndRenderLogs(nicName) {
                     const friendSlot = d1.length > 95 ? (parseInt(d1[95]) || 0) : 0;
                     const friendExp = d1.length > 39 ? (parseInt(d1[39]) || 0) : 0;
                     const friendLevel = Math.floor(Math.sqrt(friendExp / 25));
-                    const friendName = getFriendNameFromExp(friendExp, friendSlot);
+                    const friendName = data[`FRIEND_NAME_${slotNum}`] || identifyFriendCharacter(d1B64, d2B64);
 
                     const gold = d1.length > 0 ? (parseInt(d1[0]) || 0) : 0;
                     const goldBars = d1.length > 1 ? (parseInt(d1[1]) || 0) : 0;
                     const blueDiamonds = d2.length > 95 ? (parseInt(d2[95]) || 0) : 0;
 
-                    const charName = LINK_NAME_MAPPING[slotNumInt] || `캐릭터 ${charId}`;
+                    const charName = data[`HERO_DISPLAY_NAME_${slotNum}`] || LINK_NAME_MAPPING[slotNumInt] || `캐릭터 ${charId}`;
                     const category = SLOT_CATEGORY_MAPPING[slotNumInt] || 'other';
                     const awakeningLevel = getAwakeningLevel(pdata1Arr, slotNumInt);
 
@@ -1627,14 +1695,16 @@ async function fetchAndRenderLogs(nicName) {
         // 2. 매칭 실패 시 d3[6] saveDate 최댓값 (같은 날이면 slotNum 높은 캐릭터 우선)
         let latestChar = null;
         if (result.latest_log_character && uniqueCharacters.length > 0) {
-            const cleanLogName = result.latest_log_character.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/『[^』]+』/g, '').trim();
+            const rawLogName = result.latest_log_character.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/『[^』]+』/g, '').replace(/\[.*?\]/g, '').trim();
+            const cleanLogName = rawLogName.replace(/\s+/g, ''); // 공백 모두 제거해서 비교
             const mappingEntries = Object.entries(LINK_NAME_MAPPING)
                 .map(([slot, name]) => ({ slot: parseInt(slot), name }))
                 .sort((a, b) => b.name.length - a.name.length);
                 
             let matchedSlot = null;
             for (const entry of mappingEntries) {
-                if (cleanLogName.includes(entry.name)) {
+                const normEntryName = entry.name.replace(/\s+/g, '');
+                if (cleanLogName.includes(normEntryName)) {
                     matchedSlot = entry.slot;
                     break;
                 }
@@ -2082,7 +2152,7 @@ function createMobileBasicCard(char) {
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
         <div class="mc-row">
-            <span class="mc-lv"><span class="stat-label">Lv:</span> <b class="mc-val ${isLvlMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.level)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : '-')})</small></span>
+            <span class="mc-lv"><span class="stat-label">Lv:</span> <b class="mc-val ${isLvlMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.level)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : (MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] !== undefined ? MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] : '-'))})</small></span>
             <span class="mc-adv"><span class="stat-label">모험:</span> <b class="mc-val ${isAdvMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.adventure)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${getAdventureStage(char.adventure)})</small></span>
         </div>
         <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
