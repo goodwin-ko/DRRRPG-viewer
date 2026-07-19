@@ -257,8 +257,8 @@ function identifyFriendCharacter(data1Code, data2Code) {
         return "친구(약해진)";
     }
 
-    // 일반 친구 상태인 경우 엉뚱한 영웅 도감을 불러오지 않고 기본 라벨인 "친구"로 안전하게 수렴
-    return "친구";
+    // 일반 친구 상태인 경우 LINK_NAME_MAPPING에서 슬롯 번호로 이름 조회
+    return LINK_NAME_MAPPING[friendSlot] || "친구";
 }
 
 // Determine Star Grade (성급) based on 0-based index value
