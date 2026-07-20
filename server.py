@@ -8,6 +8,26 @@ import datetime
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
+# ─── 영구 캐시: 친구 이름 / 캐릭터 각성명 ───────────────────────────
+CACHE_FILE = os.path.join(os.path.dirname(__file__), 'friend_cache.json')
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        try:
+            with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
+
+def save_cache(cache):
+    try:
+        with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2)
+    except:
+        pass
+# ─────────────────────────────────────────────────────────────────────
+
 LINK_NAME_MAPPING = {
     1: '손오공', 2: '크리링', 3: '야무치', 4: '천진반', 5: '무천도사',
     6: '피콜로', 7: '라데츠', 8: '내퍼', 9: '베지터', 10: '굴드',
@@ -403,6 +423,32 @@ def get_logs():
                             # (날짜 가드 제거: 영웅 이름 매칭이 이미 정확성 보장, 데이터는 영구 유지)
                             merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
                             merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
+
+            # 3. 캐시 로드 및 적용: 로그에서 찾지 못한 슬롯은 캐시에서 보충
+            cache = load_cache()
+            nic_cache = cache.get(nicName, {})
+
+            for key in list(merged_data.keys()):
+                if key.startswith("DATA1_"):
+                    slot_str = key.split("_")[1]
+                    # 이번 로그에서 찾은 게 있으면 캐시 업데이트
+                    fn_key = f"FRIEND_NAME_{slot_str}"
+                    dn_key = f"HERO_DISPLAY_NAME_{slot_str}"
+                    if fn_key in merged_data:
+                        nic_cache[slot_str] = {
+                            "friend_name": merged_data[fn_key],
+                            "hero_display_name": merged_data.get(dn_key, "")
+                        }
+                    # 이번 로그에서 못 찾았지만 캐시에 있으면 캐시에서 보충
+                    elif slot_str in nic_cache:
+                        merged_data[fn_key] = nic_cache[slot_str]["friend_name"]
+                        if nic_cache[slot_str].get("hero_display_name"):
+                            merged_data[dn_key] = nic_cache[slot_str]["hero_display_name"]
+
+            # 캐시 저장
+            cache[nicName] = nic_cache
+            save_cache(cache)
+
         except Exception as ex:
             import traceback
             traceback.print_exc()
