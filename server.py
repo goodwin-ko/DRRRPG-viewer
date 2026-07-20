@@ -43,9 +43,18 @@ LINK_NAME_MAPPING = {
     56: '파이크한', 57: '베이비', 58: '리루도', 59: '인조인간8호', 60: '심벌', 61: '유린'
 }
 
+HERO_ALIASES = {
+    "자붕": ["자붕", "자봉"],
+    "타피온": ["타피온", "용사", "환상의용사"]
+}
+
 HERO_COMPATIBILITY_GROUPS = {
     "우부": ["우부", "슈퍼우부"],
-    "슈퍼우부": ["우부", "슈퍼우부"]
+    "슈퍼우부": ["우부", "슈퍼우부"],
+    "자붕": ["자붕", "자봉"],
+    "자봉": ["자붕", "자봉"],
+    "타피온": ["타피온", "용사", "환상의용사"],
+    "용사": ["타피온", "용사", "환상의용사"]
 }
 
 import base64
@@ -365,12 +374,12 @@ def get_logs():
                         # Extract hero name
                         hero_name = None
                         hero_display_name = None
-                        hero_match = re.search(r"영웅\s*:\s*Lv\d+\s*(?:\|c[0-9a-fA-F]{8})?(?:『영웅』)?(?:\|r)?\s*([^\n\r]+)", text_clean)
+                        hero_match = re.search(r"영웅\s*:\s*Lv\d+\s*(?:\|c[0-9a-fA-F]{8})?(?:『영웅』|『용사』)?(?:\|r)?\s*([^\n\r]+)", text_clean)
                         if hero_match:
                             hero_raw = hero_match.group(1).strip()
                             hero_raw = re.sub(r"\|c[0-9a-fA-F]{8}", "", hero_raw)
                             hero_raw = re.sub(r"\|r", "", hero_raw)
-                            hero_raw = re.sub(r"『영웅』", "", hero_raw).strip()
+                            hero_raw = re.sub(r"『영웅』|『용사』", "", hero_raw).strip()
                             # 표시명: [] 기호를 고론로 삼아 공백 정희 (ex: "인조인간 16호[2차 각성]" → "인조인간 16호 2차 각성")
                             display_raw = re.sub(r"\[", " ", hero_raw)
                             display_raw = re.sub(r"\]", "", display_raw)
@@ -380,8 +389,8 @@ def get_logs():
                             hero_line = re.sub(r"\s+", "", hero_line)
                             
                             for slot_id, char_basic_name in LINK_NAME_MAPPING.items():
-                                norm_name = re.sub(r"\s+", "", char_basic_name)
-                                if norm_name in hero_line or norm_name == hero_line:
+                                match_targets = HERO_ALIASES.get(char_basic_name, [char_basic_name])
+                                if any(re.sub(r"\s+", "", t) in hero_line for t in match_targets):
                                     hero_name = char_basic_name
                                     break
                                     

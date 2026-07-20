@@ -257,8 +257,8 @@ function identifyFriendCharacter(data1Code, data2Code) {
         return "친구(약해진)";
     }
 
-    // 친구 슬롯은 있지만 특수 상태가 아닌 경우 - 서버에서 FRIEND_NAME으로 이미 제공되므로 여기선 "친구"로 폴백
-    return "친구";
+    // 일반 친구 상태인 경우 친구 슬롯 번호로 캐릭터 이름 조회
+    return LINK_NAME_MAPPING[friendSlot] || "친구";
 }
 
 // Determine Star Grade (성급) based on 0-based index value
