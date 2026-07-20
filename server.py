@@ -293,7 +293,7 @@ def get_logs():
             }
             
             pages_data = []
-            for page_idx in range(5):
+            for page_idx in range(20):  # 최대 20페이지 조회로 오래된 기록도 커버
                 ajax_data = {
                     "nicName": nicName,
                     "character": "JN_DATA_1",
