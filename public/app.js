@@ -76,7 +76,7 @@ const MAX_SPEED_MAPPING = {
     '비델': 12.5,
     '손오천': 12.5,
     '트랭크스(어린)': 16.7,
-    '자붕': 8.3,
+    '자봉': 8.3,
     '쿠우라': 16.7,
     '인조인간15호': 16.7,
     '인조인간14호': 16.7,
@@ -159,7 +159,7 @@ const LINK_NAME_MAPPING = {
     34: '비델',
     35: '손오천',
     36: '트랭크스(어린)',
-    37: '자붕',
+    37: '자봉',
     38: '쿠우라',
     39: '인조인간15호',
     40: '인조인간14호',
@@ -257,8 +257,8 @@ function identifyFriendCharacter(data1Code, data2Code) {
         return "친구(약해진)";
     }
 
-    // 일반 친구 상태인 경우 친구 슬롯 번호로 캐릭터 이름 조회
-    return LINK_NAME_MAPPING[friendSlot] || "친구";
+    // 일반 친구 상태인 경우 기본 "친구" 라벨로 수렴 (친구 이름을 영웅 도감 이름으로 함부로 매핑하지 않음)
+    return "친구";
 }
 
 // Determine Star Grade (성급) based on 0-based index value
