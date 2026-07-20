@@ -1996,8 +1996,11 @@ span.stat-value.stat-val-maxed {
     text-align: right;
 }
 
-/* 친구 이름 가독성 극대화 스타일 */
-.friend-name-text {
+/* 친구 이름 가독성 극대화 - 복합 선택자로 구체성 우선순위 확보 (0,2,0) */
+.stats-col-title.friend-name-text,
+.sub-label.friend-name-text,
+.mc-friend-div.friend-name-text,
+.equip-friend-divider.friend-name-text {
     color: #FFD700 !important;
     font-weight: 800 !important;
     text-shadow: 0 0 8px rgba(255, 215, 0, 0.6) !important;
