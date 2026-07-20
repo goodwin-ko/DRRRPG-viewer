@@ -2001,8 +2001,8 @@ span.stat-value.stat-val-maxed {
 .sub-label.friend-name-text,
 .mc-friend-div.friend-name-text,
 .equip-friend-divider.friend-name-text {
-    color: #FFD700 !important;
+    color: #00FF9D !important;
     font-weight: 800 !important;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6) !important;
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.5) !important;
 }
 
