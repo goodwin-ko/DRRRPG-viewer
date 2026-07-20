@@ -377,7 +377,7 @@ def get_logs():
             
             # 2. Map candidates to corresponding slots
             # The candidates list is ordered from oldest to newest.
-            # The last 3 items in candidates are the absolute most recent saves.
+            # The last 10 items in candidates are the absolute most recent saves (bypass date guard).
             for idx, cand in enumerate(candidates):
                 hero_name = cand["hero_name"]
                 hero_display_name = cand.get("hero_display_name", hero_name)
@@ -404,13 +404,14 @@ def get_logs():
                                 merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
                                 merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
                             else:
-                                # Normal saves require the YYYYMMDD date guard (within 1 day diff)
+                                # Normal saves require the YYYYMMDD date guard (within 3 days diff)
                                 slot_ymd = get_slot_save_date(slot_str, merged_data)
                                 if slot_ymd and log_ymd:
                                     slot_dt = parse_ymd_to_date(slot_ymd)
                                     log_dt = parse_ymd_to_date(log_ymd)
                                     if slot_dt and log_dt:
-                                        if abs((slot_dt - log_dt).days) <= 1:
+                                        # 날짜 가드: 3일 이내 허용 (자정이 지나도 유지)
+                                        if abs((slot_dt - log_dt).days) <= 3:
                                             merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
                                             merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
         except Exception as ex:
