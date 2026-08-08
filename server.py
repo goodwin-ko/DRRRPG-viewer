@@ -309,6 +309,8 @@ def get_logs():
 
         # Fetch additional recent logs from GetLog (without Month filter) to extract latest friend names
         # Scan pages 4 to 0 (oldest to newest in the range) so that newer logs overwrite older ones.
+        # GetLog에서 최신 친구/영웅 이름 수집 (타임아웃 시 이 블록만 스킵, 캐시는 항상 적용)
+        candidates = []
         try:
             import time
             ajax_url = f"https://logs2.m16tool.xyz/Game/DRR/UserLog/GetLog?_={int(time.time() * 1000)}"
@@ -321,23 +323,25 @@ def get_logs():
             
             pages_data = []
             for page_idx in range(20):  # 최대 20페이지 조회로 오래된 기록도 커버
-                ajax_data = {
-                    "nicName": nicName,
-                    "character": "JN_DATA_1",
-                    "index": page_idx
-                }
-                ajax_resp = requests.post(ajax_url, data=ajax_data, headers=ajax_headers, timeout=10)
-                if ajax_resp.status_code == 200:
-                    ajax_res = ajax_resp.json()
-                    if ajax_res.get("success") and "data" in ajax_res and ajax_res["data"]:
-                        pages_data.append(ajax_res["data"])
+                try:
+                    ajax_data = {
+                        "nicName": nicName,
+                        "character": "JN_DATA_1",
+                        "index": page_idx
+                    }
+                    ajax_resp = requests.post(ajax_url, data=ajax_data, headers=ajax_headers, timeout=10)
+                    if ajax_resp.status_code == 200:
+                        ajax_res = ajax_resp.json()
+                        if ajax_res.get("success") and "data" in ajax_res and ajax_res["data"]:
+                            pages_data.append(ajax_res["data"])
+                        else:
+                            break
                     else:
                         break
-                else:
-                    break
+                except Exception:
+                    break  # 한 페이지 실패 시 조회 중단, 이미 수집된 pages_data로 계속
             
             # 1. Collect all candidates from oldest to newest
-            candidates = []
             for page_logs in reversed(pages_data):
                 # Reverse log entries inside each page to process oldest first
                 for item in reversed(page_logs):
@@ -403,8 +407,6 @@ def get_logs():
                             })
             
             # 2. Map candidates to corresponding slots
-            # The candidates list is ordered from oldest to newest.
-            # The last 10 items in candidates are the absolute most recent saves (bypass date guard).
             for idx, cand in enumerate(candidates):
                 hero_name = cand["hero_name"]
                 hero_display_name = cand.get("hero_display_name", hero_name)
@@ -426,21 +428,26 @@ def get_logs():
                         slot_name = LINK_NAME_MAPPING.get(slot_id_int)
                         is_hero_match = (slot_name == hero_name) or (slot_name in HERO_COMPATIBILITY_GROUPS.get(hero_name, []))
                         if is_hero_match:
-                            # 영웅 이름이 매칭되면 날짜 무관하게 친구 이름 적용
-                            # (날짜 가드 제거: 영웅 이름 매칭이 이미 정확성 보장, 데이터는 영구 유지)
                             merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
                             merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
 
-            # 3. 캐시 로드 및 적용: 로그에서 찾지 못한 슬롯은 캐시에서 보충
+        except Exception as ex:
+            import traceback
+            traceback.print_exc()
+
+        # ─────────────────────────────────────────────────────────────────────
+        # 캐시 로드/업데이트/저장 (GetLog 성공 여부와 무관하게 항상 실행)
+        # ─────────────────────────────────────────────────────────────────────
+        try:
             cache = load_cache()
             nic_cache = cache.get(nicName, {})
 
             for key in list(merged_data.keys()):
                 if key.startswith("DATA1_"):
                     slot_str = key.split("_")[1]
-                    # 이번 로그에서 찾은 게 있으면 캐시 업데이트
                     fn_key = f"FRIEND_NAME_{slot_str}"
                     dn_key = f"HERO_DISPLAY_NAME_{slot_str}"
+                    # 이번 로그에서 찾은 게 있으면 캐시 업데이트
                     if fn_key in merged_data:
                         nic_cache[slot_str] = {
                             "friend_name": merged_data[fn_key],
@@ -451,6 +458,15 @@ def get_logs():
                         merged_data[fn_key] = nic_cache[slot_str]["friend_name"]
                         if nic_cache[slot_str].get("hero_display_name"):
                             merged_data[dn_key] = nic_cache[slot_str]["hero_display_name"]
+
+            # 캐시에 있지만 merged_data에 DATA1_이 없는 슬롯도 보충 (예: 슬롯 비활성화 상태)
+            for slot_str, slot_data in nic_cache.items():
+                fn_key = f"FRIEND_NAME_{slot_str}"
+                dn_key = f"HERO_DISPLAY_NAME_{slot_str}"
+                if fn_key not in merged_data and slot_data.get("friend_name"):
+                    merged_data[fn_key] = slot_data["friend_name"]
+                if dn_key not in merged_data and slot_data.get("hero_display_name"):
+                    merged_data[dn_key] = slot_data["hero_display_name"]
 
             # 캐시 저장
             cache[nicName] = nic_cache
