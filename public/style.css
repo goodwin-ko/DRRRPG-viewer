@@ -75,6 +75,60 @@ body {
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
 }
 
+/* 외부 링크 아이콘 버튼 (카페/M16툴) */
+.ext-link-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ext-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.ext-link-btn.cafe-btn {
+    background: rgba(3, 199, 90, 0.12);
+    border-color: rgba(3, 199, 90, 0.4);
+    color: #03c75a;
+}
+
+.ext-link-btn.cafe-btn:hover {
+    background: rgba(3, 199, 90, 0.25);
+    border-color: #03c75a;
+    box-shadow: 0 0 10px rgba(3, 199, 90, 0.3);
+    color: #05f06e;
+}
+
+.ext-link-btn.m16-btn {
+    background: rgba(0, 180, 255, 0.12);
+    border-color: rgba(0, 180, 255, 0.4);
+    color: #00b4ff;
+}
+
+.ext-link-btn.m16-btn:hover {
+    background: rgba(0, 180, 255, 0.25);
+    border-color: #00b4ff;
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+    color: #33ccff;
+}
+
+.ext-link-btn svg {
+    flex-shrink: 0;
+}
+
+
 .search-form {
     display: flex;
     gap: 6px;
