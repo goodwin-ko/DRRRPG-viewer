@@ -1353,9 +1353,19 @@ async function fetchAndRenderLogs(nicName) {
         columns[key].innerHTML = '';
     }
 
-    try {
         const response = await fetch(`/api/logs?nicName=${encodeURIComponent(nicName)}`);
-        const result = await response.json();
+        if (!response.ok) {
+            if (response.status === 502 || response.status === 504) {
+                throw new Error("서버가 시작 중이거나 응답 지연입니다. 10~20초 후 다시 시도해주세요.");
+            }
+            throw new Error(`서버 응답 오류 (코드: ${response.status})`);
+        }
+        let result;
+        try {
+            result = await response.json();
+        } catch(jsonErr) {
+            throw new Error("데이터 수신 오류 (서버 준비 중입니다. 잠시 후 다시 시도해주세요)");
+        }
 
         if (!result.success) {
             throw new Error(result.error || '데이터 조회에 실패했습니다.');

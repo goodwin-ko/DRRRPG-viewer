@@ -181,7 +181,7 @@ def get_latest_log_char(nicName):
     }
     
     try:
-        response = requests.post(url, data=data, headers=headers, timeout=10)
+        response = requests.post(url, data=data, headers=headers, timeout=3)
         if response.status_code != 200:
             return None, None
             
@@ -322,14 +322,17 @@ def get_logs():
             }
             
             pages_data = []
-            for page_idx in range(20):  # 최대 20페이지 조회로 오래된 기록도 커버
+            getlog_start = time.time()
+            for page_idx in range(4):  # 최대 4페이지로 제한하여 지연 방지
+                if time.time() - getlog_start > 6.0:
+                    break  # 전체 조회 6초 초과 시 즉시 중단하고 수집된 데이터 반환
                 try:
                     ajax_data = {
                         "nicName": nicName,
                         "character": "JN_DATA_1",
                         "index": page_idx
                     }
-                    ajax_resp = requests.post(ajax_url, data=ajax_data, headers=ajax_headers, timeout=10)
+                    ajax_resp = requests.post(ajax_url, data=ajax_data, headers=ajax_headers, timeout=3)
                     if ajax_resp.status_code == 200:
                         ajax_res = ajax_resp.json()
                         if ajax_res.get("success") and "data" in ajax_res and ajax_res["data"]:

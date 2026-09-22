@@ -1,534 +1,206 @@
 {
-  "gowin2": {
-    "1": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인4 - 손오공"
-    },
-    "2": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "크리링 2차 각성"
-    },
-    "3": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "야무치 2차 각성"
-    },
-    "4": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천진반 2차 각성"
-    },
-    "5": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "무천도사 2차 각성"
-    },
-    "46": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "블루장군"
-    },
-    "50": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "박테리안"
-    },
-    "51": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "우마왕"
-    },
-    "33": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "뒤틀린 도도리아"
-    },
-    "61": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "유린"
-    },
-    "32": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "미스틱 손오반"
-    },
-    "9": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인4 - 베지터"
-    },
-    "41": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "우부"
-    },
-    "36": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 트랭크스(어린)"
-    },
-    "35": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 손오천"
-    },
-    "22": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 인조인간 20호"
-    },
+  "godwin": {
     "21": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "인조인간 19호 2차 각성"
     },
-    "20": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "인조인간 16호 2차 각성"
-    },
-    "55": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천사 아리"
-    },
-    "43": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "전설의 농부"
-    },
-    "34": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "비델"
-    },
-    "28": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "골든 야콩"
-    },
-    "27": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
-    },
-    "18": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "콜드대왕 2차 각성"
-    },
-    "19": {
+    "3": {
       "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "네일 2차 각성"
-    },
-    "13": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 버터"
-    },
-    "12": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 지스"
-    },
-    "10": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 굴드"
-    },
-    "7": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 라데츠"
+      "hero_display_name": "야무치 2차 각성"
     },
     "6": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "피콜로 2차 각성"
-    },
-    "15": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "지구 챔피언 - 미스터 사탄"
-    },
-    "26": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인2 - 트랭크스(미래)"
-    },
-    "37": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "자봉 변신"
     }
   },
   "goodwin": {
-    "12": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 지스"
-    },
-    "1": {
+    "22": {
       "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인4 - 손오공"
-    },
-    "2": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "크리링 2차 각성"
+      "hero_display_name": "각성한 인조인간 20호"
     },
     "3": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "야무치 2차 각성"
     },
-    "4": {
+    "6": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천진반 2차 각성"
-    },
-    "5": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "무천도사 2차 각성"
-    },
-    "46": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "블루장군"
-    },
-    "50": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "박테리안"
-    },
-    "51": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "우마왕"
-    },
-    "33": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "뒤틀린 도도리아"
-    },
-    "61": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "유린"
-    },
-    "32": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "미스틱 손오반"
-    },
-    "9": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인4 - 베지터"
-    },
-    "41": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "우부"
-    },
-    "36": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 트랭크스(어린)"
-    },
-    "35": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 손오천"
-    },
+      "hero_display_name": "피콜로 2차 각성"
+    }
+  },
+  "gowin2": {
     "22": {
       "friend_name": "메탈 쿠우라(약해진)",
       "hero_display_name": "각성한 인조인간 20호"
     },
-    "21": {
+    "3": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 19호 2차 각성"
+      "hero_display_name": "야무치 2차 각성"
+    },
+    "6": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "피콜로 2차 각성"
+    }
+  },
+  "goodsee": {
+    "6": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "피콜로 2차 각성"
+    }
+  },
+  "Gottfried": {
+    "32": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+    },
+    "2": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "각성한 크리링"
+    },
+    "3": {
+      "friend_name": "야콩(약해진)",
+      "hero_display_name": "각성한 야무치"
+    },
+    "4": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "성장한 천진반"
+    },
+    "5": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "거북선인 무천도사"
+    },
+    "6": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "피콜로대마왕 약해진"
+    },
+    "7": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "라데츠 약한"
+    },
+    "8": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "사이어인 - 내퍼"
+    },
+    "9": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인2 - 마인 베지터"
+    },
+    "10": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "기뉴특전대 - 굴드"
+    },
+    "11": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "기뉴특전대 - 리쿰"
+    },
+    "12": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "각성한 지스"
+    },
+    "13": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "각성한 버터"
+    },
+    "14": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "각성한 캡틴기뉴"
+    },
+    "15": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "격투가 - 미스터 사탄"
+    },
+    "17": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "프리저 1단계"
+    },
+    "18": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "콜드대왕"
+    },
+    "19": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "네일"
     },
     "20": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 16호 2차 각성"
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "인조인간 16호"
     },
-    "55": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천사 아리"
+    "21": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "인조인간 19호"
     },
-    "43": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "전설의 농부"
+    "22": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "인조인간 20호"
     },
-    "34": {
+    "27": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "어린 부르마"
+    },
+    "1": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "비델"
+      "hero_display_name": "초사이어인3 - 손오공"
     },
     "28": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "골든 야콩"
     },
-    "27": {
+    "33": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "도도리아"
+    },
+    "34": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "비델"
+    },
+    "35": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "사이어인 - 손오천"
+    },
+    "36": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
+      "hero_display_name": "초사이어인2 - 트랭크스(어린)"
     },
-    "18": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "콜드대왕 2차 각성"
-    },
-    "19": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "네일 2차 각성"
-    },
-    "13": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "각성한 버터"
-    },
-    "10": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 굴드"
-    },
-    "7": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인 로제 - 라데츠"
-    },
-    "6": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "피콜로 2차 각성"
-    },
-    "15": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "지구 챔피언 - 미스터 사탄"
-    },
-    "26": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인2 - 트랭크스(미래)"
-    },
-    "37": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "자봉 풀파워 - 변신"
+    "41": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "우부"
     },
     "42": {
       "friend_name": "메탈 쿠우라(약해진)",
       "hero_display_name": "힐데건 성충"
-    }
-  },
-  "godwin": {
-    "1": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인3 - 손오공"
     },
-    "2": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "크리링 2차 각성"
-    },
-    "3": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "야무치 2차 각성"
-    },
-    "4": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천진반 2차 각성"
-    },
-    "5": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "무천도사 2차 각성"
+    "43": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "농부"
     },
     "46": {
-      "friend_name": "키드부우(약해진)",
+      "friend_name": "x0, x0, x0, x0, x0, x0",
       "hero_display_name": "블루장군"
     },
     "50": {
-      "friend_name": "셀 완전체(약해진)",
+      "friend_name": "x0, x0, x0, x0, x0, x0",
       "hero_display_name": "박테리안"
     },
     "51": {
-      "friend_name": "키드부우(약해진)",
+      "friend_name": "그레이트 사어어맨(약해진)",
       "hero_display_name": "우마왕"
     },
-    "33": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "뒤틀린 도도리아"
-    },
-    "61": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "유린"
-    },
-    "32": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "미스틱 손오반"
-    },
-    "41": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "우부"
-    },
-    "36": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 트랭크스(어린)"
-    },
-    "35": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 손오천"
-    },
-    "22": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 인조인간 20호"
-    },
-    "21": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 19호 2차 각성"
-    },
-    "20": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 16호 2차 각성"
-    },
     "55": {
-      "friend_name": "키드부우(약해진)",
+      "friend_name": "x0, x0, x0, x0, x0, x0",
       "hero_display_name": "천사 아리"
     },
-    "43": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "전설의 농부"
-    },
-    "34": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "비델"
-    },
-    "28": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "골든 야콩"
-    },
-    "27": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
-    },
-    "18": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "콜드대왕 2차 각성"
-    },
-    "19": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "네일 2차 각성"
-    },
-    "13": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 버터"
-    },
-    "12": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 지스"
-    },
-    "10": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "각성한 굴드"
-    },
-    "7": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인 로제 - 라데츠"
-    },
-    "6": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "피콜로 2차 각성"
-    },
-    "15": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "지구 챔피언 - 미스터 사탄"
+    "59": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "인조인간 8호"
     },
     "26": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "초사이어인2 - 트랭크스(미래)"
-    },
-    "37": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "자봉 풀파워 - 변신"
+      "hero_display_name": "사이어인 - 트랭크스(미래)"
     }
   },
-  "goodsee": {
+  "wpp23": {
     "1": {
-      "friend_name": "메탈 쿠우라(약해진)",
+      "friend_name": "마인부우(약해진)",
       "hero_display_name": "초사이어인3 - 손오공"
-    },
-    "2": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "크리링 2차 각성"
-    },
-    "3": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "야무치 2차 각성"
-    },
-    "4": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천진반 2차 각성"
-    },
-    "5": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "무천도사 2차 각성"
-    },
-    "46": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "블루장군"
-    },
-    "50": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "박테리안"
-    },
-    "51": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "우마왕"
-    },
-    "33": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "뒤틀린 도도리아"
-    },
-    "61": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "유린"
-    },
-    "32": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "미스틱 손오반"
-    },
-    "41": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "우부"
-    },
-    "36": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 트랭크스(어린)"
-    },
-    "35": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "사이어인 - 손오천"
-    },
-    "22": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 인조인간 20호"
-    },
-    "21": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 19호 2차 각성"
-    },
-    "20": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 16호 2차 각성"
-    },
-    "55": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "천사 아리"
-    },
-    "43": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "전설의 농부"
-    },
-    "34": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "비델"
-    },
-    "28": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "골든 야콩"
-    },
-    "27": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
-    },
-    "18": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "콜드대왕 2차 각성"
-    },
-    "19": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "네일 2차 각성"
-    },
-    "13": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 버터"
-    },
-    "12": {
-      "friend_name": "마인부우(약해진)",
-      "hero_display_name": "각성한 지스"
-    },
-    "10": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 굴드"
-    },
-    "7": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "초사이어인 로제 - 라데츠"
-    },
-    "6": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "피콜로 2차 각성"
-    },
-    "15": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "지구 챔피언 - 미스터 사탄"
-    },
-    "26": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인2 - 트랭크스(미래)"
-    },
-    "37": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "자봉 풀파워 - 변신"
     }
   }
 }
