@@ -1353,6 +1353,7 @@ async function fetchAndRenderLogs(nicName) {
         columns[key].innerHTML = '';
     }
 
+    try {
         const response = await fetch(`/api/logs?nicName=${encodeURIComponent(nicName)}`);
         if (!response.ok) {
             if (response.status === 502 || response.status === 504) {
