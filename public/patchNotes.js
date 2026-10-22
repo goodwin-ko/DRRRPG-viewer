@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.0",
+        date: "2026-10-20",
+        title: "전체 영웅 캐릭터 고화질 아이콘 시스템 적용",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "61종 전체 영웅 고화질 일러스트 아이콘 추출 및 HD 리샘플링 적용" },
+            { type: "feat", text: "개인 조회 및 멀티 대시보드 캐릭터 이름 및 친구 이름 옆에 고화질 아이콘 표시" },
+            { type: "style", text: "아이콘 마우스 오버 시 입체 확대 및 네온 글로우 이펙트 적용" }
+        ]
+    },
+    {
         version: "v1.3.0",
         date: "2026-10-14",
         title: "버전 표시 & 패치노트 시스템 도입 및 GA4 통계 연동",
-        isLatest: true,
         changes: [
             { type: "feat", text: "상단 헤더에 실시간 패치 버전 표시 배지 및 클릭 가능한 패치노트 모달 추가" },
             { type: "feat", text: "Google Analytics 4 (GA4) 분리 연동 (개인 조회 / 멀티 조회 별도 통계 수집)" },

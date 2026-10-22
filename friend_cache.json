@@ -201,6 +201,76 @@
     "1": {
       "friend_name": "마인부우(약해진)",
       "hero_display_name": "초사이어인3 - 손오공"
+    },
+    "6": {
+      "friend_name": "마인부우(약해진)",
+      "hero_display_name": "피콜로대마왕 성장한"
+    }
+  },
+  "Horus": {
+    "42": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "힐데건 성충"
+    },
+    "43": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "전설의 농부"
+    },
+    "46": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "블루장군"
+    },
+    "48": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 버독"
+    },
+    "49": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 타레스"
+    },
+    "50": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "박테리안"
+    },
+    "51": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "우마왕"
+    },
+    "52": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "팡"
+    },
+    "54": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "전설의 초사이어인4 - 브로리(약해진)"
+    },
+    "55": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "천사 아리"
+    },
+    "56": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "파이크한"
+    },
+    "57": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "베이비"
+    },
+    "58": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "리루도"
+    },
+    "59": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 8호"
+    },
+    "60": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "심벌"
+    },
+    "61": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "유린"
     }
   }
 }

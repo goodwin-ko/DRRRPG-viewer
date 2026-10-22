@@ -890,7 +890,43 @@
             -webkit-text-fill-color: transparent !important;
             display: inline-block !important;
         }
+        /* 영웅 캐릭터 고화질 아이콘 */
+        .hero-icon-img {
+            width: 26px;
+            height: 26px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-right: 5px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            image-rendering: -webkit-optimize-contrast;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+            object-fit: cover;
+            background: #0e0916;
+        }
+
+        .hero-icon-img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+            border-color: #00e5ff;
+            z-index: 5;
+        }
+
+        .hero-icon-img.hero-icon-friend {
+            width: 20px;
+            height: 20px;
+            margin-right: 4px;
+            border-color: rgba(0, 255, 157, 0.5);
+            box-shadow: 0 0 6px rgba(0, 255, 157, 0.25);
+        }
+
+        .hero-icon-img.hero-icon-friend:hover {
+            border-color: #00ff9d;
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+        }
     </style>
+    <script src="heroIcons.js"></script>
 </head>
 <body>
 
@@ -1922,7 +1958,7 @@ function renderBasicCard(c) {
 
     return [
         `<div class="char-card ${isAllMaxed ? 'char-card-all-maxed' : ''}" data-char-name="${c.charName}">`,
-        `<div class="char-name-row"><span class="${nameClass}">${c.charName}</span>${renderBadges(c)}</div>`,
+        `<div class="char-name-row">${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>${renderBadges(c)}</div>`,
         `<div class="char-level"><span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${fmt(c.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${(MAX_SPEED_MAPPING[c.charName] !== undefined ? MAX_SPEED_MAPPING[c.charName] : (MAX_SPEED_MAPPING[LINK_NAME_MAPPING[c.slotNum]] !== undefined ? MAX_SPEED_MAPPING[LINK_NAME_MAPPING[c.slotNum]] : '-'))})</span></div>`,
         `<div class="char-adventure"><span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
         `<div class="stat-row"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span class="alt"><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span></div>`,
@@ -1940,7 +1976,7 @@ function renderBasicCard(c) {
         `<div class="sub-label">내 스텟</div>`,
         `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.str >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.str, c.maxOwnStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.agi >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.agi, c.maxOwnStat)}</span></span></div>`,
         `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.intVal >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.intVal, c.maxOwnStat)}</span></span></div>`,
-        `<div class="sub-label friend-name-text">${c.friendName || '친구 스텟'}</div>`,
+        `<div class="sub-label friend-name-text">${c.friendName && c.friendName !== '친구' && typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.friendName, null, 18, true) : ''}${c.friendName || '친구 스텟'}</div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendStr, c.maxFriendStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendAgi, c.maxFriendStat)}</span></span></div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendInt, c.maxFriendStat)}</span></span></div>`,
         `<div class="sub-divider"></div>`,
@@ -1970,12 +2006,12 @@ function renderEquipCard(c) {
     return `
         <div class="char-card" data-char-name="${c.charName}">
             <div class="char-name-row">
-                <span class="${nameClass}">${c.charName}</span>
+                ${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}
             </div>
             <div class="equip-items">
                 ${myHtml}
-                <div class="equip-friend-divider friend-name-text">— ${c.friendName} —</div>
+                <div class="equip-friend-divider friend-name-text">— ${c.friendName && c.friendName !== '친구' && typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.friendName, null, 18, true) : ''}${c.friendName} —</div>
                 ${friendHtml}
             </div>
         </div>`;
@@ -2039,7 +2075,7 @@ function renderBagCard(c) {
     return `
         <div class="char-card" style="box-sizing:border-box; width:100%;" data-char-name="${c.charName}">
             <div class="char-name-row">
-                <span class="${nameClass}">${c.charName}</span>
+                ${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}
             </div>
             <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
@@ -2455,6 +2491,7 @@ window.addEventListener('DOMContentLoaded', () => {
     loadAll();
 });
 </script>
+
 <script src="patchNotes.js"></script>
 </body>
 </html>

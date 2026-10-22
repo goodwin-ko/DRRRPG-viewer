@@ -784,6 +784,10 @@ function createEquipmentCard(char) {
     // Name Row
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
     const nameSpan = document.createElement('span');
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
@@ -865,6 +869,10 @@ function createBackpackCard(char) {
     // Name Row
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
@@ -1025,6 +1033,10 @@ function createFiguresCard(data) {
 
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
     const nameSpan = document.createElement('span');
     nameSpan.className = 'char-name';
     nameSpan.textContent = '🏆 계정 피규어 현황';
@@ -1066,6 +1078,10 @@ function createLinkPointsCard(data) {
 
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
     const nameSpan = document.createElement('span');
     nameSpan.className = 'char-name';
     nameSpan.textContent = '🔗 계정 링크포인트 현황';
@@ -1109,6 +1125,10 @@ function createCharacterCard(char) {
     // Name Row
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
 
     // Name color: green if attended today
     const nameSpan = document.createElement('span');
@@ -1267,7 +1287,7 @@ function createCharacterCard(char) {
             </div>
         </div>
         <div class="bottom-stats-col">
-            <div class="stats-col-title friend-name-text">${char.friendName}</div>
+            <div class="stats-col-title friend-name-text">${char.friendName && char.friendName !== '친구' && typeof getHeroIconHtml === 'function' ? getHeroIconHtml(char.friendName, null, 18, true) : ''}${char.friendName}</div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${parseInt(char.friendStr.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendStr, char.maxFriendStat)}</span></span></div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-agi"><span class="stat-label">민:</span> <span class="stat-value ${parseInt(char.friendAgi.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendAgi, char.maxFriendStat)}</span></span></div>
             <div class="stat-row ${friendMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.friendInt.toString().replace(/,/g, '')) >= parseInt(char.maxFriendStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.friendInt, char.maxFriendStat)}</span></span></div>
@@ -1981,6 +2001,10 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
             const nameRow = document.createElement('div');
             nameRow.className = 'char-name-row';
+    if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        if (iconImg) nameRow.appendChild(iconImg);
+    }
             const nameSpan = document.createElement('span');
             nameSpan.className = 'char-name';
             nameSpan.textContent = `${titleEmoji} ${boardTitle} (${slice.label})`;
