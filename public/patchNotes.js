@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.2",
+        date: "2026-10-22",
+        title: "goodwin 유저 손오공(로제) & 베지터(듀얼) 스페셜 카드 테마 적용",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "goodwin 조회 시 손오공(초사이어인 로제) & 베지터(갓&블루 듀얼) 전용 배경 일러스트 탑재" },
+            { type: "feat", text: "손오공 전용 'ROSE' 뱃지 및 베지터 전용 'DUAL' 뱃지 추가" },
+            { type: "style", text: "로제 핑크 네온 아우라 및 갓&블루 투톤 듀얼 아우라 맥동 애니메이션 적용" }
+        ]
+    },
+    {
         version: "v1.4.1",
         date: "2026-10-22",
         title: "Cloudflare 고속 프록시 연동 및 Horus 손오공 스페셜 카드 테마 적용",
-        isLatest: true,
         changes: [
             { type: "feat", text: "Horus 유저 손오공 캐릭터 전용 초사이어인 블루 일러스트 배경 & 아우라 테마 탑재" },
             { type: "improve", text: "일러스트 배경 위에서도 모든 스탯/장비/글자가 선명하게 읽히도록 다크 비네팅 & 텍스트 섀도우 강화" },

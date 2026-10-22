@@ -162,3 +162,48 @@ function isSpecialHorusGoku(nicName, charName, slotNum) {
 }
 
 window.isSpecialHorusGoku = isSpecialHorusGoku;
+
+
+/**
+ * 유저별 스페셜 카드 테마 판정 헬퍼
+ * - Horus: 손오공 (SSGSS 초사이어인 블루)
+ * - goodwin: 손오공 (초사이어인 로제), 베지터 (갓 & 블루 듀얼)
+ */
+function getSpecialCardTheme(nicName, charName, slotNum) {
+    if (!nicName || typeof nicName !== 'string') return null;
+    const nic = nicName.trim().toLowerCase();
+    const slot = parseInt(slotNum);
+    const isGoku = (slot === 1) || (charName && typeof charName === 'string' && charName.includes('손오공'));
+    const isVegeta = (slot === 9) || (charName && typeof charName === 'string' && charName.includes('베지터'));
+
+    // 1. Horus - 손오공 (SSGSS 블루)
+    if (nic === 'horus' && isGoku) {
+        return {
+            className: 'special-card-horus-goku',
+            badgeText: 'SSGSS',
+            badgeClass: 'horus-special-badge'
+        };
+    }
+
+    // 2. goodwin - 손오공 (초사이어인 로제)
+    if (nic === 'goodwin' && isGoku) {
+        return {
+            className: 'special-card-goodwin-goku',
+            badgeText: 'ROSE',
+            badgeClass: 'goodwin-rose-badge'
+        };
+    }
+
+    // 3. goodwin - 베지터 (갓 & 블루 듀얼)
+    if (nic === 'goodwin' && isVegeta) {
+        return {
+            className: 'special-card-goodwin-vegeta',
+            badgeText: 'DUAL',
+            badgeClass: 'goodwin-dual-badge'
+        };
+    }
+
+    return null;
+}
+
+window.getSpecialCardTheme = getSpecialCardTheme;

@@ -780,8 +780,8 @@ function getAdventureStage(val) {
 function createEquipmentCard(char) {
     const card = document.createElement('div');
     card.className = 'equip-card';
-    const isHorusGoku = typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
-    if (isHorusGoku) card.classList.add('special-card-horus-goku');
+    const spTheme = (typeof getSpecialCardTheme === 'function' && typeof char !== 'undefined' && char) ? getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum) : null;
+    if (spTheme) card.classList.add(spTheme.className);
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -794,15 +794,18 @@ function createEquipmentCard(char) {
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
-    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
-        setTimeout(() => {
-            if (!nameRow.querySelector('.horus-special-badge')) {
-                const hBadge = document.createElement('span');
-                hBadge.className = 'horus-special-badge';
-                hBadge.textContent = 'SSGSS';
-                nameRow.appendChild(hBadge);
-            }
-        }, 0);
+    if (typeof char !== 'undefined' && char && typeof getSpecialCardTheme === 'function') {
+        const theme = getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
+        if (theme) {
+            setTimeout(() => {
+                if (!nameRow.querySelector('.' + theme.badgeClass)) {
+                    const hBadge = document.createElement('span');
+                    hBadge.className = theme.badgeClass;
+                    hBadge.textContent = theme.badgeText;
+                    nameRow.appendChild(hBadge);
+                }
+            }, 0);
+        }
     }
     nameRow.appendChild(nameSpan);
 
@@ -877,8 +880,8 @@ function createEquipmentCard(char) {
 function createBackpackCard(char) {
     const card = document.createElement('div');
     card.className = 'equip-card bag-card';
-    const isHorusGoku = typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
-    if (isHorusGoku) card.classList.add('special-card-horus-goku');
+    const spTheme = (typeof getSpecialCardTheme === 'function' && typeof char !== 'undefined' && char) ? getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum) : null;
+    if (spTheme) card.classList.add(spTheme.className);
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -890,15 +893,18 @@ function createBackpackCard(char) {
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
-    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
-        setTimeout(() => {
-            if (!nameRow.querySelector('.horus-special-badge')) {
-                const hBadge = document.createElement('span');
-                hBadge.className = 'horus-special-badge';
-                hBadge.textContent = 'SSGSS';
-                nameRow.appendChild(hBadge);
-            }
-        }, 0);
+    if (typeof char !== 'undefined' && char && typeof getSpecialCardTheme === 'function') {
+        const theme = getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
+        if (theme) {
+            setTimeout(() => {
+                if (!nameRow.querySelector('.' + theme.badgeClass)) {
+                    const hBadge = document.createElement('span');
+                    hBadge.className = theme.badgeClass;
+                    hBadge.textContent = theme.badgeText;
+                    nameRow.appendChild(hBadge);
+                }
+            }, 0);
+        }
     }
     nameRow.appendChild(nameSpan);
 
@@ -1145,9 +1151,8 @@ function createLinkPointsCard(data) {
 function createCharacterCard(char) {
     const card = document.createElement('div');
     card.className = 'char-card';
-    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
-        card.classList.add('special-card-horus-goku');
-    }
+    const spTheme = (typeof getSpecialCardTheme === 'function' && typeof char !== 'undefined' && char) ? getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum) : null;
+    if (spTheme) card.classList.add(spTheme.className);
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -1161,15 +1166,18 @@ function createCharacterCard(char) {
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
-    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
-        setTimeout(() => {
-            if (!nameRow.querySelector('.horus-special-badge')) {
-                const hBadge = document.createElement('span');
-                hBadge.className = 'horus-special-badge';
-                hBadge.textContent = 'SSGSS';
-                nameRow.appendChild(hBadge);
-            }
-        }, 0);
+    if (typeof char !== 'undefined' && char && typeof getSpecialCardTheme === 'function') {
+        const theme = getSpecialCardTheme(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
+        if (theme) {
+            setTimeout(() => {
+                if (!nameRow.querySelector('.' + theme.badgeClass)) {
+                    const hBadge = document.createElement('span');
+                    hBadge.className = theme.badgeClass;
+                    hBadge.textContent = theme.badgeText;
+                    nameRow.appendChild(hBadge);
+                }
+            }, 0);
+        }
     }
     nameRow.appendChild(nameSpan);
 
