@@ -260,8 +260,8 @@ function getSpecialProfileTheme(nicName) {
     if (nic === 'jyh10') {
         return {
             className: 'special-profile-jyh10',
-            badgeClass: 'vegetto-badge',
-            badgeText: '⚡ VEGETTO'
+            badgeClass: 'zamasu-badge',
+            badgeText: '👑 ZAMASU'
         };
     }
     return null;

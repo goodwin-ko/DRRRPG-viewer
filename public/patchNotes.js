@@ -10,12 +10,12 @@ const PATCH_NOTES = [
     {
         version: "v1.4.4",
         date: "2026-10-22",
-        title: "jyh10 유저 베지트(VEGETTO) 상단 프로필 헤더 스페셜 테마 적용",
+        title: "jyh10 유저 합체 자마스(ZAMASU) 상단 프로필 헤더 와이드 테마 적용",
         isLatest: true,
         changes: [
-            { type: "feat", text: "jyh10 조회 시 상단 프로필 헤더 베지트(VEGETTO) 일러스트 배경 배너 적용" },
-            { type: "feat", text: "사이어인 합체 아우라(사이언 & 골드 앰버) 듀얼 맥동 애니메이션 및 ⚡ VEGETTO 배지 부착" },
-            { type: "improve", text: "프로필 정보 및 스탯 수치 가독성 유지를 위한 2중 다크 비네팅 & 섀도우 최적화" }
+            { type: "feat", text: "jyh10 조회 시 상단 프로필 헤더 합체 자마스(신광환 & 멸망의 도시) 파노라마 와이드 일러스트 배너 적용" },
+            { type: "feat", text: "신의 기운(신성 퍼플 & 천상 골드) 아우라 맥동 애니메이션 및 👑 ZAMASU 배지 부착" },
+            { type: "improve", text: "초광폭(2048px 고해상도) 파노라마 비율 최적화 및 2중 다크 비네팅으로 스탯 가독성 확보" }
         ]
     },
     {

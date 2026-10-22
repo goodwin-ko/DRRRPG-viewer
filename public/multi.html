@@ -1615,32 +1615,30 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           jyh10 베지트(VEGETTO) 상단 프로필 헤더 전용 테마
+           jyh10 합체 자마스(ZAMASU) 상단 프로필 헤더 전용 테마
            ═══════════════════════════════════════════════════════ */
 
         #player-profile.special-profile-jyh10 {
             position: relative !important;
             overflow: hidden !important;
-            border: 2px solid #00d2ff !important;
+            border: 2px solid #b400ff !important;
             border-radius: 10px !important;
             padding: 6px 12px !important;
-            box-shadow: 0 0 28px rgba(0, 210, 255, 0.45), inset 0 0 16px rgba(0, 150, 255, 0.2) !important;
-            background: #060b18 !important;
-            animation: vegettoAuraPulse 3.5s infinite ease-in-out !important;
+            box-shadow: 0 0 30px rgba(180, 0, 255, 0.45), inset 0 0 18px rgba(255, 230, 150, 0.2) !important;
+            background: #090312 !important;
+            animation: zamasuAuraPulse 3.5s infinite ease-in-out !important;
         }
 
         #player-profile.special-profile-jyh10::before {
             content: '' !important;
             position: absolute !important;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                url('images/special/jyh10_header.jpg'),
-                url('images/special/jyh10_header.jpg') !important;
-            background-size: contain, cover !important;
-            background-position: right 80px center, center 28% !important;
-            background-repeat: no-repeat, no-repeat !important;
-            opacity: 0.42 !important;
-            filter: saturate(1.25) contrast(1.15) !important;
+            background-image: url('images/special/jyh10_header.jpg') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            opacity: 0.52 !important;
+            filter: saturate(1.2) contrast(1.15) !important;
             z-index: 0 !important;
         }
 
@@ -1650,9 +1648,10 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(
                 90deg, 
-                rgba(6, 11, 24, 0.88) 0%, 
-                rgba(8, 14, 30, 0.55) 45%, 
-                rgba(6, 11, 24, 0.82) 100%
+                rgba(9, 3, 18, 0.82) 0%, 
+                rgba(10, 4, 20, 0.42) 30%, 
+                rgba(10, 4, 20, 0.42) 70%, 
+                rgba(9, 3, 18, 0.85) 100%
             ) !important;
             z-index: 0 !important;
             pointer-events: none !important;
@@ -1663,26 +1662,26 @@
             z-index: 1 !important;
         }
 
-        @keyframes vegettoAuraPulse {
+        @keyframes zamasuAuraPulse {
             0% {
-                box-shadow: 0 0 18px rgba(0, 210, 255, 0.35), inset 0 0 12px rgba(0, 150, 255, 0.15);
-                border-color: #00d2ff;
+                box-shadow: 0 0 18px rgba(180, 0, 255, 0.4), inset 0 0 12px rgba(255, 230, 150, 0.18);
+                border-color: #b400ff;
             }
             50% {
-                box-shadow: 0 0 32px rgba(0, 210, 255, 0.7), 0 0 45px rgba(255, 170, 0, 0.3), inset 0 0 20px rgba(0, 210, 255, 0.25);
-                border-color: #ffaa00;
+                box-shadow: 0 0 32px rgba(255, 230, 150, 0.75), 0 0 50px rgba(180, 0, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.3);
+                border-color: #fff0aa;
             }
             100% {
-                box-shadow: 0 0 18px rgba(0, 210, 255, 0.35), inset 0 0 12px rgba(0, 150, 255, 0.15);
-                border-color: #00d2ff;
+                box-shadow: 0 0 18px rgba(180, 0, 255, 0.4), inset 0 0 12px rgba(255, 230, 150, 0.18);
+                border-color: #b400ff;
             }
         }
 
-        .vegetto-badge {
+        .zamasu-badge {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: linear-gradient(135deg, #00d2ff, #0055ff 50%, #ffaa00 100%);
+            background: linear-gradient(135deg, #b400ff, #ff007f 50%, #ffd700 100%);
             background-size: 200% auto;
             animation: goldMetallicFlow 3s linear infinite;
             color: #ffffff !important;
@@ -1691,7 +1690,7 @@
             padding: 2px 8px;
             border-radius: 6px;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 12px rgba(0, 210, 255, 0.7);
+            box-shadow: 0 0 12px rgba(180, 0, 255, 0.7);
             margin-left: 8px;
             vertical-align: middle;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
