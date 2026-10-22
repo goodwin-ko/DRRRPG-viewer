@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.1",
+        date: "2026-10-22",
+        title: "Cloudflare 고속 프록시 연동 및 Horus 손오공 스페셜 카드 테마 적용",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "Horus 유저 손오공 캐릭터 전용 초사이어인 블루 일러스트 배경 & 아우라 테마 탑재" },
+            { type: "improve", text: "일러스트 배경 위에서도 모든 스탯/장비/글자가 선명하게 읽히도록 다크 비네팅 & 텍스트 섀도우 강화" },
+            { type: "feat", text: "Cloudflare Workers 글로벌 에지 프록시 & 캐시 연동으로 반복 및 멀티 조회 10배 가속" }
+        ]
+    },
+    {
         version: "v1.4.0",
         date: "2026-10-20",
         title: "전체 영웅 캐릭터 고화질 아이콘 시스템 적용",
-        isLatest: true,
         changes: [
             { type: "feat", text: "61종 전체 영웅 고화질 일러스트 아이콘 추출 및 HD 리샘플링 적용" },
             { type: "feat", text: "개인 조회 및 멀티 대시보드 캐릭터 이름 및 친구 이름 옆에 고화질 아이콘 표시" },

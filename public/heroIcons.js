@@ -147,3 +147,18 @@ window.getHeroSlotByName = getHeroSlotByName;
 window.getHeroIconUrl = getHeroIconUrl;
 window.createHeroIconElement = createHeroIconElement;
 window.getHeroIconHtml = getHeroIconHtml;
+
+
+/**
+ * Horus 유저의 손오공 스페셜 카드 판정 헬퍼
+ */
+function isSpecialHorusGoku(nicName, charName, slotNum) {
+    if (!nicName || typeof nicName !== 'string') return false;
+    const isHorus = nicName.trim().toLowerCase() === 'horus';
+    if (!isHorus) return false;
+    const slot = parseInt(slotNum);
+    const isGoku = (slot === 1) || (charName && typeof charName === 'string' && charName.includes('손오공'));
+    return isGoku;
+}
+
+window.isSpecialHorusGoku = isSpecialHorusGoku;

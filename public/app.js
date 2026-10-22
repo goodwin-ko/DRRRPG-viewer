@@ -780,6 +780,8 @@ function getAdventureStage(val) {
 function createEquipmentCard(char) {
     const card = document.createElement('div');
     card.className = 'equip-card';
+    const isHorusGoku = typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
+    if (isHorusGoku) card.classList.add('special-card-horus-goku');
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -792,6 +794,16 @@ function createEquipmentCard(char) {
     // Name color: green if attended today
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
+    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
+        setTimeout(() => {
+            if (!nameRow.querySelector('.horus-special-badge')) {
+                const hBadge = document.createElement('span');
+                hBadge.className = 'horus-special-badge';
+                hBadge.textContent = 'SSGSS';
+                nameRow.appendChild(hBadge);
+            }
+        }, 0);
+    }
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
@@ -865,6 +877,8 @@ function createEquipmentCard(char) {
 function createBackpackCard(char) {
     const card = document.createElement('div');
     card.className = 'equip-card bag-card';
+    const isHorusGoku = typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum);
+    if (isHorusGoku) card.classList.add('special-card-horus-goku');
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -876,6 +890,16 @@ function createBackpackCard(char) {
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
+    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
+        setTimeout(() => {
+            if (!nameRow.querySelector('.horus-special-badge')) {
+                const hBadge = document.createElement('span');
+                hBadge.className = 'horus-special-badge';
+                hBadge.textContent = 'SSGSS';
+                nameRow.appendChild(hBadge);
+            }
+        }, 0);
+    }
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
@@ -1121,6 +1145,9 @@ function createLinkPointsCard(data) {
 function createCharacterCard(char) {
     const card = document.createElement('div');
     card.className = 'char-card';
+    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
+        card.classList.add('special-card-horus-goku');
+    }
 
     // Name Row
     const nameRow = document.createElement('div');
@@ -1134,6 +1161,16 @@ function createCharacterCard(char) {
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
     nameSpan.textContent = char.name;
+    if (typeof char !== 'undefined' && char && typeof isSpecialHorusGoku === 'function' && isSpecialHorusGoku(char.nicName || window.currentSearchNicName, char.name, char.slotNum)) {
+        setTimeout(() => {
+            if (!nameRow.querySelector('.horus-special-badge')) {
+                const hBadge = document.createElement('span');
+                hBadge.className = 'horus-special-badge';
+                hBadge.textContent = 'SSGSS';
+                nameRow.appendChild(hBadge);
+            }
+        }, 0);
+    }
     nameRow.appendChild(nameSpan);
 
     if (char.isCorrupted) {
@@ -1396,6 +1433,7 @@ async function fetchAndRenderLogs(nicName) {
 
         // 1. Render Player Header Metrics
         document.getElementById('player-name').textContent = result.nicName;
+        window.currentSearchNicName = result.nicName;
         updatePlayerRanksInHeader(result.nicName);
 
         const rankScore = data.RANK_SCORE || 0;
@@ -1656,6 +1694,7 @@ async function fetchAndRenderLogs(nicName) {
                     const starGrade = getStarGrade(starGradeVal);
 
                     slotData.push({
+                        nicName: result.nicName,
                         slotNum: slotNumInt,
                         charId,
                         name: charName,
