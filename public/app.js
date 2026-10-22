@@ -1442,15 +1442,20 @@ async function fetchAndRenderLogs(nicName) {
         // 1. Render Player Header Metrics
         const playerNameEl = document.getElementById('player-name');
         playerNameEl.textContent = result.nicName;
-        if (typeof isAllMaxMaster === 'function' && isAllMaxMaster(result.nicName)) {
-            playerProfile.classList.add('special-profile-1m60cm');
-            const masterBadge = document.createElement('span');
-            masterBadge.className = 'allmax-champion-badge';
-            masterBadge.textContent = '👑 ALL-MAX MASTER';
-            playerNameEl.appendChild(masterBadge);
-        } else {
-            playerProfile.classList.remove('special-profile-1m60cm');
+        playerProfile.classList.remove('special-profile-1m60cm', 'special-profile-jyh10');
+        if (typeof getSpecialProfileTheme === 'function') {
+            const spProfile = getSpecialProfileTheme(result.nicName);
+            if (spProfile) {
+                playerProfile.classList.add(spProfile.className);
+                if (spProfile.badgeClass && spProfile.badgeText) {
+                    const spBadge = document.createElement('span');
+                    spBadge.className = spProfile.badgeClass;
+                    spBadge.textContent = spProfile.badgeText;
+                    playerNameEl.appendChild(spBadge);
+                }
+            }
         }
+
         window.currentSearchNicName = result.nicName;
         updatePlayerRanksInHeader(result.nicName);
 

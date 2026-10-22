@@ -281,5 +281,103 @@
       "hero_display_name": "유린"
     }
   },
-  "1m60cm": {}
+  "1m60cm": {},
+  "jyh10": {
+    "41": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "우부"
+    },
+    "32": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "손오반(어린)"
+    },
+    "46": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "블루장군"
+    },
+    "50": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "박테리안"
+    },
+    "51": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "우마왕"
+    },
+    "8": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "사이어인 - 내퍼"
+    },
+    "9": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "초사이어인4 - 베지터"
+    },
+    "11": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "리쿰 2차 각성"
+    },
+    "14": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "각성한 캡틴기뉴"
+    },
+    "29": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "데브라"
+    },
+    "40": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "인조인간 14호"
+    },
+    "61": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "유린"
+    },
+    "17": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "골든 프리저"
+    },
+    "23": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "인조인간 17호"
+    },
+    "24": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "인조인간 18호"
+    },
+    "25": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "풀파워 셀"
+    },
+    "38": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "쿠우라 변신"
+    },
+    "39": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "인조인간 15호"
+    },
+    "58": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "리루도"
+    },
+    "56": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "파이크한"
+    },
+    "48": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "사이어인 - 버독"
+    },
+    "49": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "사이어인 - 타레스"
+    },
+    "52": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "팡"
+    },
+    "54": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "전설의 초사이어인4 - 브로리(약해진)"
+    }
+  }
 }

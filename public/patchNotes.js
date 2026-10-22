@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.4",
+        date: "2026-10-22",
+        title: "jyh10 유저 베지트(VEGETTO) 상단 프로필 헤더 스페셜 테마 적용",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "jyh10 조회 시 상단 프로필 헤더 베지트(VEGETTO) 일러스트 배경 배너 적용" },
+            { type: "feat", text: "사이어인 합체 아우라(사이언 & 골드 앰버) 듀얼 맥동 애니메이션 및 ⚡ VEGETTO 배지 부착" },
+            { type: "improve", text: "프로필 정보 및 스탯 수치 가독성 유지를 위한 2중 다크 비네팅 & 섀도우 최적화" }
+        ]
+    },
+    {
         version: "v1.4.3",
         date: "2026-10-22",
         title: "1m60cm 유저 전캐릭 올맥스(ALL-MAX) 명예의 전당 테마 & 랭킹 하이라이트",
-        isLatest: true,
         changes: [
             { type: "feat", text: "1m60cm 조회 시 상단 프로필 헤더 3인 성운 일러스트 배너 & 👑 ALL-MAX MASTER 배지 적용" },
             { type: "feat", text: "브로리(폭주 에메랄드 그린/LEGEND), 손오공(로제 블레이드/BLADE), 베지터(에네르기파 격돌/CLASH) 전용 테마 카드 탑재" },

@@ -243,3 +243,27 @@ function isAllMaxMaster(nicName) {
     return nicName.trim().toLowerCase() === '1m60cm';
 }
 window.isAllMaxMaster = isAllMaxMaster;
+
+/**
+ * 유저별 상단 프로필 헤더 스페셜 테마 매핑
+ */
+function getSpecialProfileTheme(nicName) {
+    if (!nicName || typeof nicName !== 'string') return null;
+    const nic = nicName.trim().toLowerCase();
+    if (nic === '1m60cm') {
+        return {
+            className: 'special-profile-1m60cm',
+            badgeClass: 'allmax-champion-badge',
+            badgeText: '👑 ALL-MAX MASTER'
+        };
+    }
+    if (nic === 'jyh10') {
+        return {
+            className: 'special-profile-jyh10',
+            badgeClass: 'vegetto-badge',
+            badgeText: '⚡ VEGETTO'
+        };
+    }
+    return null;
+}
+window.getSpecialProfileTheme = getSpecialProfileTheme;
