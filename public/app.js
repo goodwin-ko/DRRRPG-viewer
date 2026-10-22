@@ -1440,7 +1440,17 @@ async function fetchAndRenderLogs(nicName) {
         const data = result.data;
 
         // 1. Render Player Header Metrics
-        document.getElementById('player-name').textContent = result.nicName;
+        const playerNameEl = document.getElementById('player-name');
+        playerNameEl.textContent = result.nicName;
+        if (typeof isAllMaxMaster === 'function' && isAllMaxMaster(result.nicName)) {
+            playerProfile.classList.add('special-profile-1m60cm');
+            const masterBadge = document.createElement('span');
+            masterBadge.className = 'allmax-champion-badge';
+            masterBadge.textContent = '👑 ALL-MAX MASTER';
+            playerNameEl.appendChild(masterBadge);
+        } else {
+            playerProfile.classList.remove('special-profile-1m60cm');
+        }
         window.currentSearchNicName = result.nicName;
         updatePlayerRanksInHeader(result.nicName);
 
@@ -2087,6 +2097,13 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                 
                 // Format rank with medals for top 3
                 let rankDisplay = item.rank;
+                const isMaster = (typeof isAllMaxMaster === 'function' && isAllMaxMaster(item.nicname)) || (item.nicname && item.nicname.trim().toLowerCase() === '1m60cm');
+                if (isMaster) {
+                    tr.className = 'rank-row-1m60cm';
+                }
+                const nickContent = isMaster
+                    ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">${item.nicname}<span class="rank-champion-tag">👑 전캐릭 올맥스</span>`
+                    : item.nicname;
                 if (item.rank === 1) rankDisplay = '🥇';
                 else if (item.rank === 2) rankDisplay = '🥈';
                 else if (item.rank === 3) rankDisplay = '🥉';
@@ -2094,7 +2111,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                 tr.innerHTML = `
                     <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
                     <td style="text-align: left;">
-                        <span class="rank-nickname" data-nickname="${item.nicname}">${item.nicname}</span>
+                        <span class="rank-nickname" data-nickname="${item.nicname}">${nickContent}</span>
                     </td>
                     <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
                 `;
@@ -2110,7 +2127,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
         // Add click events to nicknames for instant search
         colRank.querySelectorAll('.rank-nickname').forEach(el => {
             el.addEventListener('click', (e) => {
-                const nickname = e.target.dataset.nickname;
+                const nickname = el.dataset.nickname || (e.target.closest('.rank-nickname') && e.target.closest('.rank-nickname').dataset.nickname) || e.target.dataset.nickname;
                 if (nickname) {
                     nicnameInput.value = nickname;
                     fetchAndRenderLogs(nickname);

@@ -203,7 +203,43 @@ function getSpecialCardTheme(nicName, charName, slotNum) {
         };
     }
 
+    // 4. 1m60cm - 전캐릭 올맥스 명예의 전당 (브로리, 손오공, 베지터 등)
+    if (nic === '1m60cm') {
+        const isBroly = (slot === 47 || slot === 54 || (charName && typeof charName === 'string' && charName.includes('브로리')));
+        if (isBroly) {
+            return {
+                className: 'special-card-1m60cm-broly',
+                badgeText: 'LEGEND',
+                badgeClass: 'broly-legend-badge'
+            };
+        }
+        if (isGoku) {
+            return {
+                className: 'special-card-1m60cm-goku',
+                badgeText: 'BLADE',
+                badgeClass: 'goku-blade-badge'
+            };
+        }
+        if (isVegeta) {
+            return {
+                className: 'special-card-1m60cm-vegeta',
+                badgeText: 'CLASH',
+                badgeClass: 'vegeta-clash-badge'
+            };
+        }
+    }
+
     return null;
 }
 
 window.getSpecialCardTheme = getSpecialCardTheme;
+
+
+/**
+ * 1m60cm 전캐릭 올맥스 마스터 판정 헬퍼
+ */
+function isAllMaxMaster(nicName) {
+    if (!nicName || typeof nicName !== 'string') return false;
+    return nicName.trim().toLowerCase() === '1m60cm';
+}
+window.isAllMaxMaster = isAllMaxMaster;

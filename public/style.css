@@ -2440,3 +2440,461 @@ span.stat-value.stat-val-maxed {
     vertical-align: middle;
     text-shadow: none !important;
 }
+
+
+/* ═══════════════════════════════════════════════════════
+   1m60cm 전캐릭 올맥스 마스터 - 명예의 전당 전용 테마
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. 상단 프로필 헤더 3인 성운 배너 */
+#player-profile.special-profile-1m60cm {
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #ffd700 !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.45), inset 0 0 20px rgba(255, 215, 0, 0.2) !important;
+    background: #080314 !important;
+    animation: goldChampionPulse 3.5s infinite ease-in-out !important;
+}
+
+#player-profile.special-profile-1m60cm::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('images/special/1m60cm_header.jpg') !important;
+    background-size: cover !important;
+    background-position: center 25% !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.38 !important;
+    filter: saturate(1.3) contrast(1.15) !important;
+    z-index: 0 !important;
+}
+
+#player-profile.special-profile-1m60cm::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        90deg, 
+        rgba(8, 3, 16, 0.85) 0%, 
+        rgba(10, 4, 20, 0.6) 45%, 
+        rgba(8, 3, 16, 0.88) 100%
+    ) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+}
+
+#player-profile.special-profile-1m60cm > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.allmax-champion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #ffd700, #ff8800, #ff0055);
+    background-size: 200% auto;
+    animation: goldMetallicFlow 3s linear infinite;
+    color: #000000 !important;
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+    margin-left: 8px;
+    vertical-align: middle;
+    text-shadow: none !important;
+}
+
+@keyframes goldChampionPulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.35), inset 0 0 14px rgba(255, 215, 0, 0.15);
+        border-color: #ffd700;
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 50px rgba(255, 120, 0, 0.3), inset 0 0 22px rgba(255, 215, 0, 0.3);
+        border-color: #fff275;
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.35), inset 0 0 14px rgba(255, 215, 0, 0.15);
+        border-color: #ffd700;
+    }
+}
+
+/* 2. 1m60cm 브로리 - 폭주 에메랄드 그린 테마 */
+.char-card.special-card-1m60cm-broly,
+.equip-card.special-card-1m60cm-broly {
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #00ff66 !important;
+    box-shadow: 0 0 25px rgba(0, 255, 102, 0.45), inset 0 0 15px rgba(0, 255, 102, 0.2) !important;
+    background: #031408 !important;
+    animation: brolyAuraPulse 3s infinite ease-in-out !important;
+    z-index: 1;
+}
+
+.char-card.special-card-1m60cm-broly::before,
+.equip-card.special-card-1m60cm-broly::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('images/special/1m60cm_broly.jpg') !important;
+    background-size: cover !important;
+    background-position: center 15% !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.45 !important;
+    filter: saturate(1.3) contrast(1.15) !important;
+    z-index: -2 !important;
+    transition: opacity 0.35s ease, transform 0.35s ease !important;
+}
+
+.char-card.special-card-1m60cm-broly:hover::before,
+.equip-card.special-card-1m60cm-broly:hover::before {
+    opacity: 0.62 !important;
+    transform: scale(1.04) !important;
+}
+
+.char-card.special-card-1m60cm-broly::after,
+.equip-card.special-card-1m60cm-broly::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        180deg, 
+        rgba(3, 16, 7, 0.78) 0%, 
+        rgba(2, 12, 5, 0.6) 35%, 
+        rgba(2, 12, 5, 0.82) 75%, 
+        rgba(1, 8, 3, 0.94) 100%
+    ) !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+}
+
+.special-card-1m60cm-broly .char-name-row,
+.special-card-1m60cm-broly .char-level,
+.special-card-1m60cm-broly .char-adventure,
+.special-card-1m60cm-broly .stat-row,
+.special-card-1m60cm-broly .char-cp,
+.special-card-1m60cm-broly .limit-block,
+.special-card-1m60cm-broly .bottom-stats-col,
+.special-card-1m60cm-broly .sub-label,
+.special-card-1m60cm-broly .equip-items,
+.special-card-1m60cm-broly .bag-item-row {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.98), 0 0 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-broly .stat-label {
+    color: #7affaa !important;
+    font-weight: 700 !important;
+}
+
+.special-card-1m60cm-broly .stat-value {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-broly .char-name {
+    color: #00ff66 !important;
+    text-shadow: 0 0 12px rgba(0, 255, 102, 0.9), 0 1px 3px rgba(0, 0, 0, 1) !important;
+}
+
+@keyframes brolyAuraPulse {
+    0% {
+        box-shadow: 0 0 18px rgba(0, 255, 102, 0.4), inset 0 0 12px rgba(0, 255, 102, 0.15);
+        border-color: #00ff66;
+    }
+    50% {
+        box-shadow: 0 0 32px rgba(0, 255, 102, 0.75), 0 0 50px rgba(0, 200, 80, 0.35), inset 0 0 20px rgba(0, 255, 102, 0.3);
+        border-color: #66ff99;
+    }
+    100% {
+        box-shadow: 0 0 18px rgba(0, 255, 102, 0.4), inset 0 0 12px rgba(0, 255, 102, 0.15);
+        border-color: #00ff66;
+    }
+}
+
+.broly-legend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: linear-gradient(135deg, #00ff66, #00b0ff);
+    color: #000000 !important;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
+    margin-left: 4px;
+    vertical-align: middle;
+    text-shadow: none !important;
+}
+
+/* 3. 1m60cm 손오공 - 로제 블레이드 테마 */
+.char-card.special-card-1m60cm-goku,
+.equip-card.special-card-1m60cm-goku {
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #ff007f !important;
+    box-shadow: 0 0 22px rgba(255, 0, 127, 0.45), inset 0 0 14px rgba(255, 0, 127, 0.2) !important;
+    background: #15020c !important;
+    animation: roseBladePulse 3s infinite ease-in-out !important;
+    z-index: 1;
+}
+
+.char-card.special-card-1m60cm-goku::before,
+.equip-card.special-card-1m60cm-goku::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('images/special/1m60cm_goku.jpg') !important;
+    background-size: cover !important;
+    background-position: center 15% !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.42 !important;
+    filter: saturate(1.3) contrast(1.15) !important;
+    z-index: -2 !important;
+    transition: opacity 0.35s ease, transform 0.35s ease !important;
+}
+
+.char-card.special-card-1m60cm-goku:hover::before,
+.equip-card.special-card-1m60cm-goku:hover::before {
+    opacity: 0.58 !important;
+    transform: scale(1.04) !important;
+}
+
+.char-card.special-card-1m60cm-goku::after,
+.equip-card.special-card-1m60cm-goku::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        180deg, 
+        rgba(20, 2, 10, 0.78) 0%, 
+        rgba(16, 2, 8, 0.62) 35%, 
+        rgba(16, 2, 8, 0.82) 75%, 
+        rgba(10, 1, 5, 0.94) 100%
+    ) !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+}
+
+.special-card-1m60cm-goku .char-name-row,
+.special-card-1m60cm-goku .char-level,
+.special-card-1m60cm-goku .char-adventure,
+.special-card-1m60cm-goku .stat-row,
+.special-card-1m60cm-goku .char-cp,
+.special-card-1m60cm-goku .limit-block,
+.special-card-1m60cm-goku .bottom-stats-col,
+.special-card-1m60cm-goku .sub-label,
+.special-card-1m60cm-goku .equip-items,
+.special-card-1m60cm-goku .bag-item-row {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.98), 0 0 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-goku .stat-label {
+    color: #ff99cc !important;
+    font-weight: 700 !important;
+}
+
+.special-card-1m60cm-goku .stat-value {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-goku .char-name {
+    color: #ff007f !important;
+    text-shadow: 0 0 12px rgba(255, 0, 127, 0.9), 0 1px 3px rgba(0, 0, 0, 1) !important;
+}
+
+@keyframes roseBladePulse {
+    0% {
+        box-shadow: 0 0 18px rgba(255, 0, 127, 0.4), inset 0 0 12px rgba(255, 0, 127, 0.15);
+        border-color: #ff007f;
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(255, 50, 150, 0.7), 0 0 45px rgba(200, 0, 100, 0.35), inset 0 0 18px rgba(255, 0, 127, 0.3);
+        border-color: #ff409f;
+    }
+    100% {
+        box-shadow: 0 0 18px rgba(255, 0, 127, 0.4), inset 0 0 12px rgba(255, 0, 127, 0.15);
+        border-color: #ff007f;
+    }
+}
+
+.goku-blade-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: linear-gradient(135deg, #ff007f, #8e24aa);
+    color: #ffffff !important;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
+    margin-left: 4px;
+    vertical-align: middle;
+    text-shadow: none !important;
+}
+
+/* 4. 1m60cm 베지터 - 에네르기파 광원 격돌 테마 */
+.char-card.special-card-1m60cm-vegeta,
+.equip-card.special-card-1m60cm-vegeta {
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #00e5ff !important;
+    box-shadow: 0 0 22px rgba(0, 229, 255, 0.45), inset 0 0 14px rgba(0, 229, 255, 0.2) !important;
+    background: #040916 !important;
+    animation: clashAuraPulse 3s infinite ease-in-out !important;
+    z-index: 1;
+}
+
+.char-card.special-card-1m60cm-vegeta::before,
+.equip-card.special-card-1m60cm-vegeta::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('images/special/1m60cm_clash.jpg') !important;
+    background-size: cover !important;
+    background-position: center 30% !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.42 !important;
+    filter: saturate(1.3) contrast(1.15) !important;
+    z-index: -2 !important;
+    transition: opacity 0.35s ease, transform 0.35s ease !important;
+}
+
+.char-card.special-card-1m60cm-vegeta:hover::before,
+.equip-card.special-card-1m60cm-vegeta:hover::before {
+    opacity: 0.58 !important;
+    transform: scale(1.04) !important;
+}
+
+.char-card.special-card-1m60cm-vegeta::after,
+.equip-card.special-card-1m60cm-vegeta::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        180deg, 
+        rgba(4, 9, 22, 0.78) 0%, 
+        rgba(3, 7, 18, 0.62) 35%, 
+        rgba(3, 7, 18, 0.82) 75%, 
+        rgba(2, 4, 12, 0.94) 100%
+    ) !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+}
+
+.special-card-1m60cm-vegeta .char-name-row,
+.special-card-1m60cm-vegeta .char-level,
+.special-card-1m60cm-vegeta .char-adventure,
+.special-card-1m60cm-vegeta .stat-row,
+.special-card-1m60cm-vegeta .char-cp,
+.special-card-1m60cm-vegeta .limit-block,
+.special-card-1m60cm-vegeta .bottom-stats-col,
+.special-card-1m60cm-vegeta .sub-label,
+.special-card-1m60cm-vegeta .equip-items,
+.special-card-1m60cm-vegeta .bag-item-row {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.98), 0 0 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-vegeta .stat-label {
+    color: #8ce4ff !important;
+    font-weight: 700 !important;
+}
+
+.special-card-1m60cm-vegeta .stat-value {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+.special-card-1m60cm-vegeta .char-name {
+    color: #00e5ff !important;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 1) !important;
+}
+
+@keyframes clashAuraPulse {
+    0% {
+        box-shadow: 0 0 18px rgba(0, 229, 255, 0.4), inset 0 0 12px rgba(0, 229, 255, 0.15);
+        border-color: #00e5ff;
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(0, 229, 255, 0.7), 0 0 45px rgba(0, 140, 255, 0.35), inset 0 0 18px rgba(0, 229, 255, 0.3);
+        border-color: #66e5ff;
+    }
+    100% {
+        box-shadow: 0 0 18px rgba(0, 229, 255, 0.4), inset 0 0 12px rgba(0, 229, 255, 0.15);
+        border-color: #00e5ff;
+    }
+}
+
+.vegeta-clash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: linear-gradient(135deg, #00e5ff, #0077ff);
+    color: #ffffff !important;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+    margin-left: 4px;
+    vertical-align: middle;
+    text-shadow: none !important;
+}
+
+/* 5. 1m60cm 랭킹 명예의 전당 하이라이트 행 */
+.rankings-table tr.rank-row-1m60cm {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 140, 0, 0.1) 50%, rgba(255, 215, 0, 0.2) 100%) !important;
+    border: 1.5px solid rgba(255, 215, 0, 0.7) !important;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.4) !important;
+    animation: goldChampionRowPulse 2.8s infinite ease-in-out !important;
+}
+
+@keyframes goldChampionRowPulse {
+    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.25); }
+    50% { box-shadow: 0 0 22px rgba(255, 215, 0, 0.6); }
+    100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.25); }
+}
+
+.rankings-table tr.rank-row-1m60cm .rank-nickname {
+    color: #ffd700 !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+}
+
+.rank-profile-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #ffd700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    object-fit: cover;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.rank-champion-tag {
+    background: linear-gradient(135deg, #ffd700, #ff8800);
+    color: #000000 !important;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    margin-left: 4px;
+    text-shadow: none !important;
+}

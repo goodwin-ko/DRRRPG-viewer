@@ -8,10 +8,21 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.3",
+        date: "2026-10-22",
+        title: "1m60cm 유저 전캐릭 올맥스(ALL-MAX) 명예의 전당 테마 & 랭킹 하이라이트",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "1m60cm 조회 시 상단 프로필 헤더 3인 성운 일러스트 배너 & 👑 ALL-MAX MASTER 배지 적용" },
+            { type: "feat", text: "브로리(폭주 에메랄드 그린/LEGEND), 손오공(로제 블레이드/BLADE), 베지터(에네르기파 격돌/CLASH) 전용 테마 카드 탑재" },
+            { type: "feat", text: "랭킹 게시판 내 1m60cm 전용 골드 하이라이트 행, 미니 프로필 원형 아이콘 및 👑 전캐릭 올맥스 칭호 배지 추가" },
+            { type: "improve", text: "일러스트 배경 위 텍스트 가독성을 위한 이중 다크 비네팅 그라데이션 및 텍스트 섀도우 최적화" }
+        ]
+    },
+    {
         version: "v1.4.2",
         date: "2026-10-22",
         title: "goodwin 유저 손오공(로제) & 베지터(듀얼) 스페셜 카드 테마 적용",
-        isLatest: true,
         changes: [
             { type: "feat", text: "goodwin 조회 시 손오공(초사이어인 로제) & 베지터(갓&블루 듀얼) 전용 배경 일러스트 탑재" },
             { type: "feat", text: "손오공 전용 'ROSE' 뱃지 및 베지터 전용 'DUAL' 뱃지 추가" },
