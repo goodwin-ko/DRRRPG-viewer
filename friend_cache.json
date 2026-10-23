@@ -35,7 +35,11 @@
       "hero_display_name": "지구 챔피언 - 미스터 사탄"
     },
     "32": {
-      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "16": {
+      "friend_name": "셀 완전체(약해진)",
       "hero_display_name": "손오반(어린)"
     }
   },
@@ -61,8 +65,7 @@
   },
   "Gottfried": {
     "32": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+      "friend_name": "키드부우(약해진)"
     },
     "2": {
       "friend_name": "메탈 쿠우라(약해진)",
@@ -207,6 +210,10 @@
     "26": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "사이어인 - 트랭크스(미래)"
+    },
+    "16": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
     }
   },
   "wpp23": {
@@ -283,6 +290,10 @@
     "61": {
       "friend_name": "오지터 - 초싸1",
       "hero_display_name": "유린"
+    },
+    "1": {
+      "friend_name": "오지터 - 초싸3",
+      "hero_display_name": "초사이어인4 - 손오공"
     }
   },
   "1m60cm": {
@@ -297,6 +308,146 @@
     "2": {
       "friend_name": "오지터 - 초싸1",
       "hero_display_name": "크리링 2차 각성"
+    },
+    "32": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 손오반"
+    },
+    "3": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "야무치 2차 각성"
+    },
+    "4": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "천진반 2차 각성"
+    },
+    "5": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "무천도사 2차 각성"
+    },
+    "6": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "피콜로 2차 각성"
+    },
+    "61": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "유린"
+    },
+    "7": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 라데츠"
+    },
+    "8": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 내퍼"
+    },
+    "9": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 베지터"
+    },
+    "10": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 굴드"
+    },
+    "11": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "리쿰 2차 각성"
+    },
+    "12": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 지스"
+    },
+    "13": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 버터"
+    },
+    "14": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 캡틴기뉴"
+    },
+    "15": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "지구 챔피언 - 미스터 사탄"
+    },
+    "17": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "프리저 2차 각성"
+    },
+    "22": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 인조인간 20호"
+    },
+    "23": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 17호"
+    },
+    "24": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 18호"
+    },
+    "25": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "셀 2차 각성"
+    },
+    "26": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 트랭크스(미래)"
+    },
+    "27": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 부르마"
+    },
+    "28": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "골든 야콩"
+    },
+    "29": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "데브라"
+    },
+    "33": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "뒤틀린 도도리아"
+    },
+    "34": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "비델"
+    },
+    "35": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 손오천"
+    },
+    "36": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 트랭크스(어린)"
+    },
+    "37": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "자봉 풀파워 - 변신"
+    },
+    "38": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "쿠우라 변신"
+    },
+    "39": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 15호"
+    },
+    "40": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 14호"
+    },
+    "41": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "우부"
+    },
+    "42": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "힐데건 성충"
+    },
+    "43": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "전설의 농부"
     }
   },
   "jyh10": {
@@ -305,8 +456,7 @@
       "hero_display_name": "우부"
     },
     "32": {
-      "friend_name": "캡틴 기뉴",
-      "hero_display_name": "손오반(어린)"
+      "friend_name": "캡틴 기뉴"
     },
     "46": {
       "friend_name": "캡틴 기뉴",
@@ -399,13 +549,17 @@
     "1": {
       "friend_name": "셀 완전체",
       "hero_display_name": "초사이어인4 - 손오공"
+    },
+    "16": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "손오반(어린)"
     }
   },
   "maay317": {},
   "mnm1823": {},
   "time8463": {
     "23": {
-      "friend_name": "오지터 - 초싸1",
+      "friend_name": "초싸1 베지트",
       "hero_display_name": "인조인간 17호"
     }
   },
@@ -433,16 +587,18 @@
     "66": {
       "friend_name": "x0, x0, x0, x0, x0, x0",
       "hero_display_name": "자마스"
+    },
+    "47": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "전설의 초사이어인 - 브로리"
     }
   },
   "jhlee6470": {
     "38": {
-      "friend_name": "초싸1 베지트",
-      "hero_display_name": "메탈 쿠우라"
+      "friend_name": "초싸1 베지트"
     },
     "9": {
-      "friend_name": "초싸1 베지트",
-      "hero_display_name": "킹 베지터"
+      "friend_name": "초싸1 베지트"
     },
     "54": {
       "friend_name": "오지터 - 초싸1",
@@ -485,7 +641,7 @@
       "hero_display_name": "각성한 인조인간 20호"
     },
     "14": {
-      "friend_name": "오지터 - 초싸1",
+      "friend_name": "초싸1 베지트",
       "hero_display_name": "각성한 캡틴기뉴"
     },
     "20": {
@@ -515,6 +671,18 @@
     "12": {
       "friend_name": "초싸1 베지트",
       "hero_display_name": "각성한 지스"
+    },
+    "13": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 버터"
+    },
+    "62": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "메탈 쿠우라"
+    },
+    "63": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "킹 베지터"
     }
   },
   "thdwndhkd1": {}

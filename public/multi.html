@@ -769,7 +769,7 @@
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.4) !important;
         }
 
-        /* 전투력 60만 만스텟 달성 시 효과 */
+        /* 전투력 70만 만스텟 달성 시 효과 */
         @keyframes cpGoldPulse {
             0% { text-shadow: 0 0 6px rgba(255, 215, 0, 0.6); }
             50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.4); }
@@ -1696,7 +1696,7 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         }
     </style>
-    <script src="heroIcons.js?v=1.4.6"></script>
+    <script src="heroIcons.js?v=1.4.7"></script>
 </head>
 <body>
 
@@ -2249,6 +2249,19 @@ function getAdventureStage(val) {
     if (v < 19001) return "타차원 오우거";
     if (v < 20001) return "자연의 물약Lv2";
     if (v < 21001) return "타레스";
+    if (v < 22001) return "숲의 물약";
+    if (v < 23001) return "늑대인간왕";
+    if (v < 24001) return "모험가 길드 접수원-모험 의뢰";
+    if (v < 24101) return "도도리아";
+    if (v < 24201) return "자봉";
+    if (v < 24301) return "자봉-변신";
+    if (v < 24401) return "굴드";
+    if (v < 24501) return "리쿰";
+    if (v < 24601) return "버터";
+    if (v < 24701) return "지스";
+    if (v < 24801) return "캡틴 기뉴";
+    if (v < 24901) return "프리저-3단계";
+    if (v < 25001) return "프리저-완성체 풀파워";
     return "개발중";
 }
 
@@ -2621,20 +2634,9 @@ function processData(result) {
     if (chars.length > 0) {
         let latestChar = null;
         if (result.latest_log_character) {
-            const rawLogName = result.latest_log_character.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/『[^』]+』/g, '').replace(/\[.*?\]/g, '').trim();
-            const cleanLogName = rawLogName.replace(/\s+/g, ''); // 공백 모두 제거해서 비교
-            const mappingEntries = Object.entries(LINK_NAME_MAPPING)
-                .map(([slot, name]) => ({ slot: parseInt(slot), name }))
-                .sort((a, b) => b.name.length - a.name.length);
-                
-            let matchedSlot = null;
-            for (const entry of mappingEntries) {
-                const normEntryName = entry.name.replace(/\s+/g, '');
-                if (cleanLogName.includes(normEntryName)) {
-                    matchedSlot = entry.slot;
-                    break;
-                }
-            }
+            const matchedSlot = typeof getHeroSlotByName === 'function'
+                ? getHeroSlotByName(result.latest_log_character)
+                : null;
             if (matchedSlot !== null) {
                 latestChar = chars.find(c => c.slotNum === matchedSlot) || null;
             }
@@ -2724,7 +2726,7 @@ function renderBasicCard(c) {
     // 만스텟 조건 판정
     const isLvlMaxed = (parseInt(c.level) || 0) >= 6000;
     const isAdvMaxed = (parseInt(c.adv) || 0) >= 21001;
-    const isCpMaxed = (cpValue || 0) >= 600000;
+    const isCpMaxed = (cpValue || 0) >= 700000;
     const isStarMaxed = c.starGrade && (c.starGrade.replace(/\s+/g, '') === '닼레8' || c.starGrade.replace(/\s+/g, '') === '다크레드8');
     const isLimitMaxed = c.limit !== undefined && c.limit !== null && (parseInt(c.limit) || 0) >= 10;
     const isOwnStrMaxed = c.str && c.maxOwnStat && parseInt(c.str.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
@@ -2742,7 +2744,7 @@ function renderBasicCard(c) {
         `<div class="stat-row"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span class="alt"><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span></div>`,
         `<div class="stat-row"><span><span class="stat-label">기:</span> <span class="stat-value">${fmt(c.ki)}</span></span><span class="alt"><span class="stat-label">체력:</span> <span class="stat-value">${fmt(c.hp)}</span></span></div>`,
         `<div class="stat-row"><span><span class="stat-label">공속:</span> <span class="stat-value">${fmt(c.speed)}</span></span><span class="alt"><span class="stat-label">불굴:</span> <span class="stat-value">${fmt(c.fortitude)}</span></span></div>`,
-        `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
+        `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 700000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
         c.limit !== null ? [
             `<div class="limit-block">`,
             `<div class="limit-title"><span class="stat-label">극한:</span> <span class="stat-value ${isLimitMaxed ? 'stat-val-maxed' : ''}">${fmt(c.limit)}</span> <small style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(<span class="stat-value">${fmt(c.limitPt)}</span>pt)</small></div>`,
@@ -3272,6 +3274,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="patchNotes.js?v=1.4.6"></script>
+<script src="patchNotes.js?v=1.4.7"></script>
 </body>
 </html>

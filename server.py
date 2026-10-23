@@ -53,32 +53,71 @@ LINK_NAME_MAPPING = {
 }
 
 HERO_ALIASES = {
+    "손오공": ["손오공", "초사이어인손오공", "극의손오공", "무의식의극의"],
+    "베지터": ["베지터", "초사이어인베지터", "마인베지터"],
+    "어린손오반": ["어린손오반", "손오반(어린)", "손오반 (어린)", "어린 손오반", "어린오반", "오반(어린)"],
+    "손오반": ["손오반", "미스틱손오반", "얼티밋손오반", "청년손오반"],
+    "트랭크스(미래)": ["트랭크스(미래)", "미래트랭크스", "트랭크스미래", "트랭크스"],
+    "트랭크스(어린)": ["트랭크스(어린)", "어린트랭크스", "트랭크스어린", "어린트랭"],
     "자봉": ["자봉", "자붕"],
-    "타피온": ["타피온", "용사", "환상의용사", "힐데건"],
+    "쿠우라": ["최종쿠우라", "쿠우라"],
+    "우부": ["우부", "슈퍼우부"],
+    "타피온": ["타피온", "환상의용사", "용사", "힐데건"],
+    "브로리(전설)": ["브로리(전설)", "전설의브로리", "전설브로리", "브로리"],
+    "브로리(약해진)": ["브로리(약해진)", "약해진브로리", "약브로리"],
     "메탈 쿠우라": ["메탈 쿠우라", "메탈쿠우라"],
-    "킹 베지터": ["킹 베지터", "킹베지터"],
+    "킹 베지터": ["킹 베지터", "킹베지터", "베지터왕"],
     "로드 슬러그": ["로드 슬러그", "로드슬러그", "슬러그"],
     "블랙 오공": ["블랙 오공", "블랙오공", "오공블랙"],
     "자마스": ["자마스", "자미스", "합체자마스"]
 }
 
+# 긴 별칭(손오반(어린), 킹베지터, 메탈쿠우라, 블랙오공 등)이 짧은 기본형보다 먼저 매칭되도록 정렬
+ALL_HERO_MATCH_RULES = []
+for _sid, _bname in LINK_NAME_MAPPING.items():
+    _aliases = HERO_ALIASES.get(_bname, [_bname])
+    for _al in _aliases:
+        _norm = re.sub(r"\s+", "", _al)
+        ALL_HERO_MATCH_RULES.append((_sid, _bname, _norm))
+
+ALL_HERO_MATCH_RULES.sort(key=lambda x: len(x[2]), reverse=True)
+
+def is_safe_hero_display_name(slot_id_int, disp_name):
+    """각 슬롯 고유 캐릭터 분리를 위해 다른 캐릭터의 표시명이 잘못 들어가지 않도록 검증"""
+    if not disp_name:
+        return True
+    s = str(disp_name).replace(" ", "")
+    if slot_id_int == 32 and "어린" in s:
+        return False
+    if slot_id_int == 16 and ("미스틱" in s or "얼티밋" in s):
+        return False
+    if slot_id_int == 9 and ("킹" in s or "왕" in s):
+        return False
+    if slot_id_int == 63 and "킹" not in s and "왕" not in s:
+        return False
+    if slot_id_int == 38 and "메탈" in s:
+        return False
+    if slot_id_int == 62 and "메탈" not in s:
+        return False
+    if slot_id_int == 1 and "블랙" in s:
+        return False
+    if slot_id_int == 65 and "블랙" not in s:
+        return False
+    if slot_id_int == 26 and "어린" in s:
+        return False
+    if slot_id_int == 36 and "어린" not in s:
+        return False
+    if slot_id_int == 47 and "약해진" in s:
+        return False
+    if slot_id_int == 54 and "약해진" not in s and "약브" not in s:
+        return False
+    return True
+
 HERO_COMPATIBILITY_GROUPS = {
     "우부": ["우부", "슈퍼우부"],
     "슈퍼우부": ["우부", "슈퍼우부"],
     "자봉": ["자봉", "자붕"],
-    "타피온": ["타피온", "용사", "환상의용사", "힐데건"],
-    "메탈 쿠우라": ["메탈 쿠우라", "메탈쿠우라"],
-    "킹 베지터": ["킹 베지터", "킹베지터"],
-    "로드 슬러그": ["로드 슬러그", "로드슬러그", "슬러그"],
-    "블랙 오공": ["블랙 오공", "블랙오공", "오공블랙"],
-    "자마스": ["자마스", "자미스", "합체자마스"],
-    "자미스": ["자마스", "자미스", "합체자마스"],
-    "메탈쿠우라": ["메탈 쿠우라", "메탈쿠우라"],
-    "킹베지터": ["킹 베지터", "킹베지터"],
-    "로드슬러그": ["로드 슬러그", "로드슬러그", "슬러그"],
-    "블랙오공": ["블랙 오공", "블랙오공", "오공블랙"],
-    "용사": ["타피온", "용사", "환상의용사", "힐데건"],
-    "힐데건": ["타피온", "용사", "환상의용사", "힐데건"]
+    "타피온": ["타피온", "용사", "환상의용사", "힐데건"]
 }
 
 import base64
@@ -425,9 +464,8 @@ def get_logs():
                             hero_line = re.sub(r"\[.*?\]", "", hero_raw)
                             hero_line = re.sub(r"\s+", "", hero_line)
                             
-                            for slot_id, char_basic_name in LINK_NAME_MAPPING.items():
-                                match_targets = HERO_ALIASES.get(char_basic_name, [char_basic_name])
-                                if any(re.sub(r"\s+", "", t) in hero_line for t in match_targets):
+                            for slot_id, char_basic_name, norm_alias in ALL_HERO_MATCH_RULES:
+                                if norm_alias in hero_line:
                                     hero_name = char_basic_name
                                     break
                                     
@@ -459,8 +497,8 @@ def get_logs():
                         slot_str = key.split("_")[1]
                         slot_id_int = int(slot_str)
                         slot_name = LINK_NAME_MAPPING.get(slot_id_int)
-                        is_hero_match = (slot_name == hero_name) or (slot_name in HERO_COMPATIBILITY_GROUPS.get(hero_name, []))
-                        if is_hero_match:
+                        is_hero_match = (slot_name == hero_name)
+                        if is_hero_match and is_safe_hero_display_name(slot_id_int, hero_display_name):
                             merged_data[f"FRIEND_NAME_{slot_str}"] = friend_name
                             merged_data[f"HERO_DISPLAY_NAME_{slot_str}"] = hero_display_name
 
@@ -482,24 +520,29 @@ def get_logs():
                     dn_key = f"HERO_DISPLAY_NAME_{slot_str}"
                     # 이번 로그에서 찾은 게 있으면 캐시 업데이트
                     if fn_key in merged_data:
-                        nic_cache[slot_str] = {
-                            "friend_name": merged_data[fn_key],
-                            "hero_display_name": merged_data.get(dn_key, "")
-                        }
+                        disp_name = merged_data.get(dn_key, "")
+                        if is_safe_hero_display_name(int(slot_str), disp_name):
+                            nic_cache[slot_str] = {
+                                "friend_name": merged_data[fn_key],
+                                "hero_display_name": disp_name
+                            }
                     # 이번 로그에서 못 찾았지만 캐시에 있으면 캐시에서 보충
                     elif slot_str in nic_cache:
                         merged_data[fn_key] = nic_cache[slot_str]["friend_name"]
-                        if nic_cache[slot_str].get("hero_display_name"):
-                            merged_data[dn_key] = nic_cache[slot_str]["hero_display_name"]
+                        disp_name = nic_cache[slot_str].get("hero_display_name")
+                        if disp_name and is_safe_hero_display_name(int(slot_str), disp_name):
+                            merged_data[dn_key] = disp_name
 
             # 캐시에 있지만 merged_data에 DATA1_이 없는 슬롯도 보충 (예: 슬롯 비활성화 상태)
             for slot_str, slot_data in nic_cache.items():
                 fn_key = f"FRIEND_NAME_{slot_str}"
                 dn_key = f"HERO_DISPLAY_NAME_{slot_str}"
+                slot_id_val = int(slot_str)
                 if fn_key not in merged_data and slot_data.get("friend_name"):
                     merged_data[fn_key] = slot_data["friend_name"]
-                if dn_key not in merged_data and slot_data.get("hero_display_name"):
-                    merged_data[dn_key] = slot_data["hero_display_name"]
+                disp_name = slot_data.get("hero_display_name")
+                if dn_key not in merged_data and disp_name and is_safe_hero_display_name(slot_id_val, disp_name):
+                    merged_data[dn_key] = disp_name
 
             # 캐시 저장
             cache[nicName] = nic_cache

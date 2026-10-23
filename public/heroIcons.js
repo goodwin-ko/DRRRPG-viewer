@@ -22,7 +22,7 @@ const HERO_NAME_TO_SLOT = {
     '버터': 13,
     '기뉴': 14,
     '사탄': 15,
-    '어린손오반': 16, '어린오반': 16,
+    '어린손오반': 16, '어린오반': 16, '손오반(어린)': 16, '손오반 (어린)': 16, '어린 손오반': 16,
 
     // 3행
     '프리저': 17, '골든프리저': 17,
@@ -42,15 +42,15 @@ const HERO_NAME_TO_SLOT = {
     '데브라': 29,
     '비비디': 30, '바비디': 30,
     '마인부우': 31,
-    '손오반': 32, '미스틱손오반': 32, '얼티밋손오반': 32,
+    '손오반': 32, '미스틱손오반': 32, '얼티밋손오반': 32, '청년손오반': 32,
 
     // 5행
     '도도리아': 33,
     '비델': 34,
     '손오천': 35,
-    '트랭크스(어린)': 36, '어린트랭': 36,
+    '트랭크스(어린)': 36, '어린트랭': 36, '어린트랭크스': 36, '트랭크스 (어린)': 36,
     '자봉': 37, '자붕': 37,
-    '쿠우라': 38,
+    '쿠우라': 38, '최종쿠우라': 38,
     '인조인간15호': 39, '15호': 39,
     '인조인간14호': 40, '14호': 40,
 
@@ -61,7 +61,7 @@ const HERO_NAME_TO_SLOT = {
     '인조인간13호': 44, '13호': 44,
     '자넨바': 45, '쟈넨바': 45,
     '블루장군': 46,
-    '브로리(전설)': 47, '전설브로리': 47, '브로리': 47,
+    '브로리(전설)': 47, '전설브로리': 47, '전설의브로리': 47, '브로리': 47,
     '버독': 48,
 
     // 7행
@@ -70,7 +70,7 @@ const HERO_NAME_TO_SLOT = {
     '우마왕': 51,
     '팡': 52,
     '하야이드래곤': 53, '하이야': 53,
-    '브로리(약해진)': 54, '약브로리': 54,
+    '브로리(약해진)': 54, '약브로리': 54, '약해진브로리': 54,
     '아리': 55,
     '파이크한': 56,
 
@@ -83,24 +83,75 @@ const HERO_NAME_TO_SLOT = {
 
     // 9행 (신규 영웅)
     '메탈 쿠우라': 62, '메탈쿠우라': 62,
-    '킹 베지터': 63, '킹베지터': 63,
+    '킹 베지터': 63, '킹베지터': 63, '베지터왕': 63,
     '로드 슬러그': 64, '로드슬러그': 64, '슬러그': 64,
     '블랙 오공': 65, '블랙오공': 65, '오공블랙': 65,
-    '자마스': 66, '자미스': 66
+    '자마스': 66, '자미스': 66, '합체자마스': 66
 };
 
 /**
  * 캐릭터 이름 문자열에서 해당 영웅의 슬롯 번호(1~66)를 찾습니다.
+ * - 어린손오반(16) vs 손오반(32), 베지터(9) vs 킹 베지터(63) 등 고유 슬롯 완전 분리
  */
 function getHeroSlotByName(name) {
     if (!name || typeof name !== 'string') return null;
-    const clean = name.replace(/\[.*?\]|\(.*?\)|『.*?』/g, '').trim();
     if (HERO_NAME_TO_SLOT[name]) return HERO_NAME_TO_SLOT[name];
-    if (HERO_NAME_TO_SLOT[clean]) return HERO_NAME_TO_SLOT[clean];
+
+    // 태그 제거: [], 『』만 제거하고 ()는 캐릭터 구분을 위해 반드시 보존!
+    const raw = name.replace(/\[.*?\]|『.*?』/g, '').trim();
+    if (HERO_NAME_TO_SLOT[raw]) return HERO_NAME_TO_SLOT[raw];
     
-    // 부분 일치 검사
-    for (const [k, v] of Object.entries(HERO_NAME_TO_SLOT)) {
-        if (clean.includes(k) || k.includes(clean)) return v;
+    const clean = raw.replace(/\s+/g, '');
+    if (HERO_NAME_TO_SLOT[clean]) return HERO_NAME_TO_SLOT[clean];
+
+    // 정밀 우선순위 규칙: 유사한 이름을 가진 독립 캐릭터들을 명확히 분리!
+    // 1. 어린손오반 (16) vs 손오반 (32)
+    if (clean.includes('오반')) {
+        if (clean.includes('어린')) return 16;
+        return 32;
+    }
+    // 2. 킹 베지터 (63) vs 베지터 (9)
+    if (clean.includes('베지터')) {
+        if (clean.includes('킹') || clean.includes('왕')) return 63;
+        return 9;
+    }
+    // 3. 메탈 쿠우라 (62) vs 쿠우라 (38)
+    if (clean.includes('쿠우라')) {
+        if (clean.includes('메탈')) return 62;
+        return 38;
+    }
+    // 4. 블랙 오공 (65) vs 손오공 (1)
+    if (clean.includes('블랙') || clean.includes('오공블랙')) {
+        return 65;
+    }
+    if (clean.includes('손오공') || clean.includes('극의') || clean.includes('오공')) {
+        return 1;
+    }
+    // 5. 트랭크스(어린) (36) vs 트랭크스(미래) (26)
+    if (clean.includes('트랭')) {
+        if (clean.includes('어린')) return 36;
+        return 26;
+    }
+    // 6. 브로리(약해진) (54) vs 브로리(전설) (47)
+    if (clean.includes('브로리')) {
+        if (clean.includes('약해진') || clean.includes('약브')) return 54;
+        return 47;
+    }
+    // 7. 자마스 / 자미스 (66)
+    if (clean.includes('자마스') || clean.includes('자미스')) {
+        return 66;
+    }
+    // 8. 로드 슬러그 (64)
+    if (clean.includes('슬러그')) {
+        return 64;
+    }
+
+    // 일반 캐릭터 부분 일치 (키 길이 내림차순 검사, 역방향 검사는 제외하여 오매칭 방지)
+    const sortedEntries = Object.entries(HERO_NAME_TO_SLOT)
+        .sort((a, b) => b[0].length - a[0].length);
+    for (const [k, v] of sortedEntries) {
+        const cleanK = k.replace(/\s+/g, '');
+        if (clean.includes(cleanK)) return v;
     }
     return null;
 }
@@ -180,8 +231,8 @@ function getSpecialCardTheme(nicName, charName, slotNum) {
     if (!nicName || typeof nicName !== 'string') return null;
     const nic = nicName.trim().toLowerCase();
     const slot = parseInt(slotNum);
-    const isGoku = (slot === 1) || (charName && typeof charName === 'string' && charName.includes('손오공'));
-    const isVegeta = (slot === 9) || (charName && typeof charName === 'string' && charName.includes('베지터'));
+    const isGoku = (slot === 1) || (!slot && charName && typeof charName === 'string' && (charName === '손오공' || (charName.includes('손오공') && !charName.includes('블랙'))));
+    const isVegeta = (slot === 9) || (!slot && charName && typeof charName === 'string' && (charName === '베지터' || (charName.includes('베지터') && !charName.includes('킹') && !charName.includes('왕'))));
 
     // 1. Horus - 손오공 (SSGSS 블루)
     if (nic === 'horus' && isGoku) {

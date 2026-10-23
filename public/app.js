@@ -785,6 +785,19 @@ function getAdventureStage(val) {
     if (v < 19001) return "타차원 오우거";
     if (v < 20001) return "자연의 물약Lv2";
     if (v < 21001) return "타레스";
+    if (v < 22001) return "숲의 물약";
+    if (v < 23001) return "늑대인간왕";
+    if (v < 24001) return "모험가 길드 접수원-모험 의뢰";
+    if (v < 24101) return "도도리아";
+    if (v < 24201) return "자봉";
+    if (v < 24301) return "자봉-변신";
+    if (v < 24401) return "굴드";
+    if (v < 24501) return "리쿰";
+    if (v < 24601) return "버터";
+    if (v < 24701) return "지스";
+    if (v < 24801) return "캡틴 기뉴";
+    if (v < 24901) return "프리저-3단계";
+    if (v < 25001) return "프리저-완성체 풀파워";
     return "개발중";
 }
 
@@ -1234,7 +1247,7 @@ function createCharacterCard(char) {
     const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
     const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
     const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
-    const isCpMaxedForAll = (cpValueForMax || 0) >= 600000;
+    const isCpMaxedForAll = (cpValueForMax || 0) >= 700000;
     const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
     const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
     const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
@@ -1282,7 +1295,7 @@ function createCharacterCard(char) {
     leftCol.appendChild(row2);
 
     const cpValue = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
-    const isCpMaxed = (cpValue || 0) >= 600000;
+    const isCpMaxed = (cpValue || 0) >= 700000;
     const cpRow = document.createElement('div');
     cpRow.className = 'char-cp';
     let cpHtml = `<span class="stat-label">투력:</span> <span class="stat-value ${isCpMaxed ? 'cp-maxed-completed' : ''}">${formatNumber(char.cp)}</span>`;
@@ -1806,20 +1819,9 @@ async function fetchAndRenderLogs(nicName) {
         // 2. 매칭 실패 시 d3[6] saveDate 최댓값 (같은 날이면 slotNum 높은 캐릭터 우선)
         let latestChar = null;
         if (result.latest_log_character && uniqueCharacters.length > 0) {
-            const rawLogName = result.latest_log_character.replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/『[^』]+』/g, '').replace(/\[.*?\]/g, '').trim();
-            const cleanLogName = rawLogName.replace(/\s+/g, ''); // 공백 모두 제거해서 비교
-            const mappingEntries = Object.entries(LINK_NAME_MAPPING)
-                .map(([slot, name]) => ({ slot: parseInt(slot), name }))
-                .sort((a, b) => b.name.length - a.name.length);
-                
-            let matchedSlot = null;
-            for (const entry of mappingEntries) {
-                const normEntryName = entry.name.replace(/\s+/g, '');
-                if (cleanLogName.includes(normEntryName)) {
-                    matchedSlot = entry.slot;
-                    break;
-                }
-            }
+            const matchedSlot = typeof getHeroSlotByName === 'function'
+                ? getHeroSlotByName(result.latest_log_character)
+                : null;
             if (matchedSlot !== null) {
                 latestChar = uniqueCharacters.find(c => c.slotNum === matchedSlot) || null;
             }
@@ -2252,7 +2254,7 @@ function createMobileBasicCard(char) {
     const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
     const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
     const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
-    const isCpMaxed = (cpValueForMax || 0) >= 600000;
+    const isCpMaxed = (cpValueForMax || 0) >= 700000;
     const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
     const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
     const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
@@ -2277,7 +2279,7 @@ function createMobileBasicCard(char) {
             <span class="mc-lv"><span class="stat-label">Lv:</span> <b class="mc-val ${isLvlMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.level)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : (MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] !== undefined ? MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] : '-'))})</small></span>
             <span class="mc-adv"><span class="stat-label">모험:</span> <b class="mc-val ${isAdvMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.adventure)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${getAdventureStage(char.adventure)})</small></span>
         </div>
-        <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 600000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 700000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span><span class="stat-label">공격:</span> <b class="mc-val">${mbFmt(char.attack)}</b></span><span><span class="stat-label">방어:</span> <b class="mc-val">${mbFmt(char.defense)}</b></span></div>
         <div class="mc-row"><span><span class="stat-label">기:</span> <b class="mc-val">${mbFmt(char.ki)}</b></span><span><span class="stat-label">체력:</span> <b class="mc-val">${mbFmt(char.hp)}</b></span></div>
