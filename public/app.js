@@ -183,7 +183,12 @@ const LINK_NAME_MAPPING = {
     58: '리루도',
     59: '인조인간8호',
     60: '심벌',
-    61: '유린'
+    61: '유린',
+    62: '메탈 쿠우라',
+    63: '킹 베지터',
+    64: '로드 슬러그',
+    65: '블랙 오공',
+    66: '자마스'
 };
 
 // Friend ID to Name Mapping (캐릭터 슬롯과 번호가 다름)
@@ -1125,7 +1130,7 @@ function createLinkPointsCard(data) {
     linkGrid.className = 'link-points-grid';
 
     let totalLinkPoints = 0;
-    for (let i = 1; i <= 61; i++) {
+    for (let i = 1; i <= 66; i++) {
         const charName = LINK_NAME_MAPPING[i] || `캐릭터 ${i}`;
         const val = parseInt(data[`LINK_${i}`]) || 0;
         totalLinkPoints += val;

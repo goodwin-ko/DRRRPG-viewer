@@ -1,6 +1,6 @@
 /**
  * Dragonball RPG Manager - Hero Icons Helper
- * 61개 전체 영웅 고화질 아이콘 매핑 및 렌더링 헬퍼 모듈
+ * 66개 전체 영웅 고화질 아이콘 매핑 및 렌더링 헬퍼 모듈
  */
 
 const HERO_NAME_TO_SLOT = {
@@ -79,11 +79,18 @@ const HERO_NAME_TO_SLOT = {
     '리루도': 58,
     '인조인간8호': 59, '8호': 59,
     '심벌': 60,
-    '유린': 61
+    '유린': 61,
+
+    // 9행 (신규 영웅)
+    '메탈 쿠우라': 62, '메탈쿠우라': 62,
+    '킹 베지터': 63, '킹베지터': 63,
+    '로드 슬러그': 64, '로드슬러그': 64, '슬러그': 64,
+    '블랙 오공': 65, '블랙오공': 65, '오공블랙': 65,
+    '자마스': 66, '자미스': 66
 };
 
 /**
- * 캐릭터 이름 문자열에서 해당 영웅의 슬롯 번호(1~61)를 찾습니다.
+ * 캐릭터 이름 문자열에서 해당 영웅의 슬롯 번호(1~66)를 찾습니다.
  */
 function getHeroSlotByName(name) {
     if (!name || typeof name !== 'string') return null;
@@ -103,10 +110,10 @@ function getHeroSlotByName(name) {
  */
 function getHeroIconUrl(name, slotNum) {
     let slot = parseInt(slotNum);
-    if (!slot || isNaN(slot) || slot < 1 || slot > 61) {
+    if (!slot || isNaN(slot) || slot < 1 || slot > 66) {
         slot = getHeroSlotByName(name);
     }
-    if (slot && slot >= 1 && slot <= 61) {
+    if (slot && slot >= 1 && slot <= 66) {
         return `images/heroes/${slot}.png`;
     }
     return null;

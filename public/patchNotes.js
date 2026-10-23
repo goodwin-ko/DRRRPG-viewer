@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.5",
+        date: "2026-10-23",
+        title: "신규 캐릭터 5종(LINK_62 ~ LINK_66) 데이터 추가",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "신규 영웅 5종 추가: 메탈 쿠우라(62), 킹 베지터(63), 로드 슬러그(64), 블랙 오공(65), 자마스(66)" },
+            { type: "feat", text: "링크 데이터(LINK_62 ~ LINK_66) 및 캐릭터 상세/멀티 대시보드 연동 지원" },
+            { type: "improve", text: "영웅 별칭 및 호환 그룹 매핑(자마스/자미스, 메탈쿠우라, 킹베지터, 로드슬러그, 블랙오공) 추가" }
+        ]
+    },
+    {
         version: "v1.4.4",
         date: "2026-10-22",
         title: "jyh10 유저 합체 자마스(ZAMASU) 상단 프로필 헤더 와이드 테마 적용",
-        isLatest: true,
         changes: [
             { type: "feat", text: "jyh10 조회 시 상단 프로필 헤더 합체 자마스(신광환 & 멸망의 도시) 파노라마 와이드 일러스트 배너 적용" },
             { type: "feat", text: "신의 기운(신성 퍼플 & 천상 골드) 아우라 맥동 애니메이션 및 👑 ZAMASU 배지 부착" },
