@@ -267,21 +267,21 @@ function getSpecialCardTheme(nicName, charName, slotNum) {
         if (isBroly) {
             return {
                 className: 'special-card-1m60cm-broly',
-                badgeText: 'LEGEND',
+                badgeText: 'V20 LEGEND',
                 badgeClass: 'broly-legend-badge'
             };
         }
         if (isGoku) {
             return {
                 className: 'special-card-1m60cm-goku',
-                badgeText: 'BLADE',
+                badgeText: 'V20 BLADE',
                 badgeClass: 'goku-blade-badge'
             };
         }
         if (isVegeta) {
             return {
                 className: 'special-card-1m60cm-vegeta',
-                badgeText: 'CLASH',
+                badgeText: 'V20 CLASH',
                 badgeClass: 'vegeta-clash-badge'
             };
         }
@@ -312,7 +312,7 @@ function getSpecialProfileTheme(nicName) {
         return {
             className: 'special-profile-1m60cm',
             badgeClass: 'allmax-champion-badge',
-            badgeText: '👑 ALL-MAX MASTER'
+            badgeText: '👑 [V20] ALL-MAX MASTER'
         };
     }
     if (nic === 'jyh10') {

@@ -128,6 +128,60 @@ body {
     flex-shrink: 0;
 }
 
+/* 현재 플레이 중인 게임 맵 버전 표시 배지 (V21) */
+.game-version-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255, 120, 0, 0.16), rgba(255, 50, 0, 0.26));
+    border: 1px solid rgba(255, 130, 0, 0.55);
+    color: #ffaa33;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 12px rgba(255, 100, 0, 0.25);
+    user-select: none;
+    cursor: default;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.game-version-pill:hover {
+    border-color: #ffaa33;
+    box-shadow: 0 0 16px rgba(255, 130, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+.game-ver-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff7700;
+    box-shadow: 0 0 6px #ff7700;
+    animation: gameVerDotPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes gameVerDotPulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.25); box-shadow: 0 0 10px #ffaa00; }
+}
+
+.game-ver-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted, #8b9bb4);
+    letter-spacing: 0.3px;
+}
+
+.game-ver-num {
+    font-size: 0.82rem;
+    font-weight: 900;
+    color: #ffb833;
+    text-shadow: 0 0 8px rgba(255, 150, 0, 0.5);
+}
+
 
 .search-form {
     display: flex;

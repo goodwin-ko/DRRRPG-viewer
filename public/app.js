@@ -2121,7 +2121,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                     tr.className = 'rank-row-1m60cm';
                 }
                 const nickContent = isMaster
-                    ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">${item.nicname}<span class="rank-champion-tag">👑 전캐릭 올맥스</span>`
+                    ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">${item.nicname}<span class="rank-champion-tag" title="드래곤볼 RPG V20 전캐릭 올맥스 달성">👑 [V20] 전캐릭 올맥스</span>`
                     : item.nicname;
                 if (item.rank === 1) rankDisplay = '🥇';
                 else if (item.rank === 2) rankDisplay = '🥈';
