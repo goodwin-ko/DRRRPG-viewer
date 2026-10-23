@@ -8,9 +8,9 @@
 
 const PATCH_NOTES = [
     {
-        version: "v1.4.5",
+        version: "v1.4.6",
         date: "2026-10-23",
-        title: "신규 캐릭터 5종(LINK_62 ~ LINK_66) 데이터 추가",
+        title: "신규 캐릭터 5종(62~66) 추가 및 M16 신규 세이브 포맷 디코딩 지원",
         isLatest: true,
         changes: [
             { type: "feat", text: "신규 영웅 5종 추가: 메탈 쿠우라(62), 킹 베지터(63), 로드 슬러그(64), 블랙 오공(65), 자마스(66)" },
