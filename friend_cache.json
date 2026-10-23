@@ -33,6 +33,10 @@
     "15": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "지구 챔피언 - 미스터 사탄"
+    },
+    "32": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "손오반(어린)"
     }
   },
   "gowin2": {
@@ -281,7 +285,20 @@
       "hero_display_name": "유린"
     }
   },
-  "1m60cm": {},
+  "1m60cm": {
+    "1": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 손오공"
+    },
+    "54": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "전설의 사이어인 - 브로리(약해진)"
+    },
+    "2": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "크리링 2차 각성"
+    }
+  },
   "jyh10": {
     "41": {
       "friend_name": "캡틴 기뉴",
@@ -378,6 +395,10 @@
     "54": {
       "friend_name": "캡틴 기뉴",
       "hero_display_name": "전설의 초사이어인4 - 브로리(약해진)"
+    },
+    "1": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "초사이어인4 - 손오공"
     }
   },
   "maay317": {},
@@ -402,8 +423,87 @@
       "hero_display_name": "사이어인 - 손오공"
     },
     "7": {
-      "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "사이어인 - 라데츠"
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "초사이어인 로제 - 라데츠"
+    },
+    "65": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "블랙 오공"
+    },
+    "66": {
+      "friend_name": "x0, x0, x0, x0, x0, x0",
+      "hero_display_name": "자마스"
     }
-  }
+  },
+  "jhlee6470": {
+    "38": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "메탈 쿠우라"
+    },
+    "9": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "킹 베지터"
+    },
+    "54": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "전설의 사이어인 - 브로리(약해진)"
+    },
+    "17": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "프리저 2차 각성"
+    },
+    "65": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "블랙 오공"
+    },
+    "66": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "자마스"
+    },
+    "64": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "로드 슬러그"
+    },
+    "1": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "사이어인 - 손오공"
+    },
+    "2": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "크리링 2차 각성"
+    },
+    "3": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "야무치 2차 각성"
+    },
+    "4": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "천진반 2차 각성"
+    },
+    "22": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 인조인간 20호"
+    },
+    "14": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "각성한 캡틴기뉴"
+    },
+    "20": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 16호 2차 각성"
+    },
+    "32": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "5": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "무천도사 2차 각성"
+    },
+    "25": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "풀파워 셀"
+    }
+  },
+  "thdwndhkd1": {}
 }
