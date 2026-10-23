@@ -86,9 +86,12 @@ import base64
 def get_slot_save_date(slot_str, merged_data):
     k_d3 = f"DATA3_{slot_str}"
     if k_d3 in merged_data:
+        val = str(merged_data[k_d3])
+        m = re.search(r'\b(20\d{6})\b', val)
+        if m:
+            return m.group(1)
         try:
-            b64_val = merged_data[k_d3]
-            decoded = base64.b64decode(b64_val).decode('utf-8', errors='ignore')
+            decoded = base64.b64decode(val).decode('utf-8', errors='ignore')
             m = re.search(r'\b(20\d{6})\b', decoded)
             if m:
                 return m.group(1)
@@ -97,9 +100,12 @@ def get_slot_save_date(slot_str, merged_data):
     for k_prefix in ["DATA1_", "DATA2_"]:
         k = f"{k_prefix}{slot_str}"
         if k in merged_data:
+            val = str(merged_data[k])
+            m = re.search(r'\b(20\d{6})\b', val)
+            if m:
+                return m.group(1)
             try:
-                b64_val = merged_data[k]
-                decoded = base64.b64decode(b64_val).decode('utf-8', errors='ignore')
+                decoded = base64.b64decode(val).decode('utf-8', errors='ignore')
                 m = re.search(r'\b(20\d{6})\b', decoded)
                 if m:
                     return m.group(1)

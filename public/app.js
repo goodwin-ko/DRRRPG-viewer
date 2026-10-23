@@ -194,10 +194,15 @@ const LINK_NAME_MAPPING = {
 // Friend ID to Name Mapping (캐릭터 슬롯과 번호가 다름)
 const FRIEND_NAME_MAPPING = {};
 
-// Base64 디코딩 후 숫자 배열로 변환하는 함수
+// Base64 또는 일반 쉼표 구분 문자열을 숫자 배열로 변환하는 함수
 function decodeSaveCode(base64Str) {
+    if (!base64Str) return null;
+    const trimmed = String(base64Str).trim();
+    if (trimmed.includes(',')) {
+        return trimmed.replace(/,$/, "").split(",").map(Number);
+    }
     try {
-        const binaryString = atob(base64Str);
+        const binaryString = atob(trimmed);
         const bytes = new Uint8Array(binaryString.length);
         for (let i = 0; i < binaryString.length; i++) {
             bytes[i] = binaryString.charCodeAt(i);
@@ -206,8 +211,7 @@ function decodeSaveCode(base64Str) {
         // 마지막 쉼표 제거 후 배열 변환
         return text.replace(/,$/, "").split(",").map(Number);
     } catch (e) {
-        console.error("코드 디코딩 실패:", e);
-        return null;
+        return trimmed.replace(/,$/, "").split(",").map(Number);
     }
 }
 
@@ -685,15 +689,18 @@ function formatPercent(num) {
     return num + '%';
 }
 
-// Utility: Decode Base64 to Comma-Separated Array
+// Utility: Decode Base64 or Plaintext to Comma-Separated Array
 function decodeBase64ToArray(b64Str) {
     if (!b64Str) return [];
+    const trimmed = String(b64Str).trim();
+    if (trimmed.includes(',')) {
+        return trimmed.split(',').map(s => s.trim());
+    }
     try {
-        const decodedStr = atob(b64Str.trim());
+        const decodedStr = atob(trimmed);
         return decodedStr.split(',').map(s => s.trim());
     } catch (e) {
-        console.error("Failed to decode base64 string:", b64Str, e);
-        return [];
+        return trimmed.split(',').map(s => s.trim());
     }
 }
 
