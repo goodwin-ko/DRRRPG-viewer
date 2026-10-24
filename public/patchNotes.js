@@ -8,10 +8,20 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.4.9",
+        date: "2026-10-24",
+        title: "멀티 대시보드 스페셜 카드 축소/잘림 현상 수정 (Flex Shrink 방지 및 일러스트 정상 노출)",
+        isLatest: true,
+        changes: [
+            { type: "fix", text: "멀티 조회 화면(.cards-scroll)에서 overflow: hidden이 적용된 스페셜 캐릭터 카드(손오공 로제, 베지터 듀얼, SSGSS, 브로리 레전드 등)가 Flexbox의 flex-shrink에 의해 세로 높이가 35px로 강제 축소되어 일러스트 및 스탯이 잘리던 현상 해결" },
+            { type: "improve", text: ".char-card, .equip-card 및 스페셜 카드 전반에 flex-shrink: 0 !important 및 최소 높이 안정화 적용하여 카드 원본 높이와 일러스트 배경이 정상적으로 온전하게 표시되도록 개선" },
+            { type: "improve", text: "스페셜 카드의 자식 요소(char-card[class*=\"special-card-\"] > *) z-index 계층 보정으로 텍스트 및 일러스트 간 가독성 확보" }
+        ]
+    },
+    {
         version: "v1.4.8",
         date: "2026-10-23",
         title: "1m60cm V20 올맥스 달성 훈장 표기 및 RPG 최신 V21 버전 메인 표시",
-        isLatest: true,
         changes: [
             { type: "feat", text: "1m60cm 유저 V20 전캐릭 올맥스 달성 훈장 표기: 👑 [V20] ALL-MAX MASTER 프로필 배지, [V20] 랭킹 칭호, V20 전용 테마 뱃지 적용" },
             { type: "feat", text: "상단 메인 로고 영역에 현재 플레이 중인 최신 드래곤볼 RPG 맵 버전(RPG V21) 인디케이터 배지 신설" },

@@ -381,6 +381,8 @@
             border-radius: 8px;
             padding: 10px 12px;
             transition: border-color 0.2s;
+            flex-shrink: 0 !important;
+            min-height: fit-content;
         }
 
         .char-card:hover { border-color: rgba(0,229,255,0.35); }
@@ -636,6 +638,22 @@
             overflow-y: auto;
             max-height: calc(100vh - 220px);
             padding-right: 2px;
+        }
+
+        .cards-scroll > * {
+            flex-shrink: 0 !important;
+        }
+
+        .char-card[class*="special-card-"],
+        .equip-card[class*="special-card-"] {
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
+        }
+
+        .char-card[class*="special-card-"] > *,
+        .equip-card[class*="special-card-"] > * {
+            position: relative;
+            z-index: 1;
         }
 
         .cards-scroll::-webkit-scrollbar { width: 4px; }
@@ -986,6 +1004,8 @@
         .equip-card.special-card-horus-goku {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #00d2ff !important;
             box-shadow: 0 0 22px rgba(0, 210, 255, 0.45), inset 0 0 14px rgba(0, 210, 255, 0.2) !important;
             background: #090414 !important;
@@ -1097,6 +1117,8 @@
         .equip-card.special-card-goodwin-goku {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #ff2a85 !important;
             box-shadow: 0 0 22px rgba(255, 42, 133, 0.45), inset 0 0 14px rgba(255, 42, 133, 0.2) !important;
             background: #140510 !important;
@@ -1209,6 +1231,8 @@
         .equip-card.special-card-goodwin-vegeta {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #00d2ff !important;
             box-shadow: -8px 0 22px rgba(255, 40, 60, 0.45), 8px 0 22px rgba(0, 210, 255, 0.45), inset 0 0 14px rgba(0, 210, 255, 0.2) !important;
             background: #090616 !important;
@@ -1343,6 +1367,8 @@
         .equip-card.special-card-1m60cm-broly {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #00ff66 !important;
             box-shadow: 0 0 25px rgba(0, 255, 102, 0.45), inset 0 0 15px rgba(0, 255, 102, 0.2) !important;
             background: #031408 !important;
@@ -1453,6 +1479,8 @@
         .equip-card.special-card-1m60cm-goku {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #ff007f !important;
             box-shadow: 0 0 22px rgba(255, 0, 127, 0.45), inset 0 0 14px rgba(255, 0, 127, 0.2) !important;
             background: #15020c !important;
@@ -1563,6 +1591,8 @@
         .equip-card.special-card-1m60cm-vegeta {
             position: relative !important;
             overflow: hidden !important;
+            flex-shrink: 0 !important;
+            min-height: fit-content !important;
             border: 2px solid #00e5ff !important;
             box-shadow: 0 0 22px rgba(0, 229, 255, 0.45), inset 0 0 14px rgba(0, 229, 255, 0.2) !important;
             background: #040916 !important;
@@ -1750,7 +1780,7 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         }
     </style>
-    <script src="heroIcons.js?v=1.4.8"></script>
+    <script src="heroIcons.js?v=1.4.9"></script>
 </head>
 <body>
 
@@ -3333,6 +3363,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="patchNotes.js?v=1.4.8"></script>
+<script src="patchNotes.js?v=1.4.9"></script>
 </body>
 </html>
