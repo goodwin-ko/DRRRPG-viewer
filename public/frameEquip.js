@@ -89,7 +89,7 @@
   // Default icons per slot
   const DEFAULT_SLOT_ICONS = {
     0: 'images/frame/slot_0_helm.png',
-    1: 'images/frame/slot_4_necklace.png',
+    1: 'images/frame/champion_belt.png',
     2: 'images/frame/krillin_dobok.png',
     3: 'images/frame/slot_3_armor.png',
     4: 'images/frame/slot_4_necklace.png',
@@ -148,7 +148,8 @@
     '14': { name: '장비 [14]', set: '일반 장비', slot: 6 },
     '16': { name: '장비 [16]', set: '일반 장비', slot: 10 },
     '1L': { name: '장비 [1L]', set: '일반 장비', slot: 2 },
-    '1P': { name: '장비 [1P]', set: '일반 장비', slot: 14 }
+    '1P': { name: '장비 [1P]', set: '일반 장비', slot: 14 },
+    '1X': { name: '천하제일 챔피언 벨트', set: '일반 장비', slot: 1, icon: 'images/frame/champion_belt.png' }
   };
 
   const SET_EFFECTS = {

@@ -69,6 +69,10 @@
     "9": {
       "friend_name": "메탈 쿠우라(약해진)",
       "hero_display_name": "초사이어인4 - 베지터"
+    },
+    "1": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "초사이어인4 - 손오공"
     }
   },
   "gowin2": {
@@ -830,6 +834,20 @@
     "5": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "무천도사 2차 각성"
+    }
+  },
+  "RA_": {
+    "66": {
+      "friend_name": "오지터 - 노멀",
+      "hero_display_name": "자마스 불멸"
+    },
+    "47": {
+      "friend_name": "오지터 - 노멀",
+      "hero_display_name": "전설의 사이어인 - 브로리"
+    },
+    "65": {
+      "friend_name": "오지터 - 노멀",
+      "hero_display_name": "초사이어인 로제3 - 블랙 오공"
     }
   }
 }
