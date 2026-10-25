@@ -588,7 +588,19 @@ const ITEM_MAPPING = {
     1491: { name: '자연의 물약lv2', color: 'standard' },
     1492: { name: '명예의 주화[event]', color: 'standard' },
     1493: { name: '타레스의 반지 [전설]', color: 'red' },
-    1494: { name: '타레스의 보물반지 [전설]', color: 'red' }
+    1494: { name: '타레스의 보물반지 [전설]', color: 'red' },
+    1528: { name: '숲의 물약', color: 'standard' },
+    1550: { name: '슈퍼 자넨바[조각]', color: 'standard' },
+    1551: { name: '순수악 마인부우[조각]', color: 'standard' },
+    1553: { name: '베이비의 반지Lv3[유물]', color: 'rainbow' },
+    1554: { name: '베이비의 보석Lv3[유물]', color: 'rainbow' },
+    1555: { name: '베이비의 신발Lv3[유물]', color: 'rainbow' },
+    1557: { name: '골든 콜드대왕[조각]', color: 'standard' },
+    1559: { name: '각성 미스틱손오반[조각]', color: 'standard' },
+    1563: { name: '골든 하이야 드래곤[조각]', color: 'standard' },
+    1609: { name: '각성책 : 블랙오공', color: 'standard' },
+    1613: { name: '합체 자마스[조각]', color: 'standard' },
+    1624: { name: '21호의 캔디', color: 'cyan' }
 };
 
 // DOM Elements
@@ -624,7 +636,8 @@ const columnSections = {
     potion: document.getElementById('col-potion').closest('.grid-column'),
     other: document.getElementById('col-other').closest('.grid-column'),
     link: document.getElementById('col-link').closest('.grid-column'),
-    rank: document.getElementById('col-rank').closest('.grid-column')
+    rank: document.getElementById('col-rank').closest('.grid-column'),
+    'frame-equip': document.getElementById('col-frame-equip')?.closest('.grid-column')
 };
 
 // Switch active category tab
@@ -1426,8 +1439,12 @@ async function updatePlayerRanksInHeader(nickname) {
     }
 }
 
+let currentFetchId = 0;
+
 // Fetch and Display Logs
 async function fetchAndRenderLogs(nicName) {
+    const fetchId = ++currentFetchId;
+
     // UI transition
     loadingSpinner.classList.remove('hidden');
     errorMessage.classList.add('hidden');
@@ -1440,7 +1457,7 @@ async function fetchAndRenderLogs(nicName) {
 
     // Clear columns
     for (let key in columns) {
-        columns[key].innerHTML = '';
+        if (columns[key]) columns[key].innerHTML = '';
     }
 
     try {
@@ -1458,8 +1475,22 @@ async function fetchAndRenderLogs(nicName) {
             throw new Error("데이터 수신 오류 (서버 준비 중입니다. 잠시 후 다시 시도해주세요)");
         }
 
+        // Stale or cancelled request check
+        if (fetchId !== currentFetchId) {
+            return;
+        }
+
         if (!result.success) {
             throw new Error(result.error || '데이터 조회에 실패했습니다.');
+        }
+
+        try {
+            localStorage.setItem('DRR_LAST_SEARCHED_USER', result.nicName || nicName);
+        } catch(e) {}
+
+        // 프레임 장비 모듈 데이터 동기화
+        if (typeof window.updateFrameEquipData === 'function') {
+            window.updateFrameEquipData(result.data);
         }
 
         const data = result.data;
@@ -1955,6 +1986,11 @@ async function fetchAndRenderLogs(nicName) {
             }
         }
 
+        // Clear columns right before appending cards to prevent any duplication
+        for (let key in columns) {
+            if (columns[key]) columns[key].innerHTML = '';
+        }
+
         // 4. Render cards to columns
         uniqueCharacters.forEach(char => {
             // Render stats cards to its specific category column (except equip tab)
@@ -2164,8 +2200,9 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 window.addEventListener('DOMContentLoaded', () => {
     // Set up tab button event listeners
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
             const category = btn.dataset.category;
+            if (!category) return; // a 태그나 외부 링크 탭 제외
             switchTab(category);
             if (category === 'user-rank') {
                 fetchAndRenderRankings('유저랭킹');
@@ -2173,19 +2210,21 @@ window.addEventListener('DOMContentLoaded', () => {
                 fetchAndRenderRankings('기여랭킹');
             } else if (category === 'passion-rank') {
                 fetchAndRenderRankings('열정랭킹');
+            } else if (category === 'frame-equip') {
+                if (typeof window.renderFrameEquip === 'function') {
+                    window.renderFrameEquip();
+                }
             }
         });
     });
 
     // 고정 체크박스 이벤트 및 로컬 스토리지 연동
     const pinCheckbox = document.getElementById('pin-checkbox');
+    const savedPinnedUser = localStorage.getItem('DRR_SINGLE_PINNED_USER');
+
     if (pinCheckbox) {
-        // 로컬스토리지에서 고정된 유저명 조회
-        const savedPinnedUser = localStorage.getItem('DRR_SINGLE_PINNED_USER');
         if (savedPinnedUser) {
-            nicnameInput.value = savedPinnedUser;
             pinCheckbox.checked = true;
-            fetchAndRenderLogs(savedPinnedUser);
         }
 
         pinCheckbox.addEventListener('change', (e) => {
@@ -2202,15 +2241,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const userParam = urlParams.get('nicName');
-    if (userParam) {
-        nicnameInput.value = userParam;
-        fetchAndRenderLogs(userParam);
+    const targetUser = userParam || savedPinnedUser || '';
+    if (targetUser) {
+        nicnameInput.value = targetUser;
+        fetchAndRenderLogs(targetUser);
     } else {
-        // 고정된 값이 없을 경우에만 비우기
-        const savedPinnedUser = localStorage.getItem('DRR_SINGLE_PINNED_USER');
-        if (!savedPinnedUser) {
-            nicnameInput.value = '';
-        }
+        nicnameInput.value = '';
     }
 });
 

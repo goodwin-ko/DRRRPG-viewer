@@ -11,6 +11,14 @@
     "6": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "피콜로 2차 각성"
+    },
+    "17": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "프리저 완전체"
+    },
+    "43": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "전설의 농부"
     }
   },
   "goodwin": {
@@ -41,6 +49,26 @@
     "16": {
       "friend_name": "셀 완전체(약해진)",
       "hero_display_name": "손오반(어린)"
+    },
+    "17": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "프리저 완전체"
+    },
+    "43": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "전설의 농부"
+    },
+    "14": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "기뉴특전대 - 캡틴 기뉴"
+    },
+    "24": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "인조인간 18호"
+    },
+    "9": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "초사이어인4 - 베지터"
     }
   },
   "gowin2": {
@@ -55,12 +83,28 @@
     "6": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "피콜로 2차 각성"
+    },
+    "17": {
+      "friend_name": "오자루의 꼬리x0, 오자루의 털가죽옷x0, 마인부우 친구[칭호]x0, x0, 키드부우의 신발x0, 오자루의 꼬리x0",
+      "hero_display_name": "프리저 완전체"
+    },
+    "43": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "전설의 농부"
     }
   },
   "goodsee": {
     "6": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "피콜로 2차 각성"
+    },
+    "17": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "프리저 완전체"
+    },
+    "43": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "전설의 농부"
     }
   },
   "Gottfried": {
@@ -294,12 +338,24 @@
     "1": {
       "friend_name": "오지터 - 초싸3",
       "hero_display_name": "초사이어인4 - 손오공"
+    },
+    "62": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "메탈 쿠우라 빅게테스타"
+    },
+    "63": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "킹 베지터 왕의 각성"
+    },
+    "5": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "벌크업 무천도사"
     }
   },
   "1m60cm": {
     "1": {
       "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "사이어인 - 손오공"
+      "hero_display_name": "초사이어인4 - 손오공"
     },
     "54": {
       "friend_name": "x0, x0, x0, x0, x0, x0",
@@ -553,6 +609,14 @@
     "16": {
       "friend_name": "캡틴 기뉴",
       "hero_display_name": "손오반(어린)"
+    },
+    "65": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "블랙 오공"
+    },
+    "3": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "야무치 2차 각성"
     }
   },
   "maay317": {},
@@ -614,11 +678,11 @@
     },
     "66": {
       "friend_name": "초싸1 베지트",
-      "hero_display_name": "자마스"
+      "hero_display_name": "자마스 불멸"
     },
     "64": {
       "friend_name": "초싸1 베지트",
-      "hero_display_name": "로드 슬러그"
+      "hero_display_name": "로드 슬러그 초거대화"
     },
     "1": {
       "friend_name": "초싸1 베지트",
@@ -685,5 +749,87 @@
       "hero_display_name": "킹 베지터"
     }
   },
-  "thdwndhkd1": {}
+  "thdwndhkd1": {},
+  "racu": {
+    "1": {
+      "friend_name": "슈퍼 쟈넨바",
+      "hero_display_name": "초사이어인4 - 손오공"
+    }
+  },
+  "chaton": {
+    "48": {
+      "friend_name": "황소Lv2",
+      "hero_display_name": "사이어인 - 버독"
+    },
+    "65": {
+      "friend_name": "황소Lv2",
+      "hero_display_name": "초사이어인 - 블랙 오공"
+    }
+  },
+  "YUREL": {
+    "65": {
+      "friend_name": "황소Lv2",
+      "hero_display_name": "블랙 오공"
+    }
+  },
+  "Gottfried2": {
+    "19": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "네일 2차 각성"
+    }
+  },
+  "vgbh555": {},
+  "goodiwn": {},
+  "jhy10": {},
+  "gooodwin": {},
+  "odin4526": {
+    "59": {
+      "friend_name": "메탈 쿠우라",
+      "hero_display_name": "인조인간 8호"
+    },
+    "56": {
+      "friend_name": "메탈 쿠우라",
+      "hero_display_name": "파이크한"
+    }
+  },
+  "anna4526": {
+    "32": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "15": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "지구 챔피언 - 미스터 사탄"
+    },
+    "28": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "골든 야콩"
+    },
+    "7": {
+      "friend_name": "키드 부우",
+      "hero_display_name": "사이어인 - 라데츠"
+    }
+  },
+  "ied12": {
+    "38": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "쿠우라 변신"
+    },
+    "16": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+    },
+    "35": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "초사이어인2 - 손오천"
+    },
+    "32": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반"
+    },
+    "5": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "무천도사 2차 각성"
+    }
+  }
 }

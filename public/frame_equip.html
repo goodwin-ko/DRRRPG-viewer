@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>드래곤볼 RPG - 프레임 장비 현황</title>
+  <style>
+    :root {
+      --bg-main: #140b20;
+      --bg-header: #201333;
+      --bg-dark: #0d0617;
+      --bg-panel: #190e29;
+      --bg-slot: #0d0617;
+      --border-outer: #271442;
+      --border-inner: #381c5e;
+      --border-card: #271442;
+      --border-hover: #00e5ff;
+      --border-gold: #c77dff;
+      --border-accent: #00e5ff;
+      --gold-bright: #00e5ff;
+      --text-gold: #00e5ff;
+      --text-green: #00ff66;
+      --text-yellow: #ffd000;
+      --text-gray: #a698ba;
+      --text-main: #f0ebf7;
+      --text-muted: #a698ba;
+      --cyan: #00e5ff;
+      --purple-accent: #9d4edd;
+      --purple-bright: #c77dff;
+      --color-normal: #b0aec2;
+      --color-magic: #00ff66;
+      --color-rare: #00d2ff;
+      --color-hero: #c77dff;
+      --color-legend: #ffaa00;
+      --color-mythic: #ff3355;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Top User Search Header */
+    .top-header {
+      width: 100%;
+      max-width: 1140px;
+      margin-bottom: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--bg-header) 0%, #170d26 100%);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .top-header h1 {
+      font-size: 19px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+    .badge-test {
+      font-size: 11px;
+      background: linear-gradient(135deg, #7b2cbf 0%, #3c096c 100%);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .top-header .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ID Search Controls */
+    .user-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(13, 6, 23, 0.85);
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+    .search-box:focus-within {
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 13px;
+      padding: 7px 12px;
+      width: 170px;
+    }
+    .search-box button {
+      background: linear-gradient(135deg, #2f1754 0%, #1f0e38 100%);
+      border: none;
+      border-left: 1px solid var(--border-card);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: bold;
+      padding: 8px 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .search-box button:hover {
+      background: var(--cyan);
+      color: #0d0617;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+    }
+    .quick-tags {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .quick-tag {
+      padding: 4px 9px;
+      background: rgba(32, 19, 51, 0.8);
+      border: 1px solid var(--border-card);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-tag:hover {
+      border-color: var(--cyan);
+      background: rgba(0, 229, 255, 0.1);
+      color: var(--cyan);
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      background: rgba(13, 6, 23, 0.6);
+      transition: all 0.2s;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links a:hover {
+      background: linear-gradient(135deg, #1f0e38 0%, #2f1754 100%);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+    }
+
+    /* Main Container: Game UI Simulation */
+    .game-window {
+      width: 100%;
+      max-width: 1140px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .window-header {
+      background: linear-gradient(180deg, #24143a 0%, #190e29 100%);
+      border-bottom: 1px solid var(--border-card);
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .window-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .window-title .char-highlight {
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .window-close {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(32, 19, 51, 0.8);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .window-close:hover {
+      background: var(--cyan);
+      color: #0d0617;
+      border-color: var(--cyan);
+    }
+
+    /* Outer Layout */
+    .frame-layout {
+      display: flex;
+      min-height: 570px;
+      background: repeating-linear-gradient(
+        45deg,
+        #160c24,
+        #160c24 8px,
+        #130a1f 8px,
+        #130a1f 16px
+      );
+      padding: 12px;
+      gap: 12px;
+    }
+
+    /* Left: 66 Hero Icons Navigation Column */
+    .char-nav-col {
+      width: 180px;
+      flex-shrink: 0;
+      background: rgba(13, 6, 23, 0.8);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      max-height: 600px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #381c5e #0d0617;
+    }
+    .char-nav-col::-webkit-scrollbar {
+      width: 6px;
+    }
+    .char-nav-col::-webkit-scrollbar-track {
+      background: #0d0617;
+    }
+    .char-nav-col::-webkit-scrollbar-thumb {
+      background: #381c5e;
+      border-radius: 3px;
+    }
+    .char-nav-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-card);
+      text-align: center;
+    }
+    .char-avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .char-avatar-btn {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: #0d0617;
+      border: 1.5px solid var(--border-card);
+      border-radius: 8px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .char-avatar-btn:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+    }
+    .char-avatar-btn.active {
+      border-color: var(--cyan);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.6);
+      background: #261142;
+    }
+    .char-avatar-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .char-avatar-btn .badge-eq {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      background: #00ff66;
+      color: #0d0617;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 0 4px;
+      border-radius: 6px;
+      border: 1px solid #fff;
+      line-height: 12px;
+    }
+    .char-avatar-btn .slot-tag {
+      position: absolute;
+      bottom: 1px;
+      left: 1px;
+      font-size: 9px;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.7);
+      padding: 0 3px;
+      border-radius: 3px;
+      line-height: 10px;
+    }
+
+    /* Right: Main Content (Top: Gear + Inv, Bottom: Stats) */
+    .main-content-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+    .top-content-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Equipment 16 Slots Panel */
+    .equip-panel-box {
+      background: rgba(13, 6, 23, 0.8);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .panel-title-sm {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-template-rows: repeat(6, 50px);
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .equip-slot {
+      width: 50px;
+      height: 50px;
+      background: #0d0617;
+      border: 1.5px solid var(--border-card);
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      overflow: hidden;
+    }
+    .equip-slot:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+      z-index: 2;
+    }
+    .equip-slot.empty-space {
+      border: none;
+      background: transparent;
+      cursor: default;
+      box-shadow: none;
+    }
+    .slot-label {
+      font-size: 10px;
+      color: #5d4875;
+      pointer-events: none;
+      text-align: center;
+      line-height: 1.1;
+      font-weight: 500;
+    }
+    .equip-slot:hover .slot-label {
+      color: var(--cyan);
+    }
+    .equip-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .equip-slot .enh-badge {
+      position: absolute;
+      top: 1px;
+      right: 2px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 3px #000;
+    }
+
+    .equip-slot.has-item { border-width: 2px; }
+    .equip-slot.rarity-a { border-color: var(--color-normal); }
+    .equip-slot.rarity-b { border-color: var(--color-magic); box-shadow: 0 0 6px rgba(0, 255, 102, 0.4); }
+    .equip-slot.rarity-c { border-color: var(--color-rare); box-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
+    .equip-slot.rarity-d { border-color: var(--color-hero); box-shadow: 0 0 10px rgba(199, 125, 255, 0.6); }
+    .equip-slot.rarity-e { border-color: var(--color-legend); box-shadow: 0 0 12px rgba(255, 170, 0, 0.7); }
+    .equip-slot.rarity-f { border-color: var(--color-mythic); box-shadow: 0 0 14px rgba(255, 51, 85, 0.8); }
+
+    /* Inventory & Storage Panel (Right of Equipment) */
+    .inv-panel-box {
+      flex: 1;
+      background: rgba(13, 6, 23, 0.8);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      min-width: 320px;
+    }
+    .inv-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-card);
+    }
+    .inv-tabs-group {
+      display: flex;
+      gap: 6px;
+    }
+    .inv-tab {
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      background: #201333;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .inv-tab:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .inv-tab.active {
+      background: linear-gradient(135deg, #1f0e38 0%, #2f1754 100%);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+    }
+
+    .inv-currencies {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .currency-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #d1c4e9;
+    }
+    .currency-item img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+    .currency-item strong {
+      color: var(--cyan);
+      font-weight: bold;
+    }
+
+    /* Page Switch Pills (1, 2, 3, 4) */
+    .inv-pages-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .inv-page-pills {
+      display: flex;
+      gap: 5px;
+    }
+    .inv-page-pill {
+      width: 26px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #201333;
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .inv-page-pill:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .inv-page-pill.active {
+      background: linear-gradient(135deg, #1f0e38 0%, #2f1754 100%);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+    }
+    .inv-capacity-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Inventory 96 Slots Grid: 8 rows x 12 cols */
+    .inv-grid-container {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 4px;
+      padding: 4px;
+      background: #0d0617;
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      min-height: 280px;
+    }
+    .inv-slot {
+      aspect-ratio: 1;
+      background: #140b20;
+      border: 1px solid var(--border-card);
+      border-radius: 6px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.15s;
+    }
+    .inv-slot:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+      z-index: 2;
+    }
+    .inv-slot.locked {
+      background: #0a0412 url('images/frame_slot_locked.png') no-repeat center center;
+      background-size: 18px 18px;
+      border-color: #1e1030;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .inv-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .inv-slot.has-item { border-width: 1.5px; }
+    .inv-slot.rarity-a { border-color: var(--color-normal); }
+    .inv-slot.rarity-b { border-color: var(--color-magic); }
+    .inv-slot.rarity-c { border-color: var(--color-rare); }
+    .inv-slot.rarity-d { border-color: var(--color-hero); }
+    .inv-slot.rarity-e { border-color: var(--color-legend); }
+    .inv-slot.rarity-f { border-color: var(--color-mythic); }
+
+    /* Bottom Action Toolbar in Inventory */
+    .inv-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border-card);
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .action-group-left {
+      display: flex;
+      gap: 6px;
+    }
+    .action-btn-clean {
+      padding: 4px 10px;
+      font-size: 11px;
+      background: #201333;
+      border: 1px solid var(--border-card);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .action-btn-clean:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.1);
+    }
+    .action-btn-clean img {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Bottom: Wide Status Panel */
+    .status-panel-wide {
+      background: rgba(13, 6, 23, 0.85);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .stats-main-header {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-card);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stats-main-header .badge-total {
+      font-size: 11px;
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .stats-grid-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-group-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--cyan);
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--border-card);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .stat-name {
+      color: var(--text-muted);
+    }
+    .stat-val {
+      color: #fff;
+      font-weight: 600;
+    }
+    .stat-val .sub {
+      color: var(--cyan);
+      font-size: 11px;
+      margin-left: 3px;
+    }
+    .stat-val.highlight {
+      color: var(--cyan);
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+    }
+
+    /* Item Tooltip Floating Card */
+    .tooltip-card {
+      position: absolute;
+      z-index: 1000;
+      min-width: 220px;
+      max-width: 300px;
+      background: rgba(20, 11, 32, 0.96);
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 229, 255, 0.2);
+      display: none;
+      pointer-events: none;
+    }
+    .tooltip-card.active {
+      display: block;
+    }
+    .tt-header {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-card);
+    }
+    .tt-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid var(--border-card);
+      object-fit: cover;
+    }
+    .tt-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .tt-sub {
+      font-size: 11px;
+      color: var(--cyan);
+      margin-top: 2px;
+    }
+    .tt-raw {
+      display: none;
+    }
+    .tt-stats {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: #d1c4e9;
+    }
+    .tt-stat-row {
+      margin-bottom: 2px;
+    }
+    .tt-set {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border-card);
+      font-size: 11px;
+      color: #00ff66;
+      font-weight: bold;
+    }
+
+    /* Interactive Equip Action Modal */
+    .action-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .action-modal.active { display: flex; }
+    .action-modal .modal-content {
+      background: #190e29;
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      padding: 20px;
+      width: 380px;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(0, 229, 255, 0.25);
+    }
+    .modal-content h3 { color: #fff; margin-bottom: 12px; font-size: 16px; font-weight: bold; }
+    .modal-body { font-size: 13px; color: #d1c4e9; line-height: 1.5; margin-bottom: 16px; }
+    .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; }
+    .btn-action {
+      background: linear-gradient(135deg, #1f0e38 0%, #2f1754 100%);
+      border: 1px solid var(--border-card);
+      color: var(--cyan);
+      border-radius: 6px;
+      padding: 7px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top User ID Search Header -->
+  <div class="top-header">
+    <div>
+      <h1>
+        🛡️ 드래곤볼 RPG - 캐릭터 프레임 장비 현황
+        <span class="badge-test">내부 테스트용</span>
+      </h1>
+      <div class="subtitle">캐릭터별 16개 슬롯 장착 프레임 장비 및 인벤토리/세트 능력치 실시간 조회</div>
+    </div>
+
+    <!-- User ID Search Bar -->
+    <div class="user-search-wrap">
+      <div class="search-box">
+        <input type="text" id="userIdInput" placeholder="유저 닉네임 입력..." value="goodwin" onkeydown="if(event.key==='Enter') searchUser()">
+        <button onclick="searchUser()">조회하기 🔍</button>
+      </div>
+
+      <div class="quick-tags">
+        <span style="font-size:11px; color:var(--text-gray);">빠른조회:</span>
+        <div class="quick-tag" onclick="quickSearch('chaton')">chaton</div>
+        <div class="quick-tag" onclick="quickSearch('goodwin')">goodwin</div>
+        <div class="quick-tag" onclick="quickSearch('KIRSIS')">KIRSIS</div>
+        <div class="quick-tag" onclick="quickSearch('jyh10')">jyh10</div>
+        <div class="quick-tag" onclick="quickSearch('jhlee6470')">jhlee6470</div>
+        <div class="quick-tag" onclick="quickSearch('1m60cm')">1m60cm</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html" target="_blank">메인 대시보드 ↗</a>
+      <a href="multi.html" target="_blank">멀티 조회 ↗</a>
+    </div>
+  </div>
+
+  <!-- Game UI Simulation Window -->
+  <div class="game-window">
+    <div class="window-header">
+      <div class="window-title">
+        <span>🛡️</span> 프레임 장비 (<span class="char-highlight" id="windowCharName">손오반</span>)
+        <span id="searchStatusMsg" style="font-size:11px; color:var(--text-gray); margin-left:10px; font-weight:normal;"></span>
+      </div>
+      <div class="window-close" title="닫기">✕</div>
+    </div>
+
+    <!-- Main Layout:
+         Left: Character Icon Navigation (Spans full height)
+         Right:
+           Top: Equipment (16 slots) + Inventory
+           Bottom: Wide Status Panel
+    -->
+    <div class="frame-layout">
+      <!-- Left: 66 Character Icons Navigation Column -->
+      <div class="char-nav-col">
+        <div class="char-nav-title">캐릭터 (<span id="charCountDisplay">66</span>)</div>
+        <div class="char-avatar-grid" id="charAvatarGrid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Right: Main Content (Top: Gear + Inv, Bottom: Stats) -->
+      <div class="main-content-col">
+        <!-- Top Row: Equipment (Left) + Inventory (Right) -->
+        <div class="top-content-row">
+          
+          <!-- Equipment 16 Slots -->
+          <div class="equip-panel-box">
+            <div class="panel-title-sm">장 비</div>
+            
+            <div class="equip-grid" id="equipGrid">
+              <!-- Row 1: (empty), 투구(0), 명예(1) -->
+              <div class="equip-slot empty-space"></div>
+              <div class="equip-slot" data-slot="0">
+                <span class="slot-idx">0</span>
+                <span class="slot-label">투구</span>
+              </div>
+              <div class="equip-slot" data-slot="1">
+                <span class="slot-idx">1</span>
+                <span class="slot-label">명예</span>
+              </div>
+
+              <!-- Row 2: 도복(2), 갑옷(3), 목걸이(4) -->
+              <div class="equip-slot" data-slot="2">
+                <span class="slot-idx">2</span>
+                <span class="slot-label">도복</span>
+              </div>
+              <div class="equip-slot" data-slot="3">
+                <span class="slot-idx">3</span>
+                <span class="slot-label">갑옷</span>
+              </div>
+              <div class="equip-slot" data-slot="4">
+                <span class="slot-idx">4</span>
+                <span class="slot-label">목걸이</span>
+              </div>
+
+              <!-- Row 3: 장갑(5), 벨트(6), 손목(7) -->
+              <div class="equip-slot" data-slot="5">
+                <span class="slot-idx">5</span>
+                <span class="slot-label">장갑</span>
+              </div>
+              <div class="equip-slot" data-slot="6">
+                <span class="slot-idx">6</span>
+                <span class="slot-label">벨트</span>
+              </div>
+              <div class="equip-slot" data-slot="7">
+                <span class="slot-idx">7</span>
+                <span class="slot-label">손목</span>
+              </div>
+
+              <!-- Row 4: 귀걸이(8), 하의(9), 귀걸이(10) -->
+              <div class="equip-slot" data-slot="8">
+                <span class="slot-idx">8</span>
+                <span class="slot-label">귀걸이</span>
+              </div>
+              <div class="equip-slot" data-slot="9">
+                <span class="slot-idx">9</span>
+                <span class="slot-label">하의</span>
+              </div>
+              <div class="equip-slot" data-slot="10">
+                <span class="slot-idx">A</span>
+                <span class="slot-label">귀걸이</span>
+              </div>
+
+              <!-- Row 5: 반지(11), (empty), 반지(12) -->
+              <div class="equip-slot" data-slot="11">
+                <span class="slot-idx">B</span>
+                <span class="slot-label">반지</span>
+              </div>
+              <div class="equip-slot empty-space"></div>
+              <div class="equip-slot" data-slot="12">
+                <span class="slot-idx">C</span>
+                <span class="slot-label">반지</span>
+              </div>
+
+              <!-- Row 6: 무기(13), 신발(14), 보조(15) -->
+              <div class="equip-slot" data-slot="13">
+                <span class="slot-idx">D</span>
+                <span class="slot-label">무기</span>
+              </div>
+              <div class="equip-slot" data-slot="14">
+                <span class="slot-idx">E</span>
+                <span class="slot-label">신발</span>
+              </div>
+              <div class="equip-slot" data-slot="15">
+                <span class="slot-idx">F</span>
+                <span class="slot-label">보조</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Panel (Right of top row) -->
+          <div class="inv-panel-box">
+            <!-- Tabs & Capacity -->
+            <div class="tab-bar-top">
+              <div class="main-tabs">
+                <div class="pill-btn active" id="tabInventory" onclick="switchStorageTab('inventory')">인벤토리</div>
+                <div class="pill-btn" id="tabVault" onclick="switchStorageTab('vault')">보 관</div>
+              </div>
+              <div class="page-info">
+                <span id="pageLabel">1 페이지</span> &nbsp;
+                <strong id="pageSlotCount">1 / 96</strong>
+              </div>
+            </div>
+
+            <!-- Page Buttons & Filters -->
+            <div class="sub-bar">
+              <div class="page-pills">
+                <div class="page-pill active" onclick="switchPage(1)">1</div>
+                <div class="page-pill" onclick="switchPage(2)">2</div>
+                <div class="page-pill" onclick="switchPage(3)">3</div>
+                <div class="page-pill" onclick="switchPage(4)">4</div>
+                <div class="page-pill add-btn" title="지구인의 생명 소모로 1칸 확장 (DBEQ_OPEN)" onclick="expandSlotPrompt()">+</div>
+              </div>
+
+              <div class="filter-pills">
+                <div class="pill-btn active" onclick="setFilter('all')">전체</div>
+                <div class="pill-btn" onclick="setFilter('weapon')">무기</div>
+                <div class="pill-btn" onclick="setFilter('armor')">방어구</div>
+                <div class="pill-btn" onclick="setFilter('acc')">장신구</div>
+              </div>
+            </div>
+
+            <!-- 12x8 Grid Area (Compact 40px) -->
+            <div class="grid-wrap">
+              <div class="inv-grid" id="invGrid">
+                <!-- 96 Slots generated via JS -->
+              </div>
+            </div>
+
+            <!-- Bottom Action Bar & Currency -->
+            <div class="bottom-bar">
+              <div class="action-icons">
+                <div class="action-btn" title="휴지통 (아이템 버리기)">🗑️</div>
+                <div class="action-btn" title="분해 (신기루 가루 획득)">💎</div>
+                <div class="action-btn" title="재연마 / 강화">🔨</div>
+              </div>
+
+              <div class="currency-box">
+                <div class="curr-pill">
+                  <span class="curr-name">✨ 신기루 가루</span>
+                  <span class="curr-val" id="currDust">14</span>
+                </div>
+                <div class="curr-pill">
+                  <span class="curr-name">💎 아크</span>
+                  <span class="curr-val" id="currArk">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Wide Status Panel (Under Inventory/Equipment) -->
+        <div class="bottom-stats-box">
+          <!-- Dynamic Set Bonus Line -->
+          <div class="set-bonus-bar" id="setBonusBar" style="display:none;"></div>
+
+          <div class="stats-header-wide">
+            <span class="title">스테이터스 (<span id="statsCharLabel">손오반</span>)</span>
+            <span class="count" id="equipCount">장착 12/16</span>
+          </div>
+
+          <div class="stats-grid-wide">
+            <!-- Col 1: Damage & Dedicated -->
+            <div class="stat-group">
+              <div class="stat-row">
+                <span class="stat-name">트리거 데미지</span>
+                <span class="stat-val" id="stat_trigger">+14.9%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name" id="stat_job_label" style="color:var(--gold-bright); font-weight:bold;">손오반 전용</span>
+                <span class="stat-val" id="stat_job">+0.0%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">받는 피해</span>
+                <span class="stat-val" id="stat_dmg_reduc">-1.3%</span>
+              </div>
+            </div>
+
+            <!-- Col 2: Crit & Farm -->
+            <div class="stat-group">
+              <div class="stat-row">
+                <span class="stat-name">더블 크리 확률</span>
+                <span class="stat-val" id="stat_dc_chance">+0.0%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">더블 크리 데미지</span>
+                <span class="stat-val" id="stat_dc_dmg">+0.0%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">경험치</span>
+                <span class="stat-val" id="stat_exp">+6.0%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">드랍률</span>
+                <span class="stat-val" id="stat_drop">+27.2%</span>
+              </div>
+            </div>
+
+            <!-- Col 3: Primary Stats -->
+            <div class="stat-group">
+              <div class="stat-row">
+                <span class="stat-name">힘</span>
+                <span class="stat-val" id="stat_str">+1812</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">민첩</span>
+                <span class="stat-val" id="stat_dex">+6275</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">지능</span>
+                <span class="stat-val" id="stat_int">+1823</span>
+              </div>
+            </div>
+
+            <!-- Col 4: Speed -->
+            <div class="stat-group">
+              <div class="stat-row">
+                <span class="stat-name">공격속도</span>
+                <span class="stat-val" id="stat_atk_spd">+14.1% <span class="sub">(총 +299%)</span></span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">이동속도</span>
+                <span class="stat-val" id="stat_mov_spd">+11 <span class="sub">(총 +11)</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Item Tooltip Card -->
+  <div class="tooltip-card" id="itemTooltip">
+    <div class="tt-header">
+      <img id="ttIcon" src="images/gogeta_armor.png" alt="아이콘">
+      <div>
+        <div class="tt-title" id="ttName">천하제일 무도가의 투구</div>
+        <div class="tt-sub" id="ttMeta">[희귀] 투구</div>
+        <div class="tt-raw" id="ttRaw">0Hc8000TPH0000x</div>
+      </div>
+    </div>
+    <div class="tt-stats" id="ttStats"></div>
+    <div class="tt-set" id="ttSet">천하제일 무도가 세트</div>
+  </div>
+
+  <!-- Character Hover Tooltip -->
+  <div class="tooltip-card" id="charHoverTooltip" style="min-width:180px; max-width:240px;">
+    <div style="font-size:14px; font-weight:bold; color:var(--gold-bright);" id="charTtName">손오반</div>
+    <div style="font-size:11px; color:#aaa; margin-top:2px;" id="charTtSlot">LINK_32</div>
+    <div style="font-size:12px; color:#55ff55; margin-top:4px;" id="charTtEquip">장착 프레임 장비: 12개</div>
+  </div>
+
+  <!-- Interactive Equip Modal -->
+  <div class="action-modal" id="actionModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">아이템 액션</h3>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-buttons">
+        <button class="btn-action" style="background:rgba(32, 19, 51, 0.8); border: 1px solid var(--border-card); color: var(--text-muted);" onclick="closeModal()">취소</button>
+        <button class="btn-action" id="modalConfirmBtn" onclick="confirmModalAction()">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- 66 Link Characters Mapping ---
+    const LINK_NAME_MAPPING = {
+      1: '손오공', 2: '크리링', 3: '야무치', 4: '천진반', 5: '무천도사',
+      6: '피콜로', 7: '라데츠', 8: '내퍼', 9: '베지터', 10: '굴드',
+      11: '리쿰', 12: '지스', 13: '버터', 14: '기뉴', 15: '사탄',
+      16: '어린손오반', 17: '프리저', 18: '콜드대왕', 19: '네일', 20: '인조인간16호',
+      21: '인조인간19호', 22: '인조인간20호', 23: '인조인간17호', 24: '인조인간18호', 25: '셀',
+      26: '트랭크스(미래)', 27: '부르마', 28: '야콩', 29: '데브라', 30: '비비디',
+      31: '마인부우', 32: '손오반', 33: '도도리아', 34: '비델', 35: '손오천',
+      36: '트랭크스(어린)', 37: '자봉', 38: '쿠우라', 39: '인조인간15호', 40: '인조인간14호',
+      41: '우부', 42: '타피온', 43: '농부', 44: '인조인간13호', 45: '자넨바',
+      46: '블루장군', 47: '브로리(전설)', 48: '버독', 49: '타레스', 50: '박테리안',
+      51: '우마왕', 52: '팡', 53: '하야이드래곤', 54: '브로리(약해진)', 55: '아리',
+      56: '파이크한', 57: '베이비', 58: '리루도', 59: '인조인간8호', 60: '심벌', 61: '유린',
+      62: '메탈 쿠우라', 63: '킹 베지터', 64: '로드 슬러그', 65: '블랙 오공', 66: '자마스'
+    };
+
+    // Preset Data Definitions
+    const PRESET_GOHAN = {
+      charName: '손오반',
+      slotId: 32,
+      data: {
+        "DBEQ_OPEN": "37,36",
+        "DBEQ_GIN": "14",
+        "DBEQ_ARK": "0",
+        "DBEQ_E_32": "0Hc8000TPH0000x,0,0,0Ic20000DF000087000ZJ,0Jd40001VH0000x,0Kc90001Q6000TE,0Lc7000iC,0Ma7000JB,0Nb40001QG0001aF00002,0Db70002XH0000WF00001G0001C,0Nc40001TI0000y30000y,0,0Ec5r000UG00015,0Qd10000T,0GeA0000BF00005G0001R90000r,0",
+        "DBEQ_I1": "11a20000k,0,0,0,0,0,0,0,0,0,0,0",
+        "DBEQ_B1": "0Oc8000adF0000820000CH0000d,0Oa6000LT200006A0000AG0000z,0,0,0Lc8000bP40001SI0000a,0,0,0Lc6000dn,0,0Zc80052T20000OI0000l,0,0Kb900017",
+        "DBEQ_B2": "1Ea702pjE20000X,1Gd705q7n200018,1HbA00011,0,0,0,0,0,0,0,0,0"
+      }
+    };
+
+    const PRESET_FARMER = {
+      charName: '농부',
+      slotId: 43,
+      data: {
+        "DBEQ_OPEN": "37,36",
+        "DBEQ_GIN": "14",
+        "DBEQ_ARK": "0",
+        "DBEQ_E_43": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+        "DBEQ_I1": "11a20000k,0,0,0,0,0,0,0,0,0,0,0",
+        "DBEQ_B1": "0Oc8000adF0000820000CH0000d,0Oa6000LT200006A0000AG0000z,0,0,0Lc8000bP40001SI0000a,0,0,0Lc6000dn,0,0Zc80052T20000OI0000l,0,0Kb900017",
+        "DBEQ_B2": "1Ea702pjE20000X,1Gd705q7n200018,1HbA00011,0,0,0,0,0,0,0,0,0"
+      }
+    };
+
+    for (let i = 2; i <= 32; i++) {
+      if (!PRESET_GOHAN.data[`DBEQ_I${i}`]) PRESET_GOHAN.data[`DBEQ_I${i}`] = "0,0,0,0,0,0,0,0,0,0,0,0";
+      if (!PRESET_FARMER.data[`DBEQ_I${i}`]) PRESET_FARMER.data[`DBEQ_I${i}`] = "0,0,0,0,0,0,0,0,0,0,0,0";
+      if (i >= 3) {
+        if (!PRESET_GOHAN.data[`DBEQ_B${i}`]) PRESET_GOHAN.data[`DBEQ_B${i}`] = "0,0,0,0,0,0,0,0,0,0,0,0";
+        if (!PRESET_FARMER.data[`DBEQ_B${i}`]) PRESET_FARMER.data[`DBEQ_B${i}`] = "0,0,0,0,0,0,0,0,0,0,0,0";
+      }
+    }
+
+    // --- State ---
+    let currentChar = '손오반';
+    let currentSlotId = 32;
+    let currentData = JSON.parse(JSON.stringify(PRESET_GOHAN.data));
+    let currentTab = 'inventory'; // 'inventory' | 'vault'
+    let currentPage = 1;
+    let currentFilter = 'all';
+    let selectedItemModal = null;
+
+    // --- Mapping Dictionaries ---
+    const BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    function base62Decode(str) {
+      if (!str) return 0;
+      let val = 0;
+      for (let i = 0; i < str.length; i++) {
+        const c = str[i];
+        let idx = BASE62_CHARS.indexOf(c);
+        if (idx === -1) idx = 0;
+        val = val * 62 + idx;
+      }
+      return val;
+    }
+
+    const RARITY_MAP = {
+      'a': { name: '일반', color: 'var(--color-normal)', class: 'rarity-a' },
+      'b': { name: '고급', color: 'var(--color-magic)', class: 'rarity-b' },
+      'c': { name: '희귀', color: 'var(--color-rare)', class: 'rarity-c' },
+      'd': { name: '영웅', color: 'var(--color-hero)', class: 'rarity-d' },
+      'e': { name: '전설/신화', color: 'var(--color-legend)', class: 'rarity-e' }
+    };
+
+    const SLOT_MAP = {
+      0: { name: '투구', hex: '0', cat: 'armor' },
+      1: { name: '명예', hex: '1', cat: 'acc' },
+      2: { name: '도복', hex: '2', cat: 'armor' },
+      3: { name: '갑옷', hex: '3', cat: 'armor' },
+      4: { name: '목걸이', hex: '4', cat: 'acc' },
+      5: { name: '장갑', hex: '5', cat: 'acc' },
+      6: { name: '벨트', hex: '6', cat: 'acc' },
+      7: { name: '손목', hex: '7', cat: 'acc' },
+      8: { name: '귀걸이(좌)', hex: '8', cat: 'acc' },
+      9: { name: '하의', hex: '9', cat: 'armor' },
+      10: { name: '귀걸이(우)', hex: 'A', cat: 'acc' },
+      11: { name: '반지(좌)', hex: 'B', cat: 'acc' },
+      12: { name: '반지(우)', hex: 'C', cat: 'acc' },
+      13: { name: '무기', hex: 'D', cat: 'weapon' },
+      14: { name: '신발', hex: 'E', cat: 'armor' },
+      15: { name: '보조', hex: 'F', cat: 'weapon' }
+    };
+
+    // Specific Item Base Prefix Dictionary
+    const ITEM_BASE_MAP = {
+      // 거북선인 문하 무도가 세트 (0A ~ 0G)
+      '0A': { name: '거북선인 문하 무도가의 투구', set: '거북선인 문하 무도가', slot: 0 },
+      '0B': { name: '거북선인 문하 무도가의 도복', set: '거북선인 문하 무도가', slot: 2 },
+      '0C': { name: '거북선인 문하 무도가의 갑옷', set: '거북선인 문하 무도가', slot: 3 },
+      '0D': { name: '거북선인 문하 무도가의 하의', set: '거북선인 문하 무도가', slot: 9, icon: 'images/frame/slot_9_pants.png' },
+      '0E': { name: '거북선인 문하 무도가의 반지', set: '거북선인 문하 무도가', slot: 12, icon: 'images/frame/slot_12_ring.png' },
+      '0G': { name: '거북선인 문하 무도가의 신발', set: '거북선인 문하 무도가', slot: 14, icon: 'images/frame/slot_14_boots.png' },
+
+      // 천하제일 무도가 세트 (0H ~ 0Q)
+      '0H': { name: '천하제일 무도가의 투구', set: '천하제일 무도가', slot: 0, icon: 'images/frame/slot_0_helm.png' },
+      '0I': { name: '천하제일 무도가의 갑옷', set: '천하제일 무도가', slot: 3, icon: 'images/frame/slot_3_armor.png' },
+      '0J': { name: '천하제일 무도가의 목걸이', set: '천하제일 무도가', slot: 4, icon: 'images/frame/slot_4_necklace.png' },
+      '0K': { name: '천하제일 무도가의 장갑', set: '천하제일 무도가', slot: 5, icon: 'images/frame/slot_5_gloves.png' },
+      '0L': { name: '천하제일 무도가의 벨트', set: '천하제일 무도가', slot: 6, icon: 'images/frame/slot_6_belt.png' },
+      '0M': { name: '천하제일 무도가의 손목', set: '천하제일 무도가', slot: 7, icon: 'images/frame/slot_7_wrist.png' },
+      '0N': { name: '천하제일 무도가의 귀걸이', set: '천하제일 무도가', slot: 8, icon: 'images/frame/slot_8_earring.png' },
+      '0Q': { name: '천하제일 무도가의 무기', set: '천하제일 무도가', slot: 13, icon: 'images/frame/slot_13_weapon.png' },
+
+      // 크리링의 기원 세트 (1B ~ 1H) - 크리링 전용 7세트
+      '1B': { name: '크리링의 두건', set: '크리링의 기원 (크리링 전용)', slot: 0, icon: 'images/frame/krillin_headband.png' },
+      '1C': { name: '크리링의 도복', set: '크리링의 기원 (크리링 전용)', slot: 2, icon: 'images/frame/krillin_dobok.png' },
+      '1D': { name: '크리링의 장비 [1D]', set: '크리링의 기원 (크리링 전용)', slot: 5 },
+      '1E': { name: '크리링의 띠', set: '크리링의 기원 (크리링 전용)', slot: 6, icon: 'images/frame/krillin_belt.png' },
+      '1F': { name: '크리링의 장비 [1F]', set: '크리링의 기원 (크리링 전용)', slot: 7 },
+      '1G': { name: '크리링의 하의', set: '크리링의 기원 (크리링 전용)', slot: 9, icon: 'images/frame/slot_9_pants.png' },
+      '1H': { name: '크리링의 신발', set: '크리링의 기원 (크리링 전용)', slot: 14, icon: 'images/frame/slot_14_boots.png' },
+
+      // 오지터 세트
+      '11': { name: '오지터의 갑옷', set: '오지터', slot: 3, icon: 'images/gogeta_armor.png' },
+      '15': { name: '오지터의 손목', set: '오지터', slot: 7, icon: 'images/frame/slot_7_wrist.png' },
+
+      // 융합의 힘 I 세트
+      '1N': { name: '융합의 띠', set: '융합의 힘 I', slot: 6, icon: 'images/frame/slot_6_belt.png' },
+
+      // 기타 확인된 세트 및 접두사 (10, 12, 13, 14, 16, 1L, 1P)
+      '10': { name: '장비 [10]', set: '일반 장비', slot: 0 },
+      '12': { name: '장비 [12]', set: '일반 장비', slot: 4 },
+      '13': { name: '장비 [13]', set: '일반 장비', slot: 5 },
+      '14': { name: '장비 [14]', set: '일반 장비', slot: 6 },
+      '16': { name: '장비 [16]', set: '일반 장비', slot: 10 },
+      '1L': { name: '장비 [1L]', set: '일반 장비', slot: 2 },
+      '1P': { name: '장비 [1P]', set: '일반 장비', slot: 14 }
+    };
+
+    // Set Bonus Effects Definitions
+    const SET_EFFECTS = {
+      '거북선인 문하 무도가': {
+        title: '거북선인 문하 무도가 세트',
+        desc: [
+          '3세트 : 트리거 데미지 + 2.0%',
+          '6세트 : 트리거 데미지 + 5.0%'
+        ]
+      },
+      '천하제일 무도가': {
+        title: '천하제일 무도가 세트',
+        desc: [
+          '3세트 : 트리거 데미지 + 2.0%',
+          '9세트 : 트리거 데미지 + 10.0%'
+        ]
+      },
+      '크리링의 기원 (크리링 전용)': {
+        title: '크리링의 기원 세트 (크리링 전용)',
+        desc: [
+          '4세트 : 받트뎀 - 20%, 영웅뎀 - 15%',
+          '7세트 : 에너지파 -> 기원참'
+        ]
+      },
+      '융합의 힘 I': {
+        title: '융합의 힘 I 세트',
+        desc: [
+          '2세트 : 트뎀 +10%, 퓨전 지속 +20초, 퓨전 데미지 +30%',
+          '4세트 : 트뎀 +20%, 퓨전 시 받트뎀 · 영웅뎀 -15%',
+          '6세트 : 트뎀 +30%, 오지터 퓨전 실패 없음, 퓨전 데미지 +50%'
+        ]
+      },
+      '오지터': {
+        title: '오지터 세트',
+        desc: []
+      }
+    };
+
+    // Stat Types
+    const STAT_TYPE_MAP = {
+      '1': { name: '트리거 데미지', isPct: true, div: 10 },
+      '2': { name: '받는 트리거 데미지', isPct: true, isNegative: true, div: 10 },
+      '3': { name: '경험치', isPct: true, div: 10 },
+      '4': { name: '드랍률', isPct: true, div: 10 },
+      '5': { name: '캐릭터 전용 트리거 데미지', isDedicated: true, isPct: true, div: 10 },
+      '6': { name: '힘', isPct: false, div: 1 },
+      '7': { name: '민첩', isPct: false, div: 1 },
+      '8': { name: '지능', isPct: false, div: 1 },
+      '9': { name: '공격속도', isPct: true, div: 10 },
+      'A': { name: '이동속도', isPct: false, div: 1 },
+      'B': { name: '더블 크리티컬 확률', isPct: true, div: 10 },
+      'C': { name: '더블 크리티컬 데미지', isPct: true, div: 10 },
+      'F': { name: '퓨전 지속시간', unit: '초', isPct: false, div: 1 },
+      'G': { name: '퓨전 상태 데미지', isPct: true, div: 10 },
+      'H': { name: '퓨전 시 받는 트리거 데미지', isPct: true, isNegative: true, div: 10 },
+      'I': { name: '퓨전 시 영웅 데미지', isPct: true, isNegative: true, div: 10 }
+    };
+
+    // --- Item Decoder ---
+    function decodeItem(code, fallbackSlotIdx = 0) {
+      if (!code || code === '0' || code.length < 9) return null;
+
+      const basePrefix = code.slice(0, 2);
+      const rarityChar = code.slice(2, 3);
+      const baseStatTypeChar = code.slice(3, 4);
+      const baseValRaw = code.slice(4, 9);
+
+      const knownBase = ITEM_BASE_MAP[basePrefix] || {
+        name: `장비 [${basePrefix}]`,
+        set: '일반 장비',
+        slot: fallbackSlotIdx
+      };
+
+      const rarity = RARITY_MAP[rarityChar] || { name: '일반', color: '#fff', class: 'rarity-a' };
+      const slotIdx = (knownBase.slot !== undefined) ? knownBase.slot : fallbackSlotIdx;
+      const slotInfo = SLOT_MAP[slotIdx] || { name: `부위(${slotIdx})`, cat: 'acc' };
+
+      // Base Stat Decoding
+      let baseStatName = '';
+      let baseValNum = 0;
+      let baseValFormatted = '';
+      let baseTargetSlotId = null;
+      let baseTargetName = null;
+
+      if (baseStatTypeChar === '5') {
+        const targetCharChar = baseValRaw[0];
+        baseTargetSlotId = BASE62_CHARS.indexOf(targetCharChar);
+        baseTargetName = LINK_NAME_MAPPING[baseTargetSlotId] || ('LINK_' + baseTargetSlotId);
+        baseStatName = `${baseTargetName} 트리거 데미지`;
+        baseValNum = base62Decode(baseValRaw.slice(1));
+        baseValFormatted = '+' + (baseValNum / 10).toFixed(1) + '%';
+      } else {
+        const baseStatConf = STAT_TYPE_MAP[baseStatTypeChar] || { name: `스탯(${baseStatTypeChar})`, isPct: false, div: 1 };
+        baseStatName = baseStatConf.name;
+        baseValNum = base62Decode(baseValRaw);
+        baseValFormatted = baseStatConf.isPct ? (baseValNum / baseStatConf.div).toFixed(1) + '%' : `${baseValNum}`;
+        if (baseStatConf.unit) baseValFormatted += baseStatConf.unit;
+        if (baseStatConf.isNegative) baseValFormatted = '-' + baseValFormatted;
+        else baseValFormatted = '+' + baseValFormatted;
+      }
+
+      // Options Decoding (6-char chunks)
+      const options = [];
+      const optsStr = code.slice(9);
+      for (let i = 0; i < optsStr.length; i += 6) {
+        if (i + 6 <= optsStr.length) {
+          const chunk = optsStr.slice(i, i + 6);
+          const typeCode = chunk[0];
+          const valRaw = chunk.slice(1);
+          let optName = '';
+          let optValNum = 0;
+          let optValFormatted = '';
+          let optTargetSlotId = null;
+          let optTargetName = null;
+          let isDedicated = false;
+
+          if (typeCode === '5') {
+            const targetCharChar = valRaw[0];
+            optTargetSlotId = BASE62_CHARS.indexOf(targetCharChar);
+            optTargetName = LINK_NAME_MAPPING[optTargetSlotId] || ('LINK_' + optTargetSlotId);
+            optName = `${optTargetName} 트리거 데미지`;
+            optValNum = base62Decode(valRaw.slice(1));
+            optValFormatted = '+' + (optValNum / 10).toFixed(1) + '%';
+            isDedicated = true;
+          } else {
+            const optConf = STAT_TYPE_MAP[typeCode] || { name: `옵션(${typeCode})`, isPct: false, div: 1 };
+            optName = optConf.name;
+            optValNum = base62Decode(valRaw);
+            optValFormatted = optConf.isPct ? (optValNum / optConf.div).toFixed(1) + '%' : `${optValNum}`;
+            if (optConf.unit) optValFormatted += optConf.unit;
+            if (optConf.isNegative) optValFormatted = '-' + optValFormatted;
+            else optValFormatted = '+' + optValFormatted;
+          }
+
+          options.push({
+            code: typeCode,
+            targetSlotId: optTargetSlotId,
+            targetName: optTargetName,
+            isDedicated: isDedicated,
+            name: optName,
+            valRaw: valRaw,
+            valNum: optValNum,
+            valFormatted: optValFormatted,
+            isPct: true,
+            div: 10
+          });
+        }
+      }
+
+      let icon = knownBase.icon || 'images/gogeta_armor.png';
+
+      return {
+        code,
+        basePrefix,
+        setName: knownBase.set,
+        rarityChar,
+        rarity,
+        slotIdx,
+        slotInfo,
+        itemName: knownBase.name,
+        baseStatType: baseStatTypeChar,
+        baseTargetSlotId,
+        baseTargetName,
+        baseStatName,
+        baseValRaw,
+        baseValNum,
+        baseValFormatted,
+        options,
+        icon
+      };
+    }
+
+    // --- User ID Search API ---
+    // --- User ID Sync & Query Param handler ---
+    async function searchUser(targetNic) {
+      const inputEl = document.getElementById('userIdInput');
+      const nic = (targetNic || inputEl.value || '').trim();
+      if (!nic) return;
+      inputEl.value = nic;
+
+      const statusEl = document.getElementById('searchStatusMsg');
+      if (statusEl) {
+        statusEl.innerHTML = `<span style="color:var(--cyan);">⏳ '${nic}' 데이터 조회 중...</span>`;
+      }
+
+      // Update Header Dashboard link to sync with current search
+      const dashLink = document.querySelector('.nav-links a[href^="index.html"]');
+      if (dashLink) {
+        dashLink.href = `index.html?nicName=${encodeURIComponent(nic)}`;
+      }
+
+      try {
+        const res = await fetch(`/api/logs?nicName=${encodeURIComponent(nic)}`);
+        const json = await res.json();
+        if (!json.success || !json.data) {
+          if (statusEl) {
+            statusEl.innerHTML = `<span style="color:#ff3355;">❌ ${json.error || '데이터를 찾을 수 없습니다.'}</span>`;
+          }
+          return;
+        }
+
+        currentData = json.data;
+        try {
+          localStorage.setItem('DRR_LAST_SEARCHED_USER', nic);
+        } catch(e) {}
+
+        if (statusEl) {
+          statusEl.innerHTML = `<span style="color:var(--text-green);">✅ '${nic}' 데이터 로드 완료 (${json.latest_date || '최신'})</span>`;
+        }
+
+        // Find character with most equipped items
+        let bestSlot = 32;
+        let maxEquipped = -1;
+        for (let sid = 1; sid <= 66; sid++) {
+          const eqStr = currentData[`DBEQ_E_${sid}`];
+          if (eqStr) {
+            const count = eqStr.split(',').filter(c => c && c !== '0').length;
+            if (count > maxEquipped) {
+              maxEquipped = count;
+              bestSlot = sid;
+            }
+          }
+        }
+
+        selectCharacter(bestSlot);
+        syncJsonTextarea();
+      } catch (err) {
+        if (statusEl) {
+          statusEl.innerHTML = `<span style="color:#ff3355;">❌ 조회 오류: ${err.message}</span>`;
+        }
+      }
+    }
+
+    function quickSearch(nic) {
+      document.getElementById('userIdInput').value = nic;
+      searchUser();
+    }
+
+    // --- Render Functions ---
+    function renderAll() {
+      // Update window title and stats character label
+      document.getElementById('windowCharName').innerText = currentChar;
+      document.getElementById('statsCharLabel').innerText = currentChar;
+      document.getElementById('stat_job_label').innerText = `${currentChar} 전용`;
+
+      renderCharacterAvatars();
+      renderCurrencies();
+      renderEquipSlots();
+      renderInventoryGrid();
+      renderStats();
+      renderDecodedTable();
+    }
+
+    function renderCharacterAvatars() {
+      const container = document.getElementById('charAvatarGrid');
+      container.innerHTML = '';
+
+      for (let sid = 1; sid <= 66; sid++) {
+        const charName = LINK_NAME_MAPPING[sid] || `LINK_${sid}`;
+        const eqStr = currentData[`DBEQ_E_${sid}`];
+        let eqCount = 0;
+        if (eqStr) {
+          eqCount = eqStr.split(',').filter(c => c && c !== '0').length;
+        }
+
+        const btn = document.createElement('div');
+        btn.className = `char-avatar-btn ${sid === currentSlotId ? 'active' : ''}`;
+        btn.setAttribute('data-slot-id', sid);
+
+        let imgHtml = `<img src="images/heroes/${sid}.png" alt="${charName}" onerror="this.src='images/heroes/${charName}.png'; this.onerror=function(){this.src='images/heroes/1.png'}">`;
+        let badgeHtml = eqCount > 0 ? `<span class="badge-eq">${eqCount}</span>` : '';
+        let tagHtml = `<span class="slot-tag">${sid}</span>`;
+
+        btn.innerHTML = `${imgHtml}${badgeHtml}${tagHtml}`;
+
+        // Click to select
+        btn.onclick = () => selectCharacter(sid);
+
+        // Hover tooltip
+        btn.onmouseenter = (e) => showCharTooltip(e, charName, sid, eqCount);
+        btn.onmousemove = (e) => moveCharTooltip(e);
+        btn.onmouseleave = () => hideCharTooltip();
+
+        container.appendChild(btn);
+      }
+    }
+
+    function selectCharacter(slotId) {
+      currentSlotId = slotId;
+      currentChar = LINK_NAME_MAPPING[slotId] || `LINK_${slotId}`;
+      if (tooltip) tooltip.classList.remove('active');
+      renderAll();
+    }
+
+    const charTooltip = document.getElementById('charHoverTooltip');
+    function showCharTooltip(e, name, sid, eqCount) {
+      document.getElementById('charTtName').innerText = name;
+      document.getElementById('charTtSlot').innerText = `링크 슬롯 #${sid} (LINK_${sid})`;
+      document.getElementById('charTtEquip').innerText = eqCount > 0 ? `장착 프레임 장비: ${eqCount}개` : `장착 프레임 장비: 없음`;
+      charTooltip.classList.add('active');
+      moveCharTooltip(e);
+    }
+    function moveCharTooltip(e) {
+      charTooltip.style.left = (e.pageX + 14) + 'px';
+      charTooltip.style.top = (e.pageY + 14) + 'px';
+    }
+    function hideCharTooltip() {
+      charTooltip.classList.remove('active');
+    }
+
+    function renderCurrencies() {
+      document.getElementById('currDust').innerText = currentData['DBEQ_GIN'] || '0';
+      document.getElementById('currArk').innerText = currentData['DBEQ_ARK'] || '0';
+    }
+
+    function renderEquipSlots() {
+      if (tooltip) tooltip.classList.remove('active');
+
+      const equipKey = `DBEQ_E_${currentSlotId}`;
+      const equipStr = currentData[equipKey] || "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+      const equippedCodes = equipStr.split(',');
+
+      let equippedCount = 0;
+      for (let slot = 0; slot < 16; slot++) {
+        const slotEl = document.querySelector(`.equip-slot[data-slot="${slot}"]`);
+        if (!slotEl) continue;
+
+        const code = equippedCodes[slot];
+        const item = decodeItem(code, slot);
+
+        slotEl.removeAttribute('title');
+        slotEl.innerHTML = `<span class="slot-idx">${SLOT_MAP[slot].hex}</span>`;
+        if (item) {
+          equippedCount++;
+          slotEl.innerHTML += `<img src="${item.icon}" alt="${item.itemName}">`;
+          slotEl.className = `equip-slot has-item ${item.rarity.class}`;
+          slotEl.onclick = () => openItemModal(item, 'equipped', slot);
+          attachTooltip(slotEl, item);
+        } else {
+          slotEl.innerHTML += `<span class="slot-label">${SLOT_MAP[slot].name}</span>`;
+          slotEl.className = 'equip-slot';
+          slotEl.onclick = null;
+          detachTooltip(slotEl);
+        }
+      }
+
+      document.getElementById('equipCount').innerText = `장착 ${equippedCount}/16`;
+    }
+
+    function renderInventoryGrid() {
+      const grid = document.getElementById('invGrid');
+      grid.innerHTML = '';
+
+      const openParts = (currentData['DBEQ_OPEN'] || '36,36').split(',');
+      const unlockedCount = parseInt(openParts[0]) || 36;
+
+      const startRow = (currentPage - 1) * 8 + 1;
+      const endRow = startRow + 7;
+
+      const prefix = currentTab === 'inventory' ? 'DBEQ_I' : 'DBEQ_B';
+      const pageItems = [];
+
+      for (let r = startRow; r <= endRow; r++) {
+        const rowStr = currentData[`${prefix}${r}`] || "0,0,0,0,0,0,0,0,0,0,0,0";
+        const cols = rowStr.split(',');
+        for (let c = 0; c < 12; c++) {
+          pageItems.push({
+            code: cols[c] || '0',
+            row: r,
+            col: c
+          });
+        }
+      }
+
+      let currentCount = 0;
+      pageItems.forEach((slotData, idx) => {
+        const globalSlotIdx = (currentPage - 1) * 96 + idx;
+        const isUnlocked = globalSlotIdx < unlockedCount;
+
+        const slotEl = document.createElement('div');
+        slotEl.className = 'inv-slot';
+        slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
+
+        if (!isUnlocked) {
+          slotEl.classList.add('locked');
+          slotEl.title = `잠긴 슬롯 (#${globalSlotIdx + 1})`;
+        } else {
+          const item = decodeItem(slotData.code);
+          if (item) {
+            if (currentFilter === 'all' || item.slotInfo.cat === currentFilter) {
+              currentCount++;
+              slotEl.classList.add('has-item', item.rarity.class);
+              slotEl.innerHTML += `<img class="item-icon" src="${item.icon}" alt="${item.itemName}">`;
+              slotEl.onclick = () => openItemModal(item, currentTab, { row: slotData.row, col: slotData.col });
+              attachTooltip(slotEl, item);
+            } else {
+              slotEl.style.opacity = '0.25';
+            }
+          }
+        }
+
+        grid.appendChild(slotEl);
+      });
+
+      document.getElementById('pageLabel').innerText = `${currentPage} 페이지`;
+      document.getElementById('pageSlotCount').innerText = `${currentCount} / 96`;
+    }
+
+    function renderStats() {
+      const equipKey = `DBEQ_E_${currentSlotId}`;
+      const equipStr = currentData[equipKey] || "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+      const codes = equipStr.split(',');
+
+      const setCountMap = {};
+      let totalStats = {
+        trigger: 0,
+        job: 0,
+        reduc: 0,
+        dc_chance: 0,
+        dc_dmg: 0,
+        exp: 0,
+        drop: 0,
+        str: 0,
+        dex: 0,
+        int: 0,
+        atk_spd: 0,
+        mov_spd: 0
+      };
+
+      codes.forEach((code, slot) => {
+        const item = decodeItem(code, slot);
+        if (item) {
+          if (item.setName) {
+            setCountMap[item.setName] = (setCountMap[item.setName] || 0) + 1;
+          }
+
+          const bt = item.baseStatType;
+          const bv = item.baseValNum;
+          if (bt === '1') totalStats.trigger += bv / 10;
+          if (bt === '2') totalStats.reduc += bv / 10;
+          if (bt === '3') totalStats.exp += bv / 10;
+          if (bt === '4') totalStats.drop += bv / 10;
+          if (bt === '5') {
+            if (item.baseTargetSlotId === currentSlotId) {
+              totalStats.job += bv / 10;
+            }
+          }
+          if (bt === '6') totalStats.str += bv;
+          if (bt === '7') totalStats.dex += bv;
+          if (bt === '8') totalStats.int += bv;
+          if (bt === '9') totalStats.atk_spd += bv / 10;
+          if (bt === 'A') totalStats.mov_spd += bv;
+          if (bt === 'B') totalStats.dc_chance += bv / 10;
+          if (bt === 'C') totalStats.dc_dmg += bv / 10;
+
+          item.options.forEach(opt => {
+            const ot = opt.code;
+            const ov = opt.valNum;
+            if (ot === '1') totalStats.trigger += ov / 10;
+            if (ot === '2') totalStats.reduc += ov / 10;
+            if (ot === '3') totalStats.exp += ov / 10;
+            if (ot === '4') totalStats.drop += ov / 10;
+            if (ot === '5') {
+              if (opt.targetSlotId === currentSlotId) {
+                totalStats.job += ov / 10;
+              }
+            }
+            if (ot === '6') totalStats.str += ov;
+            if (ot === '7') totalStats.dex += ov;
+            if (ot === '8') totalStats.int += ov;
+            if (ot === '9') totalStats.atk_spd += ov / 10;
+            if (ot === 'A') totalStats.mov_spd += ov;
+            if (ot === 'B') totalStats.dc_chance += ov / 10;
+            if (ot === 'C') totalStats.dc_dmg += ov / 10;
+          });
+        }
+      });
+
+      // Set Bonuses calculation
+      const setLines = [];
+      if (setCountMap['거북선인 문하 무도가'] >= 3) {
+        totalStats.trigger += 2.0;
+        setLines.push(`<span>거북선인 문하 무도가 ${setCountMap['거북선인 문하 무도가']}개</span> <strong style="color:var(--cyan);">+2.0%</strong>`);
+      }
+      if (setCountMap['천하제일 무도가'] >= 9) {
+        totalStats.trigger += 10.0;
+        setLines.push(`<span>천하제일 무도가 ${setCountMap['천하제일 무도가']}개</span> <strong style="color:var(--cyan);">+10.0%</strong>`);
+      }
+      if (setCountMap['크리링의 기원 (크리링 전용)'] >= 4) {
+        totalStats.reduc += 20.0;
+        setLines.push(`<span>크리링의 기원 ${setCountMap['크리링의 기원 (크리링 전용)']}개</span> <strong style="color:var(--cyan);">받트뎀 -20%, 영웅뎀 -15%</strong>`);
+      }
+      if (setCountMap['크리링의 기원 (크리링 전용)'] >= 7) {
+        setLines.push(`<span>크리링의 기원 7개</span> <strong style="color:#55ff55;">에너지파 → 기원참</strong>`);
+      }
+      if (setCountMap['융합의 힘 I'] >= 2) {
+        totalStats.trigger += 10.0;
+        setLines.push(`<span>융합의 힘 I 2세트</span> <strong style="color:var(--cyan);">트뎀 +10%, 퓨전 지속 +20초, 퓨전 뎀 +30%</strong>`);
+      }
+      if (setCountMap['융합의 힘 I'] >= 4) {
+        totalStats.trigger += 10.0;
+        totalStats.reduc += 15.0;
+        setLines.push(`<span>융합의 힘 I 4세트</span> <strong style="color:var(--cyan);">트뎀 +20%, 퓨전 시 받트뎀 · 영웅뎀 -15%</strong>`);
+      }
+      if (setCountMap['융합의 힘 I'] >= 6) {
+        totalStats.trigger += 10.0;
+        setLines.push(`<span>융합의 힘 I 6세트</span> <strong style="color:#55ff55;">트뎀 +30%, 오지터 퓨전 실패 없음, 퓨전 뎀 +50%</strong>`);
+      }
+
+      const setBonusBar = document.getElementById('setBonusBar');
+      if (setLines.length > 0) {
+        setBonusBar.style.display = 'flex';
+        setBonusBar.innerHTML = setLines.map(l => `<div class="set-item-line">${l}</div>`).join('');
+      } else {
+        setBonusBar.style.display = 'none';
+      }
+
+      // Display in stats panel
+      document.getElementById('stat_trigger').innerText = `+${totalStats.trigger.toFixed(1)}%`;
+      
+      const statJobEl = document.getElementById('stat_job');
+      statJobEl.innerText = `+${totalStats.job.toFixed(1)}%`;
+      if (totalStats.job > 0) {
+        statJobEl.style.color = '#38e24e';
+        statJobEl.style.textShadow = '0 0 10px rgba(56, 226, 78, 0.85)';
+        statJobEl.style.fontWeight = 'bold';
+      } else {
+        statJobEl.style.color = 'var(--text-green)';
+        statJobEl.style.textShadow = 'none';
+        statJobEl.style.fontWeight = 'bold';
+      }
+
+      document.getElementById('stat_dmg_reduc').innerText = `-${totalStats.reduc.toFixed(1)}%`;
+      document.getElementById('stat_dc_chance').innerText = `+${totalStats.dc_chance.toFixed(1)}%`;
+      document.getElementById('stat_dc_dmg').innerText = `+${totalStats.dc_dmg.toFixed(1)}%`;
+      document.getElementById('stat_exp').innerText = `+${totalStats.exp.toFixed(1)}%`;
+      document.getElementById('stat_drop').innerText = `+${totalStats.drop.toFixed(1)}%`;
+      document.getElementById('stat_str').innerText = `+${totalStats.str}`;
+      document.getElementById('stat_dex').innerText = `+${totalStats.dex}`;
+      document.getElementById('stat_int').innerText = `+${totalStats.int}`;
+      document.getElementById('stat_atk_spd').innerHTML = `+${totalStats.atk_spd.toFixed(1)}% <span class="sub">(총 +${(285 + totalStats.atk_spd).toFixed(0)}%)</span>`;
+      document.getElementById('stat_mov_spd').innerHTML = `+${totalStats.mov_spd} <span class="sub">(총 +${totalStats.mov_spd})</span>`;
+    }
+
+        function renderDecodedTable() {
+      const tbody = document.querySelector('#decodedItemTable tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      tbody.innerHTML = '';
+
+      const allFound = [];
+
+      const equipCodes = (currentData[`DBEQ_E_${currentSlotId}`] || '').split(',');
+      equipCodes.forEach((code, sIdx) => {
+        if (code && code !== '0') {
+          allFound.push({ loc: `장착 슬롯 ${sIdx} (${SLOT_MAP[sIdx].name})`, code, slotIdx: sIdx });
+        }
+      });
+
+      for (let r = 1; r <= 32; r++) {
+        const rowStr = currentData[`DBEQ_I${r}`] || '';
+        rowStr.split(',').forEach((code, cIdx) => {
+          if (code && code !== '0') {
+            allFound.push({ loc: `인벤토리 R${r}-C${cIdx + 1}`, code, slotIdx: 0 });
+          }
+        });
+      }
+
+      for (let r = 1; r <= 32; r++) {
+        const rowStr = currentData[`DBEQ_B${r}`] || '';
+        rowStr.split(',').forEach((code, cIdx) => {
+          if (code && code !== '0') {
+            allFound.push({ loc: `보관함 R${r}-C${cIdx + 1}`, code, slotIdx: 0 });
+          }
+        });
+      }
+
+      if (allFound.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#888;">보유 중인 프레임 장비가 없습니다.</td></tr>`;
+        return;
+      }
+
+      allFound.forEach(entry => {
+        const it = decodeItem(entry.code, entry.slotIdx);
+        if (!it) return;
+
+        const optSummary = it.options.map(o => `${o.name} ${o.valFormatted}`).join(', ') || '없음';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${entry.loc}</strong></td>
+          <td><code>${it.code}</code></td>
+          <td><strong style="color:${it.rarity.color}">${it.itemName}</strong></td>
+          <td><span style="color:${it.rarity.color}">[${it.rarity.name}]</span></td>
+          <td>${it.slotInfo.name}</td>
+          <td style="color:#55ff55;">${it.setName}</td>
+          <td>${it.baseStatName} ${it.baseValFormatted}</td>
+          <td>${optSummary}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- Item Tooltip Handler ---
+    const tooltip = document.getElementById('itemTooltip');
+    function attachTooltip(el, item) {
+      if (!el || !item) return;
+      el.onmouseenter = (e) => {
+        document.getElementById('ttIcon').src = item.icon;
+        document.getElementById('ttName').innerText = item.itemName;
+        document.getElementById('ttName').style.color = item.rarity.color;
+        document.getElementById('ttMeta').innerHTML = `<span style="color:${item.rarity.color}; font-weight:bold;">[${item.rarity.name}]</span> <span style="color:#d1c4e9; font-weight:bold;">${item.slotInfo.name}</span>`;
+        document.getElementById('ttRaw').innerText = item.code;
+        
+        const statsEl = document.getElementById('ttStats');
+        const isBaseReduc = (item.baseStatType === '2' || item.baseStatType === 'H' || item.baseStatType === 'I');
+        statsEl.innerHTML = `
+          <div style="color:#d1c4e9; line-height:1.45;">- ${item.baseStatName} <span style="color:${isBaseReduc ? '#ff8888' : 'var(--text-green)'}; font-weight:bold;">${item.baseValFormatted}</span></div>
+        `;
+        if (item.options.length > 0) {
+          item.options.forEach(opt => {
+            const isReduc = (opt.code === '2' || opt.code === 'H' || opt.code === 'I');
+            statsEl.innerHTML += `<div style="color:#d1c4e9; line-height:1.45;">- ${opt.name} <span style="color:${isReduc ? '#ff8888' : 'var(--text-green)'}; font-weight:bold;">${opt.valFormatted}</span></div>`;
+          });
+        }
+
+        const setEl = document.getElementById('ttSet');
+        const setEffect = SET_EFFECTS[item.setName];
+        if (setEffect) {
+          setEl.style.display = 'block';
+          const descHtml = setEffect.desc.map(d => `<div style="color:#d1c4e9; font-size:11px; margin-top:2px;">${d}</div>`).join('');
+          setEl.innerHTML = `
+            <div style="color:#55ff55; font-weight:bold; font-size:12px; margin-bottom:3px;">${setEffect.title}</div>
+            ${descHtml}
+          `;
+        } else if (item.setName && item.setName !== '일반 장비') {
+          setEl.style.display = 'block';
+          setEl.innerHTML = `<div style="color:#55ff55; font-weight:bold; font-size:12px;">${item.setName} 세트</div>`;
+        } else {
+          setEl.style.display = 'none';
+        }
+
+        tooltip.classList.add('active');
+        moveTooltip(e);
+      };
+
+      el.onmousemove = (e) => moveTooltip(e);
+      el.onmouseleave = () => tooltip.classList.remove('active');
+    }
+
+    function detachTooltip(el) {
+      if (!el) return;
+      el.onmouseenter = null;
+      el.onmousemove = null;
+      el.onmouseleave = null;
+    }
+
+    function moveTooltip(e) {
+      const x = e.pageX + 15;
+      const y = e.pageY + 15;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+    }
+
+    // --- Modal / Action Handler ---
+    function openItemModal(item, locationType, locParam) {
+      selectedItemModal = { item, locationType, locParam };
+      const modal = document.getElementById('actionModal');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      const confirmBtn = document.getElementById('modalConfirmBtn');
+
+      title.innerHTML = `<span style="color:${item.rarity.color}">[${item.rarity.name}] ${item.itemName}</span>`;
+
+      if (locationType === 'equipped') {
+        body.innerHTML = `
+          현재 <strong>${item.slotInfo.name}</strong> 슬롯에 장착 중인 아이템입니다.<br>
+          장착을 해제하여 인벤토리로 되돌리시겠습니까?
+        `;
+        confirmBtn.innerText = '장착 해제 (인벤토리 이동)';
+      } else {
+        body.innerHTML = `
+          아이템 코드: <code>${item.code}</code><br>
+          장착 부위: <strong>${item.slotInfo.name} (슬롯 ${item.slotIdx})</strong><br><br>
+          이 프레임 장비를 해당 장착 슬롯에 장착하시겠습니까?
+        `;
+        confirmBtn.innerText = '장비 장착하기';
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('actionModal').classList.remove('active');
+      selectedItemModal = null;
+    }
+
+    function confirmModalAction() {
+      if (!selectedItemModal) return;
+      const { item, locationType, locParam } = selectedItemModal;
+
+      const equipKey = `DBEQ_E_${currentSlotId}`;
+      const equipArr = (currentData[equipKey] || "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0").split(',');
+
+      if (locationType === 'equipped') {
+        equipArr[locParam] = '0';
+        currentData[equipKey] = equipArr.join(',');
+        
+        let placed = false;
+        for (let r = 1; r <= 32; r++) {
+          const rowArr = (currentData[`DBEQ_I${r}`] || "0,0,0,0,0,0,0,0,0,0,0,0").split(',');
+          for (let c = 0; c < 12; c++) {
+            if (rowArr[c] === '0') {
+              rowArr[c] = item.code;
+              currentData[`DBEQ_I${r}`] = rowArr.join(',');
+              placed = true;
+              break;
+            }
+          }
+          if (placed) break;
+        }
+      } else {
+        const targetSlot = item.slotIdx;
+        const oldEquipped = equipArr[targetSlot];
+
+        equipArr[targetSlot] = item.code;
+        currentData[equipKey] = equipArr.join(',');
+
+        const prefix = locationType === 'inventory' ? 'DBEQ_I' : 'DBEQ_B';
+        const sourceRow = currentData[`${prefix}${locParam.row}`].split(',');
+        sourceRow[locParam.col] = (oldEquipped && oldEquipped !== '0') ? oldEquipped : '0';
+        currentData[`${prefix}${locParam.row}`] = sourceRow.join(',');
+      }
+
+      closeModal();
+      renderAll();
+      syncJsonTextarea();
+    }
+
+    // --- Tab and Filter Controls ---
+    function switchStorageTab(tab) {
+      currentTab = tab;
+      document.getElementById('tabInventory').classList.toggle('active', tab === 'inventory');
+      document.getElementById('tabVault').classList.toggle('active', tab === 'vault');
+      renderInventoryGrid();
+    }
+
+    function switchPage(p) {
+      currentPage = p;
+      document.querySelectorAll('.page-pills .page-pill').forEach((el, idx) => {
+        if (idx < 4) el.classList.toggle('active', idx + 1 === p);
+      });
+      renderInventoryGrid();
+    }
+
+    function setFilter(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.filter-pills .pill-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      renderInventoryGrid();
+    }
+
+    function expandSlotPrompt() {
+      const openParts = (currentData['DBEQ_OPEN'] || '36,36').split(',');
+      let currentOpen = parseInt(openParts[0]) || 36;
+      const baseOpen = parseInt(openParts[1]) || 36;
+
+      if (confirm(`'지구인의 생명' 1개를 소모하여 프레임 인벤토리 슬롯을 1칸 확장하시겠습니까?\n(현재: ${currentOpen}칸 -> 변경: ${currentOpen + 1}칸)`)) {
+        currentOpen++;
+        currentData['DBEQ_OPEN'] = `${currentOpen},${baseOpen}`;
+        renderInventoryGrid();
+        syncJsonTextarea();
+      }
+    }
+
+    // --- Engineering Console Controls ---
+    function switchEngTab(tab) {
+      document.querySelectorAll('.tab-nav-engine .eng-tab').forEach((el, i) => {
+        el.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      document.querySelectorAll('.eng-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(`engTab_${tab}`).classList.add('active');
+    }
+
+        function syncJsonTextarea() {
+      const el = document.getElementById('jsonInput');
+      if (el) el.value = JSON.stringify(currentData, null, 2);
+    }
+
+    function applyJsonData() {
+      try {
+        const parsed = JSON.parse(document.getElementById('jsonInput').value);
+        currentData = parsed;
+        let detected = 32;
+        for (let k in parsed) {
+          if (k.startsWith('DBEQ_E_')) {
+            detected = parseInt(k.replace('DBEQ_E_', ''));
+            break;
+          }
+        }
+        selectCharacter(detected);
+        alert(`✅ JSON 세이브 데이터가 성공적으로 파싱되었습니다!`);
+      } catch (err) {
+        alert('❌ JSON 문법 오류: ' + err.message);
+      }
+    }
+
+    function loadCharacterPreset(presetKey) {
+      if (presetKey === 'gohan') {
+        currentData = JSON.parse(JSON.stringify(PRESET_GOHAN.data));
+        selectCharacter(32);
+      } else if (presetKey === 'dragon') {
+        currentData = JSON.parse(JSON.stringify(PRESET_GOHAN.data));
+        currentData['DBEQ_E_53'] = PRESET_GOHAN.data['DBEQ_E_32'];
+        selectCharacter(53);
+      } else if (presetKey === 'farmer') {
+        currentData = JSON.parse(JSON.stringify(PRESET_FARMER.data));
+        selectCharacter(43);
+      }
+      syncJsonTextarea();
+    }
+
+    function giveTestDedicatedItem() {
+      const targetCharChar = BASE62_CHARS[currentSlotId] || 'W';
+      const valB62 = '000O'; // 50 in base62 = 5.0%
+      const testCode = `0Ec5${targetCharChar}${valB62}G00015`;
+
+      const rowArr = currentData['DBEQ_I1'].split(',');
+      rowArr[1] = testCode;
+      currentData['DBEQ_I1'] = rowArr.join(',');
+
+      renderAll();
+      syncJsonTextarea();
+      alert(`✨ [${currentChar} 전용 트리거 데미지 +5.0%] 반지가 인벤토리 2번 슬롯에 지급되었습니다!\n인벤토리에서 클릭하여 장착해보세요.`);
+    }
+
+    // Initialize with Gohan
+    // Initialize Page with query param, localStorage, or fallback
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userParam = urlParams.get('nicName');
+      const savedUser = localStorage.getItem('DRR_LAST_SEARCHED_USER') || localStorage.getItem('DRR_SINGLE_PINNED_USER');
+
+      // Preload preset so UI is never blank while fetching
+      loadCharacterPreset('gohan');
+
+      if (userParam) {
+        searchUser(userParam);
+      } else if (savedUser) {
+        searchUser(savedUser);
+      }
+    });
+  </script>
+</body>
+</html>

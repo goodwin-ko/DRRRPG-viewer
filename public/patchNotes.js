@@ -8,10 +8,23 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.5.0",
+        date: "2026-10-25",
+        title: "개인 조회 프레임 장비 시스템 통합 및 신규 아이템 12종 업데이트",
+        isLatest: true,
+        changes: [
+            { type: "feat", text: "개인 조회 대시보드에 '프레임장비' 탭 추가: 16개 부위 장착 슬롯, 인벤토리/보관함 및 실시간 장착/해제 인터랙션 지원" },
+            { type: "feat", text: "프레임 세트 효과 실시간 계산 및 세트 보너스 바(천하제일 무도가, 거북선인, 크리링의 기원, 융합의 힘 등) 표출" },
+            { type: "feat", text: "신규 아이템 12종 매핑 추가 (21호의 캔디, 숲의 물약, 베이비 Lv3 유물 시리즈, 각성 조각 6종 등)" },
+            { type: "fix", text: "메인 대시보드 유저 조회 시 비동기 2중 호출 및 카드 중복 노출 현상 방어 토큰(fetchId) 적용" },
+            { type: "improve", text: "프레임 장비 UI 메인 보라색 테마 일원화 및 34px 컴팩트 인벤토리 그리드, 마우스오버 툴팁 최적화" }
+        ]
+    },
+    {
         version: "v1.4.9",
         date: "2026-10-24",
         title: "멀티 대시보드 스페셜 카드 축소/잘림 현상 수정 (Flex Shrink 방지 및 일러스트 정상 노출)",
-        isLatest: true,
+        
         changes: [
             { type: "fix", text: "멀티 조회 화면(.cards-scroll)에서 overflow: hidden이 적용된 스페셜 캐릭터 카드(손오공 로제, 베지터 듀얼, SSGSS, 브로리 레전드 등)가 Flexbox의 flex-shrink에 의해 세로 높이가 35px로 강제 축소되어 일러스트 및 스탯이 잘리던 현상 해결" },
             { type: "improve", text: ".char-card, .equip-card 및 스페셜 카드 전반에 flex-shrink: 0 !important 및 최소 높이 안정화 적용하여 카드 원본 높이와 일러스트 배경이 정상적으로 온전하게 표시되도록 개선" },
