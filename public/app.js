@@ -659,6 +659,9 @@ function switchTab(category) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         if (btn.dataset.category === category) {
             btn.classList.add('active');
+            try {
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } catch (e) {}
         } else {
             btn.classList.remove('active');
         }
@@ -2511,17 +2514,10 @@ function applyResponsiveLayout(chars, data) {
     const categoryTabs = document.querySelector('.category-tabs');
     const mobileView = document.getElementById('mobile-view');
 
-    if (isMobile()) {
-        // 모바일: PC UI 숨기고 모바일 뷰 표시
-        if (dashboardGrid) dashboardGrid.style.display = 'none';
-        if (categoryTabs) categoryTabs.style.display = 'none';
-        renderMobileView(chars, data);
-    } else {
-        // PC: 모바일 뷰 숨기고 PC UI 표시
-        if (mobileView) mobileView.classList.add('hidden');
-        if (dashboardGrid) dashboardGrid.style.display = '';
-        if (categoryTabs) categoryTabs.style.display = '';
-    }
+    // 모바일/PC 모두 통합 반응형 대시보드 및 카테고리 탭 사용
+    if (mobileView) mobileView.classList.add('hidden');
+    if (dashboardGrid) dashboardGrid.style.display = '';
+    if (categoryTabs) categoryTabs.style.display = '';
 }
 
 // ─── Modal Control (Item Map Lookup) ───

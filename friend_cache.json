@@ -1,15 +1,15 @@
 {
-  "godwin": {
-    "21": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "인조인간 19호 2차 각성"
-    },
-    "3": {
+  "gowin2": {
+    "11": {
       "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "야무치 2차 각성"
+      "hero_display_name": "기뉴특전대 - 리쿰"
     },
-    "6": {
-      "friend_name": "키드부우(약해진)",
+    "16": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+    }
+  }
+}nd_name": "키드부우(약해진)",
       "hero_display_name": "피콜로 2차 각성"
     },
     "17": {
@@ -19,6 +19,14 @@
     "43": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "전설의 농부"
+    },
+    "16": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+    },
+    "8": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "사이어인 - 내퍼"
     }
   },
   "goodwin": {
@@ -48,11 +56,11 @@
     },
     "16": {
       "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "손오반(어린)"
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
     },
     "17": {
       "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "프리저 완전체"
+      "hero_display_name": "프리저 1차 각성"
     },
     "43": {
       "friend_name": "키드부우(약해진)",
@@ -73,6 +81,14 @@
     "1": {
       "friend_name": "메탈 쿠우라(약해진)",
       "hero_display_name": "초사이어인4 - 손오공"
+    },
+    "25": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "셀 1차 각성"
+    },
+    "8": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "사이어인 - 내퍼"
     }
   },
   "gowin2": {
@@ -95,6 +111,10 @@
     "43": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "전설의 농부"
+    },
+    "25": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "셀 1차 각성"
     }
   },
   "goodsee": {
@@ -109,6 +129,26 @@
     "43": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "전설의 농부"
+    },
+    "32": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "9": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "초사이어인3 - 마인 베지터"
+    },
+    "16": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "초사이어인2 - 손오반(어린) 각성"
+    },
+    "8": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "사이어인 - 내퍼"
+    },
+    "11": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "기뉴특전대 - 리쿰"
     }
   },
   "Gottfried": {
