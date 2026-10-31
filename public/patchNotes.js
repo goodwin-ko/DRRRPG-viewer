@@ -8,10 +8,40 @@
 
 const PATCH_NOTES = [
     {
+        version: "v1.5.9",
+        date: "2026-10-31",
+        title: "각성 캐릭터 매핑 정상화 및 신규 각성 캐릭터 연동",
+        isLatest: true,
+        changes: [
+            { type: "fix", text: "부르마(Slot 27) 각성레벨 101 표출 오류 수정 (정상 50레벨 매핑 반영)" },
+            { type: "fix", text: "기뉴(Slot 14, 50레벨), 야콩(Slot 28, 200레벨) 각성 매핑 밀림 현상 정상화" },
+            { type: "feat", text: "브로리(약해진 Slot 54 / 전설 Slot 47) 각성 200레벨 매핑 추가" },
+            { type: "feat", text: "신규 각성책 4종(데브라 Slot 29, 바비디 Slot 30, 우부 Slot 41, 블랙오공 Slot 65) 슬롯 매핑 추가" }
+        ]
+    },
+    {
+        version: "v1.5.8",
+        date: "2026-10-28",
+        title: "모바일 화면 메뉴 탭 가로 스크롤 및 프레임 장비 반응형 최적화",
+        changes: [
+            { type: "fix", text: "모바일 터치 시 전체 UI 좌우 밀림/흔들림 방지 (overflow-x: hidden 최적화)" },
+            { type: "feat", text: "모바일 메뉴 탭 가로 스크롤 및 탭 선택 시 중앙 자동 스크롤(scrollIntoView) 지원" },
+            { type: "improve", text: "프레임 장비 화면 모바일 세로 스택 레이아웃 최적화 및 28px 인벤토리 그리드 지원" }
+        ]
+    },
+    {
+        version: "v1.5.7",
+        date: "2026-10-25",
+        title: "프레임 장비 천하제일 챔피언 벨트(1X) 및 신규 아이템 13종 추가",
+        changes: [
+            { type: "feat", text: "프레임 장비 1X 슬롯(천하제일 챔피언 벨트) 등록 및 전용 48x48 아이콘 추가" },
+            { type: "feat", text: "신규 아이템 13종(각성책 3종, 키드부우 칭호/소모품, 보라색 유물 장비 등) 등록" }
+        ]
+    },
+    {
         version: "v1.5.0",
         date: "2026-10-25",
         title: "개인 조회 프레임 장비 시스템 통합 및 신규 아이템 12종 업데이트",
-        isLatest: true,
         changes: [
             { type: "feat", text: "개인 조회 대시보드에 '프레임장비' 탭 추가: 16개 부위 장착 슬롯, 인벤토리/보관함 및 실시간 장착/해제 인터랙션 지원" },
             { type: "feat", text: "프레임 세트 효과 실시간 계산 및 세트 보너스 바(천하제일 무도가, 거북선인, 크리링의 기원, 융합의 힘 등) 표출" },
