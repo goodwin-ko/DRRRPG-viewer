@@ -847,7 +847,7 @@ function createEquipmentCard(char) {
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
-        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
         if (iconImg) nameRow.appendChild(iconImg);
     }
     const nameSpan = document.createElement('span');
@@ -947,7 +947,7 @@ function createBackpackCard(char) {
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
-        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
         if (iconImg) nameRow.appendChild(iconImg);
     }
     const nameSpan = document.createElement('span');
@@ -1024,6 +1024,8 @@ function createBackpackCard(char) {
                 const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
                 const itemRow = document.createElement('div');
                 itemRow.className = 'bag-item-row';
+                itemRow.dataset.itemName = (item.name || '').toLowerCase();
+                itemRow.dataset.itemId = itemInfo.id;
                 itemRow.style.display = 'flex';
                 itemRow.style.justifyContent = 'space-between';
                 itemRow.style.alignItems = 'center';
@@ -1077,6 +1079,7 @@ function createBackpackCard(char) {
 
     if (activeWarehouseBags.length > 0) {
         const whHeader = document.createElement('div');
+        whHeader.className = 'bag-group-header';
         whHeader.style.cssText = 'font-size:0.8rem;font-weight:bold;color:var(--gold);margin-top:10px;margin-bottom:4px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;';
         whHeader.textContent = '📦 창고배낭';
         bagContainer.appendChild(whHeader);
@@ -1098,6 +1101,7 @@ function createBackpackCard(char) {
 
     if (activeSponsorBags.length > 0) {
         const spHeader = document.createElement('div');
+        spHeader.className = 'bag-group-header';
         spHeader.style.cssText = 'font-size:0.8rem;font-weight:bold;color:var(--cyan);margin-top:10px;margin-bottom:4px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;';
         spHeader.textContent = '🎁 후원창고배낭';
         bagContainer.appendChild(spHeader);
@@ -1192,7 +1196,8 @@ function createLinkPointsCard(data) {
 
         const linkItem = document.createElement('div');
         linkItem.className = 'link-item';
-        linkItem.innerHTML = `<span class="link-item-label">${charName}</span><span class="link-item-val ${val > 0 ? 'active' : ''}">${formatNumber(val)}</span>`;
+        const heroIcon = (typeof getHeroIconHtml === 'function') ? getHeroIconHtml(charName, i, 26) : '';
+        linkItem.innerHTML = `<span class="link-item-label">${heroIcon}${charName}</span><span class="link-item-val ${val > 0 ? 'active' : ''}">${formatNumber(val)}</span>`;
         linkGrid.appendChild(linkItem);
     }
 
@@ -1218,7 +1223,7 @@ function createCharacterCard(char) {
     const nameRow = document.createElement('div');
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
-        const iconImg = createHeroIconElement(char.name, char.slotNum, 26);
+        const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
         if (iconImg) nameRow.appendChild(iconImg);
     }
 
@@ -1506,6 +1511,7 @@ async function fetchAndRenderLogs(nicName) {
             throw new Error(result.error || '데이터 조회에 실패했습니다.');
         }
 
+        window.currentSearchNicName = result.nicName || nicName;
         try {
             localStorage.setItem('DRR_LAST_SEARCHED_USER', result.nicName || nicName);
         } catch(e) {}
@@ -2036,6 +2042,7 @@ async function fetchAndRenderLogs(nicName) {
             const backpackCard = createBackpackCard(char);
             columns['bag'].appendChild(backpackCard);
         });
+        applyBagSearch();
 
         // Render Account Figures Card in "기타" (Other) Tab at the top
         const figuresCard = createFiguresCard(data);
@@ -2169,15 +2176,23 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
             // Table Body
             const tbody = document.createElement('tbody');
+            const searchedNic = (window.currentSearchNicName || (document.getElementById('nicname') && document.getElementById('nicname').value.trim()) || localStorage.getItem('DRR_LAST_SEARCHED_USER') || '').trim().toLowerCase();
+
             subRankings.forEach(item => {
                 const tr = document.createElement('tr');
                 
                 // Format rank with medals for top 3
                 let rankDisplay = item.rank;
                 const isMaster = (typeof isAllMaxMaster === 'function' && isAllMaxMaster(item.nicname)) || (item.nicname && item.nicname.trim().toLowerCase() === '1m60cm');
-                if (isMaster) {
-                    tr.className = 'rank-row-1m60cm';
+                const isSearchedUser = searchedNic && item.nicname && (item.nicname.trim().toLowerCase() === searchedNic);
+
+                const rowClasses = [];
+                if (isMaster) rowClasses.push('rank-row-1m60cm');
+                if (isSearchedUser) rowClasses.push('rank-row-searched');
+                if (rowClasses.length > 0) {
+                    tr.className = rowClasses.join(' ');
                 }
+
                 const nickContent = isMaster
                     ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">${item.nicname}<span class="rank-champion-tag" title="드래곤볼 RPG V20 전캐릭 올맥스 달성">👑 [V20] 전캐릭 올맥스</span>`
                     : item.nicname;
@@ -2188,7 +2203,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                 tr.innerHTML = `
                     <td style="text-align: center; font-weight: 800;" class="rank-num-${item.rank}">${rankDisplay}</td>
                     <td style="text-align: left;">
-                        <span class="rank-nickname" data-nickname="${item.nicname}">${nickContent}</span>
+                        <span class="rank-nickname" data-nickname="${item.nicname}">${nickContent}${isSearchedUser ? ' <span class="rank-me-tag">📍 내 순위</span>' : ''}</span>
                     </td>
                     <td style="text-align: right; font-weight: 700; color: var(--cyan);">${formatNumber(item.score)}</td>
                 `;
@@ -2261,6 +2276,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 배낭 아이템 검색 초기화
+    initBagSearch();
+
     const urlParams = new URLSearchParams(window.location.search);
     const userParam = urlParams.get('nicName');
     const targetUser = userParam || savedPinnedUser || '';
@@ -2271,6 +2289,133 @@ window.addEventListener('DOMContentLoaded', () => {
         nicnameInput.value = '';
     }
 });
+
+// ─── Backpack Item Search & Filter ───
+function applyBagSearch() {
+    const input = document.getElementById('bag-search-input');
+    const checkbox = document.getElementById('bag-only-matched-checkbox');
+    const clearBtn = document.getElementById('bag-search-clear');
+    const countEl = document.getElementById('bag-search-result-count');
+    if (!input || !checkbox) return;
+
+    const query = input.value.trim().toLowerCase();
+    const onlyMatched = checkbox.checked;
+
+    if (clearBtn) {
+        clearBtn.style.display = query ? 'inline-block' : 'none';
+    }
+
+    const bagCards = document.querySelectorAll('#col-bag .bag-card');
+    if (bagCards.length === 0) {
+        if (countEl) countEl.textContent = '';
+        return;
+    }
+
+    if (!query) {
+        // Reset all
+        bagCards.forEach(card => {
+            card.style.display = '';
+            card.querySelectorAll('.bag-section').forEach(sec => sec.style.display = '');
+            card.querySelectorAll('.bag-item-row').forEach(row => {
+                row.style.display = '';
+                row.classList.remove('item-highlight-match');
+            });
+            card.querySelectorAll('.bag-group-header').forEach(hdr => hdr.style.display = '');
+        });
+        if (countEl) countEl.textContent = '';
+        return;
+    }
+
+    let totalMatchItems = 0;
+    let totalMatchCards = 0;
+
+    bagCards.forEach(card => {
+        let cardMatches = 0;
+        const sections = card.querySelectorAll('.bag-section');
+
+        sections.forEach(sec => {
+            let sectionMatches = 0;
+            const rows = sec.querySelectorAll('.bag-item-row');
+            rows.forEach(row => {
+                const itemName = (row.dataset.itemName || row.querySelector('.equip-item')?.textContent || '').toLowerCase();
+                const isMatch = itemName.includes(query);
+                if (isMatch) {
+                    sectionMatches++;
+                    cardMatches++;
+                    totalMatchItems++;
+                    row.classList.add('item-highlight-match');
+                    row.style.display = '';
+                } else {
+                    row.classList.remove('item-highlight-match');
+                    if (onlyMatched) {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                }
+            });
+
+            if (onlyMatched) {
+                sec.style.display = sectionMatches > 0 ? '' : 'none';
+            } else {
+                sec.style.display = '';
+            }
+        });
+
+        // Group headers (창고배낭, 후원창고배낭)
+        if (onlyMatched) {
+            card.querySelectorAll('.bag-group-header').forEach(hdr => {
+                let next = hdr.nextElementSibling;
+                let hasVisible = false;
+                if (next && next.classList.contains('bag-section')) {
+                    if (next.style.display !== 'none') hasVisible = true;
+                } else if (next && next.querySelectorAll) {
+                    next.querySelectorAll('.bag-section').forEach(s => {
+                        if (s.style.display !== 'none') hasVisible = true;
+                    });
+                }
+                hdr.style.display = hasVisible ? '' : 'none';
+            });
+        } else {
+            card.querySelectorAll('.bag-group-header').forEach(hdr => hdr.style.display = '');
+        }
+
+        if (cardMatches > 0) {
+            card.style.display = '';
+            totalMatchCards++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    if (countEl) {
+        if (totalMatchCards > 0) {
+            countEl.textContent = `${totalMatchItems}개 일치 (${totalMatchCards}명 보유)`;
+        } else {
+            countEl.textContent = '일치하는 아이템 없음';
+        }
+    }
+}
+
+function initBagSearch() {
+    const input = document.getElementById('bag-search-input');
+    const checkbox = document.getElementById('bag-only-matched-checkbox');
+    const clearBtn = document.getElementById('bag-search-clear');
+
+    if (input) {
+        input.addEventListener('input', applyBagSearch);
+    }
+    if (checkbox) {
+        checkbox.addEventListener('change', applyBagSearch);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            applyBagSearch();
+            input.focus();
+        });
+    }
+}
 
 // ═══════════════════════════════════════════════════════
 //  모바일 전용 UI

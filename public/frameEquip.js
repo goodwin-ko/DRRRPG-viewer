@@ -1,4 +1,4 @@
-/* Dragonball RPG - Frame Equipment Component Module */
+/* Dragonball RPG - Frame Equipment Component Module (High-Resolution Official Sprite & Frame Engine) */
 (function() {
   'use strict';
 
@@ -20,6 +20,8 @@
   };
 
   // Preset Data Definitions (including Krillin and Gohan presets)
+
+  // --- Preset Data Definitions (including Krillin, Gohan, and full jyh10 sets) ---
   const PRESET_DATA = {
     "DBEQ_OPEN": "37,36",
     "DBEQ_GIN": 132,
@@ -38,299 +40,1362 @@
     "DBEQ_B2": "1Ea702pjE20000X,1Ca70000k,1Gd705q7n200018,1HbA00011,0,0,0,0,0,0,0,0"
   };
 
+  // --- Official Database from Worker (Defs, Sets, Kinds, Chars, Parts, Grades, Special) ---
+  const eqDat = {
+  "defs": {
+    "1": {
+      "n": "시험용 도복",
+      "p": 2,
+      "i": "BTNHumanArmorUpOne.blp",
+      "c": 0,
+      "s": 1,
+      "col": "",
+      "ic": -1
+    },
+    "2": {
+      "n": "시험용 장갑",
+      "p": 5,
+      "i": "BTNGauntletsOfOgrePower.blp",
+      "c": 0,
+      "s": 1,
+      "col": "",
+      "ic": -1
+    },
+    "3": {
+      "n": "시험용 신발",
+      "p": 12,
+      "i": "BTNBootsOfSpeed.blp",
+      "c": 0,
+      "s": 1,
+      "col": "",
+      "ic": -1
+    },
+    "4": {
+      "n": "시험용 검",
+      "p": 11,
+      "i": "BTNSteelMelee.blp",
+      "c": -1,
+      "s": 0,
+      "col": "",
+      "ic": -1
+    },
+    "5": {
+      "n": "시험용 반지",
+      "p": 10,
+      "i": "BTNRingGreen.blp",
+      "c": -1,
+      "s": 0,
+      "col": "",
+      "ic": -1
+    },
+    "6": {
+      "n": "거북선인 문하 무도가의 투구",
+      "p": 0,
+      "i": "BTNDB_Beg_Helm.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 5
+    },
+    "7": {
+      "n": "거북선인 문하 무도가의 갑옷",
+      "p": 3,
+      "i": "BTNDB_Beg_Armor.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 6
+    },
+    "8": {
+      "n": "거북선인 문하 무도가의 목걸이",
+      "p": 4,
+      "i": "BTNDB_Beg_Neck.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 7
+    },
+    "9": {
+      "n": "거북선인 문하 무도가의 장갑",
+      "p": 5,
+      "i": "BTNDB_Beg_Glove.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 8
+    },
+    "10": {
+      "n": "거북선인 문하 무도가의 벨트",
+      "p": 6,
+      "i": "BTNDB_Beg_Belt.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 9
+    },
+    "11": {
+      "n": "거북선인 문하 무도가의 손목",
+      "p": 7,
+      "i": "BTNDB_Beg_Wrist.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 10
+    },
+    "12": {
+      "n": "거북선인 문하 무도가의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_Beg_Ear.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 11
+    },
+    "13": {
+      "n": "거북선인 문하 무도가의 하의",
+      "p": 9,
+      "i": "BTNDB_Beg_Pants.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 12
+    },
+    "14": {
+      "n": "거북선인 문하 무도가의 반지",
+      "p": 10,
+      "i": "BTNDB_Beg_Ring.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 13
+    },
+    "15": {
+      "n": "거북선인 문하 무도가의 무기",
+      "p": 11,
+      "i": "BTNDB_Beg_Weapon.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 14
+    },
+    "16": {
+      "n": "거북선인 문하 무도가의 신발",
+      "p": 12,
+      "i": "BTNDB_Beg_Boots.blp",
+      "c": 0,
+      "s": 2,
+      "col": "",
+      "ic": 15
+    },
+    "17": {
+      "n": "천하제일 무도가의 투구",
+      "p": 0,
+      "i": "BTNDB_Stl_Helm.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 16
+    },
+    "18": {
+      "n": "천하제일 무도가의 갑옷",
+      "p": 3,
+      "i": "BTNDB_Stl_Armor.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 17
+    },
+    "19": {
+      "n": "천하제일 무도가의 목걸이",
+      "p": 4,
+      "i": "BTNDB_Stl_Neck.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 18
+    },
+    "20": {
+      "n": "천하제일 무도가의 장갑",
+      "p": 5,
+      "i": "BTNDB_Stl_Glove.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 19
+    },
+    "21": {
+      "n": "천하제일 무도가의 벨트",
+      "p": 6,
+      "i": "BTNDB_Stl_Belt.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 20
+    },
+    "22": {
+      "n": "천하제일 무도가의 손목",
+      "p": 7,
+      "i": "BTNDB_Stl_Wrist.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 21
+    },
+    "23": {
+      "n": "천하제일 무도가의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_Stl_Ear.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 22
+    },
+    "24": {
+      "n": "천하제일 무도가의 하의",
+      "p": 9,
+      "i": "BTNDB_Stl_Pants.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 23
+    },
+    "25": {
+      "n": "천하제일 무도가의 반지",
+      "p": 10,
+      "i": "BTNDB_Stl_Ring.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 24
+    },
+    "26": {
+      "n": "천하제일 무도가의 무기",
+      "p": 11,
+      "i": "BTNDB_Stl_Weapon.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 25
+    },
+    "27": {
+      "n": "천하제일 무도가의 신발",
+      "p": 12,
+      "i": "BTNDB_Stl_Boots.blp",
+      "c": 0,
+      "s": 3,
+      "col": "",
+      "ic": 26
+    },
+    "28": {
+      "n": "카린탑 무도가의 투구",
+      "p": 0,
+      "i": "BTNDB_Sil_Helm.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 27
+    },
+    "29": {
+      "n": "카린탑 무도가의 갑옷",
+      "p": 3,
+      "i": "BTNDB_Sil_Armor.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 28
+    },
+    "30": {
+      "n": "카린탑 무도가의 목걸이",
+      "p": 4,
+      "i": "BTNDB_Sil_Neck.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 29
+    },
+    "31": {
+      "n": "카린탑 무도가의 장갑",
+      "p": 5,
+      "i": "BTNDB_Sil_Glove.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 30
+    },
+    "32": {
+      "n": "카린탑 무도가의 벨트",
+      "p": 6,
+      "i": "BTNDB_Sil_Belt.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 31
+    },
+    "33": {
+      "n": "카린탑 무도가의 손목",
+      "p": 7,
+      "i": "BTNDB_Sil_Wrist.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 32
+    },
+    "34": {
+      "n": "카린탑 무도가의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_Sil_Ear.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 33
+    },
+    "35": {
+      "n": "카린탑 무도가의 하의",
+      "p": 9,
+      "i": "BTNDB_Sil_Pants.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 34
+    },
+    "36": {
+      "n": "카린탑 무도가의 반지",
+      "p": 10,
+      "i": "BTNDB_Sil_Ring.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 35
+    },
+    "37": {
+      "n": "카린탑 무도가의 무기",
+      "p": 11,
+      "i": "BTNDB_Sil_Weapon.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 36
+    },
+    "38": {
+      "n": "카린탑 무도가의 신발",
+      "p": 12,
+      "i": "BTNDB_Sil_Boots.blp",
+      "c": 0,
+      "s": 4,
+      "col": "",
+      "ic": 37
+    },
+    "39": {
+      "n": "달인 무도가의 투구",
+      "p": 0,
+      "i": "BTNDB_Gld_Helm.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 38
+    },
+    "40": {
+      "n": "달인 무도가의 갑옷",
+      "p": 3,
+      "i": "BTNDB_Gld_Armor.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 39
+    },
+    "41": {
+      "n": "달인 무도가의 목걸이",
+      "p": 4,
+      "i": "BTNDB_Gld_Neck.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 40
+    },
+    "42": {
+      "n": "달인 무도가의 장갑",
+      "p": 5,
+      "i": "BTNDB_Gld_Glove.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 41
+    },
+    "43": {
+      "n": "달인 무도가의 벨트",
+      "p": 6,
+      "i": "BTNDB_Gld_Belt.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 42
+    },
+    "44": {
+      "n": "달인 무도가의 손목",
+      "p": 7,
+      "i": "BTNDB_Gld_Wrist.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 43
+    },
+    "45": {
+      "n": "달인 무도가의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_Gld_Ear.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 44
+    },
+    "46": {
+      "n": "달인 무도가의 하의",
+      "p": 9,
+      "i": "BTNDB_Gld_Pants.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 45
+    },
+    "47": {
+      "n": "달인 무도가의 반지",
+      "p": 10,
+      "i": "BTNDB_Gld_Ring.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 46
+    },
+    "48": {
+      "n": "달인 무도가의 무기",
+      "p": 11,
+      "i": "BTNDB_Gld_Weapon.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 47
+    },
+    "49": {
+      "n": "달인 무도가의 신발",
+      "p": 12,
+      "i": "BTNDB_Gld_Boots.blp",
+      "c": 0,
+      "s": 5,
+      "col": "",
+      "ic": 48
+    },
+    "50": {
+      "n": "세계 무도가의 투구",
+      "p": 0,
+      "i": "BTNDB_God_Helm.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 49
+    },
+    "51": {
+      "n": "세계 무도가의 갑옷",
+      "p": 3,
+      "i": "BTNDB_God_Armor.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 50
+    },
+    "52": {
+      "n": "세계 무도가의 목걸이",
+      "p": 4,
+      "i": "BTNDB_God_Neck.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 51
+    },
+    "53": {
+      "n": "세계 무도가의 장갑",
+      "p": 5,
+      "i": "BTNDB_God_Glove.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 52
+    },
+    "54": {
+      "n": "세계 무도가의 벨트",
+      "p": 6,
+      "i": "BTNDB_God_Belt.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 53
+    },
+    "55": {
+      "n": "세계 무도가의 손목",
+      "p": 7,
+      "i": "BTNDB_God_Wrist.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 54
+    },
+    "56": {
+      "n": "세계 무도가의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_God_Ear.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 55
+    },
+    "57": {
+      "n": "세계 무도가의 하의",
+      "p": 9,
+      "i": "BTNDB_God_Pants.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 56
+    },
+    "58": {
+      "n": "세계 무도가의 반지",
+      "p": 10,
+      "i": "BTNDB_God_Ring.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 57
+    },
+    "59": {
+      "n": "세계 무도가의 무기",
+      "p": 11,
+      "i": "BTNDB_God_Weapon.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 58
+    },
+    "60": {
+      "n": "세계 무도가의 신발",
+      "p": 12,
+      "i": "BTNDB_God_Boots.blp",
+      "c": 0,
+      "s": 6,
+      "col": "",
+      "ic": 59
+    },
+    "61": {
+      "n": "제국의 명예",
+      "p": 1,
+      "i": "BTNEmpHonor.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": -1
+    },
+    "62": {
+      "n": "오지터의 투구",
+      "p": 0,
+      "i": "BTNDB_Ozi_Helm.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 61
+    },
+    "63": {
+      "n": "오지터의 갑옷",
+      "p": 3,
+      "i": "BTNDB_Ozi_Armor.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 62
+    },
+    "64": {
+      "n": "오지터의 목걸이",
+      "p": 4,
+      "i": "BTNDB_Ozi_Neck.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 63
+    },
+    "65": {
+      "n": "오지터의 장갑",
+      "p": 5,
+      "i": "BTNDB_Ozi_Glove.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 64
+    },
+    "66": {
+      "n": "오지터의 벨트",
+      "p": 6,
+      "i": "BTNDB_Ozi_Belt.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 65
+    },
+    "67": {
+      "n": "오지터의 손목",
+      "p": 7,
+      "i": "BTNDB_Ozi_Wrist.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 66
+    },
+    "68": {
+      "n": "오지터의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_Ozi_Ear.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 67
+    },
+    "69": {
+      "n": "오지터의 하의",
+      "p": 9,
+      "i": "BTNDB_Ozi_Pants.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 68
+    },
+    "70": {
+      "n": "오지터의 반지",
+      "p": 10,
+      "i": "BTNDB_Ozi_Ring.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 69
+    },
+    "71": {
+      "n": "오지터의 무기",
+      "p": 11,
+      "i": "BTNDB_Ozi_Weapon.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 70
+    },
+    "72": {
+      "n": "오지터의 신발",
+      "p": 12,
+      "i": "BTNDB_Ozi_Boots.blp",
+      "c": 0,
+      "s": 0,
+      "col": "",
+      "ic": 71
+    },
+    "73": {
+      "n": "크리링의 두건",
+      "p": 0,
+      "i": "BTNDB_Kri_Helm.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 72
+    },
+    "74": {
+      "n": "크리링의 도복",
+      "p": 2,
+      "i": "BTNDB_Kri_Robe.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 73
+    },
+    "75": {
+      "n": "크리링의 장갑",
+      "p": 5,
+      "i": "BTNDB_Kri_Glove.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 74
+    },
+    "76": {
+      "n": "크리링의 띠",
+      "p": 6,
+      "i": "BTNDB_Kri_Belt.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 75
+    },
+    "77": {
+      "n": "크리링의 손목 붕대",
+      "p": 7,
+      "i": "BTNDB_Kri_Wrist.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 76
+    },
+    "78": {
+      "n": "크리링의 하의",
+      "p": 9,
+      "i": "BTNDB_Kri_Pants.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 77
+    },
+    "79": {
+      "n": "크리링의 신발",
+      "p": 12,
+      "i": "BTNDB_Kri_Boots.blp",
+      "c": 2,
+      "s": 8,
+      "col": "FF00FF00",
+      "ic": 78
+    },
+    "80": {
+      "n": "베지트의 퓨전귀걸이",
+      "p": 8,
+      "i": "BTNDB_Potara.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 79
+    },
+    "81": {
+      "n": "오지터의 수련귀걸이",
+      "p": 8,
+      "i": "BTNDB_OziTrain.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 80
+    },
+    "82": {
+      "n": "융합의 머리띠",
+      "p": 0,
+      "i": "BTNDB_Fs_Helm.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 81
+    },
+    "83": {
+      "n": "융합의 도복",
+      "p": 2,
+      "i": "BTNDB_Fs_Armor.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 82
+    },
+    "84": {
+      "n": "융합의 장갑",
+      "p": 5,
+      "i": "BTNDB_Fs_Glove.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 83
+    },
+    "85": {
+      "n": "융합의 띠",
+      "p": 6,
+      "i": "BTNDB_Fs_Belt.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 84
+    },
+    "86": {
+      "n": "융합의 손목 보호대",
+      "p": 7,
+      "i": "BTNDB_Fs_Wrist.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 85
+    },
+    "87": {
+      "n": "융합의 신발",
+      "p": 12,
+      "i": "BTNDB_Fs_Boots.blp",
+      "c": 0,
+      "s": 9,
+      "col": "FFCC99FF",
+      "ic": 86
+    },
+    "88": {
+      "n": "랭커의 휘장",
+      "p": 1,
+      "i": "BTNDB_Hn_N1.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FF87CEEB",
+      "ic": 87
+    },
+    "89": {
+      "n": "랭커의 훈장",
+      "p": 1,
+      "i": "BTNDB_Hn_N2.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FF87CEEB",
+      "ic": 88
+    },
+    "90": {
+      "n": "랭커의 배지",
+      "p": 1,
+      "i": "BTNDB_Hn_N3.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FF87CEEB",
+      "ic": 89
+    },
+    "91": {
+      "n": "챔피언의 휘장",
+      "p": 1,
+      "i": "BTNDB_Hn_A1.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 90
+    },
+    "92": {
+      "n": "챔피언의 훈장",
+      "p": 1,
+      "i": "BTNDB_Hn_A2.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 91
+    },
+    "93": {
+      "n": "챔피언의 수호 문장",
+      "p": 1,
+      "i": "BTNDB_Hn_A3.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 92
+    },
+    "94": {
+      "n": "챔피언의 왕관",
+      "p": 1,
+      "i": "BTNDB_Hn_A4.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 93
+    },
+    "95": {
+      "n": "천하제일 챔피언 벨트",
+      "p": 1,
+      "i": "BTNDB_Hn_A5.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 94
+    },
+    "96": {
+      "n": "오천크스의 귀걸이",
+      "p": 8,
+      "i": "BTNDB_GotenksEar.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 95
+    },
+    "97": {
+      "n": "셀X의 반지",
+      "p": 10,
+      "i": "BTNDB_CellX_Ring.blp",
+      "c": 0,
+      "s": 0,
+      "col": "FFFFD700",
+      "ic": 96
+    }
+  },
+  "sets": {
+    "1": {
+      "n": "시험",
+      "c": 0,
+      "nd": [
+        2,
+        3,
+        0
+      ],
+      "bn": [
+        20,
+        50,
+        0
+      ]
+    },
+    "2": {
+      "n": "거북선인 문하 무도가",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        20,
+        40,
+        60
+      ]
+    },
+    "3": {
+      "n": "천하제일 무도가",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        30,
+        60,
+        100
+      ]
+    },
+    "4": {
+      "n": "카린탑 무도가",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        50,
+        100,
+        150
+      ]
+    },
+    "5": {
+      "n": "달인 무도가",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        70,
+        140,
+        220
+      ]
+    },
+    "6": {
+      "n": "세계 무도가",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        100,
+        200,
+        300
+      ]
+    },
+    "7": {
+      "n": "오지터",
+      "c": 0,
+      "nd": [
+        3,
+        6,
+        9
+      ],
+      "bn": [
+        150,
+        300,
+        450
+      ]
+    },
+    "8": {
+      "n": "크리링의 기원",
+      "c": 2,
+      "nd": [
+        4,
+        7,
+        0
+      ],
+      "bn": [
+        0,
+        0,
+        0
+      ]
+    },
+    "9": {
+      "n": "융합의 힘 I",
+      "c": 0,
+      "nd": [
+        2,
+        4,
+        6
+      ],
+      "bn": [
+        100,
+        200,
+        300
+      ]
+    }
+  },
+  "kinds": {
+    "1": [
+      "트리거 데미지",
+      "+"
+    ],
+    "2": [
+      "받는 트리거 데미지",
+      "-"
+    ],
+    "3": [
+      "경험치",
+      "+"
+    ],
+    "4": [
+      "드랍률",
+      "+"
+    ],
+    "5": [
+      "트리거 데미지",
+      "+"
+    ],
+    "6": [
+      "힘",
+      "+"
+    ],
+    "7": [
+      "민첩",
+      "+"
+    ],
+    "8": [
+      "지능",
+      "+"
+    ],
+    "9": [
+      "공격속도",
+      "+"
+    ],
+    "10": [
+      "이동속도",
+      "+"
+    ],
+    "11": [
+      "더블 크리티컬 확률",
+      "+"
+    ],
+    "12": [
+      "더블 크리티컬 데미지",
+      "+"
+    ],
+    "15": [
+      "퓨전 지속시간",
+      "+"
+    ],
+    "16": [
+      "퓨전 상태 데미지",
+      "+"
+    ],
+    "17": [
+      "퓨전 시 받는 트리거 데미지",
+      "-"
+    ],
+    "18": [
+      "퓨전 시 영웅 데미지",
+      "-"
+    ],
+    "13": [
+      "기 소모 감소",
+      "-"
+    ],
+    "14": [
+      "기 소모 감소",
+      "-"
+    ]
+  },
+  "chars": {
+    "1": "손오공",
+    "2": "크리링",
+    "3": "야무치",
+    "4": "천진반",
+    "5": "무천도사",
+    "6": "피콜로",
+    "7": "라데츠",
+    "8": "내퍼",
+    "9": "베지터",
+    "10": "굴드",
+    "11": "리쿰",
+    "12": "지스",
+    "13": "버터",
+    "14": "캡틴 기뉴",
+    "15": "미스터 사탄",
+    "16": "손오반(어린)",
+    "17": "프리저",
+    "18": "콜드대왕",
+    "19": "네일",
+    "20": "인조인간 16호",
+    "21": "인조인간 19호",
+    "22": "인조인간 20호",
+    "23": "인조인간 17호",
+    "24": "인조인간 18호",
+    "25": "셀",
+    "26": "트랭크스(미래)",
+    "27": "부르마",
+    "28": "야콩",
+    "29": "데브라",
+    "30": "바비디",
+    "31": "마인부우",
+    "32": "손오반",
+    "33": "도도리아",
+    "34": "비델",
+    "35": "손오천",
+    "36": "트랭크스(어린)",
+    "37": "자봉",
+    "38": "쿠우라",
+    "39": "인조인간 15호",
+    "40": "인조인간 14호",
+    "41": "우부",
+    "42": "타피온",
+    "43": "농부",
+    "44": "인조인간 13호",
+    "45": "쟈넨바",
+    "46": "블루장군",
+    "47": "브로리",
+    "48": "버독",
+    "49": "타레스",
+    "50": "박테리안",
+    "51": "우마왕",
+    "52": "팡",
+    "53": "하이야 드래곤",
+    "54": "브로리(약해진)",
+    "55": "천사 아리",
+    "56": "파이크한",
+    "57": "베이비",
+    "58": "리루도",
+    "59": "인조인간 8호",
+    "60": "심벌",
+    "61": "유린"
+  },
+  "parts": {
+    "0": "투구",
+    "1": "명예",
+    "2": "도복",
+    "3": "갑옷",
+    "4": "목걸이",
+    "5": "장갑",
+    "6": "벨트",
+    "7": "손목",
+    "8": "귀걸이",
+    "9": "하의",
+    "10": "반지",
+    "11": "무기",
+    "12": "신발",
+    "13": "보조"
+  },
+  "grades": {
+    "1": "일반",
+    "2": "고급",
+    "3": "희귀",
+    "4": "영웅",
+    "5": "전설"
+  },
+  "special": {
+    "DBEqKriSet": 8,
+    "DBVgDef": 80,
+    "DBOzDef": 81,
+    "DBEqFsSet": 9,
+    "DBGtDef": 96,
+    "DBCxDef": 97
+  }
+};
+
   let currentChar = '손오반';
   let currentSlotId = 32;
   let currentData = JSON.parse(JSON.stringify(PRESET_DATA));
   let currentTab = 'inventory'; // 'inventory' | 'vault'
   let currentPage = 1;
-  let currentFilter = 'all';
-  let selectedItemModal = null;
+  let currentFilter = 'all'; // 'all' | 'weapon' | 'armor' | 'acc'
 
-  const BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  function base62Decode(str) {
-    let val = 0;
-    for (let i = 0; i < str.length; i++) {
-      const c = str[i];
-      let idx = BASE62_CHARS.indexOf(c);
-      if (idx === -1) idx = 0;
-      val = val * 62 + idx;
+  const B62 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const d62 = s => {
+    let r = 0;
+    for (const c of s) {
+      const j = B62.indexOf(c);
+      if (j < 0) return 0;
+      r = r * 62 + j;
     }
-    return val;
-  }
-
-  const RARITY_MAP = {
-    'a': { name: '일반', color: '#b0aec2', class: 'rarity-a' },
-    'b': { name: '고급', color: '#00ff66', class: 'rarity-b' },
-    'c': { name: '희귀', color: '#00d2ff', class: 'rarity-c' },
-    'd': { name: '영웅', color: '#c77dff', class: 'rarity-d' },
-    'e': { name: '전설', color: '#ffaa00', class: 'rarity-e' },
-    'f': { name: '신화', color: '#ff3355', class: 'rarity-f' }
+    return r;
   };
 
+  const SLOTP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 10, 10, 11, 12, 13];
   const SLOT_MAP = {
-    0: { name: '투구', hex: '0', cat: 'armor' },
-    1: { name: '명예', hex: '1', cat: 'acc' },
-    2: { name: '도복', hex: '2', cat: 'armor' },
-    3: { name: '갑옷', hex: '3', cat: 'armor' },
-    4: { name: '목걸이', hex: '4', cat: 'acc' },
-    5: { name: '장갑', hex: '5', cat: 'acc' },
-    6: { name: '벨트', hex: '6', cat: 'acc' },
-    7: { name: '손목', hex: '7', cat: 'acc' },
-    8: { name: '귀걸이(좌)', hex: '8', cat: 'acc' },
-    9: { name: '하의', hex: '9', cat: 'armor' },
-    10: { name: '귀걸이(우)', hex: 'A', cat: 'acc' },
-    11: { name: '반지(좌)', hex: 'B', cat: 'acc' },
-    12: { name: '반지(우)', hex: 'C', cat: 'acc' },
-    13: { name: '무기', hex: 'D', cat: 'weapon' },
-    14: { name: '신발', hex: 'E', cat: 'armor' },
-    15: { name: '보조', hex: 'F', cat: 'weapon' }
+    0: { hex: '0', name: '투구', part: 0 },
+    1: { hex: '1', name: '명예', part: 1 },
+    2: { hex: '2', name: '도복', part: 2 },
+    3: { hex: '3', name: '갑옷', part: 3 },
+    4: { hex: '4', name: '목걸이', part: 4 },
+    5: { hex: '5', name: '장갑', part: 5 },
+    6: { hex: '6', name: '벨트', part: 6 },
+    7: { hex: '7', name: '손목', part: 7 },
+    8: { hex: '8', name: '귀걸이(좌)', part: 8 },
+    9: { hex: '9', name: '하의', part: 9 },
+    10: { hex: 'A', name: '귀걸이(우)', part: 8 },
+    11: { hex: 'B', name: '반지(좌)', part: 10 },
+    12: { hex: 'C', name: '반지(우)', part: 10 },
+    13: { hex: 'D', name: '무기', part: 11 },
+    14: { hex: 'E', name: '신발', part: 12 },
+    15: { hex: 'F', name: '보조', part: 13 }
   };
 
-  // Default icons per slot
-  const DEFAULT_SLOT_ICONS = {
-    0: 'images/frame/slot_0_helm.png',
-    1: 'images/frame/champion_belt.png',
-    2: 'images/frame/krillin_dobok.png',
-    3: 'images/frame/slot_3_armor.png',
-    4: 'images/frame/slot_4_necklace.png',
-    5: 'images/frame/slot_5_gloves.png',
-    6: 'images/frame/slot_6_belt.png',
-    7: 'images/frame/slot_7_wrist.png',
-    8: 'images/frame/slot_8_earring.png',
-    9: 'images/frame/slot_9_pants.png',
-    10: 'images/frame/slot_10_earring.png',
-    11: 'images/frame/slot_12_ring.png',
-    12: 'images/frame/slot_12_ring.png',
-    13: 'images/frame/slot_13_weapon.png',
-    14: 'images/frame/slot_14_boots.png',
-    15: 'images/frame/slot_13_weapon.png'
-  };
+  const GC = { 1: '#bebebe', 2: '#50dc5a', 3: '#50a0ff', 4: '#be5fff', 5: '#ff9b2d' };
 
-  const ITEM_BASE_MAP = {
-    // 거북선인 문하 무도가 세트 (0A ~ 0G)
-    '0A': { name: '거북선인 문하 무도가의 투구', set: '거북선인 문하 무도가', slot: 0 },
-    '0B': { name: '거북선인 문하 무도가의 도복', set: '거북선인 문하 무도가', slot: 2 },
-    '0C': { name: '거북선인 문하 무도가의 갑옷', set: '거북선인 문하 무도가', slot: 3 },
-    '0D': { name: '거북선인 문하 무도가의 하의', set: '거북선인 문하 무도가', slot: 9, icon: 'images/frame/slot_9_pants.png' },
-    '0E': { name: '거북선인 문하 무도가의 반지', set: '거북선인 문하 무도가', slot: 12, icon: 'images/frame/slot_12_ring.png' },
-    '0G': { name: '거북선인 문하 무도가의 신발', set: '거북선인 문하 무도가', slot: 14, icon: 'images/frame/slot_14_boots.png' },
-
-    // 천하제일 무도가 세트 (0H ~ 0Q)
-    '0H': { name: '천하제일 무도가의 투구', set: '천하제일 무도가', slot: 0, icon: 'images/frame/slot_0_helm.png' },
-    '0I': { name: '천하제일 무도가의 갑옷', set: '천하제일 무도가', slot: 3, icon: 'images/frame/slot_3_armor.png' },
-    '0J': { name: '천하제일 무도가의 목걸이', set: '천하제일 무도가', slot: 4, icon: 'images/frame/slot_4_necklace.png' },
-    '0K': { name: '천하제일 무도가의 장갑', set: '천하제일 무도가', slot: 5, icon: 'images/frame/slot_5_gloves.png' },
-    '0L': { name: '천하제일 무도가의 벨트', set: '천하제일 무도가', slot: 6, icon: 'images/frame/slot_6_belt.png' },
-    '0M': { name: '천하제일 무도가의 손목', set: '천하제일 무도가', slot: 7, icon: 'images/frame/slot_7_wrist.png' },
-    '0N': { name: '천하제일 무도가의 귀걸이', set: '천하제일 무도가', slot: 8, icon: 'images/frame/slot_8_earring.png' },
-    '0Q': { name: '천하제일 무도가의 무기', set: '천하제일 무도가', slot: 13, icon: 'images/frame/slot_13_weapon.png' },
-
-    // 크리링의 기원 세트 (1B ~ 1H) - 크리링 전용 7세트
-    '1B': { name: '크리링의 두건', set: '크리링의 기원 (크리링 전용)', slot: 0, icon: 'images/frame/krillin_headband.png' },
-    '1C': { name: '크리링의 도복', set: '크리링의 기원 (크리링 전용)', slot: 2, icon: 'images/frame/krillin_dobok.png' },
-    '1D': { name: '크리링의 장비 [1D]', set: '크리링의 기원 (크리링 전용)', slot: 5 },
-    '1E': { name: '크리링의 띠', set: '크리링의 기원 (크리링 전용)', slot: 6, icon: 'images/frame/krillin_belt.png' },
-    '1F': { name: '크리링의 장비 [1F]', set: '크리링의 기원 (크리링 전용)', slot: 7 },
-    '1G': { name: '크리링의 하의', set: '크리링의 기원 (크리링 전용)', slot: 9, icon: 'images/frame/slot_9_pants.png' },
-    '1H': { name: '크리링의 신발', set: '크리링의 기원 (크리링 전용)', slot: 14, icon: 'images/frame/slot_14_boots.png' },
-
-    // 오지터 세트
-    '11': { name: '오지터의 갑옷', set: '오지터', slot: 3, icon: 'images/gogeta_armor.png' },
-    '15': { name: '오지터의 손목', set: '오지터', slot: 7, icon: 'images/frame/slot_7_wrist.png' },
-
-    // 융합의 힘 I 세트
-    '1N': { name: '융합의 띠', set: '융합의 힘 I', slot: 6, icon: 'images/frame/slot_6_belt.png' },
-
-    // 기타 확인된 세트 및 접두사 (10, 12, 13, 14, 16, 1L, 1P)
-    '10': { name: '장비 [10]', set: '일반 장비', slot: 0 },
-    '12': { name: '장비 [12]', set: '일반 장비', slot: 4 },
-    '13': { name: '장비 [13]', set: '일반 장비', slot: 5 },
-    '14': { name: '장비 [14]', set: '일반 장비', slot: 6 },
-    '16': { name: '장비 [16]', set: '일반 장비', slot: 10 },
-    '1L': { name: '장비 [1L]', set: '일반 장비', slot: 2 },
-    '1P': { name: '장비 [1P]', set: '일반 장비', slot: 14 },
-    '1X': { name: '천하제일 챔피언 벨트', set: '일반 장비', slot: 1, icon: 'images/frame/champion_belt.png' }
-  };
-
-  const SET_EFFECTS = {
-    '거북선인 문하 무도가': {
-      title: '거북선인 문하 무도가 세트',
-      desc: [
-        '3세트 : 트리거 데미지 + 2.0%',
-        '6세트 : 트리거 데미지 + 5.0%'
-      ]
-    },
-    '천하제일 무도가': {
-      title: '천하제일 무도가 세트',
-      desc: [
-        '3세트 : 트리거 데미지 + 2.0%',
-        '9세트 : 트리거 데미지 + 10.0%'
-      ]
-    },
-    '크리링의 기원 (크리링 전용)': {
-      title: '크리링의 기원 세트 (크리링 전용)',
-      desc: [
-        '4세트 : 받는 트리거 피해 -20%, 받는 영웅 피해 -15%',
-        '7세트 : 에너지파 → 기원참'
-      ]
-    },
-    '융합의 힘 I': {
-      title: '융합의 힘 I 세트',
-      desc: [
-        '2세트 : 트뎀 +10%, 퓨전 지속 +20초, 퓨전 데미지 +30%',
-        '4세트 : 트뎀 +20%, 퓨전 시 받트뎀 · 영웅뎀 -15%',
-        '6세트 : 트뎀 +30%, 오지터 퓨전 실패 없음, 퓨전 데미지 +50%'
-      ]
-    },
-    '오지터': {
-      title: '오지터 세트',
-      desc: [
-        '2세트 : 영웅 공격속도 및 능력치 대폭 증가'
-      ]
+  function eqDec(e) {
+    if (!e || e === '0') return null;
+    let n = e.length, lv = 0;
+    if (n >= 5 && e[n - 2] === '+') {
+      lv = d62(e[n - 1]);
+      e = e.slice(0, n - 2);
+      n -= 2;
     }
-  };
-
-  const STAT_TYPE_MAP = {
-    '1': { name: '트리거 데미지', isPct: true, div: 10 },
-    '2': { name: '받는 트리거 피해', isPct: true, div: 10, isNegative: true },
-    '3': { name: '경험치 획득량', isPct: true, div: 10 },
-    '4': { name: '드랍률', isPct: true, div: 10 },
-    '5': { name: '캐릭터 전용 트리거 데미지', isPct: true, div: 10 },
-    '6': { name: '힘', isPct: false },
-    '7': { name: '민첩', isPct: false },
-    '8': { name: '지능', isPct: false },
-    '9': { name: '공격속도', isPct: true, div: 10 },
-    'A': { name: '이동속도', isPct: false },
-    'B': { name: '더블 크리티컬 확률', isPct: true, div: 10 },
-    'C': { name: '더블 크리티컬 데미지', isPct: true, div: 10 },
-    'D': { name: '스킬 쿨타임 감소', isPct: true, div: 10, isNegative: true },
-    'E': { name: '물리 방어력', isPct: false },
-    'F': { name: '마법 방어력', isPct: false },
-    'G': { name: '퓨전 상태 데미지', isPct: true, div: 10 },
-    'H': { name: '퓨전 시 받는 트리거 피해', isPct: true, div: 10, isNegative: true },
-    'I': { name: '퓨전 시 받는 영웅 피해', isPct: true, div: 10, isNegative: true },
-    'J': { name: '퓨전 지속시간', isPct: false, unit: '초' }
-  };
-
-  function decodeItem(code, fallbackSlotIdx = 0) {
-    if (!code || code === '0' || code.length < 9) return null;
-
-    const basePrefix = code.slice(0, 2);
-    const rarityChar = code.slice(2, 3);
-    const baseStatTypeChar = code.slice(3, 4);
-    const baseValRaw = code.slice(4, 9);
-
-    const knownBase = ITEM_BASE_MAP[basePrefix] || {
-      name: `프레임 장비 [${basePrefix}]`,
-      set: '일반 장비',
-      slot: fallbackSlotIdx
-    };
-
-    const rarity = RARITY_MAP[rarityChar] || { name: '일반', color: '#b0aec2', class: 'rarity-a' };
-    const slotIdx = (knownBase.slot !== undefined) ? knownBase.slot : fallbackSlotIdx;
-    const slotInfo = SLOT_MAP[slotIdx] || { name: `부위(${slotIdx})`, cat: 'acc' };
-
-    let baseStatName = '';
-    let baseValNum = 0;
-    let baseValFormatted = '';
-    let baseTargetSlotId = null;
-    let baseTargetName = null;
-
-    if (baseStatTypeChar === '5') {
-      const targetCharChar = baseValRaw[0];
-      baseTargetSlotId = BASE62_CHARS.indexOf(targetCharChar);
-      baseTargetName = LINK_NAME_MAPPING[baseTargetSlotId] || ('LINK_' + baseTargetSlotId);
-      baseStatName = `${baseTargetName} 트리거 데미지`;
-      baseValNum = base62Decode(baseValRaw.slice(1));
-      baseValFormatted = '+' + (baseValNum / 10).toFixed(1) + '%';
-    } else {
-      const baseStatConf = STAT_TYPE_MAP[baseStatTypeChar] || { name: `스탯(${baseStatTypeChar})`, isPct: false, div: 1 };
-      baseStatName = baseStatConf.name;
-      baseValNum = base62Decode(baseValRaw);
-      baseValFormatted = baseStatConf.isPct ? (baseValNum / baseStatConf.div).toFixed(1) + '%' : `${baseValNum}`;
-      if (baseStatConf.unit) baseValFormatted += baseStatConf.unit;
-      if (baseStatConf.isNegative) baseValFormatted = '-' + baseValFormatted;
-      else baseValFormatted = '+' + baseValFormatted;
+    if (n < 3) return null;
+    const it = { t: d62(e.slice(0, 2)), lv: Math.min(Math.max(lv, 0), 10), o: [], raw: e };
+    let g = d62(e[2]) - 35, w = 4;
+    if (g < 1 || g > 5) {
+      g = /\d/.test(e[2]) ? +e[2] : 0;
+      w = 3;
     }
-
-    const options = [];
-    const optsStr = code.slice(9);
-    for (let i = 0; i < optsStr.length; i += 6) {
-      if (i + 6 <= optsStr.length) {
-        const chunk = optsStr.slice(i, i + 6);
-        const typeCode = chunk[0];
-        const valRaw = chunk.slice(1);
-        let optName = '';
-        let optValNum = 0;
-        let optValFormatted = '';
-        let optTargetSlotId = null;
-        let optTargetName = null;
-        let isDedicated = false;
-
-        if (typeCode === '5') {
-          const targetCharChar = valRaw[0];
-          optTargetSlotId = BASE62_CHARS.indexOf(targetCharChar);
-          optTargetName = LINK_NAME_MAPPING[optTargetSlotId] || ('LINK_' + optTargetSlotId);
-          optName = `${optTargetName} 트리거 데미지`;
-          optValNum = base62Decode(valRaw.slice(1));
-          optValFormatted = '+' + (optValNum / 10).toFixed(1) + '%';
-          isDedicated = true;
-        } else {
-          const optConf = STAT_TYPE_MAP[typeCode] || { name: `옵션(${typeCode})`, isPct: false, div: 1 };
-          optName = optConf.name;
-          optValNum = base62Decode(valRaw);
-          optValFormatted = optConf.isPct ? (optValNum / optConf.div).toFixed(1) + '%' : `${optValNum}`;
-          if (optConf.unit) optValFormatted += optConf.unit;
-          if (optConf.isNegative) optValFormatted = '-' + optValFormatted;
-          else optValFormatted = '+' + optValFormatted;
-        }
-
-        options.push({
-          code: typeCode,
-          targetSlotId: optTargetSlotId,
-          targetName: optTargetName,
-          isDedicated: isDedicated,
-          name: optName,
-          valRaw: valRaw,
-          valNum: optValNum,
-          valFormatted: optValFormatted,
-          isPct: true,
-          div: 10
-        });
-      }
+    it.g = g;
+    let p = 3;
+    while (it.o.length < 5 && p + 2 + w <= n) {
+      it.o.push([d62(e[p]), d62(e.slice(p + 1, p + 2)), d62(e.slice(p + 2, p + 2 + w))]);
+      p += 2 + w;
     }
-
-    // Default icon mapping per slot
-    let icon = knownBase.icon || DEFAULT_SLOT_ICONS[slotIdx] || 'images/frame/slot_3_armor.png';
-
-    return {
-      code,
-      basePrefix,
-      setName: knownBase.set,
-      rarityChar,
-      rarity,
-      slotIdx,
-      slotInfo,
-      itemName: knownBase.name,
-      baseStatType: baseStatTypeChar,
-      baseTargetSlotId,
-      baseTargetName,
-      baseStatName,
-      baseValNum,
-      baseValFormatted,
-      options,
-      icon
-    };
+    const d = eqDat.defs[it.t];
+    if (!d) return { t: it.t, g: it.g, lv: it.lv, o: [], unk: 1, d: { n: '미확인 장비', p: 13, ic: -1, c: 0, s: 0, col: '' } };
+    it.d = d;
+    return it;
   }
+
+  const evv = (v, lv) => {
+    const m = 10 + lv;
+    return Math.floor(v / 10) * m + Math.floor((v % 10) * m / 10);
+  };
+
+  const f1 = n => (n / 10).toFixed(1);
+  const fmt = n => Number(n).toLocaleString('ko-KR');
+  const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  function eqNameCol(it) {
+    return it.d.col ? '#' + it.d.col.slice(2) : (GC[it.g] || '#fff');
+  }
+
+  function eqNameTx(it) {
+    return (it.lv > 0 ? '+' + it.lv + ' ' : '') + it.d.n;
+  }
+
+
+  function eqLine(it, o) {
+    const [kd, aux, v] = o, K = eqDat.kinds[kd];
+    if (!K) return '? ' + v;
+    const e = evv(v, it.lv);
+    let nm = K[0];
+    if (kd === 5) nm = (eqDat.chars[aux] || '?') + ' ' + nm;
+    if (kd === 15) return nm + ' +' + e + '초';
+    if (kd === 6 || kd === 7 || kd === 8 || kd === 10) return nm + ' +' + fmt(e);
+    if (kd === 13) return nm + ' -' + fmt(e);
+    return nm + ' ' + K[1] + f1(e) + '%';
+  }
+
+  function eqTip(it) {
+    if (!it || !it.d) return '';
+    const d = it.d, st = d.s > 0 ? eqDat.sets[d.s] : null;
+    let h = '';
+    
+    if (it.o && it.o.length > 0) {
+      h += '<div style="margin:6px 0;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;">';
+      for (const o of it.o) {
+        if (o[0] > 0) h += `<div style="font-size:12px;color:#e0e0e0;line-height:1.4;">• ${eqLine(it, o)}</div>`;
+      }
+      h += '</div>';
+    }
+
+    if (it.lv > 0) {
+      h += `<div style="color:#ffd700;font-size:11px;margin-top:6px;border-top:1px dashed rgba(255,215,0,0.3);padding-top:4px;">✨ 강화 +${it.lv} / 10 (모든 옵션 +${it.lv * 10}%)</div>`;
+    }
+
+    if (st) {
+      h += `<div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;color:#00e5ff;font-size:12px;font-weight:bold;">${esc(st.n)} 세트${st.c > 0 ? ` <span style="color:#ffd700;">(${esc(eqDat.chars[st.c] || '')} 전용)</span>` : ''}</div>`;
+      h += st.nd.map((n, i) => n > 0 ? `<div style="font-size:11px;color:#aaa;line-height:1.4;">• ${n}세트 : ${st.c > 0 ? esc(eqDat.chars[st.c] || '') + ' 트리거 데미지' : '트리거 데미지'} +${f1(st.bn[i])}%</div>` : '').join('');
+    }
+
+    const sp = eqDat.special;
+    if (d.n && it.t === sp.DBVgDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 포타라 : 퓨전 지속 시간 동안 카운터 100% 카운터로 변경됩니다.</div>';
+    if (it.t === sp.DBGtDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 오천크스 : 마그눔 파워 지속시간 공격 주기 2배</div>';
+    if (it.t === sp.DBOzDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 오지터 : 보너스 1 이어링 착용 시 퓨전 지속시간 3배로 증가</div>';
+    if (it.t === sp.DBCxDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 셀 X : 풀파워 시 모든 공격력 증가</div>';
+
+    return h;
+  }
+
+  function eqStatus(items, slot) {
+    const S = new Array(19).fill(0), CS = {}, cnt = {};
+    let n = 0;
+    for (const it of items) {
+      if (!it || it.unk) continue;
+      n++;
+      for (const o of it.o) {
+        const kd = o[0];
+        if (!kd) continue;
+        const e = evv(o[2], it.lv);
+        if (kd === 5) CS[o[1]] = (CS[o[1]] || 0) + e * 0.1;
+        else if ([6, 7, 8, 10, 13, 15].includes(kd)) S[kd] += e;
+        else if (kd > 0 && kd < 19) S[kd] += e * 0.1;
+      }
+      if (it.d.s > 0) cnt[it.d.s] = (cnt[it.d.s] || 0) + 1;
+    }
+    const sets = [];
+    for (const s in cnt) {
+      const st = eqDat.sets[s];
+      let step = 0;
+      for (let k = 2; k >= 0; k--) {
+        if (st.nd[k] > 0 && cnt[s] >= st.nd[k]) {
+          step = k + 1;
+          break;
+        }
+      }
+      if (step > 0) {
+        if (st.c <= 0) S[1] += st.bn[step - 1] * 0.1;
+        else CS[st.c] = (CS[st.c] || 0) + st.bn[step - 1] * 0.1;
+      }
+      sets.push({ n: st.n, c: cnt[s], bn: step ? st.bn[step - 1] : 0, step, id: +s });
+    }
+    const fs = eqDat.special.DBEqFsSet;
+    const fst = sets.find(x => x.id === fs);
+    if (fst) {
+      if (fst.step >= 1) { S[15] += 20; S[16] += 30; }
+      if (fst.step >= 3) S[16] += 50;
+      if (fst.step >= 2) { S[17] += 15; S[18] += 15; }
+    }
+    return { S, CS, sets, n };
+  }
+
+  const catOk = (p, c) => c === 'all' || (c === 'weapon' && (p === 11 || p === 13)) || (c === 'armor' && [0, 1, 2, 3, 5, 6, 7, 9, 12].includes(p)) || (c === 'acc' && [4, 8, 10].includes(p));
 
   // --- Render Functions ---
   function renderAll() {
+    const iconHtml = (typeof getHeroIconHtml === 'function') ? getHeroIconHtml(currentChar, currentSlotId, 26) : '';
     const wChar = document.getElementById('windowCharName');
     if (wChar) wChar.innerText = currentChar;
     const hChar = document.getElementById('frame-header-char-name');
-    if (hChar) hChar.innerText = currentChar;
+    if (hChar) hChar.innerHTML = `<span style="display:inline-flex; align-items:center; gap:6px; vertical-align:middle;">${iconHtml}${currentChar}</span>`;
     const statsChar = document.getElementById('statsCharLabel');
-    if (statsChar) statsChar.innerText = currentChar;
+    if (statsChar) statsChar.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; vertical-align:middle;">${iconHtml}${currentChar}</span>`;
     const jobLabel = document.getElementById('stat_job_label');
     if (jobLabel) jobLabel.innerText = `${currentChar} 전용`;
 
@@ -393,17 +1458,13 @@
     moveCharTooltip(e);
   }
 
-    function moveCharTooltip(e) {
+  function moveCharTooltip(e) {
     const charTooltip = document.getElementById('charHoverTooltip');
     if (!charTooltip) return;
     let x = e.clientX + 16;
     let y = e.clientY + 16;
-    if (x + 220 > window.innerWidth) {
-      x = e.clientX - 230;
-    }
-    if (y + 100 > window.innerHeight) {
-      y = window.innerHeight - 110;
-    }
+    if (x + 220 > window.innerWidth) x = e.clientX - 230;
+    if (y + 100 > window.innerHeight) y = window.innerHeight - 110;
     charTooltip.style.left = Math.max(10, x) + 'px';
     charTooltip.style.top = Math.max(10, y) + 'px';
   }
@@ -415,9 +1476,32 @@
 
   function renderCurrencies() {
     const dustEl = document.getElementById('currDust');
-    if (dustEl) dustEl.innerText = currentData['DBEQ_GIN'] || '0';
+    if (dustEl) dustEl.innerText = fmt(currentData['DBEQ_GIN'] || 0);
     const arkEl = document.getElementById('currArk');
-    if (arkEl) arkEl.innerText = currentData['DBEQ_ARK'] || '0';
+    if (arkEl) arkEl.innerText = fmt(currentData['DBEQ_ARK'] || 0);
+  }
+
+  function renderSlotHtml(it, slotHex, fallbackLabel) {
+    let html = '';
+    if (slotHex) html += `<span class="slot-idx">${slotHex}</span>`;
+
+    if (it && it.d) {
+      const ic = it.d.ic;
+      if (ic >= 0) {
+        html += `<span class="ic2" style="background-image:url('images/frame/eq_icons.webp'); background-size:1000% 1000%; background-position:${(ic % 10) * 100 / 9}% ${Math.floor(ic / 10) * 100 / 9}%;"></span>`;
+      } else {
+        html += `<span class="ph">${(it.d.n || '?')[0]}</span>`;
+      }
+      if (it.g >= 1 && it.g <= 5) {
+        html += `<span class="gf" style="background-image:url('images/frame/eq_fr.webp'); background-size:600% 100%; background-position:${(it.g - 1) * 20}% 0;"></span>`;
+      }
+      if (it.lv > 0) {
+        html += `<span class="up">+${it.lv}</span>`;
+      }
+    } else if (fallbackLabel) {
+      html += `<span class="slot-label">${fallbackLabel}</span>`;
+    }
+    return html;
   }
 
   function renderEquipSlots() {
@@ -435,25 +1519,24 @@
       const slotEl = document.querySelector(`.equip-slot[data-slot="${slot}"]`);
       if (!slotEl) continue;
 
-      // 1. Completely reset slot element (classes, listeners, title, innerHTML)
       slotEl.className = 'equip-slot';
       slotEl.onmouseenter = null;
       slotEl.onmousemove = null;
       slotEl.onmouseleave = null;
       slotEl.onclick = null;
       slotEl.removeAttribute('title');
-      slotEl.innerHTML = `<span class="slot-idx">${SLOT_MAP[slot].hex}</span><span class="slot-label">${SLOT_MAP[slot].name}</span>`;
 
-      // 2. Decode item if exists
       const code = (slot < equippedCodes.length) ? equippedCodes[slot] : '0';
-      const item = decodeItem(code, slot);
+      const it = eqDec(code);
 
-      if (item) {
+      if (it && it.d) {
         equippedCount++;
-        slotEl.classList.add('has-item', item.rarity.class);
-        slotEl.innerHTML = `<span class="slot-idx">${SLOT_MAP[slot].hex}</span><img src="${item.icon}" alt="${item.itemName}" onerror="this.src='images/frame_slot_empty.png'">`;
-        attachTooltip(slotEl, item);
-        slotEl.onclick = () => openItemModal(item, 'equip', slot);
+        slotEl.classList.add('has-item', `rarity-${it.g}`);
+        slotEl.innerHTML = renderSlotHtml(it, SLOT_MAP[slot].hex, null);
+        attachTooltip(slotEl, it);
+        slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it); };
+      } else {
+        slotEl.innerHTML = renderSlotHtml(null, SLOT_MAP[slot].hex, SLOT_MAP[slot].name);
       }
     }
 
@@ -469,7 +1552,7 @@
     grid.innerHTML = '';
 
     const openParts = (currentData['DBEQ_OPEN'] || '36,36').split(',');
-    const unlockedCount = parseInt(openParts[0]) || 36;
+    const unlockedCount = parseInt(openParts[currentTab === 'inventory' ? 0 : 1]) || 36;
 
     const startRow = (currentPage - 1) * 8 + 1;
     const endRow = startRow + 7;
@@ -496,31 +1579,28 @@
 
       const slotEl = document.createElement('div');
       slotEl.className = 'inv-slot';
-      slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
 
       if (!isUnlocked) {
         slotEl.classList.add('locked');
         slotEl.title = `잠긴 슬롯 (#${globalSlotIdx + 1})`;
+        slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
       } else {
-        const item = decodeItem(slotData.code);
-        if (item) {
+        const it = eqDec(slotData.code);
+        if (it && it.d) {
           currentCount++;
-          // Apply filter
-          let showItem = true;
-          if (currentFilter !== 'all') {
-            if (item.slotInfo.cat !== currentFilter) {
-              showItem = false;
-            }
-          }
+          let showItem = catOk(it.d.p, currentFilter);
 
           if (showItem) {
-            slotEl.classList.add('has-item', item.rarity.class);
-            slotEl.innerHTML = `<img class="item-icon" src="${item.icon}" alt="${item.itemName}" onerror="this.src='images/frame_slot_empty.png'">`;
-            attachTooltip(slotEl, item);
-            slotEl.onclick = () => openItemModal(item, currentTab, { row: slotData.row, col: slotData.col });
+            slotEl.classList.add('has-item', `rarity-${it.g}`);
+            slotEl.innerHTML = renderSlotHtml(it, null, null);
+            attachTooltip(slotEl, it);
+            slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it); };
           } else {
             slotEl.classList.add('filtered-out');
+            slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
           }
+        } else {
+          slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
         }
       }
 
@@ -539,119 +1619,18 @@
     const equipKey = `DBEQ_E_${currentSlotId}`;
     const equipStr = currentData[equipKey] || "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
     const codes = equipStr.split(',');
+    const items = codes.map(eqDec);
+    while (items.length < 16) items.push(null);
 
-    const setCountMap = {};
-    let totalStats = {
-      trigger: 0,
-      job: 0,
-      reduc: 0,
-      dc_chance: 0,
-      dc_dmg: 0,
-      exp: 0,
-      drop: 0,
-      str: 0,
-      dex: 0,
-      int: 0,
-      atk_spd: 0,
-      mov_spd: 0
-    };
+    const st = eqStatus(items, currentSlotId);
 
-    codes.forEach((code, slot) => {
-      const item = decodeItem(code, slot);
-      if (item) {
-        if (item.setName) {
-          setCountMap[item.setName] = (setCountMap[item.setName] || 0) + 1;
-        }
-
-        const bt = item.baseStatType;
-        const bv = item.baseValNum;
-        if (bt === '1') totalStats.trigger += bv / 10;
-        if (bt === '2') totalStats.reduc += bv / 10;
-        if (bt === '3') totalStats.exp += bv / 10;
-        if (bt === '4') totalStats.drop += bv / 10;
-        if (bt === '5') {
-          if (item.baseTargetSlotId === currentSlotId) {
-            totalStats.job += bv / 10;
-          }
-        }
-        if (bt === '6') totalStats.str += bv;
-        if (bt === '7') totalStats.dex += bv;
-        if (bt === '8') totalStats.int += bv;
-        if (bt === '9') totalStats.atk_spd += bv / 10;
-        if (bt === 'A') totalStats.mov_spd += bv;
-        if (bt === 'B') totalStats.dc_chance += bv / 10;
-        if (bt === 'C') totalStats.dc_dmg += bv / 10;
-
-        item.options.forEach(opt => {
-          const ot = opt.code;
-          const ov = opt.valNum;
-          if (ot === '1') totalStats.trigger += ov / 10;
-          if (ot === '2') totalStats.reduc += ov / 10;
-          if (ot === '3') totalStats.exp += ov / 10;
-          if (ot === '4') totalStats.drop += ov / 10;
-          if (ot === '5') {
-            if (opt.targetSlotId === currentSlotId) {
-              totalStats.job += ov / 10;
-            }
-          }
-          if (ot === '6') totalStats.str += ov;
-          if (ot === '7') totalStats.dex += ov;
-          if (ot === '8') totalStats.int += ov;
-          if (ot === '9') totalStats.atk_spd += ov / 10;
-          if (ot === 'A') totalStats.mov_spd += ov;
-          if (ot === 'B') totalStats.dc_chance += ov / 10;
-          if (ot === 'C') totalStats.dc_dmg += ov / 10;
-        });
+    // Set Bonus lines
+    const setLines = [];
+    st.sets.forEach(s => {
+      if (s.step > 0) {
+        setLines.push(`<span>${esc(s.n)} ${s.c}개 (${s.step * 3 >= 9 ? 9 : (s.step === 2 ? 6 : 3)}세트)</span> <strong style="color:#00ff66;">트뎀 +${f1(s.bn)}%</strong>`);
       }
     });
-
-    // Set Bonuses calculation
-    const setLines = [];
-    const countGeobuk = setCountMap['거북선인 문하 무도가'] || 0;
-    if (countGeobuk >= 6) {
-      totalStats.trigger += 5.0;
-      setLines.push(`<span>거북선인 문하 무도가 ${countGeobuk}개 (6세트)</span> <strong style="color:var(--cyan);">트뎀 +5.0%</strong>`);
-    } else if (countGeobuk >= 3) {
-      totalStats.trigger += 2.0;
-      setLines.push(`<span>거북선인 문하 무도가 ${countGeobuk}개 (3세트)</span> <strong style="color:var(--cyan);">트뎀 +2.0%</strong>`);
-    }
-
-    const countCheonha = setCountMap['천하제일 무도가'] || 0;
-    if (countCheonha >= 9) {
-      totalStats.trigger += 10.0;
-      setLines.push(`<span>천하제일 무도가 ${countCheonha}개 (9세트)</span> <strong style="color:var(--cyan);">트뎀 +10.0%</strong>`);
-    } else if (countCheonha >= 3) {
-      totalStats.trigger += 2.0;
-      setLines.push(`<span>천하제일 무도가 ${countCheonha}개 (3세트)</span> <strong style="color:var(--cyan);">트뎀 +2.0%</strong>`);
-    }
-
-    const countKrillin = setCountMap['크리링의 기원 (크리링 전용)'] || 0;
-    if (countKrillin >= 4) {
-      totalStats.reduc += 20.0;
-      setLines.push(`<span>크리링의 기원 ${countKrillin}개 (4세트)</span> <strong style="color:var(--cyan);">받트뎀 -20%, 영웅뎀 -15%</strong>`);
-    }
-    if (countKrillin >= 7) {
-      setLines.push(`<span>크리링의 기원 7개 (7세트)</span> <strong style="color:#00ff66;">에너지파 → 기원참</strong>`);
-    }
-
-    const countFusion = setCountMap['융합의 힘 I'] || 0;
-    if (countFusion >= 6) {
-      totalStats.trigger += 30.0;
-      setLines.push(`<span>융합의 힘 I ${countFusion}개 (6세트)</span> <strong style="color:#00ff66;">트뎀 +30%, 오지터 퓨전 실패 없음, 퓨전 뎀 +50%</strong>`);
-    } else if (countFusion >= 4) {
-      totalStats.trigger += 20.0;
-      totalStats.reduc += 15.0;
-      setLines.push(`<span>융합의 힘 I ${countFusion}개 (4세트)</span> <strong style="color:var(--cyan);">트뎀 +20%, 퓨전 시 받트뎀 · 영웅뎀 -15%</strong>`);
-    } else if (countFusion >= 2) {
-      totalStats.trigger += 10.0;
-      setLines.push(`<span>융합의 힘 I ${countFusion}개 (2세트)</span> <strong style="color:var(--cyan);">트뎀 +10%, 퓨전 지속 +20초, 퓨전 뎀 +30%</strong>`);
-    }
-
-    const countGogeta = setCountMap['오지터'] || 0;
-    if (countGogeta >= 2) {
-      totalStats.atk_spd += 30.0;
-      setLines.push(`<span>오지터 ${countGogeta}개 (2세트)</span> <strong style="color:var(--cyan);">영웅 공속 및 능력치 대폭 증가</strong>`);
-    }
 
     const setBonusBar = document.getElementById('setBonusBar');
     if (setBonusBar) {
@@ -663,181 +1642,141 @@
       }
     }
 
-    // Display in stats panel (Support both old & new element IDs)
+    // Display total stats
     const stEl = document.getElementById('stat_trigger') || document.getElementById('stat_trig_dmg');
-    if (stEl) stEl.innerText = `+${totalStats.trigger.toFixed(1)}%`;
+    if (stEl) stEl.innerText = `+${st.S[1].toFixed(1)}%`;
 
     const statJobEl = document.getElementById('stat_job');
-    if (statJobEl) statJobEl.innerText = `+${totalStats.job.toFixed(1)}%`;
+    const jobVal = st.CS[currentSlotId] || 0;
+    if (statJobEl) statJobEl.innerText = `+${jobVal.toFixed(1)}%`;
 
     const sdrEl = document.getElementById('stat_dmg_reduc') || document.getElementById('stat_dmg_red');
-    if (sdrEl) sdrEl.innerText = `-${totalStats.reduc.toFixed(1)}%`;
+    if (sdrEl) sdrEl.innerText = `-${st.S[2].toFixed(1)}%`;
 
     const sdcEl = document.getElementById('stat_dc_chance');
-    if (sdcEl) sdcEl.innerText = `+${totalStats.dc_chance.toFixed(1)}%`;
+    if (sdcEl) sdcEl.innerText = `+${st.S[11].toFixed(1)}%`;
 
     const sddEl = document.getElementById('stat_dc_dmg');
-    if (sddEl) sddEl.innerText = `+${totalStats.dc_dmg.toFixed(1)}%`;
+    if (sddEl) sddEl.innerText = `+${st.S[12].toFixed(1)}%`;
 
     const seEl = document.getElementById('stat_exp');
-    if (seEl) seEl.innerText = `+${totalStats.exp.toFixed(1)}%`;
+    if (seEl) seEl.innerText = `+${st.S[3].toFixed(1)}%`;
 
     const sdrpEl = document.getElementById('stat_drop');
-    if (sdrpEl) sdrpEl.innerText = `+${totalStats.drop.toFixed(1)}%`;
+    if (sdrpEl) sdrpEl.innerText = `+${st.S[4].toFixed(1)}%`;
 
     const sStrEl = document.getElementById('stat_str');
-    if (sStrEl) sStrEl.innerText = `+${totalStats.str}`;
+    if (sStrEl) sStrEl.innerText = `+${fmt(Math.floor(st.S[6]))}`;
 
-    const sDexEl = document.getElementById('stat_dex') || document.getElementById('stat_agi');
-    if (sDexEl) sDexEl.innerText = `+${totalStats.dex}`;
+    const sDexEl = document.getElementById('stat_dex');
+    if (sDexEl) sDexEl.innerText = `+${fmt(Math.floor(st.S[7]))}`;
 
     const sIntEl = document.getElementById('stat_int');
-    if (sIntEl) sIntEl.innerText = `+${totalStats.int}`;
+    if (sIntEl) sIntEl.innerText = `+${fmt(Math.floor(st.S[8]))}`;
 
-    const satkEl = document.getElementById('stat_atk_spd');
-    if (satkEl) satkEl.innerHTML = `+${totalStats.atk_spd.toFixed(1)}%`;
+    const sAtkSpdEl = document.getElementById('stat_atk_spd');
+    if (sAtkSpdEl) sAtkSpdEl.innerText = `+${st.S[9].toFixed(1)}%`;
 
-    const smovEl = document.getElementById('stat_mov_spd');
-    if (smovEl) smovEl.innerHTML = `+${totalStats.mov_spd}`;
+    const sMovSpdEl = document.getElementById('stat_mov_spd');
+    if (sMovSpdEl) sMovSpdEl.innerText = `+${fmt(Math.floor(st.S[10]))}`;
   }
 
-  // --- Tooltip Logic ---
-  function attachTooltip(el, item) {
-    el.onmouseenter = (e) => {
-      const tooltip = document.getElementById('itemTooltip');
-      if (!tooltip) return;
-
-      const ttName = document.getElementById('ttName');
-      if (ttName) {
-        ttName.innerText = item.itemName;
-        ttName.style.color = item.rarity.color;
-      }
-      const ttMeta = document.getElementById('ttMeta');
-      if (ttMeta) ttMeta.innerText = `[${item.rarity.name}] ${item.slotInfo.name}`;
-      const ttIcon = document.getElementById('ttIcon');
-      if (ttIcon) ttIcon.src = item.icon;
-
-      const statsEl = document.getElementById('ttStats');
-      if (statsEl) {
-        const isBaseReduc = (item.baseStatType === '2' || item.baseStatType === 'H' || item.baseStatType === 'I');
-        let html = `
-          <div class="tt-stat-row">
-            <span style="color:#d1c4e9; font-weight:bold;">${item.baseStatName}:</span>
-            <span style="color:${isBaseReduc ? '#ff8888' : '#00ff66'}; font-weight:bold;">${item.baseValFormatted}</span>
-          </div>
-        `;
-
-        item.options.forEach(opt => {
-          const isReduc = (opt.code === '2' || opt.code === 'H' || opt.code === 'I');
-          html += `
-            <div class="tt-stat-row">
-              <span style="color:#d1c4e9; line-height:1.45;">• ${opt.name}:</span>
-              <span style="color:${isReduc ? '#ff8888' : '#00ff66'}; font-weight:bold;">${opt.valFormatted}</span>
-            </div>
-          `;
-        });
-        statsEl.innerHTML = html;
-      }
-
-      const setEl = document.getElementById('ttSet');
-      if (setEl) {
-        const setEffect = SET_EFFECTS[item.setName];
-        if (setEffect) {
-          const descHtml = setEffect.desc.map(d => `<div style="color:#d1c4e9; font-size:11px; margin-top:2px;">• ${d}</div>`).join('');
-          setEl.innerHTML = `
-            <div style="color:#00ff66; font-weight:bold; font-size:12px; margin-bottom:3px;">${setEffect.title}</div>
-            ${descHtml}
-          `;
-          setEl.style.display = 'block';
-        } else if (item.setName && item.setName !== '일반 장비') {
-          setEl.innerHTML = `<div style="color:#00ff66; font-weight:bold; font-size:12px;">${item.setName} 세트</div>`;
-          setEl.style.display = 'block';
-        } else {
-          setEl.style.display = 'none';
-        }
-      }
-
-      tooltip.classList.add('active');
-      moveTooltip(e);
-    };
-
-    el.onmousemove = (e) => moveTooltip(e);
-    el.onmouseleave = () => detachTooltip();
+  // --- Tooltip Handler ---
+  function attachTooltip(element, it) {
+    element.onmouseenter = (e) => showTooltip(e, it);
+    element.onmousemove = (e) => moveTooltip(e);
+    element.onmouseleave = () => detachTooltip();
   }
 
-  function detachTooltip(el) {
-    if (el) {
-      el.onmouseenter = null;
-      el.onmousemove = null;
-      el.onmouseleave = null;
-    }
-    const tooltip = document.getElementById('itemTooltip');
-    if (tooltip) {
-      tooltip.classList.remove('active');
-      tooltip.style.display = 'none';
-    }
+  function showTooltip(e, it) {
+    const tt = document.getElementById('itemTooltip');
+    if (!tt || !it || !it.d) return;
+
+    tt.innerHTML = `
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+        <div style="width:48px; height:48px; position:relative; background:#0f0b08; border-radius:6px; flex-shrink:0;">
+          ${it.d.ic >= 0 
+            ? `<span style="position:absolute; inset:2px; background-image:url('images/frame/eq_icons.webp'); background-size:1000% 1000%; background-position:${(it.d.ic % 10) * 100 / 9}% ${Math.floor(it.d.ic / 10) * 100 / 9}%;"></span>`
+            : `<span style="position:absolute; inset:2px; display:flex; align-items:center; justify-content:center; color:#ffd9a0; font-weight:bold;">${(it.d.n||'?')[0]}</span>`
+          }
+          ${it.g >= 1 && it.g <= 5 
+            ? `<span style="position:absolute; inset:0; background-image:url('images/frame/eq_fr.webp'); background-size:600% 100%; background-position:${(it.g - 1) * 20}% 0;"></span>` 
+            : ''}
+        </div>
+        <div>
+          <div style="color:${eqNameCol(it)}; font-weight:bold; font-size:14px;">${esc(eqNameTx(it))}</div>
+          <div style="font-size:12px; color:#aaa;"><span style="color:${GC[it.g] || '#fff'};">[${eqDat.grades[it.g] || '-'}]</span> ${esc(eqDat.parts[it.d.p] || '')}</div>
+        </div>
+      </div>
+      <div>${eqTip(it)}</div>
+    `;
+
+    tt.classList.add('active');
+    moveTooltip(e);
   }
 
-    function moveTooltip(e) {
-    const tooltip = document.getElementById('itemTooltip');
-    if (!tooltip) return;
+  function moveTooltip(e) {
+    const tt = document.getElementById('itemTooltip');
+    if (!tt) return;
     let x = e.clientX + 16;
     let y = e.clientY + 16;
-    if (x + 300 > window.innerWidth) {
-      x = e.clientX - 310;
-    }
-    if (y + 260 > window.innerHeight) {
-      y = window.innerHeight - 270;
-    }
-    tooltip.style.left = Math.max(10, x) + 'px';
-    tooltip.style.top = Math.max(10, y) + 'px';
+    if (x + 300 > window.innerWidth) x = e.clientX - 310;
+    if (y + 260 > window.innerHeight) y = window.innerHeight - 270;
+    tt.style.left = Math.max(10, x) + 'px';
+    tt.style.top = Math.max(10, y) + 'px';
   }
 
-  // --- Modal Logic ---
-  function openItemModal(item, locationType, locParam) {
-    selectedItemModal = { item, locationType, locParam };
+  function detachTooltip() {
+    const tt = document.getElementById('itemTooltip');
+    if (tt) tt.classList.remove('active');
+  }
+
+  // --- Modal Control ---
+  let pendingModalAction = null;
+
+  function openItemModal(it, source, meta) {
+    detachTooltip();
     const modal = document.getElementById('actionModal');
-    if (!modal) return;
+    if (!modal || !it || !it.d) return;
 
-    const title = document.getElementById('modalTitle');
-    if (title) title.innerHTML = `<span style="color:${item.rarity.color}">[${item.rarity.name}] ${item.itemName}</span>`;
-
-    const setEffect = SET_EFFECTS[item.setName];
-    let setHtml = '';
-    if (setEffect) {
-      setHtml = `<div style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--border-card); color:#00ff66; font-size:11px;"><strong>${setEffect.title}:</strong><br>${setEffect.desc.join('<br>')}</div>`;
-    }
-
-    const body = document.getElementById('modalBody');
-    if (body) {
-      if (locationType === 'equip' || locationType === 'equipped') {
-        body.innerHTML = `
-          <strong>기본 능력치:</strong> ${item.baseStatName} ${item.baseValFormatted}<br>
-          <strong>옵션:</strong> ${item.options.map(o => o.name + ' ' + o.valFormatted).join(', ') || '없음'}<br>
-          <strong>소속 세트:</strong> ${item.setName}<br>
-          <strong>장착 부위:</strong> ${item.slotInfo.name} (${item.slotIdx}번 슬롯)
-          ${setHtml}
-          <div style="margin-top:10px; color:#ffb74d;">이 장비를 해제하여 인벤토리로 이동하시겠습니까?</div>
-        `;
-      } else {
-        body.innerHTML = `
-          <strong>기본 능력치:</strong> ${item.baseStatName} ${item.baseValFormatted}<br>
-          <strong>옵션:</strong> ${item.options.map(o => o.name + ' ' + o.valFormatted).join(', ') || '없음'}<br>
-          <strong>소속 세트:</strong> ${item.setName}<br>
-          <strong>장착 부위:</strong> ${item.slotInfo.name} (${item.slotIdx}번 슬롯)
-          ${setHtml}
-          <div style="margin-top:10px; color:#00e5ff;">이 프레임 장비를 <strong>[${currentChar}]</strong>에게 장착하시겠습니까?</div>
-        `;
-      }
-    }
-
+    const titleEl = document.getElementById('modalTitle');
+    const bodyEl = document.getElementById('modalBody');
     const confirmBtn = document.getElementById('modalConfirmBtn');
+
+    if (titleEl) {
+      titleEl.innerText = eqNameTx(it);
+      titleEl.style.color = eqNameCol(it);
+    }
+
+    let actionLabel = '';
+    let descriptionText = '';
+
+    if (source === 'equip') {
+      actionLabel = '장비 해제';
+      descriptionText = `[${currentChar}]이(가) 착용 중인 <strong style="color:${eqNameCol(it)};">${esc(eqNameTx(it))}</strong> 장비를 인벤토리로 해제하시겠습니까?`;
+      pendingModalAction = () => unequipItem(meta);
+    } else {
+      actionLabel = '장비 장착';
+      descriptionText = `<strong style="color:${eqNameCol(it)};">${esc(eqNameTx(it))}</strong> 장비를 [${currentChar}]에게 장착하시겠습니까?`;
+      pendingModalAction = () => equipItemFromStorage(meta, it);
+    }
+
     if (confirmBtn) {
-      if (locationType === 'equip' || locationType === 'equipped') {
-        confirmBtn.innerText = '장착 해제 (인벤토리 이동)';
-      } else {
-        confirmBtn.innerText = '장비 장착하기';
-      }
+      confirmBtn.innerText = actionLabel;
+      confirmBtn.style.background = source === 'equip' ? 'rgba(255, 77, 77, 0.25)' : 'rgba(0, 229, 255, 0.25)';
+      confirmBtn.style.color = source === 'equip' ? '#ff4d4d' : '#00e5ff';
+      confirmBtn.style.border = source === 'equip' ? '1px solid #ff4d4d' : '1px solid #00e5ff';
+    }
+
+    if (bodyEl) {
+      bodyEl.innerHTML = `
+        <div style="font-size:13px; line-height:1.5; color:#ddd; margin-bottom:12px;">
+          ${descriptionText}
+        </div>
+        <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-card); border-radius:6px; padding:10px; max-height:160px; overflow-y:auto;">
+          ${eqTip(it)}
+        </div>
+      `;
     }
 
     modal.classList.add('active');
@@ -846,85 +1785,89 @@
   function closeModal() {
     const modal = document.getElementById('actionModal');
     if (modal) modal.classList.remove('active');
-    selectedItemModal = null;
+    pendingModalAction = null;
   }
 
   function confirmModalAction() {
-    if (!selectedItemModal) return;
-    const { item, locationType, locParam } = selectedItemModal;
-
-    const equipKey = `DBEQ_E_${currentSlotId}`;
-    const equipArr = (currentData[equipKey] || "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0").split(',');
-
-    if (locationType === 'equip' || locationType === 'equipped') {
-      equipArr[locParam] = '0';
-      currentData[equipKey] = equipArr.join(',');
-
-      let placed = false;
-      for (let r = 1; r <= 32; r++) {
-        const rowArr = (currentData[`DBEQ_I${r}`] || "0,0,0,0,0,0,0,0,0,0,0,0").split(',');
-        for (let c = 0; c < 12; c++) {
-          if (!rowArr[c] || rowArr[c] === '0') {
-            rowArr[c] = item.code;
-            currentData[`DBEQ_I${r}`] = rowArr.join(',');
-            placed = true;
-            break;
-          }
-        }
-        if (placed) break;
-      }
-    } else {
-      const targetSlot = item.slotIdx !== undefined ? item.slotIdx : 0;
-      const oldEquipped = equipArr[targetSlot];
-
-      equipArr[targetSlot] = item.code;
-      currentData[equipKey] = equipArr.join(',');
-
-      const prefix = locationType === 'inventory' ? 'DBEQ_I' : 'DBEQ_B';
-      const sourceRow = (currentData[`${prefix}${locParam.row}`] || "0,0,0,0,0,0,0,0,0,0,0,0").split(',');
-      sourceRow[locParam.col] = (oldEquipped && oldEquipped !== '0') ? oldEquipped : '0';
-      currentData[`${prefix}${locParam.row}`] = sourceRow.join(',');
+    if (typeof pendingModalAction === 'function') {
+      pendingModalAction();
     }
-
     closeModal();
-    renderAll();
+  }
+
+  function unequipItem(slotIdx) {
+    const equipKey = `DBEQ_E_${currentSlotId}`;
+    const rawStr = currentData[equipKey] || '';
+    const codes = rawStr.split(',');
+    while (codes.length < 16) codes.push('0');
+
+    const itemCode = codes[slotIdx];
+    if (!itemCode || itemCode === '0') return;
+
+    codes[slotIdx] = '0';
+    currentData[equipKey] = codes.join(',');
+
+    renderEquipSlots();
+    renderStats();
+    renderCharacterAvatars();
+  }
+
+  function equipItemFromStorage(meta, it) {
+    if (!it || !it.d) return;
+    const targetSlot = SLOTP.indexOf(it.d.p);
+    const equipKey = `DBEQ_E_${currentSlotId}`;
+    const rawStr = currentData[equipKey] || '';
+    const codes = rawStr.split(',');
+    while (codes.length < 16) codes.push('0');
+
+    const actualSlot = targetSlot >= 0 ? targetSlot : 0;
+    codes[actualSlot] = it.raw || '0';
+    currentData[equipKey] = codes.join(',');
+
+    renderEquipSlots();
+    renderStats();
+    renderCharacterAvatars();
   }
 
   function switchStorageTab(tab) {
     currentTab = tab;
-    const tInv = document.getElementById('tabInventory') || document.getElementById('tabInv');
-    const tVlt = document.getElementById('tabVault');
-    if (tab === 'inventory') {
-      if (tInv) tInv.classList.add('active');
-      if (tVlt) tVlt.classList.remove('active');
-    } else {
-      if (tInv) tInv.classList.remove('active');
-      if (tVlt) tVlt.classList.add('active');
+    currentPage = 1;
+
+    const tInv = document.getElementById('tabInventory');
+    const tVault = document.getElementById('tabVault');
+    if (tInv && tVault) {
+      if (tab === 'inventory') {
+        tInv.classList.add('active');
+        tVault.classList.remove('active');
+      } else {
+        tVault.classList.add('active');
+        tInv.classList.remove('active');
+      }
     }
+
     renderInventoryGrid();
   }
 
   function switchPage(p) {
     currentPage = p;
-    document.querySelectorAll('.inv-page-pill, .page-pill').forEach(el => {
-      if (el.innerText.trim() === String(p)) el.classList.add('active');
-      else if (!el.classList.contains('add-btn')) el.classList.remove('active');
+    document.querySelectorAll('.inv-page-pill').forEach((pill, idx) => {
+      if (idx + 1 === p) pill.classList.add('active');
+      else pill.classList.remove('active');
     });
     renderInventoryGrid();
   }
 
   function setFilter(cat) {
     currentFilter = cat;
-    document.querySelectorAll('.filter-pill, .pill-btn').forEach(el => {
-      const onclickAttr = el.getAttribute('onclick') || '';
-      if (onclickAttr.includes(`setFilter('${cat}')`)) el.classList.add('active');
-      else if (onclickAttr.includes('setFilter(')) el.classList.remove('active');
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      if (btn.getAttribute('data-cat') === cat) btn.classList.add('active');
+      else btn.classList.remove('active');
     });
     renderInventoryGrid();
   }
 
   function expandSlotPrompt() {
-    alert('인게임에서 [지구인의 생명] 아이템을 사용하여 슬롯을 확장할 수 있습니다.');
+    alert('슬롯 확장은 게임 내 상점 및 마법 결정을 통해 진행할 수 있습니다.');
   }
 
   // --- HTML Injection & Mount Function ---
@@ -990,67 +1933,52 @@
                     <div class="inv-page-pill" onclick="switchPage(2)">2</div>
                     <div class="inv-page-pill" onclick="switchPage(3)">3</div>
                     <div class="inv-page-pill" onclick="switchPage(4)">4</div>
-                    <div class="inv-page-pill add-btn" title="지구인의 생명 소모로 1칸 확장 (DBEQ_OPEN)" onclick="expandSlotPrompt()">+</div>
                   </div>
-                  <div class="inv-filter-pills">
-                    <div class="filter-pill active" onclick="setFilter('all')">전체</div>
-                    <div class="filter-pill" onclick="setFilter('weapon')">무기</div>
-                    <div class="filter-pill" onclick="setFilter('armor')">방어구</div>
-                    <div class="filter-pill" onclick="setFilter('acc')">장신구</div>
+                  <div class="inv-filter-group">
+                    <button class="filter-btn active" data-cat="all" onclick="setFilter('all')">전체</button>
+                    <button class="filter-btn" data-cat="weapon" onclick="setFilter('weapon')">무기</button>
+                    <button class="filter-btn" data-cat="armor" onclick="setFilter('armor')">방어구</button>
+                    <button class="filter-btn" data-cat="acc" onclick="setFilter('acc')">장신구</button>
                   </div>
                 </div>
 
-                <!-- Compact 12x8 Grid: 34px slots -->
-                <div class="inv-grid" id="invGrid"></div>
+                <div class="inv-grid-container">
+                  <div class="inv-grid" id="invGrid"></div>
+                </div>
 
-                <div class="inv-bottom-bar">
-                  <div class="inv-action-icons">
-                    <div class="action-btn" title="휴지통 (아이템 버리기)">🗑️</div>
-                    <div class="action-btn" title="분해 (신기루 가루 획득)">💎</div>
-                    <div class="action-btn" title="재연마 / 강화">🔨</div>
+                <div class="inv-footer-bar">
+                  <div class="inv-capacity">
+                    슬롯 확장: <strong id="invCapacityCount">0/36</strong>
+                    <button class="btn-expand" onclick="expandSlotPrompt()">+</button>
                   </div>
-                  <div class="inv-currencies">
-                    <div class="currency-item">
-                      <span>✨ 신기루 가루:</span>
-                      <strong id="currDust">0</strong>
-                    </div>
-                    <div class="currency-item">
-                      <span>💎 아크:</span>
-                      <strong id="currArk">0</strong>
-                    </div>
+                  <div class="inv-currency">
+                    <div class="curr-item"><span class="curr-icon dust-icon">✨</span> 마법결정: <strong id="currDust">0</strong></div>
+                    <div class="curr-item"><span class="curr-icon ark-icon">💎</span> 아크: <strong id="currArk">0</strong></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Bottom: Wide Status Panel -->
-            <div class="bottom-stats-box">
-              <div class="set-bonus-bar" id="setBonusBar" style="display:none;"></div>
-              <div class="stats-header-wide">
-                <span class="title">스테이터스 (<span id="statsCharLabel">손오반</span>)</span>
-                <span class="count" id="equipCount">장착 0/16</span>
+            <!-- Bottom: Real-Time Stats Display Box -->
+            <div class="stats-panel-box">
+              <div class="stats-panel-header">
+                <span class="stats-title">스탯 요약 (<span id="statsCharLabel">${currentChar}</span>)</span>
+                <span class="stats-badge" id="statEquipSummary">장착 0/16</span>
               </div>
-              <div class="stats-grid-wide">
-                <div class="stat-group">
-                  <div class="stat-row"><span class="stat-name">트리거 데미지</span><span class="stat-val highlight" id="stat_trigger">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name" id="stat_job_label">손오반 전용</span><span class="stat-val highlight" id="stat_job">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name">받는 피해</span><span class="stat-val" id="stat_dmg_reduc">-0.0%</span></div>
-                </div>
-                <div class="stat-group">
-                  <div class="stat-row"><span class="stat-name">더블 크리 확률</span><span class="stat-val" id="stat_dc_chance">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name">더블 크리 데미지</span><span class="stat-val" id="stat_dc_dmg">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name">경험치</span><span class="stat-val" id="stat_exp">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name">드랍률</span><span class="stat-val" id="stat_drop">+0.0%</span></div>
-                </div>
-                <div class="stat-group">
-                  <div class="stat-row"><span class="stat-name">힘</span><span class="stat-val" id="stat_str">+0</span></div>
-                  <div class="stat-row"><span class="stat-name">민첩</span><span class="stat-val" id="stat_dex">+0</span></div>
-                  <div class="stat-row"><span class="stat-name">지능</span><span class="stat-val" id="stat_int">+0</span></div>
-                </div>
-                <div class="stat-group">
-                  <div class="stat-row"><span class="stat-name">공격속도</span><span class="stat-val" id="stat_atk_spd">+0.0%</span></div>
-                  <div class="stat-row"><span class="stat-name">이동속도</span><span class="stat-val" id="stat_mov_spd">+0</span></div>
-                </div>
+              <div class="set-bonus-bar" id="setBonusBar" style="display:none;"></div>
+              <div class="stats-grid">
+                <div class="stat-cell"><span class="stat-name">트리거 데미지</span><span class="stat-val highlight" id="stat_trigger">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name" id="stat_job_label">${currentChar} 전용</span><span class="stat-val highlight" id="stat_job">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">받는 트뎀 감소</span><span class="stat-val" id="stat_dmg_reduc">-0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">드랍 크리티컬 확률</span><span class="stat-val" id="stat_dc_chance">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">드랍 크리티컬 데미지</span><span class="stat-val" id="stat_dc_dmg">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">경험치 획득량</span><span class="stat-val" id="stat_exp">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">드랍률</span><span class="stat-val" id="stat_drop">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">공격속도</span><span class="stat-val" id="stat_atk_spd">+0.0%</span></div>
+                <div class="stat-cell"><span class="stat-name">힘</span><span class="stat-val" id="stat_str">+0</span></div>
+                <div class="stat-cell"><span class="stat-name">민첩</span><span class="stat-val" id="stat_dex">+0</span></div>
+                <div class="stat-cell"><span class="stat-name">지능</span><span class="stat-val" id="stat_int">+0</span></div>
+                <div class="stat-cell"><span class="stat-name">이동속도</span><span class="stat-val" id="stat_mov_spd">+0</span></div>
               </div>
             </div>
           </div>
@@ -1058,23 +1986,11 @@
       </div>
     `;
 
-    // Ensure Tooltips and Modals
+    // Ensure Tooltip and Modal exist
     if (!document.getElementById('itemTooltip')) {
       const tt = document.createElement('div');
       tt.className = 'tooltip-card';
       tt.id = 'itemTooltip';
-      tt.innerHTML = `
-        <div class="tt-header">
-          <img id="ttIcon" src="images/frame/slot_0_helm.png" alt="아이콘">
-          <div>
-            <div class="tt-title" id="ttName">천하제일 무도가의 투구</div>
-            <div class="tt-sub" id="ttMeta">[희귀] 투구</div>
-            <div class="tt-raw" id="ttRaw" style="display:none;"></div>
-          </div>
-        </div>
-        <div class="tt-stats" id="ttStats"></div>
-        <div class="tt-set" id="ttSet">천하제일 무도가 세트</div>
-      `;
       document.body.appendChild(tt);
     }
 
@@ -1092,7 +2008,7 @@
       document.body.appendChild(ctt);
     }
 
-    if (!document.getElementById('actionModal')) {
+    if (false && !document.getElementById('actionModal')) {
       const md = document.createElement('div');
       md.className = 'action-modal';
       md.id = 'actionModal';
@@ -1121,25 +2037,18 @@
   window.updateFrameEquipData = function(data) {
     if (!data) return;
 
-    // Check if incoming search data has any DBEQ_ entries
+    // Reset currentData cleanly for the searched user - NEVER merge with preset or other users
+    currentData = {};
     let hasDbeq = false;
     for (const key in data) {
       if (key.startsWith('DBEQ_')) {
         hasDbeq = true;
-        break;
+        currentData[key] = data[key];
       }
     }
 
-    if (hasDbeq) {
-      // Merge with preset data so any missing slots or storage rows still have items
-      currentData = Object.assign({}, PRESET_DATA, data);
-    } else {
-      // Incoming user search data has no frame equipment saved; preserve preset data!
-      currentData = Object.assign({}, PRESET_DATA);
-    }
-
-    // Auto select character with most items
-    let bestSlot = 32;
+    // Auto select character with most items among this searched user's characters
+    let bestSlot = 1;
     let maxEquipped = -1;
     for (let sid = 1; sid <= 66; sid++) {
       const eqStr = currentData[`DBEQ_E_${sid}`];
@@ -1151,8 +2060,17 @@
         }
       }
     }
-    currentSlotId = bestSlot;
-    currentChar = LINK_NAME_MAPPING[bestSlot] || `LINK_${bestSlot}`;
+
+    if (maxEquipped > 0) {
+      currentSlotId = bestSlot;
+      currentChar = LINK_NAME_MAPPING[bestSlot] || `LINK_${bestSlot}`;
+    } else {
+      if (!currentSlotId || currentSlotId < 1 || currentSlotId > 66) {
+        currentSlotId = 1;
+      }
+      currentChar = LINK_NAME_MAPPING[currentSlotId] || `LINK_${currentSlotId}`;
+    }
+
     renderFrameEquip();
   };
 
@@ -1163,7 +2081,6 @@
   window.closeModal = closeModal;
   window.confirmModalAction = confirmModalAction;
 
-  // Auto initialize on DOMContentLoaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initFrameEquip('col-frame-equip'));
   } else {

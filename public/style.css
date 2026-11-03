@@ -800,7 +800,12 @@ body {
     text-align: center;
     border-bottom: 1px solid var(--border-card);
     padding-bottom: 6px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .char-name {
@@ -1110,6 +1115,10 @@ body {
 
 .link-item-label {
     color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
 }
 
 .link-item-val {
@@ -3283,18 +3292,193 @@ span.stat-value.stat-val-maxed {
     text-shadow: none !important;
 }
 
-/* 5. 1m60cm 랭킹 명예의 전당 하이라이트 행 */
+/* 5. 1m60cm 랭킹 명예의 전당 하이라이트 행 (테두리 제거) */
 .rankings-table tr.rank-row-1m60cm {
-    background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 140, 0, 0.1) 50%, rgba(255, 215, 0, 0.2) 100%) !important;
-    border: 1.5px solid rgba(255, 215, 0, 0.7) !important;
-    box-shadow: 0 0 18px rgba(255, 215, 0, 0.4) !important;
-    animation: goldChampionRowPulse 2.8s infinite ease-in-out !important;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 140, 0, 0.08) 50%, rgba(255, 215, 0, 0.15) 100%) !important;
+    border: none !important;
+    box-shadow: none !important;
+    animation: none !important;
 }
 
-@keyframes goldChampionRowPulse {
-    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.25); }
-    50% { box-shadow: 0 0 22px rgba(255, 215, 0, 0.6); }
-    100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.25); }
+/* 6. 검색된 유저 랭킹 하이라이트 행 */
+.rankings-table tr.rank-row-searched {
+    border: 2px solid #00e5ff !important;
+    background: rgba(0, 229, 255, 0.18) !important;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.7), inset 0 0 10px rgba(0, 229, 255, 0.3) !important;
+    animation: searchedRankRowPulse 2s infinite ease-in-out !important;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes searchedRankRowPulse {
+    0% {
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.4), inset 0 0 6px rgba(0, 229, 255, 0.2);
+        border-color: rgba(0, 229, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.9), inset 0 0 14px rgba(0, 229, 255, 0.4);
+        border-color: #00e5ff;
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.4), inset 0 0 6px rgba(0, 229, 255, 0.2);
+        border-color: rgba(0, 229, 255, 0.7);
+    }
+}
+
+.rankings-table tr.rank-row-searched td {
+    font-weight: 800 !important;
+}
+
+.rankings-table tr.rank-row-searched .rank-nickname {
+    color: #00e5ff !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.8) !important;
+}
+
+.rank-me-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    background: #00e5ff;
+    color: #0b0712;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 6px rgba(0, 229, 255, 0.7);
+}
+
+/* 7. 배낭 아이템 검색 바 스타일 */
+.bag-search-bar {
+    background: rgba(14, 9, 22, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bag-search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bag-search-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 6px;
+    padding: 2px 8px;
+    transition: all 0.2s ease;
+}
+
+.bag-search-input-box:focus-within {
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+.bag-search-icon {
+    font-size: 0.85rem;
+    color: var(--cyan);
+    margin-right: 6px;
+}
+
+#bag-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 0.85rem;
+    padding: 6px 0;
+    outline: none;
+}
+
+#bag-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+.bag-search-clear {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.bag-search-clear:hover {
+    color: #ff3366;
+}
+
+.bag-search-filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 0 2px;
+}
+
+.bag-filter-check-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: var(--text-main);
+    user-select: none;
+}
+
+.bag-filter-check-label input[type="checkbox"] {
+    accent-color: var(--cyan);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.bag-search-count {
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+/* Highlight matching item */
+.bag-item-row.item-highlight-match {
+    background: rgba(0, 229, 255, 0.18) !important;
+    border-color: rgba(0, 229, 255, 0.7) !important;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.35) !important;
+    transform: translateX(2px);
+}
+
+.bag-item-row.item-highlight-match .equip-item {
+    color: #00ffff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 6px rgba(0, 229, 255, 0.7) !important;
+}
+
+/* Frame Equip Enhance Badge */
+.badge-enhance {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: linear-gradient(135deg, #ffd700, #ff8800);
+    color: #0b0712;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 0 4px;
+    border-radius: 3px;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+    line-height: 12px;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .rankings-table tr.rank-row-1m60cm .rank-nickname {
@@ -4140,4 +4324,71 @@ span.stat-value.stat-val-maxed {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+
+/* ==========================================================================
+   Official High-Resolution Frame Equipment Sprites & Frames (.ic2, .gf, .up, .ph)
+   ========================================================================== */
+.equip-slot .ic2,
+.inv-slot .ic2 {
+    position: absolute;
+    inset: 2px;
+    background-image: url('images/frame/eq_icons.webp');
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.equip-slot .gf,
+.inv-slot .gf {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/frame/eq_fr.webp');
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 2;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.equip-slot .up,
+.inv-slot .up {
+    position: absolute;
+    right: 2px;
+    bottom: 1px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow: 0 0 3px #000, 1px 1px 0 #000;
+    z-index: 3;
+    pointer-events: none;
+    line-height: 1;
+}
+
+.equip-slot .ph,
+.inv-slot .ph {
+    position: absolute;
+    inset: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd9a0;
+    font-weight: 800;
+    font-size: 13px;
+    background: #1c130c;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.equip-slot .pt {
+    color: #8c7152;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    pointer-events: none;
+}
+
+.equip-slot.has-item,
+.inv-slot.has-item {
+    border-color: transparent !important;
 }
