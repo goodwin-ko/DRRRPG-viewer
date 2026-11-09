@@ -858,31 +858,180 @@
             display: inline-block;
         }
 
-        /* All Max 달성 캐릭터 카드 프리미엄 테두리 & 뱃지 (애니메이션 이펙트 제외 버전) */
-        .char-card.char-card-all-maxed {
-            border: 2px solid rgba(255, 215, 0, 0.95) !important;
-            position: relative !important;
-            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 35, 20, 0.95)) !important;
-            box-shadow: none !important;
-            animation: none !important;
-        }
+        /* 6대 마스터 카드 테두리 별 & 올맥스 태그 */
+.char-border-tag {
+    position: absolute;
+    top: -9px;
+    right: 12px;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.62rem;
+    font-weight: 900;
+    line-height: 1.1;
+    z-index: 100;
+    cursor: help;
+    user-select: none;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
 
-        .char-card.char-card-all-maxed::after {
-            content: '★ALL MAX★';
-            position: absolute;
-            top: -9px;
-            right: 12px;
-            background: linear-gradient(90deg, #ffd700, #ffaa00);
-            color: #000 !important;
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 1px 5px;
-            border-radius: 4px;
-            box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
-            z-index: 10;
-        }
+.char-border-tag:hover {
+    transform: scale(1.08);
+}
 
-        /* 8대 만스텟 조건 속성들의 글자크기를 힘, 민, 지 글자크기(0.78rem)로 완벽히 통일 */
+/* 1성 테두리 태그 */
+.char-border-tag-1 {
+    background: linear-gradient(135deg, rgba(35, 30, 15, 0.98), rgba(50, 40, 20, 0.98));
+    color: #ffd700 !important;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* 2성 테두리 태그 */
+.char-border-tag-2 {
+    background: linear-gradient(135deg, rgba(35, 30, 15, 0.98), rgba(55, 45, 20, 0.98));
+    color: #ffd700 !important;
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.35);
+}
+
+/* 3성 테두리 태그 */
+.char-border-tag-3 {
+    background: linear-gradient(135deg, rgba(40, 32, 15, 0.98), rgba(65, 50, 20, 0.98));
+    color: #ffd700 !important;
+    border: 1px solid rgba(255, 215, 0, 0.7);
+    box-shadow: 0 0 7px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.8);
+}
+
+/* 4성 테두리 태그 */
+.char-border-tag-4 {
+    background: linear-gradient(135deg, rgba(45, 35, 15, 0.98), rgba(75, 58, 20, 0.98));
+    color: #ffdf33 !important;
+    border: 1px solid rgba(255, 223, 51, 0.85);
+    box-shadow: 0 0 8px rgba(255, 223, 51, 0.45);
+    text-shadow: 0 0 5px rgba(255, 223, 51, 0.9);
+}
+
+/* 5성 테두리 태그 */
+.char-border-tag-5 {
+    background: linear-gradient(135deg, rgba(55, 42, 15, 0.98), rgba(90, 68, 22, 0.98));
+    color: #fff066 !important;
+    border: 1px solid rgba(255, 240, 102, 0.95);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.55);
+    text-shadow: 0 0 6px rgba(255, 240, 102, 1);
+    animation: star5-pulse 2s ease-in-out infinite;
+}
+
+/* 올맥스 테두리 태그 */
+.char-border-tag-all-max {
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    color: #000 !important;
+    font-size: 0.6rem;
+    font-weight: 900;
+    padding: 1px 5px;
+    border: 1px solid #ffe066;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.65);
+}
+
+/* 마스터 단계별 카드 테두리 색상 */
+.char-card.char-card-mastery-1, .mc-card.char-card-mastery-1 {
+    position: relative !important;
+    border-color: rgba(255, 215, 0, 0.35) !important;
+}
+.char-card.char-card-mastery-2, .mc-card.char-card-mastery-2 {
+    position: relative !important;
+    border-color: rgba(255, 215, 0, 0.5) !important;
+}
+.char-card.char-card-mastery-3, .mc-card.char-card-mastery-3 {
+    position: relative !important;
+    border-color: rgba(255, 215, 0, 0.65) !important;
+}
+.char-card.char-card-mastery-4, .mc-card.char-card-mastery-4 {
+    position: relative !important;
+    border-color: rgba(255, 223, 51, 0.8) !important;
+}
+.char-card.char-card-mastery-5, .mc-card.char-card-mastery-5 {
+    position: relative !important;
+    border-color: rgba(255, 240, 102, 0.95) !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.25) !important;
+}
+.char-card.char-card-all-maxed, .mc-card.char-card-all-maxed {
+    border: 2px solid rgba(255, 215, 0, 0.95) !important;
+    position: relative !important;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 35, 20, 0.95)) !important;
+    box-shadow: none !important;
+    animation: none !important;
+}
+
+/* 마우스 올렸을 때 즉시 뜨는 정보 툴팁 말풍선 */
+.char-border-tag .tag-tooltip-bubble {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    min-width: 170px;
+    max-width: 260px;
+    background: rgba(14, 10, 24, 0.97);
+    border: 1px solid rgba(255, 215, 0, 0.7);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), 0 0 10px rgba(255, 215, 0, 0.35);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: normal;
+    text-align: left;
+    letter-spacing: 0;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.char-border-tag:hover .tag-tooltip-bubble {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tag-tooltip-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #ffd700;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+    text-align: center;
+}
+
+.tag-tooltip-row {
+    display: flex;
+    gap: 4px;
+    font-size: 0.68rem;
+    line-height: 1.3;
+}
+
+.tag-tt-label.done {
+    color: #00ff88;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.tag-tt-label.wait {
+    color: #ff9944;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.tag-tt-val {
+    color: #e0e0e0;
+    word-break: keep-all;
+}
+
+/* 8대 만스텟/* 8대 만스텟/* 8대 만스텟 조건 속성들의 글자크기를 힘, 민, 지 글자크기(0.78rem)로 완벽히 통일 */
         .char-level, 
         .char-level span,
         .char-level small,
@@ -1779,8 +1928,210 @@
             vertical-align: middle;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         }
+
+        /* Character Avatar Clickable in Multi Profile */
+        .char-avatar-clickable {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            vertical-align: middle;
+            border-radius: 4px;
+            position: relative;
+        }
+        .char-avatar-clickable .hero-icon-img {
+            cursor: pointer !important;
+        }
+        .char-avatar-clickable:hover .hero-icon-img {
+            transform: scale(1.22);
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.9);
+            border-color: #00e5ff;
+        }
+
+        /* Character Popup Modal Styles */
+        .char-popup-modal-content {
+            background: #140d24;
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 360px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 229, 255, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.25s ease;
+        }
+        .modal-overlay.active .char-popup-modal-content {
+            transform: scale(1);
+        }
+        .char-popup-modal-body {
+            padding: 14px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .char-popup-modal-body .char-card {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            background: rgba(10, 5, 18, 0.95);
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           멀티 배낭 인라인 검색창 스타일 (배낭현황 탭 우측에 한줄로 배치)
+           ═══════════════════════════════════════════════════════ */
+        .tab-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            min-height: 40px;
+        }
+        .tab-btn-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .multi-sort-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(14, 9, 22, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            border-radius: 8px;
+            padding: 3px 10px;
+            height: 38px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        .multi-sort-controls .sort-title {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-right: 2px;
+        }
+        .multi-sort-controls .sort-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            font-family: inherit;
+        }
+        .multi-sort-controls .sort-btn:hover {
+            color: var(--cyan);
+            border-color: rgba(0, 229, 255, 0.4);
+            background: rgba(0, 229, 255, 0.08);
+        }
+        .multi-sort-controls .sort-btn.active {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.25), rgba(0, 184, 212, 0.35));
+            border-color: var(--cyan);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.35);
+        }
+        .multi-bag-search-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(14, 9, 22, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            border-radius: 8px;
+            padding: 3px 10px;
+            height: 38px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        .multi-bag-search-inline:focus-within {
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+        }
+        .multi-bag-input-wrap {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 6px;
+        }
+        .multi-bag-icon {
+            font-size: 0.85rem;
+            color: var(--cyan);
+        }
+        #multi-bag-search-input {
+            width: 175px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 0.82rem;
+            padding: 4px 0;
+            outline: none;
+            font-family: inherit;
+        }
+        #multi-bag-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.8rem;
+        }
+        .multi-bag-clear {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+        .multi-bag-clear:hover {
+            color: #ff3366;
+        }
+        .multi-bag-filter-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            user-select: none;
+            white-space: nowrap;
+            padding-left: 8px;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .multi-bag-filter-label:hover {
+            color: var(--text-main);
+        }
+        .multi-bag-filter-label input[type="checkbox"] {
+            accent-color: var(--cyan);
+            width: 13px;
+            height: 13px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .multi-bag-count {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.78rem;
+            white-space: nowrap;
+            padding-left: 4px;
+        }
+        .bag-item-row.item-highlight-match {
+            background: rgba(0, 229, 255, 0.18) !important;
+            border-color: rgba(0, 229, 255, 0.7) !important;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.35) !important;
+            transform: translateX(2px);
+        }
+        .bag-item-row.item-highlight-match .equip-item {
+            color: #00ffff !important;
+            font-weight: 800 !important;
+            text-shadow: 0 0 6px rgba(0, 229, 255, 0.7) !important;
+        }
     </style>
-    <script src="heroIcons.js?v=1.4.9"></script>
+    <script src="heroIcons.js?v=1.6.5"></script>
 </head>
 <body>
 
@@ -1825,9 +2176,35 @@
 
 <!-- Tab Bar -->
 <div class="tab-bar">
-    <button class="tab-btn active" data-tab="basic" onclick="switchTab('basic', this)">📊 기본현황</button>
-    <button class="tab-btn" data-tab="equip" onclick="switchTab('equip', this)">⚔️ 장비현황</button>
-    <button class="tab-btn" data-tab="bag" onclick="switchTab('bag', this)">🎒 배낭현황</button>
+    <div class="tab-btn-group">
+        <button class="tab-btn active" data-tab="basic" onclick="switchTab('basic', this)">📊 기본현황</button>
+        <button class="tab-btn" data-tab="equip" onclick="switchTab('equip', this)">⚔️ 장비현황</button>
+        <button class="tab-btn" data-tab="bag" onclick="switchTab('bag', this)">🎒 배낭현황</button>
+    </div>
+
+    <!-- 멀티 캐릭터 5대 정렬 컨트롤 (기본현황/장비현황 탭일 때 우측에 나란히 표시) -->
+    <div class="multi-sort-controls" id="multi-sort-controls">
+        <span class="sort-title">정렬:</span>
+        <button type="button" class="sort-btn active" data-sort="save" onclick="applyMultiSort('save')">저장순</button>
+        <button type="button" class="sort-btn" data-sort="adv" onclick="applyMultiSort('adv')">모험 낮은순</button>
+        <button type="button" class="sort-btn" data-sort="level" onclick="applyMultiSort('level')">레벨 낮은순</button>
+        <button type="button" class="sort-btn" data-sort="cp" onclick="applyMultiSort('cp')">투력 낮은순</button>
+        <button type="button" class="sort-btn" data-sort="limit" onclick="applyMultiSort('limit')">극한 낮은순</button>
+    </div>
+
+    <!-- 배낭현황 오른쪽 인라인 검색창 (배낭현황 탭 활성화 시 오른쪽에 나란히 표시) -->
+    <div class="multi-bag-search-inline" id="multi-bag-search-bar" style="display: none;">
+        <div class="multi-bag-input-wrap">
+            <span class="multi-bag-icon">🔍</span>
+            <input type="text" id="multi-bag-search-input" placeholder="배낭 아이템 검색..." autocomplete="off">
+            <button type="button" id="multi-bag-search-clear" class="multi-bag-clear" style="display:none;" title="초기화">✕</button>
+        </div>
+        <label class="multi-bag-filter-label" for="multi-bag-only-matched-checkbox">
+            <input type="checkbox" id="multi-bag-only-matched-checkbox">
+            <span>-검색 아이템만 보기</span>
+        </label>
+        <span id="multi-bag-search-result-count" class="multi-bag-count"></span>
+    </div>
 </div>
 
 <!-- Multi-grid -->
@@ -1835,8 +2212,21 @@
     <!-- JS가 동적으로 생성 -->
 </div>
 
+<!-- Character Card Popup Modal -->
+<div class="modal-overlay" id="char-popup-modal" onclick="closeMultiCharPopup()">
+    <div class="modal-content char-popup-modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 class="modal-title" id="char-popup-modal-title">캐릭터 상세 정보</h3>
+            <button class="modal-close" onclick="closeMultiCharPopup()">&times;</button>
+        </div>
+        <div class="modal-body char-popup-modal-body" id="char-popup-modal-body">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+</div>
+
 <!-- Item Details Modal -->
-<div class="modal-overlay" id="item-modal" onclick="closeItemModal()">
+<div class="modal-overlay" id="item-modal" style="z-index: 10050;" onclick="closeItemModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-item-title">아이템 상세 정보</h3>
@@ -2842,6 +3232,111 @@ function fmtStatWithMax(cur, max) {
     return c >= m ? fmt(m) : `${fmt(c)} / ${fmt(m)}`;
 }
 
+// 6대 마스터 조건 판정 및 뱃지 생성 함수
+function getMasteryInfo(c) {
+    if (!c) return { count: 0, isAllMaxed: false, badgeHtml: '', masteredList: [] };
+    
+    // 1. 레벨 (Level >= 6000)
+    const lvlNum = parseInt(c.level) || 0;
+    const isLvlMaxed = lvlNum >= 6000;
+    
+    // 2. 모험 (Adventure >= 21001)
+    const advVal = c.adv !== undefined ? c.adv : c.adventure;
+    const advNum = parseInt(advVal) || 0;
+    const isAdvMaxed = advNum >= 21001;
+    
+    // 3. 투력 (CP >= 700000)
+    const cpRaw = c.cp !== undefined && c.cp !== null ? c.cp : 0;
+    const cpNum = typeof cpRaw === 'string' ? parseInt(cpRaw.replace(/,/g, '')) : parseInt(cpRaw);
+    const isCpMaxed = (cpNum || 0) >= 700000;
+    
+    // 4. 영웅스텟 (힘, 민, 지 모두 >= maxOwnStat)
+    const maxOwnRaw = c.maxOwnStat !== undefined && c.maxOwnStat !== null ? c.maxOwnStat : 0;
+    const maxOwnVal = typeof maxOwnRaw === 'string' ? parseInt(maxOwnRaw.replace(/,/g, '')) : parseInt(maxOwnRaw);
+    const strRaw = c.str !== undefined && c.str !== null ? c.str : 0;
+    const strVal = typeof strRaw === 'string' ? parseInt(strRaw.replace(/,/g, '')) : parseInt(strRaw);
+    const agiRaw = c.agi !== undefined && c.agi !== null ? c.agi : 0;
+    const agiVal = typeof agiRaw === 'string' ? parseInt(agiRaw.replace(/,/g, '')) : parseInt(agiRaw);
+    const intRaw = c.intVal !== undefined && c.intVal !== null ? c.intVal : 0;
+    const intVal = typeof intRaw === 'string' ? parseInt(intRaw.replace(/,/g, '')) : parseInt(intRaw);
+    
+    const isOwnStrMaxed = Boolean(maxOwnVal > 0 && strVal >= maxOwnVal);
+    const isOwnAgiMaxed = Boolean(maxOwnVal > 0 && agiVal >= maxOwnVal);
+    const isOwnIntMaxed = Boolean(maxOwnVal > 0 && intVal >= maxOwnVal);
+    const isOwnStatMaxed = Boolean(isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed);
+    
+    // 5. 극한 (Limit >= 10)
+    const limitNum = (c.limit !== undefined && c.limit !== null) ? parseInt(c.limit) : -1;
+    const isLimitMaxed = (limitNum >= 10);
+    
+    // 6. 성급 (닼레8 or 다크레드8)
+    const starGradeClean = c.starGrade ? c.starGrade.toString().replace(/\s+/g, '') : '';
+    const isStarMaxed = Boolean(starGradeClean === '닼레8' || starGradeClean === '다크레드8');
+
+    const masteredList = [];
+    if (isLvlMaxed) masteredList.push('레벨');
+    if (isAdvMaxed) masteredList.push('모험');
+    if (isCpMaxed) masteredList.push('투력');
+    if (isOwnStatMaxed) masteredList.push('영웅스텟');
+    if (isLimitMaxed) masteredList.push('극한');
+    if (isStarMaxed) masteredList.push('성급');
+
+    const count = masteredList.length;
+    const isAllMaxed = (count === 6);
+
+    let badgeHtml = '';
+    if (count === 6) {
+        badgeHtml = `<span class="badge badge-all-max" title="6대 마스터 완료 (올맥스!): ${masteredList.join(', ')}">올맥스</span>`;
+    } else if (count >= 1 && count <= 5) {
+        badgeHtml = `<span class="badge badge-stars stars-${count}" title="마스터 달성 (${count}/6): ${masteredList.join(', ')}">${'★'.repeat(count)}</span>`;
+    }
+
+    return {
+        isLvlMaxed,
+        isAdvMaxed,
+        isCpMaxed,
+        isOwnStrMaxed,
+        isOwnAgiMaxed,
+        isOwnIntMaxed,
+        isOwnStatMaxed,
+        isLimitMaxed,
+        isStarMaxed,
+        masteredList,
+        count,
+        isAllMaxed,
+        badgeHtml
+    };
+}
+
+function getBorderTagHtml(mastery) {
+    if (!mastery || mastery.count < 1) return '';
+    const starText = mastery.isAllMaxed ? '★올맥스★' : '★'.repeat(mastery.count);
+    const tagClass = mastery.isAllMaxed ? 'char-border-tag char-border-tag-all-max' : `char-border-tag char-border-tag-${mastery.count}`;
+    
+    const completedStr = mastery.masteredList.length > 0 ? mastery.masteredList.join(', ') : '없음';
+    const allCriteria = ['레벨', '모험', '투력', '영웅스텟', '극한', '성급'];
+    const uncompletedList = allCriteria.filter(item => !mastery.masteredList.includes(item));
+    const uncompletedStr = uncompletedList.length > 0 ? uncompletedList.join(', ') : '없음';
+
+    const titleAttr = mastery.isAllMaxed
+        ? `★ 6대 마스터 완전 달성 (올맥스) ★&#10;완료: ${completedStr}`
+        : `★ 마스터 진행도 (${mastery.count}/6) ★&#10;완료: ${completedStr}&#10;미완료: ${uncompletedStr}`;
+
+    const titleText = mastery.isAllMaxed ? '★ 6대 마스터 완료 (올맥스) ★' : `★ 마스터 진행도 (${mastery.count}/6) ★`;
+    const waitRow = !mastery.isAllMaxed
+        ? `<div class="tag-tooltip-row"><span class="tag-tt-label wait">⏳ 미완료:</span> <span class="tag-tt-val">${uncompletedStr}</span></div>`
+        : '';
+
+    return `<div class="${tagClass}" title="${titleAttr}">
+        <span class="tag-stars-text">${starText}</span>
+        <div class="tag-tooltip-bubble">
+            <div class="tag-tooltip-title">${titleText}</div>
+            <div class="tag-tooltip-row"><span class="tag-tt-label done">✔ 완료:</span> <span class="tag-tt-val">${completedStr}</span></div>
+            ${waitRow}
+        </div>
+    </div>`;
+}
+
 function renderBadges(c) {
     let html = '';
     if (c.isCorrupted) html += `<span class="badge badge-error">오류</span>`;
@@ -2862,32 +3357,67 @@ function fmtMax(cur, max) {
     return cv >= mv ? fmt(mv) : `${fmt(cv)} / ${fmt(mv)}`;
 }
 
+
+// ═══════════════════════════════════════════════════════
+//  캐릭터 카드 팝업 (기본현황 ↔ 장비현황 상호 전환)
+// ═══════════════════════════════════════════════════════
+const multiCharStore = {};
+
+function openMultiCharPopup(nicName, slotNum, targetMode) {
+    const key = `${nicName}_${slotNum}`;
+    const c = multiCharStore[key];
+    if (!c) {
+        console.warn('Character not found in multiCharStore:', key);
+        return;
+    }
+
+    const modal = document.getElementById('char-popup-modal');
+    const titleEl = document.getElementById('char-popup-modal-title');
+    const bodyEl = document.getElementById('char-popup-modal-body');
+    if (!modal || !bodyEl) return;
+
+    if (targetMode === 'equip') {
+        titleEl.innerHTML = `<span style="color:var(--cyan);font-weight:bold;">⚔️ ${c.charName}</span> <span style="font-size:0.85rem;color:var(--text-muted);font-weight:normal;">(${c.nicName} 장비현황)</span>`;
+        bodyEl.innerHTML = renderEquipCard(c);
+    } else {
+        titleEl.innerHTML = `<span style="color:var(--cyan);font-weight:bold;">📊 ${c.charName}</span> <span style="font-size:0.85rem;color:var(--text-muted);font-weight:normal;">(${c.nicName} 기본현황)</span>`;
+        bodyEl.innerHTML = renderBasicCard(c);
+    }
+
+    modal.classList.add('active');
+}
+
+function closeMultiCharPopup() {
+    const modal = document.getElementById('char-popup-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
 function renderBasicCard(c) {
     const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
-    const cpValue = typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp);
     
-    // 만스텟 조건 판정
-    const isLvlMaxed = (parseInt(c.level) || 0) >= 6000;
-    const isAdvMaxed = (parseInt(c.adv) || 0) >= 21001;
-    const isCpMaxed = (cpValue || 0) >= 700000;
-    const isStarMaxed = c.starGrade && (c.starGrade.replace(/\s+/g, '') === '닼레8' || c.starGrade.replace(/\s+/g, '') === '다크레드8');
-    const isLimitMaxed = c.limit !== undefined && c.limit !== null && (parseInt(c.limit) || 0) >= 10;
-    const isOwnStrMaxed = c.str && c.maxOwnStat && parseInt(c.str.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnAgiMaxed = c.agi && c.maxOwnStat && parseInt(c.agi.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnIntMaxed = c.intVal && c.maxOwnStat && parseInt(c.intVal.toString().replace(/,/g, '')) >= parseInt(c.maxOwnStat.toString().replace(/,/g, ''));
-    
-    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxed && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
+    // 6대 마스터 조건 판정
+    const mastery = getMasteryInfo(c);
+    const isLvlMaxed = mastery.isLvlMaxed;
+    const isAdvMaxed = mastery.isAdvMaxed;
+    const isCpMaxed = mastery.isCpMaxed;
+    const isStarMaxed = mastery.isStarMaxed;
+    const isLimitMaxed = mastery.isLimitMaxed;
+    const isAllMaxed = mastery.isAllMaxed;
+    const masteryClass = isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
     const spTheme = typeof getSpecialCardTheme === 'function' ? getSpecialCardTheme(c.nicName, c.charName, c.slotNum) : null;
 
     return [
-        `<div class="char-card ${isAllMaxed ? 'char-card-all-maxed' : ''} ${spTheme ? spTheme.className : ''}" data-char-name="${c.charName}">`,
-        `<div class="char-name-row">${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>${renderBadges(c)}${spTheme ? '<span class="' + spTheme.badgeClass + '">' + spTheme.badgeText + '</span>' : ''}</div>`,
+        `<div class="char-card ${masteryClass} ${spTheme ? spTheme.className : ''}" data-char-name="${c.charName}">`,
+        getBorderTagHtml(mastery),
+        `<div class="char-name-row">${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openMultiCharPopup('${c.nicName}', ${c.slotNum}, 'equip')" title="클릭 시 장비카드 팝업">${getHeroIconHtml(c.charName, c.slotNum, 26)}</span>` : ''}<span class="${nameClass}">${c.charName}</span>${renderBadges(c)}${spTheme ? '<span class="' + spTheme.badgeClass + '">' + spTheme.badgeText + '</span>' : ''}</div>`,
         `<div class="char-level"><span class="stat-label">레벨:</span> <span class="stat-value ${isLvlMaxed ? 'stat-val-maxed' : ''}">${fmt(c.level)}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:6px;">(최대공속: ${(MAX_SPEED_MAPPING[c.charName] !== undefined ? MAX_SPEED_MAPPING[c.charName] : (MAX_SPEED_MAPPING[LINK_NAME_MAPPING[c.slotNum]] !== undefined ? MAX_SPEED_MAPPING[LINK_NAME_MAPPING[c.slotNum]] : '-'))})</span></div>`,
         `<div class="char-adventure"><span class="stat-label">모험:</span> <span class="stat-value ${isAdvMaxed ? 'stat-val-maxed' : ''}">${fmt(c.adv)} (${getAdventureStage(c.adv)})</span></div>`,
         `<div class="stat-row"><span><span class="stat-label">공격:</span> <span class="stat-value">${fmt(c.attack)}</span></span><span class="alt"><span class="stat-label">방어:</span> <span class="stat-value">${fmt(c.defense)}</span></span></div>`,
         `<div class="stat-row"><span><span class="stat-label">기:</span> <span class="stat-value">${fmt(c.ki)}</span></span><span class="alt"><span class="stat-label">체력:</span> <span class="stat-value">${fmt(c.hp)}</span></span></div>`,
         `<div class="stat-row"><span><span class="stat-label">공속:</span> <span class="stat-value">${fmt(c.speed)}</span></span><span class="alt"><span class="stat-label">불굴:</span> <span class="stat-value">${fmt(c.fortitude)}</span></span></div>`,
-        `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${(typeof c.cp === 'string' ? parseInt(c.cp.toString().replace(/,/g, '')) : parseInt(c.cp)) >= 700000 ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
+        `<div class="char-cp"><span class="stat-label">투력:</span> <span class="stat-value ${isCpMaxed ? 'cp-maxed-completed' : ''}">${fmt(c.cp)}</span>${c.awakeningLevel > 0 ? '<span class="awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">' + c.awakeningLevel + '</span></span>' : ''}</div>`,
         c.limit !== null ? [
             `<div class="limit-block">`,
             `<div class="limit-title"><span class="stat-label">극한:</span> <span class="stat-value ${isLimitMaxed ? 'stat-val-maxed' : ''}">${fmt(c.limit)}</span> <small style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(<span class="stat-value">${fmt(c.limitPt)}</span>pt)</small></div>`,
@@ -2897,8 +3427,8 @@ function renderBasicCard(c) {
         ].join('') : '',
         `<div class="sub-divider"></div>`,
         `<div class="sub-label">내 스텟</div>`,
-        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.str >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.str, c.maxOwnStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.agi >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.agi, c.maxOwnStat)}</span></span></div>`,
-        `<div class="stat-row ${c.str >= c.maxOwnStat && c.agi >= c.maxOwnStat && c.intVal >= c.maxOwnStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.intVal >= c.maxOwnStat ? 'stat-val-maxed' : ''}">${fmtMax(c.intVal, c.maxOwnStat)}</span></span></div>`,
+        `<div class="stat-row ${mastery.isOwnStatMaxed ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${mastery.isOwnStrMaxed ? 'stat-val-maxed' : ''}">${fmtMax(c.str, c.maxOwnStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${mastery.isOwnAgiMaxed ? 'stat-val-maxed' : ''}">${fmtMax(c.agi, c.maxOwnStat)}</span></span></div>`,
+        `<div class="stat-row ${mastery.isOwnStatMaxed ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${mastery.isOwnIntMaxed ? 'stat-val-maxed' : ''}">${fmtMax(c.intVal, c.maxOwnStat)}</span></span></div>`,
         `<div class="sub-label friend-name-text">${c.friendName && c.friendName !== '친구' && typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.friendName, null, 18, true) : ''}${c.friendName || '친구 스텟'}</div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-str"><span class="stat-label">힘:</span> <span class="stat-value ${c.friendStr >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendStr, c.maxFriendStat)}</span></span><span class="alt val-agi"><span class="stat-label">민:</span> <span class="stat-value ${c.friendAgi >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendAgi, c.maxFriendStat)}</span></span></div>`,
         `<div class="stat-row ${c.friendStr >= c.maxFriendStat && c.friendAgi >= c.maxFriendStat && c.friendInt >= c.maxFriendStat ? 'stat-maxed-completed' : ''}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${c.friendInt >= c.maxFriendStat ? 'stat-val-maxed' : ''}">${fmtMax(c.friendInt, c.maxFriendStat)}</span></span></div>`,
@@ -2911,6 +3441,8 @@ function renderBasicCard(c) {
 }
 
 function renderEquipCard(c) {
+    const mastery = getMasteryInfo(c);
+    const masteryClass = mastery.isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
     const spTheme = typeof getSpecialCardTheme === 'function' ? getSpecialCardTheme(c.nicName, c.charName, c.slotNum) : null;
     const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
 
@@ -2928,9 +3460,10 @@ function renderEquipCard(c) {
         : '<div style="font-size:0.7rem;color:var(--text-muted);padding:2px 0">없음</div>';
 
     return `
-        <div class="char-card ${spTheme ? spTheme.className : ''}" data-char-name="${c.charName}">
+        <div class="char-card ${masteryClass} ${spTheme ? spTheme.className : ''}" data-char-name="${c.charName}">
+            ${getBorderTagHtml(mastery)}
             <div class="char-name-row">
-                ${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>
+                ${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openMultiCharPopup('${c.nicName}', ${c.slotNum}, 'basic')" title="클릭 시 기본현황 팝업">${getHeroIconHtml(c.charName, c.slotNum, 26)}</span>` : ''}<span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}${spTheme ? '<span class="' + spTheme.badgeClass + '">' + spTheme.badgeText + '</span>' : ''}
             </div>
             <div class="equip-items">
@@ -2942,6 +3475,8 @@ function renderEquipCard(c) {
 }
 
 function renderBagCard(c) {
+    const mastery = getMasteryInfo(c);
+    const masteryClass = mastery.isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
     const spTheme = typeof getSpecialCardTheme === 'function' ? getSpecialCardTheme(c.nicName, c.charName, c.slotNum) : null;
     const nameClass = c.isTodaySave ? 'char-name char-name--attended' : 'char-name';
 
@@ -2952,7 +3487,7 @@ function renderBagCard(c) {
                 const item = ITEM_MAPPING[itemInfo.id] || { name: `아이템 ${itemInfo.id}`, color: 'standard' };
                 const countColor = itemInfo.count > 0 ? 'var(--gold)' : 'var(--text-muted)';
                 const countText = itemInfo.count > 0 ? `${itemInfo.count}개` : '소지';
-                return `<div class="bag-item-row" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:3px; width: 100%;">
+                return `<div class="bag-item-row" data-item-name="${item.name.replace(/"/g, '&quot;')}" style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); margin-bottom:3px; width: 100%;">
                     <span class="equip-item item-${item.color} equip-item-clickable" onclick="showItemModal(${itemInfo.id})" style="font-size:0.72rem; padding: 2px 4px; border:none; background:none;">${item.name}</span>
                     <span style="font-size:0.7rem; font-weight:700; color:${countColor}; padding-right: 4px;">${countText}</span>
                 </div>`;
@@ -2977,7 +3512,7 @@ function renderBagCard(c) {
     })).filter(b => b.items.length > 0);
 
     if (activeWarehouseBags.length > 0) {
-        warehouseBagsHtml = `<div style="font-size:0.75rem;font-weight:bold;color:var(--gold);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">📦 창고배낭</div>`;
+        warehouseBagsHtml = `<div class="bag-group-header" style="font-size:0.75rem;font-weight:bold;color:var(--gold);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">📦 창고배낭</div>`;
         activeWarehouseBags.forEach(bag => {
             warehouseBagsHtml += renderSectionHtml(`창고배낭${bag.idx}`, bag.items, '📦');
         });
@@ -2991,16 +3526,17 @@ function renderBagCard(c) {
     })).filter(b => b.items.length > 0);
 
     if (activeSponsorBags.length > 0) {
-        sponsorWarehouseBagsHtml = `<div style="font-size:0.75rem;font-weight:bold;color:var(--cyan);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">🎁 후원창고배낭</div>`;
+        sponsorWarehouseBagsHtml = `<div class="bag-group-header" style="font-size:0.75rem;font-weight:bold;color:var(--cyan);margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;text-align:left;width:100%;">🎁 후원창고배낭</div>`;
         activeSponsorBags.forEach(bag => {
             sponsorWarehouseBagsHtml += renderSectionHtml(`후원창고배낭${bag.idx}`, bag.items, '🎁');
         });
     }
 
     return `
-        <div class="char-card ${spTheme ? spTheme.className : ''}" style="box-sizing:border-box; width:100%;" data-char-name="${c.charName}">
+        <div class="char-card ${masteryClass} ${spTheme ? spTheme.className : ''}" style="box-sizing:border-box; width:100%;" data-char-name="${c.charName}">
+            ${getBorderTagHtml(mastery)}
             <div class="char-name-row">
-                ${typeof getHeroIconHtml === 'function' ? getHeroIconHtml(c.charName, c.slotNum, 26) : ''}<span class="${nameClass}">${c.charName}</span>
+                ${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openMultiCharPopup('${c.nicName}', ${c.slotNum}, 'basic')" title="클릭 시 기본현황 팝업">${getHeroIconHtml(c.charName, c.slotNum, 26)}</span>` : ''}<span class="${nameClass}">${c.charName}</span>
                 ${renderBadges(c)}${spTheme ? '<span class="' + spTheme.badgeClass + '">' + spTheme.badgeText + '</span>' : ''}
             </div>
             <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
@@ -3014,8 +3550,18 @@ function renderBagCard(c) {
 // ═══════════════════════════════════════════════════════
 //  Panel Rendering
 // ═══════════════════════════════════════════════════════
+const multiUserDataStore = {};
+
 function renderPanel(panelEl, processed) {
     const { chars, gradeName, totalBD, spPoint, ap, saveDate, nicName } = processed;
+
+    // Cache processed data & characters in global store
+    multiUserDataStore[nicName.toLowerCase()] = processed;
+    if (Array.isArray(chars)) {
+        chars.forEach(c => {
+            multiCharStore[`${nicName}_${c.slotNum}`] = c;
+        });
+    }
 
     const isPinned = pinnedIds[nicName.toLowerCase()] === true;
 
@@ -3051,15 +3597,19 @@ function renderPanel(panelEl, processed) {
         return;
     }
 
-    basicView.innerHTML = `<div class="cards-scroll">${chars.map(renderBasicCard).join('')}</div>`;
-    equipView.innerHTML = `<div class="cards-scroll">${chars.map(renderEquipCard).join('')}</div>`;
-    bagView.innerHTML = `<div class="cards-scroll">${chars.map(renderBagCard).join('')}</div>`;
+    const displayChars = sortMultiChars(chars, currentMultiSort, currentMultiSortOrder);
+    basicView.innerHTML = `<div class="cards-scroll">${displayChars.map(renderBasicCard).join('')}</div>`;
+    equipView.innerHTML = `<div class="cards-scroll">${displayChars.map(renderEquipCard).join('')}</div>`;
+    bagView.innerHTML = `<div class="cards-scroll">${displayChars.map(renderBagCard).join('')}</div>`;
 
     // Show correct tab
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'basic';
     panelEl.querySelectorAll('.tab-view').forEach(v => {
         v.classList.toggle('active', v.dataset.tab === activeTab);
     });
+    if (activeTab === 'bag') {
+        applyMultiBagSearch();
+    }
 }
 
 function setPanelLoading(panelEl, nick) {
@@ -3143,6 +3693,19 @@ function switchTab(tab, btnEl) {
             v.classList.toggle('active', v.dataset.tab === tab);
         });
     });
+
+    // 2-1. 정렬 컨트롤 및 배낭 검색바 상호 토글
+    const sortControls = document.getElementById('multi-sort-controls');
+    const bagSearchBar = document.getElementById('multi-bag-search-bar');
+    if (sortControls) {
+        sortControls.style.display = (tab === 'bag') ? 'none' : 'inline-flex';
+    }
+    if (bagSearchBar) {
+        bagSearchBar.style.display = (tab === 'bag') ? 'inline-flex' : 'none';
+    }
+    if (tab === 'bag') {
+        applyMultiBagSearch();
+    }
 
     // 3. 새 탭에서 방금 타겟으로 정한 캐릭터 카드를 찾아 화면상 동일한 위치에 보정 스크롤
     if (targetCharName) {
@@ -3319,6 +3882,7 @@ function togglePin(nick, checked) {
 // 패널 제거 핸들러
 function removePanel(nick) {
     const key = nick.toLowerCase();
+    delete multiUserDataStore[key];
 
     // activeIds 리스트에서 제외
     activeIds = activeIds.filter(n => n.toLowerCase() !== key);
@@ -3403,20 +3967,275 @@ function closeItemModal() {
     }
 }
 
-// ESC 키로 모달 닫기 지원
+// ESC 키로 모달 닫기 지원 (아이템 모달 우선 닫고, 그 다음 캐릭터 모달 닫기)
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        closeItemModal();
+        const itemModal = document.getElementById('item-modal');
+        if (itemModal && itemModal.classList.contains('active')) {
+            closeItemModal();
+        } else {
+            closeMultiCharPopup();
+        }
     }
 });
+
+
+// ═══════════════════════════════════════════════════════
+//  멀티 캐릭터 5대 정렬 시스템 (저장순, 모험, 레벨, 투력, 극한)
+// ═══════════════════════════════════════════════════════
+let currentMultiSort = 'save';
+let currentMultiSortOrder = 'asc'; // 'asc' = 낮은순, 'desc' = 높은순
+
+function sortMultiChars(chars, sortType, sortOrder = 'asc') {
+    if (!chars) return [];
+    if (sortType === 'save') {
+        return [...chars].sort((a, b) => {
+            if (a.isCorrupted && !b.isCorrupted) return -1;
+            if (!a.isCorrupted && b.isCorrupted) return 1;
+            if (a.isLatestSave && !b.isLatestSave) return -1;
+            if (!a.isLatestSave && b.isLatestSave) return 1;
+            if (a.isTodaySave && !b.isTodaySave) return -1;
+            if (!a.isTodaySave && b.isTodaySave) return 1;
+            return a.slotNum - b.slotNum;
+        });
+    }
+
+    const parseCp = c => typeof c.cp === 'string' ? parseInt(c.cp.replace(/,/g, '')) || 0 : (c.cp || 0);
+    const parseLimit = c => (c.limit !== undefined && c.limit !== null) ? parseInt(c.limit) : -1;
+    const parseNum = val => parseInt(val) || 0;
+
+    const list = [...chars];
+    list.sort((a, b) => {
+        let valA = 0, valB = 0;
+        if (sortType === 'adv') {
+            valA = parseNum(a.adv !== undefined ? a.adv : a.adventure);
+            valB = parseNum(b.adv !== undefined ? b.adv : b.adventure);
+        } else if (sortType === 'level') {
+            valA = parseNum(a.level);
+            valB = parseNum(b.level);
+        } else if (sortType === 'cp') {
+            valA = parseCp(a);
+            valB = parseCp(b);
+        } else if (sortType === 'limit') {
+            valA = parseLimit(a);
+            valB = parseLimit(b);
+        }
+
+        if (valA !== valB) {
+            return sortOrder === 'asc' ? valA - valB : valB - valA;
+        }
+        return a.slotNum - b.slotNum;
+    });
+
+    return list;
+}
+
+function applyMultiSort(sortType) {
+    if (sortType === currentMultiSort && sortType !== 'save') {
+        currentMultiSortOrder = (currentMultiSortOrder === 'asc') ? 'desc' : 'asc';
+    } else {
+        currentMultiSort = sortType;
+        currentMultiSortOrder = 'asc';
+    }
+
+    // UI 버튼 상태 갱신
+    const buttons = document.querySelectorAll('#multi-sort-controls .sort-btn');
+    const labelMap = { adv: '모험', level: '레벨', cp: '투력', limit: '극한' };
+    buttons.forEach(btn => {
+        const type = btn.dataset.sort;
+        if (type === currentMultiSort) {
+            btn.classList.add('active');
+            if (type !== 'save') {
+                const orderText = currentMultiSortOrder === 'asc' ? '낮은순' : '높은순';
+                btn.textContent = `${labelMap[type]} ${orderText}`;
+            } else {
+                btn.textContent = '저장순';
+            }
+        } else {
+            btn.classList.remove('active');
+            if (type !== 'save') {
+                btn.textContent = `${labelMap[type]} 낮은순`;
+            } else {
+                btn.textContent = '저장순';
+            }
+        }
+    });
+
+    // 모든 패널의 뷰 다시 렌더링
+    for (const nick in multiUserDataStore) {
+        const lowerNick = nick.toLowerCase();
+        const panelEl = document.getElementById(`panel-${lowerNick}`);
+        if (!panelEl) continue;
+        const processed = multiUserDataStore[nick];
+        if (!processed || !processed.chars) continue;
+
+        const sortedChars = sortMultiChars(processed.chars, currentMultiSort, currentMultiSortOrder);
+
+        const basicView = panelEl.querySelector('.tab-view[data-tab="basic"]');
+        const equipView = panelEl.querySelector('.tab-view[data-tab="equip"]');
+        const bagView = panelEl.querySelector('.tab-view[data-tab="bag"]');
+
+        if (basicView) basicView.innerHTML = `<div class="cards-scroll">${sortedChars.map(renderBasicCard).join('')}</div>`;
+        if (equipView) equipView.innerHTML = `<div class="cards-scroll">${sortedChars.map(renderEquipCard).join('')}</div>`;
+        if (bagView) bagView.innerHTML = `<div class="cards-scroll">${sortedChars.map(renderBagCard).join('')}</div>`;
+    }
+
+    if (currentTab === 'bag') {
+        applyMultiBagSearch();
+    }
+}
+
+window.applyMultiSort = applyMultiSort;
+
+// ═══════════════════════════════════════════════════════
+//  멀티 배낭 아이템 검색 및 필터링
+// ═══════════════════════════════════════════════════════
+function applyMultiBagSearch() {
+    const input = document.getElementById('multi-bag-search-input');
+    const checkbox = document.getElementById('multi-bag-only-matched-checkbox');
+    const clearBtn = document.getElementById('multi-bag-search-clear');
+    const countEl = document.getElementById('multi-bag-search-result-count');
+    if (!input || !checkbox) return;
+
+    const query = input.value.trim().toLowerCase();
+    const onlyMatched = checkbox.checked;
+
+    if (clearBtn) {
+        clearBtn.style.display = query ? 'inline-block' : 'none';
+    }
+
+    const bagViews = document.querySelectorAll('.tab-view[data-tab="bag"]');
+    if (bagViews.length === 0) {
+        if (countEl) countEl.textContent = '';
+        return;
+    }
+
+    if (!query) {
+        // 전체 복원
+        bagViews.forEach(view => {
+            view.querySelectorAll('.char-card').forEach(card => {
+                card.style.display = '';
+                card.querySelectorAll('.multi-bag-section').forEach(sec => sec.style.display = '');
+                card.querySelectorAll('.bag-item-row').forEach(row => {
+                    row.style.display = '';
+                    row.classList.remove('item-highlight-match');
+                });
+                card.querySelectorAll('.bag-group-header').forEach(hdr => hdr.style.display = '');
+            });
+        });
+        if (countEl) countEl.textContent = '';
+        return;
+    }
+
+    let totalMatchItems = 0;
+    let totalMatchCards = 0;
+    const matchedUsers = new Set();
+
+    bagViews.forEach(view => {
+        const panel = view.closest('.user-panel');
+        const userNic = panel ? (panel.querySelector('.user-panel-name')?.textContent?.trim() || '') : '';
+        const cards = view.querySelectorAll('.char-card');
+
+        cards.forEach(card => {
+            let cardMatches = 0;
+            const sections = card.querySelectorAll('.multi-bag-section');
+
+            sections.forEach(sec => {
+                let sectionMatches = 0;
+                const rows = sec.querySelectorAll('.bag-item-row');
+                rows.forEach(row => {
+                    const itemName = (row.dataset.itemName || row.querySelector('.equip-item')?.textContent || '').toLowerCase();
+                    const isMatch = itemName.includes(query);
+                    if (isMatch) {
+                        sectionMatches++;
+                        cardMatches++;
+                        totalMatchItems++;
+                        row.classList.add('item-highlight-match');
+                        row.style.display = '';
+                    } else {
+                        row.classList.remove('item-highlight-match');
+                        if (onlyMatched) {
+                            row.style.display = 'none';
+                        } else {
+                            row.style.display = '';
+                        }
+                    }
+                });
+
+                if (onlyMatched) {
+                    sec.style.display = sectionMatches > 0 ? '' : 'none';
+                } else {
+                    sec.style.display = '';
+                }
+            });
+
+            // 창고배낭 / 후원창고배낭 헤더 숨김 처리
+            if (onlyMatched) {
+                card.querySelectorAll('.bag-group-header').forEach(hdr => {
+                    let next = hdr.nextElementSibling;
+                    let hasVisible = false;
+                    while (next && next.classList.contains('multi-bag-section')) {
+                        if (next.style.display !== 'none') hasVisible = true;
+                        next = next.nextElementSibling;
+                    }
+                    hdr.style.display = hasVisible ? '' : 'none';
+                });
+            } else {
+                card.querySelectorAll('.bag-group-header').forEach(hdr => hdr.style.display = '');
+            }
+
+            if (cardMatches > 0) {
+                card.style.display = '';
+                totalMatchCards++;
+                if (userNic) matchedUsers.add(userNic);
+            } else {
+                if (onlyMatched) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = '';
+                }
+            }
+        });
+    });
+
+    if (countEl) {
+        if (totalMatchCards > 0) {
+            const userCount = matchedUsers.size;
+            countEl.textContent = `${totalMatchItems}개 일치 (${userCount > 0 ? userCount + '명 / ' : ''}${totalMatchCards}캐릭 보유)`;
+        } else {
+            countEl.textContent = '일치하는 아이템 없음';
+        }
+    }
+}
+
+function initMultiBagSearch() {
+    const input = document.getElementById('multi-bag-search-input');
+    const checkbox = document.getElementById('multi-bag-only-matched-checkbox');
+    const clearBtn = document.getElementById('multi-bag-search-clear');
+
+    if (input) {
+        input.addEventListener('input', applyMultiBagSearch);
+    }
+    if (checkbox) {
+        checkbox.addEventListener('change', applyMultiBagSearch);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            applyMultiBagSearch();
+            input.focus();
+        });
+    }
+}
 
 // ─── Init ───
 buildPanels();
 window.addEventListener('DOMContentLoaded', () => {
+    initMultiBagSearch();
     loadAll();
 });
 </script>
 
-<script src="patchNotes.js?v=1.5.9"></script>
+<script src="patchNotes.js?v=1.6.5"></script>
 </body>
 </html>

@@ -1,48 +1,36 @@
 {
   "godwin": {
-    "63": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "킹 베지터"
+    "8": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인3 - 내퍼"
+    },
+    "27": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "각성한 부르마"
     }
   },
   "goodwin": {
+    "8": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "초사이어인3 - 내퍼"
+    },
+    "27": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "각성한 부르마"
+    }
+  },
+  "jyh10": {
     "63": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "킹 베지터"
-    }
-  },
-  "gowin2": {
-    "62": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "메탈 쿠우라"
-    }
-  },
-  "goodsee": {
-    "63": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "킹 베지터"
-    }
-  },
-  "ased": {
-    "41": {
-      "friend_name": "황소Lv2",
-      "hero_display_name": "우부"
+      "friend_name": "셀 완전체",
+      "hero_display_name": "킹 베지터 사이어인 왕"
     },
-    "65": {
-      "friend_name": "황소Lv2",
-      "hero_display_name": "블랙 오공"
+    "37": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "자봉 풀파워 - 변신"
     },
-    "66": {
-      "friend_name": "황소Lv2",
-      "hero_display_name": "자마스"
-    },
-    "58": {
-      "friend_name": "황소Lv2",
-      "hero_display_name": "리루도"
-    },
-    "34": {
-      "friend_name": "황소Lv2",
-      "hero_display_name": "비델"
+    "7": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "초사이어인 로제 - 라데츠"
     }
   }
 }

@@ -6,7 +6,7 @@
     <title>드래곤볼 RPG 조회시스템</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.6.1">
+    <link rel="stylesheet" href="style.css?v=1.6.5">
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ED8FV0R9B"></script>
     <script>
@@ -188,7 +188,17 @@
         <main class="dashboard-grid">
             <!-- Column 1: 기본현황 -->
             <section class="grid-column">
-                <h2 class="column-header basic-header">기본현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header basic-header">기본현황</h2>
+                    <div class="char-sort-controls" id="basic-sort-controls">
+                        <span class="sort-title">정렬:</span>
+                        <button type="button" class="sort-btn active" data-sort="save">저장순</button>
+                        <button type="button" class="sort-btn" data-sort="adv">모험 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="level">레벨 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="cp">투력 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="limit">극한 낮은순</button>
+                    </div>
+                </div>
                 <div id="col-basic" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -196,7 +206,9 @@
 
             <!-- Column 2: 세부현황 -->
             <section class="grid-column">
-                <h2 class="column-header detail-header">세부현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header detail-header">세부현황</h2>
+                </div>
                 <div id="col-detail" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -204,7 +216,17 @@
 
             <!-- Column 3: 장비현황 -->
             <section class="grid-column">
-                <h2 class="column-header equip-header">장비현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header equip-header">장비현황</h2>
+                    <div class="char-sort-controls" id="equip-sort-controls">
+                        <span class="sort-title">정렬:</span>
+                        <button type="button" class="sort-btn active" data-sort="save">저장순</button>
+                        <button type="button" class="sort-btn" data-sort="adv">모험 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="level">레벨 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="cp">투력 낮은순</button>
+                        <button type="button" class="sort-btn" data-sort="limit">극한 낮은순</button>
+                    </div>
+                </div>
                 <div id="col-equip" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -212,16 +234,14 @@
 
             <!-- Column 3-2: 배낭현황 -->
             <section class="grid-column">
-                <h2 class="column-header bag-header">배낭현황</h2>
-                <div class="bag-search-bar" id="bag-search-bar">
-                    <div class="bag-search-row">
+                <div class="column-header-wrap">
+                    <h2 class="column-header bag-header">배낭현황</h2>
+                    <div class="bag-search-bar bag-search-inline" id="bag-search-bar">
                         <div class="bag-search-input-box">
                             <span class="bag-search-icon">🔍</span>
                             <input type="text" id="bag-search-input" placeholder="배낭 아이템 검색..." autocomplete="off">
                             <button type="button" id="bag-search-clear" class="bag-search-clear" style="display:none;" title="초기화">✕</button>
                         </div>
-                    </div>
-                    <div class="bag-search-filter-row">
                         <label class="bag-filter-check-label" for="bag-only-matched-checkbox">
                             <input type="checkbox" id="bag-only-matched-checkbox">
                             <span>-검색 아이템만 보기</span>
@@ -236,7 +256,9 @@
 
             <!-- Column 4: 헬레이드 현황 -->
             <section class="grid-column">
-                <h2 class="column-header hell-header">헬레이드 현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header hell-header">헬레이드 현황</h2>
+                </div>
                 <div id="col-hell" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -244,7 +266,9 @@
 
             <!-- Column 5: 드래곤볼 현황 -->
             <section class="grid-column">
-                <h2 class="column-header db-header">드래곤볼 현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header db-header">드래곤볼 현황</h2>
+                </div>
                 <div id="col-db" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -252,7 +276,9 @@
 
             <!-- Column 6: 물약 현황 -->
             <section class="grid-column">
-                <h2 class="column-header potion-header">물약 현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header potion-header">물약 현황</h2>
+                </div>
                 <div id="col-potion" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -260,7 +286,9 @@
 
             <!-- Column 7: 기타 -->
             <section class="grid-column">
-                <h2 class="column-header other-header">기타</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header other-header">기타</h2>
+                </div>
                 <div id="col-other" class="cards-container">
                     <div class="empty-placeholder">캐릭터가 없습니다</div>
                 </div>
@@ -268,7 +296,9 @@
 
             <!-- Column 8: 링크 현황 -->
             <section class="grid-column">
-                <h2 class="column-header link-header">링크 현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header link-header">링크 현황</h2>
+                </div>
                 <div id="col-link" class="cards-container">
                     <div class="empty-placeholder">데이터가 없습니다</div>
                 </div>
@@ -276,7 +306,9 @@
 
             <!-- Column 9: 랭킹 현황 -->
             <section class="grid-column">
-                <h2 class="column-header rank-header">랭킹 현황</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header rank-header">랭킹 현황</h2>
+                </div>
                 <div id="col-rank" class="cards-container rankings-container">
                     <div class="empty-placeholder">랭킹 데이터를 불러오는 중...</div>
                 </div>
@@ -284,7 +316,9 @@
 
             <!-- Column 10: 프레임 장비 현황 -->
             <section class="grid-column frame-equip-section">
-                <h2 class="column-header frame-header">🛡️ 프레임 장비 현황 (<span id="frame-header-char-name">손오반</span>)</h2>
+                <div class="column-header-wrap">
+                    <h2 class="column-header frame-header">🛡️ 프레임 장비 현황 (<span id="frame-header-char-name">손오반</span>)</h2>
+                </div>
                 <div id="col-frame-equip" class="frame-equip-container">
                     <!-- Dynamic Frame Equipment UI Mount -->
                 </div>
@@ -293,6 +327,23 @@
         <!-- ─── 모바일 전용 뷰 (JS가 화면 너비에 따라 show/hide) ─── -->
         <div id="mobile-view" class="mobile-view hidden">
             <div id="mobile-chars" class="mobile-chars-grid"></div>
+        </div>
+    </div>
+
+    <!-- Character Popup Modal (기본현황 / 장비현황) -->
+    <div class="modal-overlay" id="char-popup-modal" onclick="closePersonalCharPopup()">
+        <div class="modal-content char-popup-modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="char-popup-modal-title">캐릭터 상세 정보</h3>
+                <button class="modal-close" onclick="closePersonalCharPopup()">&times;</button>
+            </div>
+            <div class="char-popup-tabs">
+                <button type="button" class="char-popup-tab-btn active" id="char-popup-tab-basic" onclick="switchPersonalPopupTab('basic')">📊 기본현황</button>
+                <button type="button" class="char-popup-tab-btn" id="char-popup-tab-equip" onclick="switchPersonalPopupTab('equip')">⚔️ 장비현황</button>
+            </div>
+            <div class="modal-body char-popup-modal-body" id="char-popup-modal-body">
+                <!-- Dynamically populated -->
+            </div>
         </div>
     </div>
 
@@ -309,9 +360,9 @@
         </div>
     </div>
 
-    <script src="patchNotes.js?v=1.6.0"></script>
-    <script src="heroIcons.js?v=1.6.0"></script>
+    <script src="patchNotes.js?v=1.6.5"></script>
+    <script src="heroIcons.js?v=1.6.1"></script>
     <script src="frameEquip.js?v=1.6.3"></script>
-    <script src="app.js?v=1.6.0"></script>
+    <script src="app.js?v=1.6.5"></script>
 </body>
 </html>

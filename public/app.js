@@ -836,6 +836,145 @@ function getAdventureStage(val) {
     return "개발중";
 }
 
+// 6대 마스터 조건 판정 및 뱃지 생성 함수
+function getMasteryInfo(c) {
+    if (!c) return { count: 0, isAllMaxed: false, badgeHtml: '', masteredList: [] };
+    
+    // 1. 레벨 (Level >= 6000)
+    const lvlNum = parseInt(c.level) || 0;
+    const isLvlMaxed = lvlNum >= 6000;
+    
+    // 2. 모험 (Adventure >= 21001)
+    const advVal = c.adv !== undefined ? c.adv : c.adventure;
+    const advNum = parseInt(advVal) || 0;
+    const isAdvMaxed = advNum >= 21001;
+    
+    // 3. 투력 (CP >= 700000)
+    const cpRaw = c.cp !== undefined && c.cp !== null ? c.cp : 0;
+    const cpNum = typeof cpRaw === 'string' ? parseInt(cpRaw.replace(/,/g, '')) : parseInt(cpRaw);
+    const isCpMaxed = (cpNum || 0) >= 700000;
+    
+    // 4. 영웅스텟 (힘, 민, 지 모두 >= maxOwnStat)
+    const maxOwnRaw = c.maxOwnStat !== undefined && c.maxOwnStat !== null ? c.maxOwnStat : 0;
+    const maxOwnVal = typeof maxOwnRaw === 'string' ? parseInt(maxOwnRaw.replace(/,/g, '')) : parseInt(maxOwnRaw);
+    const strRaw = c.str !== undefined && c.str !== null ? c.str : 0;
+    const strVal = typeof strRaw === 'string' ? parseInt(strRaw.replace(/,/g, '')) : parseInt(strRaw);
+    const agiRaw = c.agi !== undefined && c.agi !== null ? c.agi : 0;
+    const agiVal = typeof agiRaw === 'string' ? parseInt(agiRaw.replace(/,/g, '')) : parseInt(agiRaw);
+    const intRaw = c.intVal !== undefined && c.intVal !== null ? c.intVal : 0;
+    const intVal = typeof intRaw === 'string' ? parseInt(intRaw.replace(/,/g, '')) : parseInt(intRaw);
+    
+    const isOwnStrMaxed = Boolean(maxOwnVal > 0 && strVal >= maxOwnVal);
+    const isOwnAgiMaxed = Boolean(maxOwnVal > 0 && agiVal >= maxOwnVal);
+    const isOwnIntMaxed = Boolean(maxOwnVal > 0 && intVal >= maxOwnVal);
+    const isOwnStatMaxed = Boolean(isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed);
+    
+    // 5. 극한 (Limit >= 10)
+    const limitNum = (c.limit !== undefined && c.limit !== null) ? parseInt(c.limit) : -1;
+    const isLimitMaxed = (limitNum >= 10);
+    
+    // 6. 성급 (닼레8 or 다크레드8)
+    const starGradeClean = c.starGrade ? c.starGrade.toString().replace(/\s+/g, '') : '';
+    const isStarMaxed = Boolean(starGradeClean === '닼레8' || starGradeClean === '다크레드8');
+
+    const masteredList = [];
+    if (isLvlMaxed) masteredList.push('레벨');
+    if (isAdvMaxed) masteredList.push('모험');
+    if (isCpMaxed) masteredList.push('투력');
+    if (isOwnStatMaxed) masteredList.push('영웅스텟');
+    if (isLimitMaxed) masteredList.push('극한');
+    if (isStarMaxed) masteredList.push('성급');
+
+    const count = masteredList.length;
+    const isAllMaxed = (count === 6);
+
+    let badgeHtml = '';
+    if (count === 6) {
+        badgeHtml = `<span class="badge badge-all-max char-all-max-badge" title="6대 마스터 완료 (올맥스!): ${masteredList.join(', ')}">올맥스</span>`;
+    } else if (count >= 1 && count <= 5) {
+        badgeHtml = `<span class="badge badge-stars char-stars-badge stars-${count}" title="마스터 달성 (${count}/6): ${masteredList.join(', ')}">${'★'.repeat(count)}</span>`;
+    }
+
+    return {
+        isLvlMaxed,
+        isAdvMaxed,
+        isCpMaxed,
+        isOwnStrMaxed,
+        isOwnAgiMaxed,
+        isOwnIntMaxed,
+        isOwnStatMaxed,
+        isLimitMaxed,
+        isStarMaxed,
+        masteredList,
+        count,
+        isAllMaxed,
+        badgeHtml
+    };
+}
+
+function getBorderTagHtml(mastery) {
+    if (!mastery || mastery.count < 1) return '';
+    const starText = mastery.isAllMaxed ? '★올맥스★' : '★'.repeat(mastery.count);
+    const tagClass = mastery.isAllMaxed ? 'char-border-tag char-border-tag-all-max' : `char-border-tag char-border-tag-${mastery.count}`;
+    
+    const completedStr = mastery.masteredList.length > 0 ? mastery.masteredList.join(', ') : '없음';
+    const allCriteria = ['레벨', '모험', '투력', '영웅스텟', '극한', '성급'];
+    const uncompletedList = allCriteria.filter(item => !mastery.masteredList.includes(item));
+    const uncompletedStr = uncompletedList.length > 0 ? uncompletedList.join(', ') : '없음';
+
+    const titleAttr = mastery.isAllMaxed
+        ? `★ 6대 마스터 완전 달성 (올맥스) ★&#10;완료: ${completedStr}`
+        : `★ 마스터 진행도 (${mastery.count}/6) ★&#10;완료: ${completedStr}&#10;미완료: ${uncompletedStr}`;
+
+    const titleText = mastery.isAllMaxed ? '★ 6대 마스터 완료 (올맥스) ★' : `★ 마스터 진행도 (${mastery.count}/6) ★`;
+    const waitRow = !mastery.isAllMaxed
+        ? `<div class="tag-tooltip-row"><span class="tag-tt-label wait">⏳ 미완료:</span> <span class="tag-tt-val">${uncompletedStr}</span></div>`
+        : '';
+
+    return `<div class="${tagClass}" title="${titleAttr}">
+        <span class="tag-stars-text">${starText}</span>
+        <div class="tag-tooltip-bubble">
+            <div class="tag-tooltip-title">${titleText}</div>
+            <div class="tag-tooltip-row"><span class="tag-tt-label done">✔ 완료:</span> <span class="tag-tt-val">${completedStr}</span></div>
+            ${waitRow}
+        </div>
+    </div>`;
+}
+
+function createBorderTagElement(mastery) {
+    if (!mastery || mastery.count < 1) return null;
+    const tag = document.createElement('div');
+    tag.className = mastery.isAllMaxed ? 'char-border-tag char-border-tag-all-max' : `char-border-tag char-border-tag-${mastery.count}`;
+    
+    const starText = mastery.isAllMaxed ? '★올맥스★' : '★'.repeat(mastery.count);
+    const completedStr = mastery.masteredList.length > 0 ? mastery.masteredList.join(', ') : '없음';
+    const allCriteria = ['레벨', '모험', '투력', '영웅스텟', '극한', '성급'];
+    const uncompletedList = allCriteria.filter(item => !mastery.masteredList.includes(item));
+    const uncompletedStr = uncompletedList.length > 0 ? uncompletedList.join(', ') : '없음';
+
+    tag.title = mastery.isAllMaxed
+        ? `★ 6대 마스터 완전 달성 (올맥스) ★
+완료: ${completedStr}`
+        : `★ 마스터 진행도 (${mastery.count}/6) ★
+완료: ${completedStr}
+미완료: ${uncompletedStr}`;
+
+    const titleText = mastery.isAllMaxed ? '★ 6대 마스터 완료 (올맥스) ★' : `★ 마스터 진행도 (${mastery.count}/6) ★`;
+    const waitRow = !mastery.isAllMaxed
+        ? `<div class="tag-tooltip-row"><span class="tag-tt-label wait">⏳ 미완료:</span> <span class="tag-tt-val">${uncompletedStr}</span></div>`
+        : '';
+
+    tag.innerHTML = `
+        <span class="tag-stars-text">${starText}</span>
+        <div class="tag-tooltip-bubble">
+            <div class="tag-tooltip-title">${titleText}</div>
+            <div class="tag-tooltip-row"><span class="tag-tt-label done">✔ 완료:</span> <span class="tag-tt-val">${completedStr}</span></div>
+            ${waitRow}
+        </div>
+    `;
+    return tag;
+}
+
 // Render Equipment Card (for 장비현황 tab)
 function createEquipmentCard(char) {
     const card = document.createElement('div');
@@ -848,7 +987,17 @@ function createEquipmentCard(char) {
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
         const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
-        if (iconImg) nameRow.appendChild(iconImg);
+        if (iconImg) {
+            const iconWrapper = document.createElement('span');
+            iconWrapper.className = 'char-avatar-clickable';
+            iconWrapper.title = '클릭 시 기본현황 팝업 (기본/장비 전환 가능)';
+            iconWrapper.onclick = (e) => {
+                e.stopPropagation();
+                openPersonalCharPopup(char.slotNum, 'basic');
+            };
+            iconWrapper.appendChild(iconImg);
+            nameRow.appendChild(iconWrapper);
+        }
     }
     const nameSpan = document.createElement('span');
     // Name color: green if attended today
@@ -868,6 +1017,11 @@ function createEquipmentCard(char) {
         }
     }
     nameRow.appendChild(nameSpan);
+    const mastery = getMasteryInfo(char);
+    if (mastery.isAllMaxed) card.classList.add('char-card-all-maxed');
+    else if (mastery.count >= 1) card.classList.add('char-card-mastery-' + mastery.count);
+    const borderTag = createBorderTagElement(mastery);
+    if (borderTag) card.appendChild(borderTag);
 
     if (char.isCorrupted) {
         const errorBadge = document.createElement('span');
@@ -948,7 +1102,17 @@ function createBackpackCard(char) {
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
         const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
-        if (iconImg) nameRow.appendChild(iconImg);
+        if (iconImg) {
+            const iconWrapper = document.createElement('span');
+            iconWrapper.className = 'char-avatar-clickable';
+            iconWrapper.title = '클릭 시 기본현황 팝업 (기본/장비 전환 가능)';
+            iconWrapper.onclick = (e) => {
+                e.stopPropagation();
+                openPersonalCharPopup(char.slotNum, 'basic');
+            };
+            iconWrapper.appendChild(iconImg);
+            nameRow.appendChild(iconWrapper);
+        }
     }
     const nameSpan = document.createElement('span');
     nameSpan.className = char.isTodaySave ? 'char-name char-name--attended' : 'char-name';
@@ -967,6 +1131,11 @@ function createBackpackCard(char) {
         }
     }
     nameRow.appendChild(nameSpan);
+    const mastery = getMasteryInfo(char);
+    if (mastery.isAllMaxed) card.classList.add('char-card-all-maxed');
+    else if (mastery.count >= 1) card.classList.add('char-card-mastery-' + mastery.count);
+    const borderTag = createBorderTagElement(mastery);
+    if (borderTag) card.appendChild(borderTag);
 
     if (char.isCorrupted) {
         const errorBadge = document.createElement('span');
@@ -1224,7 +1393,17 @@ function createCharacterCard(char) {
     nameRow.className = 'char-name-row';
     if (typeof char !== 'undefined' && char && char.name && typeof createHeroIconElement === 'function') {
         const iconImg = createHeroIconElement(char.name, char.slotNum, 52);
-        if (iconImg) nameRow.appendChild(iconImg);
+        if (iconImg) {
+            const iconWrapper = document.createElement('span');
+            iconWrapper.className = 'char-avatar-clickable';
+            iconWrapper.title = '클릭 시 장비현황 팝업 (기본/장비 전환 가능)';
+            iconWrapper.onclick = (e) => {
+                e.stopPropagation();
+                openPersonalCharPopup(char.slotNum, 'equip');
+            };
+            iconWrapper.appendChild(iconImg);
+            nameRow.appendChild(iconWrapper);
+        }
     }
 
     // Name color: green if attended today
@@ -1245,6 +1424,11 @@ function createCharacterCard(char) {
         }
     }
     nameRow.appendChild(nameSpan);
+    const mastery = getMasteryInfo(char);
+    if (mastery.isAllMaxed) card.classList.add('char-card-all-maxed');
+    else if (mastery.count >= 1) card.classList.add('char-card-mastery-' + mastery.count);
+    const borderTag = createBorderTagElement(mastery);
+    if (borderTag) card.appendChild(borderTag);
 
     if (char.isCorrupted) {
         const errorBadge = document.createElement('span');
@@ -1283,21 +1467,16 @@ function createCharacterCard(char) {
     const leftCol = document.createElement('div');
     leftCol.className = 'char-card-left';
 
-    // 8가지 만스텟 조건 판정
-    const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
-    const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
-    const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
-    const isCpMaxedForAll = (cpValueForMax || 0) >= 700000;
-    const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
-    const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
-    const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnAgiMaxed = char.agi && char.maxOwnStat && parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnIntMaxed = char.intVal && char.maxOwnStat && parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    
-    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxedForAll && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
-    if (isAllMaxed) {
-        card.className += ' char-card-all-maxed';
-    }
+    // 6대 마스터 조건 판정
+    const isLvlMaxed = mastery.isLvlMaxed;
+    const isAdvMaxed = mastery.isAdvMaxed;
+    const isCpMaxedForAll = mastery.isCpMaxed;
+    const isStarMaxed = mastery.isStarMaxed;
+    const isLimitMaxed = mastery.isLimitMaxed;
+    const isOwnStrMaxed = mastery.isOwnStrMaxed;
+    const isOwnAgiMaxed = mastery.isOwnAgiMaxed;
+    const isOwnIntMaxed = mastery.isOwnIntMaxed;
+    const isAllMaxed = mastery.isAllMaxed;
 
     // Level
     const baseName = LINK_NAME_MAPPING[char.slotNum];
@@ -1865,6 +2044,7 @@ async function fetchAndRenderLogs(nicName) {
             }
         });
         const uniqueCharacters = Object.values(charactersBySlot);
+        window.currentUserCharacters = uniqueCharacters;
 
         // 모든 캐릭터의 블루다이아 합산하여 상단 프로필에 반영
         let totalBlueDiamonds = 0;
@@ -2021,17 +2201,11 @@ async function fetchAndRenderLogs(nicName) {
 
         // 4. Render cards to columns
         uniqueCharacters.forEach(char => {
-            // Render stats cards to its specific category column (except equip tab)
-            if (char.category !== 'equip' && char.category !== 'bag') {
+            // Render stats cards to its specific category column (except basic, equip, bag)
+            if (char.category !== 'basic' && char.category !== 'equip' && char.category !== 'bag') {
                 const card = createCharacterCard(char);
                 const col = columns[char.category] || columns['other'];
-                col.appendChild(card);
-            }
-
-            // Also render stats cards to the basic column (so basic contains all characters)
-            if (char.category !== 'basic') {
-                const cardClone = createCharacterCard(char);
-                columns['basic'].appendChild(cardClone);
+                if (col) col.appendChild(card);
             }
 
             // Render equipment card to the equip column for ALL characters
@@ -2042,6 +2216,10 @@ async function fetchAndRenderLogs(nicName) {
             const backpackCard = createBackpackCard(char);
             columns['bag'].appendChild(backpackCard);
         });
+
+        // 4-1. 기본현황 렌더링 및 정렬 상태 초기화
+        resetSortState();
+        renderBasicCards(uniqueCharacters);
         applyBagSearch();
 
         // Render Account Figures Card in "기타" (Other) Tab at the top
@@ -2278,6 +2456,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 배낭 아이템 검색 초기화
     initBagSearch();
+    // 기본현황 정렬 시스템 초기화
+    initBasicSorting();
 
     const urlParams = new URLSearchParams(window.location.search);
     const userParam = urlParams.get('nicName');
@@ -2289,6 +2469,145 @@ window.addEventListener('DOMContentLoaded', () => {
         nicnameInput.value = '';
     }
 });
+
+// ═══════════════════════════════════════════════════════
+//  기본현황 정렬 시스템 (저장순, 모험, 레벨, 투력, 극한)
+// ═══════════════════════════════════════════════════════
+let currentSortType = 'save';
+let currentSortOrder = 'asc'; // 'asc' = 낮은순, 'desc' = 높은순
+
+function renderBasicCards(chars) {
+    const colBasic = columns['basic'];
+    if (!colBasic) return;
+    colBasic.innerHTML = '';
+
+    if (!chars || chars.length === 0) {
+        colBasic.innerHTML = '<div class="empty-placeholder">캐릭터가 없습니다</div>';
+        return;
+    }
+
+    chars.forEach(char => {
+        const card = createCharacterCard(char);
+        colBasic.appendChild(card);
+    });
+}
+
+function resetSortState() {
+    currentSortType = 'save';
+    currentSortOrder = 'asc';
+    updateSortButtonsUI();
+}
+
+function renderEquipmentCards(chars) {
+    const colEquip = columns['equip'];
+    if (!colEquip) return;
+    colEquip.innerHTML = '';
+    if (!chars || chars.length === 0) {
+        colEquip.innerHTML = '<div class="empty-placeholder">캐릭터가 없습니다</div>';
+        return;
+    }
+    chars.forEach(char => {
+        const card = createEquipmentCard(char);
+        colEquip.appendChild(card);
+    });
+}
+
+function updateSortButtonsUI() {
+    const buttons = document.querySelectorAll('#basic-sort-controls .sort-btn, #equip-sort-controls .sort-btn');
+    const labelMap = { adv: '모험', level: '레벨', cp: '투력', limit: '극한' };
+
+    buttons.forEach(btn => {
+        const type = btn.dataset.sort;
+        if (type === currentSortType) {
+            btn.classList.add('active');
+            if (type !== 'save') {
+                const orderText = currentSortOrder === 'asc' ? '낮은순' : '높은순';
+                btn.textContent = `${labelMap[type]} ${orderText}`;
+            } else {
+                btn.textContent = '저장순';
+            }
+        } else {
+            btn.classList.remove('active');
+            if (type !== 'save') {
+                btn.textContent = `${labelMap[type]} 낮은순`;
+            } else {
+                btn.textContent = '저장순';
+            }
+        }
+    });
+}
+
+function sortBasicCharacters(chars, sortType, sortOrder = 'asc') {
+    if (!chars) return [];
+    if (sortType === 'save') {
+        return [...window.currentUserCharacters];
+    }
+
+    const parseCp = c => typeof c.cp === 'string' ? parseInt(c.cp.replace(/,/g, '')) || 0 : (c.cp || 0);
+    const parseLimit = c => (c.limit !== undefined && c.limit !== null) ? parseInt(c.limit) : -1;
+    const parseNum = val => parseInt(val) || 0;
+
+    const list = [...chars];
+    list.sort((a, b) => {
+        let valA = 0, valB = 0;
+        if (sortType === 'adv') {
+            valA = parseNum(a.adventure);
+            valB = parseNum(b.adventure);
+        } else if (sortType === 'level') {
+            valA = parseNum(a.level);
+            valB = parseNum(b.level);
+        } else if (sortType === 'cp') {
+            valA = parseCp(a);
+            valB = parseCp(b);
+        } else if (sortType === 'limit') {
+            valA = parseLimit(a);
+            valB = parseLimit(b);
+        }
+
+        if (valA !== valB) {
+            return sortOrder === 'asc' ? valA - valB : valB - valA;
+        }
+        return a.slotNum - b.slotNum;
+    });
+
+    return list;
+}
+
+function applyBasicSort(sortType) {
+    if (!window.currentUserCharacters || window.currentUserCharacters.length === 0) return;
+
+    if (sortType === currentSortType && sortType !== 'save') {
+        currentSortOrder = (currentSortOrder === 'asc') ? 'desc' : 'asc';
+    } else {
+        currentSortType = sortType;
+        currentSortOrder = 'asc'; // 새 기준 클릭 시 기본은 낮은순
+    }
+
+    updateSortButtonsUI();
+
+    const sorted = sortBasicCharacters(window.currentUserCharacters, currentSortType, currentSortOrder);
+    renderBasicCards(sorted);
+    renderEquipmentCards(sorted);
+
+    // 모바일 뷰 동기화
+    if (typeof renderMobileChars === 'function' && typeof currentMobileCategory !== 'undefined' && currentMobileCategory === 'basic') {
+        renderMobileChars(sorted);
+    }
+}
+
+function initBasicSorting() {
+    ['basic-sort-controls', 'equip-sort-controls'].forEach(id => {
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sortType = btn.dataset.sort;
+                applyBasicSort(sortType);
+            });
+        });
+    });
+}
 
 // ─── Backpack Item Search & Filter ───
 function applyBagSearch() {
@@ -2429,13 +2748,13 @@ function isMobile() {
 function mobileBadgesHtml(char) {
     let h = '';
     if (char.isCorrupted)   h += '<span class="mb-badge mb-err">오류</span>';
-    if (char.isLatestSave)  h += '<span class="mb-badge mb-latest">제일마지막저장</span>';
+    if (char.isLatestSave)  h += '<span class="mb-badge mb-latest">제일마지막</span>';
     if (char.isTodaySave)   h += '<span class="mb-badge mb-attend">출첵완</span>';
     else if (char.missedDays > 0) {
         const maxDays = 7 + (char.ttType !== undefined ? char.ttType : 2);
         const ratio = char.missedDays / maxDays;
         const cls = ratio >= 0.7 ? 'mb-miss-h' : ratio >= 0.4 ? 'mb-miss-m' : 'mb-miss-l';
-        h += `<span class="mb-badge ${cls}">${char.missedDays}d 미접속</span>`;
+        h += `<span class="mb-badge ${cls}">${char.missedDays}d 미접</span>`;
     }
     return h;
 }
@@ -2453,18 +2772,17 @@ function createMobileBasicCard(char) {
     const awakening = char.awakeningLevel > 0
         ? `<span class="mc-awakening">각성:${char.awakeningLevel}</span>` : '';
 
-    // 모바일 만스텟 조건 판정
-    const isLvlMaxed = (parseInt(char.level) || 0) >= 6000;
-    const isAdvMaxed = (parseInt(char.adventure) || 0) >= 21001;
-    const cpValueForMax = typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp);
-    const isCpMaxed = (cpValueForMax || 0) >= 700000;
-    const isStarMaxed = char.starGrade && (char.starGrade.replace(/\s+/g, '') === '닼레8' || char.starGrade.replace(/\s+/g, '') === '다크레드8');
-    const isLimitMaxed = char.limit !== undefined && char.limit !== null && (parseInt(char.limit) || 0) >= 10;
-    const isOwnStrMaxed = char.str && char.maxOwnStat && parseInt(char.str.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnAgiMaxed = char.agi && char.maxOwnStat && parseInt(char.agi.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    const isOwnIntMaxed = char.intVal && char.maxOwnStat && parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, ''));
-    
-    const isAllMaxed = isLvlMaxed && isAdvMaxed && isCpMaxed && isStarMaxed && isLimitMaxed && isOwnStrMaxed && isOwnAgiMaxed && isOwnIntMaxed;
+    // 6대 마스터 조건 판정
+    const mastery = getMasteryInfo(char);
+    const isLvlMaxed = mastery.isLvlMaxed;
+    const isAdvMaxed = mastery.isAdvMaxed;
+    const isCpMaxed = mastery.isCpMaxed;
+    const isStarMaxed = mastery.isStarMaxed;
+    const isLimitMaxed = mastery.isLimitMaxed;
+    const isOwnStrMaxed = mastery.isOwnStrMaxed;
+    const isOwnAgiMaxed = mastery.isOwnAgiMaxed;
+    const isOwnIntMaxed = mastery.isOwnIntMaxed;
+    const isAllMaxed = mastery.isAllMaxed;
 
     const limitBlock = (char.limit !== null) ? `
         <div class="mc-section">
@@ -2473,8 +2791,11 @@ function createMobileBasicCard(char) {
             <div class="mc-row"><span><span class="stat-label">탐구:</span> <b class="mc-val">${mbFmt(char.search)}</b></span><span><span class="stat-label">행운:</span> <b class="mc-val">${mbFmt(char.luck)}</b></span></div>
         </div>` : '';
 
-    return `<div class="mc-card ${isAllMaxed ? 'char-card-all-maxed' : ''}">
+    const mbMasteryClass = isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
+    return `<div class="mc-card ${mbMasteryClass}">
+        ${getBorderTagHtml(mastery)}
         <div class="mc-header">
+            ${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openPersonalCharPopup(${char.slotNum}, 'equip')" title="클릭 시 장비현황 팝업">${getHeroIconHtml(char.name, char.slotNum, 26)}</span>` : ''}
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
@@ -2509,6 +2830,7 @@ function createMobileBasicCard(char) {
 
 // 모바일 장비현황 카드
 function createMobileEquipCard(char) {
+    const mastery = getMasteryInfo(char);
     function itemHtml(id) {
         const item = ITEM_MAPPING[id] || { name: `아이템 ${id}`, color: 'standard' };
         return `<span class="mc-item mc-item-${item.color} equip-item-clickable" onclick="showItemModal(${id})">${item.name}</span>`;
@@ -2521,8 +2843,11 @@ function createMobileEquipCard(char) {
         ? char.friendItems.map(itemHtml).join('')
         : '<span class="mc-noitem">없음</span>';
 
-    return `<div class="mc-card">
+    const mbMasteryClass = mastery.isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
+    return `<div class="mc-card ${mbMasteryClass}">
+        ${getBorderTagHtml(mastery)}
         <div class="mc-header">
+            ${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openPersonalCharPopup(${char.slotNum}, 'basic')" title="클릭 시 기본현황 팝업">${getHeroIconHtml(char.name, char.slotNum, 26)}</span>` : ''}
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
@@ -2586,8 +2911,12 @@ function createMobileBagCard(char) {
         });
     }
 
-    return `<div class="mc-card" style="display:flex; flex-direction:column; align-items:flex-start; width:100%; box-sizing:border-box;">
+    const mastery = getMasteryInfo(char);
+    const mbMasteryClass = mastery.isAllMaxed ? "char-card-all-maxed" : (mastery.count >= 1 ? "char-card-mastery-" + mastery.count : "");
+    return `<div class="mc-card ${mbMasteryClass}" style="display:flex; flex-direction:column; align-items:flex-start; width:100%; box-sizing:border-box;">
+        ${getBorderTagHtml(mastery)}
         <div class="mc-header" style="width: 100%;">
+            ${typeof getHeroIconHtml === 'function' ? `<span class="char-avatar-clickable" onclick="openPersonalCharPopup(${char.slotNum}, 'basic')" title="클릭 시 기본현황 팝업">${getHeroIconHtml(char.name, char.slotNum, 26)}</span>` : ''}
             <span class="${nameClass}">${char.name}</span>
             <span class="mc-badges">${mobileBadgesHtml(char)}</span>
         </div>
@@ -2741,9 +3070,78 @@ function closeItemModal() {
     }
 }
 
-// ESC 키로 모달 닫기 지원
+
+// ═══════════════════════════════════════════════════════
+//  개인조회 캐릭터 카드 팝업 (기본현황 ↔ 장비현황 상호 전환)
+// ═══════════════════════════════════════════════════════
+let currentPersonalPopupSlotNum = null;
+let currentPersonalPopupTab = 'basic';
+
+function openPersonalCharPopup(slotNum, targetTab = 'basic') {
+    currentPersonalPopupSlotNum = slotNum;
+    currentPersonalPopupTab = targetTab;
+    const char = window.currentUserCharacters?.find(c => c.slotNum === slotNum);
+    if (!char) {
+        console.warn('Character not found for popup:', slotNum);
+        return;
+    }
+
+    renderPersonalCharPopupContent(char, targetTab);
+    const modal = document.getElementById('char-popup-modal');
+    if (modal) modal.classList.add('active');
+}
+
+function switchPersonalPopupTab(tab) {
+    currentPersonalPopupTab = tab;
+    if (currentPersonalPopupSlotNum === null) return;
+    const char = window.currentUserCharacters?.find(c => c.slotNum === currentPersonalPopupSlotNum);
+    if (!char) return;
+    renderPersonalCharPopupContent(char, tab);
+}
+
+function renderPersonalCharPopupContent(char, tab) {
+    const titleEl = document.getElementById('char-popup-modal-title');
+    const bodyEl = document.getElementById('char-popup-modal-body');
+    const btnBasic = document.getElementById('char-popup-tab-basic');
+    const btnEquip = document.getElementById('char-popup-tab-equip');
+
+    if (btnBasic && btnEquip) {
+        btnBasic.classList.toggle('active', tab === 'basic');
+        btnEquip.classList.toggle('active', tab === 'equip');
+    }
+
+    if (!bodyEl) return;
+    bodyEl.innerHTML = '';
+
+    if (tab === 'equip') {
+        if (titleEl) titleEl.innerHTML = `<span style="color:var(--cyan);font-weight:bold;">⚔️ ${char.name}</span> <span style="font-size:0.85rem;color:var(--text-muted);font-weight:normal;">(장비현황)</span>`;
+        const card = createEquipmentCard(char);
+        bodyEl.appendChild(card);
+    } else {
+        if (titleEl) titleEl.innerHTML = `<span style="color:var(--cyan);font-weight:bold;">📊 ${char.name}</span> <span style="font-size:0.85rem;color:var(--text-muted);font-weight:normal;">(기본현황)</span>`;
+        const card = createCharacterCard(char);
+        bodyEl.appendChild(card);
+    }
+}
+
+function closePersonalCharPopup() {
+    const modal = document.getElementById('char-popup-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+window.openPersonalCharPopup = openPersonalCharPopup;
+window.switchPersonalPopupTab = switchPersonalPopupTab;
+window.closePersonalCharPopup = closePersonalCharPopup;
+// ESC 키로 모달 닫기 지원 (아이템 모달 우선 닫고, 그 다음 캐릭터 모달 닫기)
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        closeItemModal();
+        const itemModal = document.getElementById('item-modal');
+        if (itemModal && itemModal.classList.contains('active')) {
+            closeItemModal();
+        } else {
+            closePersonalCharPopup();
+        }
     }
 });
