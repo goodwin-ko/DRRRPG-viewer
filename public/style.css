@@ -4471,6 +4471,119 @@ span.stat-value.stat-val-maxed {
     display: block !important;
 }
 
+/* Tooltip Comparison & Star System */
+.tooltip-card.compare-mode {
+    min-width: 520px !important;
+    max-width: 680px !important;
+    width: auto !important;
+}
+
+.compare-tooltip-wrapper {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+}
+
+.compare-col {
+    flex: 1;
+    min-width: 240px;
+    background: rgba(12, 7, 20, 0.65);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.compare-col.target-item {
+    border-color: rgba(255, 152, 0, 0.45);
+    background: rgba(255, 152, 0, 0.05);
+}
+
+.compare-col.equipped-item {
+    border-color: rgba(0, 229, 255, 0.45);
+    background: rgba(0, 229, 255, 0.05);
+}
+
+.compare-header-badge {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.badge-storage {
+    background: rgba(255, 152, 0, 0.22);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 152, 0, 0.4);
+}
+
+.badge-equipped {
+    background: rgba(0, 229, 255, 0.22);
+    color: #00e5ff;
+    border: 1px solid rgba(0, 229, 255, 0.4);
+}
+
+.diff-tag {
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 6px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.diff-pos {
+    color: #00ffcc;
+    background: rgba(0, 255, 204, 0.16);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+}
+
+.diff-neg {
+    color: #ff5252;
+    background: rgba(255, 82, 82, 0.16);
+    border: 1px solid rgba(255, 82, 82, 0.3);
+}
+
+.diff-eq {
+    color: #888;
+}
+
+.diff-lost-section {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(255, 82, 82, 0.35);
+}
+
+.opt-star {
+    font-size: 13px;
+    display: inline-block;
+    margin-right: 1px;
+    vertical-align: middle;
+}
+
+.slot-stars-overlay {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.slot-stars-overlay .opt-star {
+    font-size: 8px;
+    line-height: 1;
+    margin: 0;
+    text-shadow: 0 1px 2px #000, 0 0 3px #000;
+}
+
 .tt-header {
     display: flex;
     gap: 10px;

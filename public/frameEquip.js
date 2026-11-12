@@ -1253,7 +1253,129 @@
     15: { hex: 'F', name: '보조', part: 13 }
   };
 
+  // --- Frame Equipment Max Roll & Max Options Database (Generated from Top 100 Ranker Analysis) ---
+  const FRAME_EQUIP_MAX_DB = {"62":{"mo":5,"m":{"6":1615973,"18":239,"8":1781318,"15":74,"17":259,"7":1611926,"2":92,"3":553}},"61":{"mo":3,"m":{"8":12921898,"9":125,"10":80,"7":13323785,"6":12645924}},"88":{"mo":4,"m":{"1":45,"9":166,"10":22,"2":21}},"89":{"mo":4,"m":{"3":177,"10":37,"9":178,"4":173}},"90":{"mo":3,"m":{"6":861221,"1":66,"9":110,"7":778903,"10":21}},"91":{"mo":3,"m":{"1":150,"2":55,"11":41}},"92":{"mo":4,"m":{"3":348,"9":222,"4":414,"1":135}},"95":{"mo":4,"m":{"11":34,"9":300,"1":148,"12":290}},"63":{"mo":5,"m":{"2":93,"8":1825306,"7":1670058,"16":1126,"18":259,"17":242,"6":1754411}},"64":{"mo":5,"m":{"4":605,"3":531,"17":269,"15":71,"18":237,"1":183}},"65":{"mo":5,"m":{"9":487,"6":2013467,"18":240,"11":36,"1":184,"7":1561844,"17":211}},"66":{"mo":5,"m":{"7":1813820,"3":557,"17":236,"8":1818029,"18":247,"4":548,"15":73,"6":1594650}},"67":{"mo":5,"m":{"6":1623393,"17":245,"7":1887036,"18":251,"12":315,"1":186,"9":436,"8":1621646}},"68":{"mo":5,"m":{"4":563,"18":245,"15":70,"3":541,"17":231,"10":91}},"80":{"mo":2,"m":{"15":60,"16":1000}},"81":{"mo":2,"m":{"15":60,"16":1000}},"96":{"mo":2,"m":{"15":60,"17":200}},"69":{"mo":5,"m":{"6":1740546,"8":1858054,"18":244,"16":1336,"7":1673705,"10":93,"17":245,"2":93}},"70":{"mo":5,"m":{"5":319,"1":195,"18":256,"8":1846615,"12":361,"7":1819791,"11":40,"17":252,"6":1862710}},"97":{"mo":2,"m":{"5":500,"2":100}},"71":{"mo":5,"m":{"1":184,"9":450,"6":1832039,"5":331,"7":1798784,"18":239,"16":1297,"17":233,"8":1825011}},"72":{"mo":5,"m":{"10":90,"15":68,"4":555,"18":210,"17":222,"9":424}},"126":{"mo":0,"m":{}},"128":{"mo":0,"m":{}},"133":{"mo":0,"m":{}},"186":{"mo":0,"m":{}},"187":{"mo":0,"m":{}},"190":{"mo":0,"m":{}},"248":{"mo":0,"m":{}},"250":{"mo":0,"m":{}},"254":{"mo":0,"m":{}},"257":{"mo":0,"m":{}},"315":{"mo":0,"m":{}},"374":{"mo":0,"m":{}},"375":{"mo":0,"m":{}},"497":{"mo":0,"m":{}},"560":{"mo":0,"m":{}},"564":{"mo":0,"m":{}},"6":{"mo":5,"m":{"7":336,"6":279,"17":25,"2":11,"16":76,"15":5,"18":39,"3":61,"8":129}},"7":{"mo":4,"m":{"2":12,"7":302,"15":5,"17":39,"6":173,"8":201}},"8":{"mo":3,"m":{"4":45,"15":3,"17":16}},"9":{"mo":4,"m":{"9":64,"7":293,"17":39,"16":94,"6":239,"15":5,"8":305,"18":28,"1":17}},"10":{"mo":4,"m":{"7":309,"8":263,"18":37,"17":34,"16":113,"4":54,"3":61,"6":119}},"11":{"mo":5,"m":{"7":311,"18":12,"6":281,"15":3,"16":85,"9":60,"1":14,"8":213}},"12":{"mo":3,"m":{"4":63,"3":47,"10":12}},"13":{"mo":5,"m":{"8":272,"2":10,"7":273,"17":42,"16":100,"15":5,"10":16,"6":180,"18":39}},"14":{"mo":5,"m":{"1":21,"15":3,"5":30,"18":21,"7":351,"8":278,"6":289,"17":32,"16":67}},"15":{"mo":4,"m":{"1":21,"15":1,"5":19,"9":55,"8":258,"7":301,"16":78,"6":177}},"16":{"mo":3,"m":{"10":14,"16":69,"4":56,"18":30}},"17":{"mo":5,"m":{"8":3133,"15":12,"6":3372,"17":67,"3":120,"7":3237,"16":159,"18":62,"2":16}},"18":{"mo":5,"m":{"2":18,"16":161,"6":3289,"7":3636,"15":11,"8":3207,"17":63,"18":60}},"19":{"mo":5,"m":{"4":108,"16":181,"17":67,"1":36,"3":122,"15":12,"18":65}},"20":{"mo":5,"m":{"9":116,"18":73,"1":32,"7":3296,"8":3532,"17":65,"15":11,"16":161,"6":3645}},"21":{"mo":5,"m":{"8":3671,"15":12,"18":73,"7":3028,"16":158,"6":3523,"4":114,"17":66,"3":104}},"22":{"mo":5,"m":{"6":3280,"16":179,"9":120,"8":2785,"17":73,"1":32,"15":12,"7":3057,"18":65}},"23":{"mo":5,"m":{"3":122,"17":72,"15":11,"4":121,"16":187,"10":29,"18":66}},"24":{"mo":5,"m":{"6":3542,"16":184,"15":11,"8":3554,"17":62,"10":27,"2":16,"7":3227,"18":65}},"25":{"mo":5,"m":{"1":37,"15":11,"8":3389,"18":65,"5":62,"6":3092,"16":155,"7":3098,"17":71}},"26":{"mo":5,"m":{"1":41,"9":120,"6":3449,"5":54,"15":13,"8":3590,"7":3124,"17":62,"16":150}},"27":{"mo":5,"m":{"10":27,"15":10,"17":64,"4":107,"16":168,"18":64,"9":98}},"28":{"mo":5,"m":{"8":31722,"3":157,"18":89,"16":313,"7":32309,"2":28,"15":21,"17":86,"6":30562}},"29":{"mo":5,"m":{"2":33,"7":33885,"8":32258,"18":93,"15":21,"16":328,"6":30864,"17":82}},"30":{"mo":5,"m":{"4":183,"17":82,"3":160,"1":59,"16":311,"18":91,"15":21}},"31":{"mo":5,"m":{"9":174,"1":52,"8":36978,"6":33820,"16":357,"18":80,"7":35744,"17":88,"15":17}},"32":{"mo":5,"m":{"6":33354,"3":156,"18":86,"17":81,"16":312,"15":21,"7":30917,"4":159,"8":31290}},"33":{"mo":5,"m":{"8":32378,"18":95,"17":83,"16":301,"9":170,"7":38598,"1":59,"6":31507,"15":20}},"34":{"mo":5,"m":{"3":179,"4":174,"10":42,"17":85,"15":19,"16":321,"18":86}},"35":{"mo":5,"m":{"8":33817,"6":32811,"2":30,"18":88,"10":42,"16":316,"15":22,"17":84,"7":35197}},"36":{"mo":5,"m":{"5":95,"1":62,"18":78,"7":33251,"17":82,"16":303,"15":21,"6":29532,"8":31525}},"37":{"mo":5,"m":{"1":59,"7":32353,"6":34560,"17":87,"9":150,"8":33381,"15":24,"5":75,"16":347}},"38":{"mo":5,"m":{"10":42,"18":90,"16":311,"17":86,"4":179,"15":20,"9":155}},"39":{"mo":1,"m":{"7":168777}},"40":{"mo":2,"m":{"2":24,"8":147668}},"41":{"mo":3,"m":{"4":155,"3":214,"1":58}},"42":{"mo":4,"m":{"9":167,"8":96727,"6":70167,"1":50}},"45":{"mo":2,"m":{"4":147,"3":110}},"46":{"mo":3,"m":{"8":129194,"2":27,"10":32}},"47":{"mo":4,"m":{"1":40,"7":176155,"6":108299,"8":158698,"5":78}},"48":{"mo":2,"m":{"1":66,"6":72834}},"49":{"mo":3,"m":{"10":40,"9":159,"4":210}},"51":{"mo":3,"m":{"2":32,"6":707766,"8":355314}},"52":{"mo":1,"m":{"4":262}},"53":{"mo":1,"m":{"9":226}},"54":{"mo":2,"m":{"7":978449,"3":291}},"55":{"mo":2,"m":{"8":487227,"9":171}},"56":{"mo":3,"m":{"4":265,"10":47,"3":293}},"57":{"mo":2,"m":{"8":815759,"2":23}},"59":{"mo":3,"m":{"1":61,"6":823572,"5":125}},"60":{"mo":1,"m":{"10":47}},"73":{"mo":4,"m":{"8":1754951,"2":92,"11":38,"5":354,"6":1790571,"7":1743344}},"74":{"mo":5,"m":{"2":93,"7":2009081,"6":1827983,"5":336,"8":1697128}},"75":{"mo":4,"m":{"5":296,"1":182,"12":357,"9":460}},"76":{"mo":4,"m":{"6":1922594,"4":535,"2":94,"3":588,"8":1848229,"7":1648731}},"77":{"mo":4,"m":{"9":509,"5":316,"11":32,"1":177}},"78":{"mo":4,"m":{"7":1670567,"5":329,"10":97,"8":1629176,"2":92,"6":1531355}},"79":{"mo":4,"m":{"10":94,"4":556,"9":486,"5":327}},"82":{"mo":5,"m":{"8":1846301,"16":1230,"18":224,"7":1902443,"15":67,"17":244,"2":89,"6":1841001}},"83":{"mo":5,"m":{"2":93,"6":2015188,"7":1726495,"18":242,"17":242,"8":1545502,"15":63}},"84":{"mo":5,"m":{"9":463,"1":180,"16":1219,"12":355,"11":37}},"85":{"mo":5,"m":{"7":1638590,"15":65,"3":534,"16":1232,"4":558,"8":1589536,"6":1550280}},"86":{"mo":5,"m":{"8":1836715,"7":1847420,"18":237,"6":2023278,"1":192,"17":241,"9":494}},"87":{"mo":5,"m":{"10":91,"9":483,"16":1205,"15":80,"4":598}}};
+  const GLOBAL_MAX_BY_KIND = {"6":2023278,"18":259,"8":1858054,"15":80,"17":269,"7":2009081,"2":100,"3":588,"9":509,"10":97,"1":195,"4":605,"11":41,"12":361,"16":1336,"5":500};
+
   const GC = { 1: '#bebebe', 2: '#50dc5a', 3: '#50a0ff', 4: '#be5fff', 5: '#ff9b2d' };
+
+  function getStarInfo(pct) {
+    if (pct >= 100) {
+      return { symbol: '★', color: '#00ffff', label: '100% (Cyan)', glow: '0 0 6px #00ffff' };
+    } else if (pct >= 90) {
+      return { symbol: '★', color: '#ffd700', label: '90%+ (Gold)', glow: '0 0 4px rgba(255,215,0,0.7)' };
+    } else if (pct >= 80) {
+      return { symbol: '★', color: '#cbd5e1', label: '80%+ (Silver)', glow: '0 0 3px rgba(203,213,225,0.7)' };
+    } else if (pct >= 70) {
+      return { symbol: '★', color: '#cd7f32', label: '70%+ (Bronze)', glow: '0 0 3px rgba(205,127,50,0.7)' };
+    } else if (pct >= 50) {
+      return { symbol: '★', color: '#ffffff', label: '50%+ (White)', glow: 'none' };
+    } else if (pct > 0) {
+      return { symbol: '☆', color: '#64748b', label: '50% 미만', glow: 'none' };
+    } else {
+      return { symbol: '☆', color: 'rgba(255,255,255,0.22)', label: '미부여 슬롯', glow: 'none' };
+    }
+  }
+
+  function renderItemStarsHtml(it, isSmall = false) {
+    if (!it || !it.d) return '';
+    const defId = it.t;
+    const dbInfo = FRAME_EQUIP_MAX_DB[defId];
+    let maxOpts = (dbInfo && dbInfo.mo) ? dbInfo.mo : 5;
+    if (it.o && it.o.length > maxOpts) maxOpts = it.o.length;
+
+    let starsHtml = '';
+    for (let i = 0; i < maxOpts; i++) {
+      if (it.o && i < it.o.length) {
+        const [kd, aux, v] = it.o[i];
+        let maxV = (dbInfo && dbInfo.m && dbInfo.m[kd]) ? dbInfo.m[kd] : (GLOBAL_MAX_BY_KIND[kd] || v);
+        if (maxV <= 0) maxV = v || 1;
+        const pct = Math.min(100, Math.round((v / maxV) * 100));
+        const sInfo = getStarInfo(pct);
+        const style = `color:${sInfo.color};${sInfo.glow !== 'none' ? ` text-shadow:${sInfo.glow};` : ''}`;
+        starsHtml += `<span class="opt-star" style="${style}" title="옵션 ${i + 1}: ${sInfo.label} (${pct}%)">${sInfo.symbol}</span>`;
+      } else {
+        const sInfo = getStarInfo(0);
+        starsHtml += `<span class="opt-star empty" style="color:${sInfo.color};" title="미부여 슬롯">${sInfo.symbol}</span>`;
+      }
+    }
+    return `<span class="item-stars-row ${isSmall ? 'small' : ''}">${starsHtml}</span>`;
+  }
+
+  function getItemStatTotals(it) {
+    const totals = {};
+    if (!it || !it.o) return totals;
+    for (const o of it.o) {
+      const [kd, aux, v] = o;
+      if (kd <= 0) continue;
+      const key = (kd === 5) ? `5_${aux}` : `${kd}`;
+      const eff = evv(v, it.lv);
+      if (!totals[key]) {
+        totals[key] = { kd, aux, eff: 0, base: 0 };
+      }
+      totals[key].eff += eff;
+      totals[key].base += v;
+    }
+    return totals;
+  }
+
+  function getEquippedItemForPart(partId) {
+    const equipKey = `DBEQ_E_${currentSlotId}`;
+    const rawEquipStr = currentData[equipKey];
+    if (!rawEquipStr || typeof rawEquipStr !== 'string') return null;
+    const codes = rawEquipStr.split(',');
+
+    // If part is 8 (귀걸이: slot 8 or 10):
+    if (partId === 8) {
+      const it8 = (codes.length > 8 && codes[8] !== '0') ? eqDec(codes[8]) : null;
+      if (it8 && it8.d) return it8;
+      const it10 = (codes.length > 10 && codes[10] !== '0') ? eqDec(codes[10]) : null;
+      if (it10 && it10.d) return it10;
+      return null;
+    }
+    // If part is 10 (반지: slot 11 or 12):
+    if (partId === 10) {
+      const it11 = (codes.length > 11 && codes[11] !== '0') ? eqDec(codes[11]) : null;
+      if (it11 && it11.d) return it11;
+      const it12 = (codes.length > 12 && codes[12] !== '0') ? eqDec(codes[12]) : null;
+      if (it12 && it12.d) return it12;
+      return null;
+    }
+
+    // Single slot matching partId
+    for (let s = 0; s < 16; s++) {
+      if (SLOTP[s] === partId && s < codes.length) {
+        const code = codes[s];
+        if (code && code !== '0') {
+          const eqIt = eqDec(code);
+          if (eqIt && eqIt.d) return eqIt;
+        }
+      }
+    }
+    return null;
+  }
+
+  function formatStatDiff(kd, diffEff) {
+    if (diffEff === 0) {
+      return `<span class="diff-tag diff-eq">±0</span>`;
+    }
+    const isPos = diffEff > 0;
+    const sign = isPos ? '+' : '-';
+    const arrow = isPos ? '▲' : '▼';
+    const cls = isPos ? 'diff-pos' : 'diff-neg';
+    const absDiff = Math.abs(diffEff);
+    
+    let text = '';
+    if (kd === 15) {
+      text = `${sign}${absDiff}초 ${arrow}`;
+    } else if (kd === 6 || kd === 7 || kd === 8 || kd === 10 || kd === 13) {
+      text = `${sign}${fmt(absDiff)} ${arrow}`;
+    } else {
+      text = `${sign}${f1(absDiff)}% ${arrow}`;
+    }
+    return `<span class="diff-tag ${cls}">${text}</span>`;
+  }
+
 
   function eqDec(e) {
     if (!e || e === '0') return null;
@@ -1300,47 +1422,132 @@
   }
 
 
-  function eqLine(it, o) {
+  function eqLine(it, o, diffTag = '') {
     const [kd, aux, v] = o, K = eqDat.kinds[kd];
     if (!K) return '? ' + v;
     const e = evv(v, it.lv);
     let nm = K[0];
     if (kd === 5) nm = (eqDat.chars[aux] || '?') + ' ' + nm;
-    if (kd === 15) return nm + ' +' + e + '초';
-    if (kd === 6 || kd === 7 || kd === 8 || kd === 10) return nm + ' +' + fmt(e);
-    if (kd === 13) return nm + ' -' + fmt(e);
-    return nm + ' ' + K[1] + f1(e) + '%';
+
+    // Calculate percentage against max roll
+    const defId = it.t;
+    const dbInfo = FRAME_EQUIP_MAX_DB[defId];
+    let maxV = (dbInfo && dbInfo.m && dbInfo.m[kd]) ? dbInfo.m[kd] : (GLOBAL_MAX_BY_KIND[kd] || v);
+    if (maxV <= 0) maxV = v || 1;
+    const pct = Math.min(100, Math.round((v / maxV) * 100));
+    const sInfo = getStarInfo(pct);
+    const starBadge = `<span class="opt-star" style="color:${sInfo.color};${sInfo.glow !== 'none' ? ` text-shadow:${sInfo.glow};` : ''}; font-size:12px; margin-right:3px;">${sInfo.symbol}</span>`;
+
+    let valStr = '';
+    if (kd === 15) valStr = nm + ' +' + e + '초';
+    else if (kd === 6 || kd === 7 || kd === 8 || kd === 10) valStr = nm + ' +' + fmt(e);
+    else if (kd === 13) valStr = nm + ' -' + fmt(e);
+    else valStr = nm + ' ' + K[1] + f1(e) + '%';
+
+    const pctBadge = `<span style="font-size:11px; color:#aaa; margin-left:3px;">(${pct}%)</span>`;
+    return `${starBadge}${valStr}${pctBadge}${diffTag ? ' ' + diffTag : ''}`;
   }
 
-  function eqTip(it) {
+  function renderCardInner(it, comparedIt = null, isEquippedCard = false) {
     if (!it || !it.d) return '';
     const d = it.d, st = d.s > 0 ? eqDat.sets[d.s] : null;
-    let h = '';
-    
+    const defId = it.t;
+    const dbInfo = FRAME_EQUIP_MAX_DB[defId];
+    let maxOpts = (dbInfo && dbInfo.mo) ? dbInfo.mo : 5;
+    if (it.o && it.o.length > maxOpts) maxOpts = it.o.length;
+
+    let h = `
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:6px;">
+        <div style="width:48px; height:48px; position:relative; background:#0f0b08; border-radius:6px; flex-shrink:0;">
+          ${d.ic >= 0 
+            ? `<span style="position:absolute; inset:2px; background-image:url('images/frame/eq_icons.webp'); background-size:1000% 1000%; background-position:${(d.ic % 10) * 100 / 9}% ${Math.floor(d.ic / 10) * 100 / 9}%;"></span>`
+            : `<span style="position:absolute; inset:2px; display:flex; align-items:center; justify-content:center; color:#ffd9a0; font-weight:bold;">${(d.n||'?')[0]}</span>`
+          }
+          ${it.g >= 1 && it.g <= 5 
+            ? `<span style="position:absolute; inset:0; background-image:url('images/frame/eq_fr.webp'); background-size:600% 100%; background-position:${(it.g - 1) * 20}% 0;"></span>` 
+            : ''}
+          ${it.lv > 0 ? `<span class="up" style="position:absolute; top:2px; right:2px; font-size:10px; background:#ffd700; color:#000; font-weight:bold; border-radius:3px; padding:0 3px;">+${it.lv}</span>` : ''}
+        </div>
+        <div>
+          <div style="color:${eqNameCol(it)}; font-weight:bold; font-size:14px; line-height:1.2;">${esc(eqNameTx(it))}</div>
+          <div style="font-size:11px; color:#aaa; margin-top:2px;">
+            <span style="color:${GC[it.g] || '#fff'}; font-weight:600;">[${eqDat.grades[it.g] || '-'}]</span> ${esc(eqDat.parts[d.p] || '')}
+          </div>
+          <div style="margin-top:3px; display:flex; align-items:center; gap:4px;">
+            ${renderItemStarsHtml(it)}
+            <span style="font-size:10px; color:#888;">(${it.o ? it.o.length : 0}/${maxOpts}옵)</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Options list
+    const itTotals = getItemStatTotals(it);
+    const compTotals = comparedIt ? getItemStatTotals(comparedIt) : null;
+
     if (it.o && it.o.length > 0) {
-      h += '<div style="margin:6px 0;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;">';
+      h += '<div style="margin:6px 0; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px;">';
       for (const o of it.o) {
-        if (o[0] > 0) h += `<div style="font-size:12px;color:#e0e0e0;line-height:1.4;">• ${eqLine(it, o)}</div>`;
+        if (o[0] > 0) {
+          let diffTag = '';
+          if (comparedIt) {
+            const kd = o[0], aux = o[1], v = o[2];
+            const key = (kd === 5) ? `5_${aux}` : `${kd}`;
+            const myEff = evv(v, it.lv);
+            const compEff = (compTotals && compTotals[key]) ? compTotals[key].eff : 0;
+            const diffEff = myEff - compEff;
+            diffTag = formatStatDiff(kd, diffEff);
+          }
+          h += `<div style="font-size:12px; color:#e0e0e0; line-height:1.5;">• ${eqLine(it, o, diffTag)}</div>`;
+        }
+      }
+
+      // Check if comparedIt has any stats missing from this item
+      if (comparedIt && compTotals) {
+        const lostStats = [];
+        for (const [key, cInfo] of Object.entries(compTotals)) {
+          if (!itTotals[key]) {
+            let nm = eqDat.kinds[cInfo.kd] ? eqDat.kinds[cInfo.kd][0] : `옵션(${cInfo.kd})`;
+            if (cInfo.kd === 5) nm = (eqDat.chars[cInfo.aux] || '?') + ' ' + nm;
+            let valStr = '';
+            if (cInfo.kd === 15) valStr = `${cInfo.eff}초`;
+            else if (cInfo.kd === 6 || cInfo.kd === 7 || cInfo.kd === 8 || cInfo.kd === 10 || cInfo.kd === 13) valStr = fmt(cInfo.eff);
+            else valStr = `${f1(cInfo.eff)}%`;
+            lostStats.push(`${nm} -${valStr}`);
+          }
+        }
+        if (lostStats.length > 0) {
+          h += `<div class="diff-lost-section">`;
+          h += `<div style="font-size:11px; color:#ff7043; font-weight:bold; margin-bottom:2px;">⚠️ 교체 시 감소(미보유) 능력치:</div>`;
+          for (const ls of lostStats) {
+            h += `<div style="font-size:11px; color:#ff8a80; line-height:1.4;">• ${esc(ls)} <span class="diff-tag diff-neg">▼</span></div>`;
+          }
+          h += `</div>`;
+        }
       }
       h += '</div>';
     }
 
     if (it.lv > 0) {
-      h += `<div style="color:#ffd700;font-size:11px;margin-top:6px;border-top:1px dashed rgba(255,215,0,0.3);padding-top:4px;">✨ 강화 +${it.lv} / 10 (모든 옵션 +${it.lv * 10}%)</div>`;
+      h += `<div style="color:#ffd700; font-size:11px; margin-top:4px; border-top:1px dashed rgba(255,215,0,0.3); padding-top:4px;">✨ 강화 +${it.lv} / 10 (모든 옵션 +${it.lv * 10}%)</div>`;
     }
 
     if (st) {
-      h += `<div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;color:#00e5ff;font-size:12px;font-weight:bold;">${esc(st.n)} 세트${st.c > 0 ? ` <span style="color:#ffd700;">(${esc(eqDat.chars[st.c] || '')} 전용)</span>` : ''}</div>`;
-      h += st.nd.map((n, i) => n > 0 ? `<div style="font-size:11px;color:#aaa;line-height:1.4;">• ${n}세트 : ${st.c > 0 ? esc(eqDat.chars[st.c] || '') + ' 트리거 데미지' : '트리거 데미지'} +${f1(st.bn[i])}%</div>` : '').join('');
+      h += `<div style="margin-top:6px; border-top:1px solid rgba(255,255,255,0.1); padding-top:4px; color:#00e5ff; font-size:11px; font-weight:bold;">${esc(st.n)} 세트${st.c > 0 ? ` <span style="color:#ffd700;">(${esc(eqDat.chars[st.c] || '')} 전용)</span>` : ''}</div>`;
+      h += st.nd.map((n, i) => n > 0 ? `<div style="font-size:10px; color:#aaa; line-height:1.3;">• ${n}세트 : ${st.c > 0 ? esc(eqDat.chars[st.c] || '') + ' 트리거 데미지' : '트리거 데미지'} +${f1(st.bn[i])}%</div>` : '').join('');
     }
 
     const sp = eqDat.special;
-    if (d.n && it.t === sp.DBVgDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 포타라 : 퓨전 지속 시간 동안 카운터 100% 카운터로 변경됩니다.</div>';
-    if (it.t === sp.DBGtDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 오천크스 : 마그눔 파워 지속시간 공격 주기 2배</div>';
-    if (it.t === sp.DBOzDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 오지터 : 보너스 1 이어링 착용 시 퓨전 지속시간 3배로 증가</div>';
-    if (it.t === sp.DBCxDef) h += '<div style="margin-top:6px;color:#ffd700;font-size:11px;font-weight:bold;">[특수] 셀 X : 풀파워 시 모든 공격력 증가</div>';
+    if (d.n && it.t === sp.DBVgDef) h += '<div style="margin-top:4px; color:#ffd700; font-size:10px; font-weight:bold;">[특수] 포타라 : 퓨전 지속 시간 동안 카운터 100% 카운터로 변경</div>';
+    if (it.t === sp.DBGtDef) h += '<div style="margin-top:4px; color:#ffd700; font-size:10px; font-weight:bold;">[특수] 오천크스 : 마그눔 파워 지속시간 공격 주기 2배</div>';
+    if (it.t === sp.DBOzDef) h += '<div style="margin-top:4px; color:#ffd700; font-size:10px; font-weight:bold;">[특수] 오지터 : 보너스 1 이어링 착용 시 퓨전 지속시간 3배 증가</div>';
+    if (it.t === sp.DBCxDef) h += '<div style="margin-top:4px; color:#ffd700; font-size:10px; font-weight:bold;">[특수] 셀 X : 풀파워 시 모든 공격력 증가</div>';
 
     return h;
+  }
+
+  function eqTip(it) {
+    return renderCardInner(it, null, false);
   }
 
   function eqStatus(items, slot) {
@@ -1498,6 +1705,7 @@
       if (it.lv > 0) {
         html += `<span class="up">+${it.lv}</span>`;
       }
+      html += `<div class="slot-stars-overlay">${renderItemStarsHtml(it, true)}</div>`;
     } else if (fallbackLabel) {
       html += `<span class="slot-label">${fallbackLabel}</span>`;
     }
@@ -1533,8 +1741,8 @@
         equippedCount++;
         slotEl.classList.add('has-item', `rarity-${it.g}`);
         slotEl.innerHTML = renderSlotHtml(it, SLOT_MAP[slot].hex, null);
-        attachTooltip(slotEl, it);
-        slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it); };
+        attachTooltip(slotEl, it, true);
+        slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it, true); };
       } else {
         slotEl.innerHTML = renderSlotHtml(null, SLOT_MAP[slot].hex, SLOT_MAP[slot].name);
       }
@@ -1593,8 +1801,8 @@
           if (showItem) {
             slotEl.classList.add('has-item', `rarity-${it.g}`);
             slotEl.innerHTML = renderSlotHtml(it, null, null);
-            attachTooltip(slotEl, it);
-            slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it); };
+            attachTooltip(slotEl, it, false);
+            slotEl.onclick = (e) => { if (matchMedia('(hover:none)').matches) showTooltip(e, it, false); };
           } else {
             slotEl.classList.add('filtered-out');
             slotEl.innerHTML = `<span class="slot-num">${idx + 1}</span>`;
@@ -1682,34 +1890,47 @@
   }
 
   // --- Tooltip Handler ---
-  function attachTooltip(element, it) {
-    element.onmouseenter = (e) => showTooltip(e, it);
+  function attachTooltip(element, it, isEquippedSlot = false) {
+    element.onmouseenter = (e) => showTooltip(e, it, isEquippedSlot);
     element.onmousemove = (e) => moveTooltip(e);
     element.onmouseleave = () => detachTooltip();
   }
 
-  function showTooltip(e, it) {
+  function showTooltip(e, it, isEquippedSlot = false) {
     const tt = document.getElementById('itemTooltip');
     if (!tt || !it || !it.d) return;
 
-    tt.innerHTML = `
-      <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-        <div style="width:48px; height:48px; position:relative; background:#0f0b08; border-radius:6px; flex-shrink:0;">
-          ${it.d.ic >= 0 
-            ? `<span style="position:absolute; inset:2px; background-image:url('images/frame/eq_icons.webp'); background-size:1000% 1000%; background-position:${(it.d.ic % 10) * 100 / 9}% ${Math.floor(it.d.ic / 10) * 100 / 9}%;"></span>`
-            : `<span style="position:absolute; inset:2px; display:flex; align-items:center; justify-content:center; color:#ffd9a0; font-weight:bold;">${(it.d.n||'?')[0]}</span>`
-          }
-          ${it.g >= 1 && it.g <= 5 
-            ? `<span style="position:absolute; inset:0; background-image:url('images/frame/eq_fr.webp'); background-size:600% 100%; background-position:${(it.g - 1) * 20}% 0;"></span>` 
-            : ''}
+    let equippedIt = null;
+    if (!isEquippedSlot) {
+      equippedIt = getEquippedItemForPart(it.d.p);
+    }
+
+    if (equippedIt && equippedIt.raw !== it.raw) {
+      // Comparison Mode (Side by Side)
+      tt.classList.add('compare-mode');
+      tt.innerHTML = `
+        <div class="compare-tooltip-wrapper">
+          <div class="compare-col target-item">
+            <div class="compare-header-badge badge-storage">📦 보관함 장비 (비교 대상)</div>
+            ${renderCardInner(it, equippedIt, false)}
+          </div>
+          <div class="compare-col equipped-item">
+            <div class="compare-header-badge badge-equipped">⚔️ 현재 장착 중인 장비</div>
+            ${renderCardInner(equippedIt, null, true)}
+          </div>
         </div>
-        <div>
-          <div style="color:${eqNameCol(it)}; font-weight:bold; font-size:14px;">${esc(eqNameTx(it))}</div>
-          <div style="font-size:12px; color:#aaa;"><span style="color:${GC[it.g] || '#fff'};">[${eqDat.grades[it.g] || '-'}]</span> ${esc(eqDat.parts[it.d.p] || '')}</div>
+      `;
+    } else {
+      // Single Card Mode
+      tt.classList.remove('compare-mode');
+      tt.innerHTML = `
+        <div class="single-tooltip-wrapper">
+          ${isEquippedSlot ? '<div class="compare-header-badge badge-equipped" style="margin-bottom:8px;">⚔️ 현재 장착 중인 장비</div>' : ''}
+          ${renderCardInner(it, null, isEquippedSlot)}
+          ${!isEquippedSlot && !equippedIt ? `<div style="margin-top:8px;padding-top:6px;border-top:1px dashed rgba(255,255,255,0.12);font-size:11px;color:#888;">💡 현재 부위(${esc(eqDat.parts[it.d.p] || '')})에 장착된 장비가 없습니다.</div>` : ''}
         </div>
-      </div>
-      <div>${eqTip(it)}</div>
-    `;
+      `;
+    }
 
     tt.classList.add('active');
     moveTooltip(e);
@@ -1720,8 +1941,10 @@
     if (!tt) return;
     let x = e.clientX + 16;
     let y = e.clientY + 16;
-    if (x + 300 > window.innerWidth) x = e.clientX - 310;
-    if (y + 260 > window.innerHeight) y = window.innerHeight - 270;
+    const ttWidth = tt.offsetWidth || 320;
+    const ttHeight = tt.offsetHeight || 260;
+    if (x + ttWidth > window.innerWidth) x = e.clientX - ttWidth - 16;
+    if (y + ttHeight > window.innerHeight) y = window.innerHeight - ttHeight - 16;
     tt.style.left = Math.max(10, x) + 'px';
     tt.style.top = Math.max(10, y) + 'px';
   }

@@ -1,36 +1,64 @@
 {
   "godwin": {
-    "8": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인3 - 내퍼"
-    },
     "27": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "각성한 부르마"
+    },
+    "17": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "프리저 1차 각성"
+    },
+    "11": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "기뉴특전대 - 리쿰"
+    },
+    "14": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "각성한 캡틴기뉴"
+    }
+  },
+  "goodsee": {
+    "14": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "각성한 캡틴기뉴"
+    },
+    "17": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "프리저 1차 각성"
     }
   },
   "goodwin": {
-    "8": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "초사이어인3 - 내퍼"
+    "14": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "각성한 캡틴기뉴"
     },
     "27": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "각성한 부르마"
     }
   },
-  "jyh10": {
-    "63": {
-      "friend_name": "셀 완전체",
-      "hero_display_name": "킹 베지터 사이어인 왕"
+  "gowin2": {
+    "14": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "각성한 캡틴기뉴"
+    }
+  },
+  "Horus": {
+    "18": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "골든 콜드대왕"
     },
-    "37": {
-      "friend_name": "캡틴 기뉴",
-      "hero_display_name": "자봉 풀파워 - 변신"
+    "57": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "베이비"
     },
-    "7": {
-      "friend_name": "캡틴 기뉴",
-      "hero_display_name": "초사이어인 로제 - 라데츠"
+    "58": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "리루도"
+    },
+    "60": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "심벌"
     }
   }
 }
