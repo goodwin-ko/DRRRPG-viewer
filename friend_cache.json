@@ -1,64 +1,58 @@
 {
-  "godwin": {
-    "27": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
-    },
-    "17": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "프리저 1차 각성"
-    },
-    "11": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "기뉴특전대 - 리쿰"
-    },
-    "14": {
-      "friend_name": "셀 완전체(약해진)",
-      "hero_display_name": "각성한 캡틴기뉴"
-    }
-  },
-  "goodsee": {
-    "14": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 캡틴기뉴"
-    },
-    "17": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "프리저 1차 각성"
-    }
-  },
-  "goodwin": {
-    "14": {
-      "friend_name": "메탈 쿠우라(약해진)",
-      "hero_display_name": "각성한 캡틴기뉴"
-    },
-    "27": {
-      "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 부르마"
-    }
-  },
   "gowin2": {
-    "14": {
+    "5": {
       "friend_name": "키드부우(약해진)",
-      "hero_display_name": "각성한 캡틴기뉴"
+      "hero_display_name": "무천도사 2차 각성"
     }
   },
   "Horus": {
-    "18": {
+    "52": {
       "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "골든 콜드대왕"
+      "hero_display_name": "팡"
     },
-    "57": {
+    "54": {
       "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "베이비"
+      "hero_display_name": "전설의 사이어인 - 브로리(약해진)"
     },
-    "58": {
+    "55": {
       "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "리루도"
+      "hero_display_name": "천사 아리"
     },
-    "60": {
+    "56": {
       "friend_name": "오지터 - 초싸1",
-      "hero_display_name": "심벌"
+      "hero_display_name": "파이크한"
+    },
+    "59": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "인조인간 8호"
+    }
+  },
+  "jyh10": {
+    "37": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "자봉 풀파워 - 변신"
+    },
+    "65": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "블랙 오공"
+    }
+  },
+  "goodwin": {
+    "3": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "야무치 2차 각성"
+    }
+  },
+  "godwin": {
+    "5": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "무천도사 2차 각성"
+    }
+  },
+  "goodsee": {
+    "5": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "무천도사 2차 각성"
     }
   }
 }

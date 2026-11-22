@@ -1571,7 +1571,7 @@ function createCharacterCard(char) {
             <div class="stat-row ${ownMaxedClass}"><span class="val-int"><span class="stat-label">지:</span> <span class="stat-value ${parseInt(char.intVal.toString().replace(/,/g, '')) >= parseInt(char.maxOwnStat.toString().replace(/,/g, '')) ? 'stat-val-maxed' : ''}">${formatStatWithMax(char.intVal, char.maxOwnStat)}</span></span></div>
             <div style="border-top:1px dashed var(--border-card); margin-top:4px; padding-top:4px; display:flex; flex-direction:column; gap:2px;">
                 <div><span class="stat-label">성급:</span> <span class="stat-value val-star ${isStarMaxed ? 'stat-val-maxed' : ''}">${char.starGrade}</span></div>
-                <div><span class="stat-label">도감:</span> <span class="stat-value val-dogam">-</span></div>
+                <div title="정예장비 도감 Lv: ${char.eliteDogam || 0}"><span class="stat-label">도감:</span> <span class="stat-value val-dogam">${char.eliteDogam > 0 ? formatNumber(char.eliteDogam) : '-'}</span></div>
                 <div><span class="stat-label">자동선두:</span> <span class="stat-value val-autosundu">${formatNumber(char.doGam)}</span></div>
             </div>
         </div>
@@ -1951,6 +1951,8 @@ async function fetchAndRenderLogs(nicName) {
                     const fItem3Cur = d2.length > 25 ? parseInt(d2[25]) || 0 : 0;
                     // doGam from d3[9]
                     const doGam = d3.length > 9 ? parseInt(d3[9]) || 0 : 0;
+                    // eliteDogam (정예장비 도감Lv) from d1[70]
+                    const eliteDogam = d1.length > 70 ? (parseInt(d1[70]) || 0) : 0;
 
                     const str = d1.length > 18 ? (parseInt(d1[18]) || 0) : 0;
                     const agi = d1.length > 19 ? (parseInt(d1[19]) || 0) : 0;
@@ -2014,6 +2016,7 @@ async function fetchAndRenderLogs(nicName) {
                         item1Max, item1Cur, item2Max, item2Cur, item3Max, item3Cur,
                         fItem1Max, fItem1Cur, fItem2Max, fItem2Cur, fItem3Max, fItem3Cur,
                         doGam,
+                        eliteDogam,
                         str,
                         agi,
                         intVal,
@@ -2822,7 +2825,7 @@ function createMobileBasicCard(char) {
             <span class="mc-agi"><span class="stat-label">민:</span> <b class="mc-val ${char.friendAgi >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendAgi, char.maxFriendStat)}</b></span>
             <span class="mc-int"><span class="stat-label">지:</span> <b class="mc-val ${char.friendInt >= char.maxFriendStat ? 'stat-val-maxed' : ''}">${mbFmtMax(char.friendInt, char.maxFriendStat)}</b></span>
         </div>
-        <div class="mc-row"><span><span class="stat-label">도감:</span> <b class="mc-dogam mc-val">-</b></span><span><span class="stat-label">금화:</span> <b class="mc-gold mc-val">${mbFmt(char.gold)}</b></span></div>
+        <div class="mc-row"><span title="정예장비 도감 Lv: ${char.eliteDogam || 0}"><span class="stat-label">도감:</span> <b class="mc-dogam mc-val">${char.eliteDogam > 0 ? mbFmt(char.eliteDogam) : '-'}</b></span><span><span class="stat-label">금화:</span> <b class="mc-gold mc-val">${mbFmt(char.gold)}</b></span></div>
         <div class="mc-row"><span><span class="stat-label">자동선두:</span> <b class="mc-autosundu mc-val">${mbFmt(char.doGam)}</b></span><span><span class="stat-label">금괴:</span> <b class="mc-goldbar mc-val">${mbFmt(char.goldBars)}</b></span></div>
         <div class="mc-row"><span><span class="stat-label">블다:</span> <b class="mc-bd mc-val">${mbFmt(char.blueDiamonds)}</b></span></div>
     </div>`;

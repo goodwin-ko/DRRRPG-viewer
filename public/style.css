@@ -4923,3 +4923,553 @@ span.stat-value.stat-val-maxed {
     white-space: nowrap;
     padding-left: 4px;
 }
+
+
+/* ==========================================================================
+   Frame Equip Guide & Recommendation Panel Styles
+   ========================================================================== */
+
+.guide-panel-box {
+    margin-top: 16px;
+    background: rgba(22, 12, 36, 0.92);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+.guide-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.guide-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.guide-title-icon {
+    font-size: 24px;
+}
+
+.guide-title-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.guide-title-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+.guide-tabs-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.guide-tab-pill {
+    background: rgba(30, 20, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #bbb;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.guide-tab-pill:hover {
+    background: rgba(45, 30, 70, 0.9);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.guide-tab-pill.active {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(138, 43, 226, 0.3) 100%);
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+.guide-panel-body {
+    padding-top: 18px;
+}
+
+.guide-pane {
+    display: none;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+.guide-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.guide-section {
+    margin-bottom: 22px;
+}
+
+.guide-section-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.guide-desc {
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+/* Tab 1: Star System Styles */
+.stars-demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stars-demo-card {
+    background: rgba(15, 10, 25, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.stars-demo-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.stars-demo-card.highlight-card {
+    background: rgba(0, 229, 255, 0.08);
+    border-color: rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+}
+
+.stars-demo-stars {
+    font-size: 1.15rem;
+    color: #ffd700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+}
+
+.stars-demo-name {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #eee;
+}
+
+.stars-demo-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.star-grade-table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.star-grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    text-align: left;
+}
+
+.star-grade-table th {
+    background: rgba(35, 20, 55, 0.9);
+    padding: 9px 12px;
+    color: #ddd;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.star-grade-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ccc;
+}
+
+.star-grade-table tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.badge-grade {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.grade-cyan { background: rgba(0, 229, 255, 0.2); color: var(--cyan); border: 1px solid rgba(0, 229, 255, 0.4); }
+.grade-gold { background: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.4); }
+.grade-silver { background: rgba(220, 220, 220, 0.2); color: #eee; border: 1px solid rgba(220, 220, 220, 0.4); }
+.grade-bronze { background: rgba(205, 127, 50, 0.2); color: #e69138; border: 1px solid rgba(205, 127, 50, 0.4); }
+.grade-white { background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.grade-empty { background: rgba(100, 100, 100, 0.15); color: #888; border: 1px solid rgba(100, 100, 100, 0.3); }
+
+/* Tab 2: Parts Option Pool Table */
+.parts-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #aaa;
+    white-space: nowrap;
+}
+
+.parts-chips-container {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.part-chip {
+    background: rgba(28, 16, 44, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #bbb;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.part-chip:hover {
+    background: rgba(45, 26, 70, 0.95);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.part-chip.active {
+    background: var(--cyan);
+    color: #111;
+    font-weight: 700;
+    border-color: var(--cyan);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.parts-table-wrap {
+    overflow-x: auto;
+    max-height: 480px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 8, 26, 0.6);
+}
+
+.guide-parts-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.81rem;
+    text-align: left;
+}
+
+.guide-parts-table th {
+    position: sticky;
+    top: 0;
+    background: rgba(35, 18, 55, 0.98);
+    padding: 10px 12px;
+    color: #e0e0e0;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(0, 229, 255, 0.3);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.guide-parts-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    vertical-align: middle;
+}
+
+.guide-parts-table tr:hover td {
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.td-part-col {
+    background: rgba(20, 10, 32, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    vertical-align: top;
+    padding-top: 12px;
+}
+
+.part-name-badge {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #ffd700;
+    margin-bottom: 3px;
+}
+
+.part-count-sub {
+    font-size: 0.7rem;
+    color: #777;
+}
+
+.td-opt-name {
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.opt-tag-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.tag-guaranteed { background: rgba(0, 230, 118, 0.15); color: #00e676; border: 1px solid rgba(0, 230, 118, 0.35); }
+.tag-core { background: rgba(0, 229, 255, 0.15); color: var(--cyan); border: 1px solid rgba(0, 229, 255, 0.35); }
+.tag-premium { background: rgba(255, 64, 129, 0.15); color: #ff4081; border: 1px solid rgba(255, 64, 129, 0.35); }
+.tag-normal { background: rgba(200, 200, 200, 0.1); color: #aaa; border: 1px solid rgba(200, 200, 200, 0.2); }
+
+.td-range {
+    color: #bbb;
+    white-space: nowrap;
+}
+
+.td-max-val {
+    color: #ffd700;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.td-enh10-val {
+    white-space: nowrap;
+}
+
+.enh10-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 4px;
+    color: #ffd700;
+    font-weight: 800;
+}
+
+.td-ratio {
+    color: #4db6ac;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.td-note {
+    font-size: 0.76rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+/* Tab 3: Recommended Builds & Stats Styles */
+.build-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+}
+
+.build-card {
+    background: rgba(18, 10, 30, 0.75);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.build-card.top-tier {
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.08);
+}
+
+.build-card.fusion-tier {
+    border-color: rgba(171, 71, 188, 0.4);
+    box-shadow: 0 0 15px rgba(171, 71, 188, 0.08);
+}
+
+.build-card.farm-tier {
+    border-color: rgba(100, 181, 246, 0.4);
+    box-shadow: 0 0 15px rgba(100, 181, 246, 0.08);
+}
+
+.build-card-badge {
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.top-tier .build-card-badge { background: #ffd700; color: #111; }
+.fusion-tier .build-card-badge { background: #ab47bc; color: #fff; }
+.farm-tier .build-card-badge { background: #64b5f6; color: #111; }
+
+.build-card-title {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.build-card-desc {
+    font-size: 0.78rem;
+    color: #bbb;
+    line-height: 1.45;
+    margin-bottom: 12px;
+}
+
+.build-parts-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.78rem;
+    color: #ccc;
+    line-height: 1.55;
+    flex: 1;
+}
+
+.part-recom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.recom-card {
+    background: rgba(16, 9, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.recom-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.recom-card.highlight-card {
+    background: rgba(255, 215, 0, 0.06);
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.1);
+}
+
+.recom-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 6px;
+}
+
+.part-tag {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #ffd700;
+}
+
+.core-slot {
+    font-size: 0.72rem;
+    color: var(--cyan);
+    font-weight: 600;
+}
+
+.recom-row {
+    font-size: 0.8rem;
+    color: #ddd;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.recom-p1 {
+    display: inline-block;
+    padding: 1px 5px;
+    background: rgba(255, 64, 129, 0.2);
+    border: 1px solid rgba(255, 64, 129, 0.4);
+    border-radius: 3px;
+    color: #ff4081;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.recom-p2 {
+    display: inline-block;
+    padding: 1px 5px;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 3px;
+    color: var(--cyan);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.recom-note {
+    font-size: 0.72rem;
+    color: #999;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .guide-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .guide-tabs-bar {
+        width: 100%;
+    }
+    .guide-tab-pill {
+        flex: 1;
+        text-align: center;
+    }
+    .build-cards-grid,
+    .part-recom-grid {
+        grid-template-columns: 1fr;
+    }
+}
