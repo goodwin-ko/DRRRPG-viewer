@@ -1017,7 +1017,7 @@ function getMasteryInfo(c) {
 
 function _sortMapVersions(versionsMap) {
     return Object.keys(versionsMap || {})
-        .filter(v => versionsMap[v] && (versionsMap[v].count || 0) > 0)
+        .filter(v => versionsMap[v] && versionsMap[v].is_all_chars && (versionsMap[v].count || 0) > 0)
         .sort((a, b) => (parseInt(a.replace(/\D/g, ''), 10) || 0) - (parseInt(b.replace(/\D/g, ''), 10) || 0));
 }
 
@@ -1026,29 +1026,28 @@ function buildAllMaxBadgesHtml(versionsMap, latestVer) {
     if (achievedVers.length === 0) return '';
 
     const latestUpper = (latestVer || 'V21').toUpperCase();
-    const hasLatest = Boolean(versionsMap[latestUpper] && (versionsMap[latestUpper].count || 0) > 0);
+    const hasLatest = achievedVers.includes(latestUpper);
     const verSummary = achievedVers.map(v => {
         const info = versionsMap[v];
-        const scope = info.is_all_chars ? '전캐릭' : `${info.count}캐릭`;
-        return `${v} (${scope})`;
+        return `${v} (전캐릭 ${info.count}/${info.total || info.count})`;
     }).join(', ');
 
     let html = '';
-    // 신버전 기준 메인 올맥스 배지 (신버전 미달성 시 자동 비표시)
+    // 신버전 기준 메인 올마스터 배지 (전캐릭 올맥스 달성 시에만 표시, 신버전 미달성 시 비표시)
     if (hasLatest) {
         const latestInfo = versionsMap[latestUpper];
-        const scopeText = latestInfo.is_all_chars ? '전캐릭 올맥스' : `${latestInfo.count}캐릭 올맥스`;
-        html += `<span class="id-allmax-badge" title="현재 신버전(${latestUpper}) 올맥스 달성 (${scopeText})&#10;전체 달성 버전: ${verSummary}">★ 올맥스 ★</span>`;
+        const scopeText = `전캐릭 ${latestInfo.count}/${latestInfo.total || latestInfo.count}캐릭`;
+        html += `<span class="id-allmax-badge" title="현재 신버전(${latestUpper}) 전캐릭 올맥스 달성 (${scopeText})&#10;전체 달성 버전: ${verSummary}">★ 올마스터 ★</span>`;
     }
 
-    // 맵 버전별 달성 배지 (마우스 올리면 달성 버전 상세 표시)
+    // 맵 버전별 전캐릭 달성 배지 (마우스 올리면 달성 버전 상세 표시)
     achievedVers.forEach(v => {
         const info = versionsMap[v];
         const isLatest = (v === latestUpper);
-        const scopeText = info.is_all_chars ? '전캐릭' : `${info.count}캐릭`;
+        const scopeText = `전캐릭(${info.count}/${info.total || info.count})`;
         const dateNote = info.updated_at ? ` · ${info.updated_at}` : '';
         const statusNote = isLatest ? '현재 신버전' : `이전 버전 (신버전 ${latestUpper} 기준 갱신됨)`;
-        html += `<span class="id-allmax-ver-pill ${isLatest ? 'is-latest' : 'is-past'}" title="${v} 맵 버전 올맥스 달성 (${scopeText}${dateNote})&#10;상태: ${statusNote}">${v} 올맥스</span>`;
+        html += `<span class="id-allmax-ver-pill ${isLatest ? 'is-latest' : 'is-past'}" title="${v} 맵 버전 전캐릭 올맥스 달성 (${scopeText}${dateNote})&#10;상태: ${statusNote}">${v} 올마스터</span>`;
     });
 
     return html;
@@ -1056,14 +1055,15 @@ function buildAllMaxBadgesHtml(versionsMap, latestVer) {
 
 function syncUserAllMaxHistory(nicName, userVer, latestVer, characters, serverVersions) {
     const allMaxChars = (characters || []).filter(c => getMasteryInfo(c).isAllMaxed);
+    const isAllCharsMax = characters.length > 0 && allMaxChars.length >= characters.length;
     const mergedVersions = Object.assign({}, serverVersions || {});
     const targetVer = (userVer || latestVer || 'V21').toUpperCase();
 
-    if (allMaxChars.length > 0) {
+    if (isAllCharsMax) {
         mergedVersions[targetVer] = {
             count: allMaxChars.length,
             total: characters.length,
-            is_all_chars: characters.length > 0 && allMaxChars.length >= characters.length,
+            is_all_chars: true,
             chars: allMaxChars.map(c => c.name).slice(0, 15)
         };
     } else {
@@ -1077,9 +1077,9 @@ function syncUserAllMaxHistory(nicName, userVer, latestVer, characters, serverVe
         body: JSON.stringify({
             nicName,
             version: targetVer,
-            allMaxCount: allMaxChars.length,
+            allMaxCount: isAllCharsMax ? allMaxChars.length : 0,
             totalChars: characters.length,
-            chars: allMaxChars.map(c => c.name)
+            chars: isAllCharsMax ? allMaxChars.map(c => c.name) : []
         })
     }).then(r => r.json()).then(res => {
         if (res && res.success) {
@@ -2589,7 +2589,7 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                 const cleanNicLower = item.nicname ? item.nicname.trim().toLowerCase() : '';
                 const allMaxEntry = allMaxUsers[cleanNicLower];
                 const allMaxVers = _sortMapVersions(allMaxEntry ? allMaxEntry.versions : {});
-                const hasLatestAllMax = allMaxVers.includes(latestVer);
+                const hasLatestAllMax = Boolean(allMaxEntry && allMaxEntry.versions && allMaxEntry.versions[latestVer] && allMaxEntry.versions[latestVer].is_all_chars);
                 const isMaster = hasLatestAllMax || (typeof isAllMaxMaster === 'function' && isAllMaxMaster(item.nicname)) || (cleanNicLower === '1m60cm');
                 const isSearchedUser = searchedNic && (cleanNicLower === searchedNic);
 
@@ -2602,9 +2602,9 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
                 const verBadgesHtml = allMaxVers.map(v => {
                     const info = allMaxEntry.versions[v];
-                    const scope = info && info.is_all_chars ? '전캐릭' : `${(info && info.count) || 1}캐릭`;
+                    const scope = `전캐릭(${info.count}/${info.total || info.count})`;
                     const isCur = (v === latestVer);
-                    return `<span class="rank-allmax-ver-pill ${isCur ? 'is-latest' : ''}" title="${v} 맵 버전 올맥스 달성 (${scope})">${isCur ? '👑 ' : ''}${v} 올맥스</span>`;
+                    return `<span class="rank-allmax-ver-pill ${isCur ? 'is-latest' : ''}" title="${v} 맵 버전 전캐릭 올맥스 달성 (${scope})">👑 ${v} 올마스터</span>`;
                 }).join('');
 
                 const profileIconHtml = (cleanNicLower === '1m60cm')

@@ -680,11 +680,12 @@ def record_allmax_history():
 
     from datetime import datetime
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    if all_max_count > 0:
+    is_all_chars = (total_chars > 0 and all_max_count >= total_chars)
+    if is_all_chars:
         versions[version] = {
             "count": all_max_count,
             "total": total_chars,
-            "is_all_chars": (total_chars > 0 and all_max_count >= total_chars),
+            "is_all_chars": True,
             "chars": chars[:15],
             "updated_at": now_str
         }

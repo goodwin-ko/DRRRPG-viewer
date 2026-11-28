@@ -525,6 +525,11 @@
             border: 1px solid rgba(255, 208, 0, 0.75);
             color: #ffe26a;
         }
+        .id-allmax-badge.is-allmaster {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.22), rgba(59, 130, 246, 0.25));
+            border-color: rgba(0, 229, 255, 0.7);
+            color: #93f5ff;
+        }
         .id-allmax-ver-pill {
             display: inline-flex;
             align-items: center;
@@ -3725,12 +3730,13 @@ function renderPanel(panelEl, processed) {
     const latestVer = result.latest_map_version || 'V21';
     const userVer = result.user_map_version || latestVer;
     const allMaxChars = chars.filter(c => getMasteryInfo(c).isAllMaxed);
+    const isAllCharsMax = chars.length > 0 && allMaxChars.length >= chars.length;
     const mergedAllMaxVers = Object.assign({}, result.allmax_history || {});
-    if (allMaxChars.length > 0) {
+    if (isAllCharsMax) {
         mergedAllMaxVers[userVer.toUpperCase()] = {
             count: allMaxChars.length,
             total: chars.length,
-            is_all_chars: chars.length > 0 && allMaxChars.length >= chars.length
+            is_all_chars: true
         };
     } else {
         delete mergedAllMaxVers[userVer.toUpperCase()];
@@ -3741,28 +3747,29 @@ function renderPanel(panelEl, processed) {
         body: JSON.stringify({
             nicName,
             version: userVer.toUpperCase(),
-            allMaxCount: allMaxChars.length,
+            allMaxCount: isAllCharsMax ? allMaxChars.length : 0,
             totalChars: chars.length,
-            chars: allMaxChars.map(c => c.charName)
+            chars: isAllCharsMax ? allMaxChars.map(c => c.charName) : []
         })
     }).catch(() => {});
 
     const achievedVers = Object.keys(mergedAllMaxVers)
-        .filter(v => mergedAllMaxVers[v] && (mergedAllMaxVers[v].count || 0) > 0)
+        .filter(v => mergedAllMaxVers[v] && mergedAllMaxVers[v].is_all_chars && (mergedAllMaxVers[v].count || 0) > 0)
         .sort((a, b) => (parseInt(a.replace(/\D/g, ''), 10) || 0) - (parseInt(b.replace(/\D/g, ''), 10) || 0));
     const latestUpper = latestVer.toUpperCase();
-    const hasLatestAllMax = Boolean(mergedAllMaxVers[latestUpper] && (mergedAllMaxVers[latestUpper].count || 0) > 0);
-    const verSummary = achievedVers.map(v => `${v} (${mergedAllMaxVers[v].is_all_chars ? '전캐릭' : mergedAllMaxVers[v].count + '캐릭'})`).join(', ');
+    const hasLatestAllMax = achievedVers.includes(latestUpper);
+    const verSummary = achievedVers.map(v => `${v} (전캐릭 ${mergedAllMaxVers[v].count}/${mergedAllMaxVers[v].total || mergedAllMaxVers[v].count})`).join(', ');
     let allMaxBadgesHtml = '';
     if (hasLatestAllMax) {
         const li = mergedAllMaxVers[latestUpper];
-        allMaxBadgesHtml += `<span class="id-allmax-badge" title="현재 신버전(${latestUpper}) 올맥스 달성 (${li.is_all_chars ? '전캐릭' : li.count + '캐릭'})&#10;전체 달성 버전: ${verSummary}">★ 올맥스 ★</span>`;
+        const scopeText = `전캐릭(${li.count}/${li.total || li.count})`;
+        allMaxBadgesHtml += `<span class="id-allmax-badge" title="현재 신버전(${latestUpper}) 전캐릭 올맥스 달성 (${scopeText})&#10;전체 달성 버전: ${verSummary}">★ 올마스터 ★</span>`;
     }
     achievedVers.forEach(v => {
         const info = mergedAllMaxVers[v];
         const isCur = (v === latestUpper);
-        const scope = info.is_all_chars ? '전캐릭' : `${info.count}캐릭`;
-        allMaxBadgesHtml += `<span class="id-allmax-ver-pill ${isCur ? 'is-latest' : 'is-past'}" title="${v} 맵 버전 올맥스 달성 (${scope})&#10;${isCur ? '현재 신버전' : '이전 버전 (신버전 ' + latestUpper + ' 기준 갱신됨)'}">${v} 올맥스</span>`;
+        const scope = `전캐릭(${info.count}/${info.total || info.count})`;
+        allMaxBadgesHtml += `<span class="id-allmax-ver-pill ${isCur ? 'is-latest' : 'is-past'}" title="${v} 맵 버전 전캐릭 올맥스 달성 (${scope})&#10;${isCur ? '현재 신버전' : '이전 버전 (신버전 ' + latestUpper + ' 기준 갱신됨)'}">${v} 올마스터</span>`;
     });
 
     const headerEl = panelEl.querySelector('.user-panel-header');
@@ -4455,6 +4462,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="patchNotes.js?v=1.7.4"></script>
+<script src="patchNotes.js?v=1.7.5"></script>
 </body>
 </html>
