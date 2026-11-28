@@ -1,74 +1,84 @@
 // Dragonball RPG Random (DRR) Dashboard Frontend Logic
 
-// UpBook{N}_Lv → Slot Number mapping (from PDATA1 array, 1-based index)
-// 전체 66개 영웅 슬롯 100% 매핑 (누락 없이 전 캐릭터 각성 수치 표시)
+// UpBook{N}_Lv → Slot Number mapping (from PDATA1 array, 1-based index 1..69)
+// 퓨전 각성(10:오지터, 17:사오공, 18:오천크스, 67:야무반)은 FUSION_AWAKENING_MAP에서 별도 표기
 const UPBOOK_TO_SLOT = {
-    1: 4,   // 천진반 (100)
-    2: 6,   // 피콜로 (100)
-    3: 32,  // 미스틱 오반 / 손오반 (200)
-    4: 16,  // 어린손오반 (50)
-    5: 5,   // 무천도사 (200)
-    6: 2,   // 크리링 (100)
-    7: 3,   // 야무치 (100)
-    8: 17,  // 프리저 (200)
-    9: 25,  // 셀 (200)
-    10: 31, // 마인부우 (200)
-    11: 11, // 리쿰 (100)
-    12: 13, // 버터 (100)
-    13: 12, // 지스 (100)
-    14: 10, // 굴드 (100)
-    15: 14, // 캡틴 기뉴 (100)
-    16: 15, // 미스터 사탄 (50)
-    17: 23, // 인조인간17호 (200)
-    18: 24, // 인조인간18호 (200)
-    19: 27, // 부르마 (100)
-    20: 7,  // 라데츠 (200)
-    21: 18, // 콜드대왕 (200)
-    22: 19, // 네일 (100)
-    23: 20, // 인조인간16호 (100)
-    24: 21, // 인조인간19호 (100)
-    25: 22, // 인조인간20호 (100)
-    26: 45, // 쟈넨바 (200)
-    27: 43, // 농부 (100)
-    28: 1,  // 손오공 (200)
-    29: 9,  // 베지터 (200)
-    30: 28, // 야콩 (200)
-    31: 54, // 브로리(약해진) (200)
-    32: 29, // 데브라 (100)
-    33: 30, // 비비디/바비디 (100)
-    34: 41, // 우부 (100)
-    35: 26, // 트랭크스(미래) (100)
-    36: 36, // 트랭크스(어린) (100)
-    37: 37, // 자봉 (100)
-    38: 38, // 쿠우라 (100)
-    39: 39, // 인조인간15호 (100)
-    40: 40, // 인조인간14호 (200)
-    41: 33, // 도도리아 (100)
-    42: 42, // 타피온 (100)
-    43: 34, // 비델 (100)
-    44: 44, // 인조인간13호 (100)
-    45: 35, // 손오천 (100)
-    46: 46, // 블루장군 (100)
-    47: 47, // 브로리(전설) (100)
-    48: 48, // 버독 (100)
-    49: 49, // 타레스 (200)
-    50: 50, // 박테리안 (100)
-    51: 51, // 우마왕 (100)
-    52: 52, // 팡 (100)
-    53: 53, // 하야이드래곤 (100)
-    54: 8,  // 내퍼 (100)
-    55: 55, // 아리 (100)
-    56: 56, // 파이크한 (100)
-    57: 57, // 베이비 (200)
-    58: 58, // 리루도 (100)
-    59: 59, // 인조인간8호 (100)
-    60: 60, // 심벌 (100)
-    61: 61, // 유린 (100)
-    62: 62, // 메탈 쿠우라 (100)
-    63: 63, // 킹 베지터 (100)
-    64: 64, // 로드 슬러그 (100)
-    65: 65, // 블랙 오공 (100)
-    66: 66  // 자마스 (100)
+    1: 4,   // 천진반
+    2: 6,   // 피콜로
+    3: 32,  // 손오반
+    4: 16,  // 어린손오반
+    5: 5,   // 무천도사
+    6: 2,   // 크리링
+    7: 3,   // 야무치
+    8: 17,  // 프리저
+    9: 25,  // 셀
+    11: 11, // 리쿰
+    12: 13, // 버터
+    13: 12, // 지스
+    14: 10, // 굴드
+    15: 14, // 기뉴
+    16: 15, // 사탄
+    19: 27, // 부르마
+    20: 7,  // 라데츠
+    21: 18, // 콜드대왕
+    22: 19, // 네일
+    23: 20, // 인조인간16호
+    24: 21, // 인조인간19호
+    25: 22, // 인조인간20호
+    26: 45, // 자넨바
+    27: 43, // 농부
+    28: 1,  // 손오공
+    29: 9,  // 베지터
+    30: 28, // 야콩
+    31: 54, // 브로리(약해진) (브로리(전설) 47번 폴백 겸용)
+    32: 8,  // 내퍼
+    33: 26, // 트랭크스(미래)
+    34: 35, // 손오천
+    35: 36, // 트랭크스(어린)
+    36: 48, // 버독
+    37: 49, // 타레스
+    38: 33, // 도도리아
+    39: 37, // 자봉(자붕)
+    40: 38, // 쿠우라
+    41: 44, // 인조인간13호
+    42: 40, // 인조인간14호
+    43: 39, // 인조인간15호
+    44: 23, // 인조인간17호
+    45: 24, // 인조인간18호
+    46: 59, // 인조인간8호
+    47: 29, // 데브라
+    48: 30, // 바비디(비비디)
+    49: 31, // 마인부우
+    50: 41, // 우부
+    51: 34, // 비델
+    52: 42, // 타피온
+    53: 46, // 블루장군
+    54: 50, // 박테리안
+    55: 51, // 우마왕
+    56: 52, // 팡
+    57: 53, // 하이야 드래곤
+    58: 55, // 천사 아리
+    59: 56, // 파이크한
+    60: 57, // 베이비
+    61: 58, // 리루도
+    62: 60, // 심벌
+    63: 61, // 유린
+    64: 62, // 메탈 쿠우라
+    65: 63, // 킹 베지터
+    66: 64, // 로드 슬러그
+    68: 65, // 블랙 오공
+    69: 66  // 자마스
+};
+
+// 퓨전 각성 매핑 (슬롯 번호 → { name, upBookIdx })
+const FUSION_AWAKENING_MAP = {
+    1:  { name: '오지터', upBookIdx: 10 },   // 손오공
+    9:  { name: '오지터', upBookIdx: 10 },   // 베지터
+    15: { name: '사오공', upBookIdx: 17 },   // 사탄
+    35: { name: '오천크스', upBookIdx: 18 }, // 손오천
+    36: { name: '오천크스', upBookIdx: 18 }, // 트랭크스(어린)
+    3:  { name: '야무반', upBookIdx: 67 },   // 야무치
+    4:  { name: '야무반', upBookIdx: 67 }    // 천진반
 };
 
 // Reverse map: slot number → UpBook 1-based index (built automatically)
@@ -730,11 +740,19 @@ function getAwakeningLevel(pdata1Arr, slotNumInt) {
     if (upBookIdx === undefined) return 0;
     const arrIdx = upBookIdx - 1; // 0-based
     let val = (arrIdx >= 0 && arrIdx < pdata1Arr.length) ? (pdata1Arr[arrIdx] || 0) : 0;
-    // 구버전 세이브(1m60cm 등)에서 브로리(전설) 47이 미분리된 경우 브로리(약해진) 31번 수치 폴백
+    // 브로리(전설) 47번은 별도 각성책이 없어 브로리(약해진) 31번 수치 참조
     if (slotNumInt === 47 && val === 0 && pdata1Arr.length >= 31) {
         val = pdata1Arr[30] || 0;
     }
     return val;
+}
+
+function getFusionAwakening(pdata1Arr, slotNumInt) {
+    const info = FUSION_AWAKENING_MAP[slotNumInt];
+    if (!info || !pdata1Arr || pdata1Arr.length === 0) return null;
+    const arrIdx = info.upBookIdx - 1;
+    const level = (arrIdx >= 0 && arrIdx < pdata1Arr.length) ? (pdata1Arr[arrIdx] || 0) : 0;
+    return { name: info.name, level };
 }
 
 // Utility: Format numbers with commas
@@ -1606,6 +1624,9 @@ function createCharacterCard(char) {
     if (char.awakeningLevel > 0) {
         cpHtml += `<span class="char-awakening-badge"><span class="stat-label">각성:</span> <span class="stat-value">${char.awakeningLevel}</span></span>`;
     }
+    if (char.fusionAwakening && char.fusionAwakening.level > 0) {
+        cpHtml += `<span class="char-awakening-badge char-fusion-awakening-badge"><span class="stat-label">${char.fusionAwakening.name}:</span> <span class="stat-value">${char.fusionAwakening.level}</span></span>`;
+    }
     cpRow.innerHTML = cpHtml;
     leftCol.appendChild(cpRow);
 
@@ -2060,6 +2081,7 @@ async function fetchAndRenderLogs(nicName) {
                     const charName = data[`HERO_DISPLAY_NAME_${slotNum}`] || LINK_NAME_MAPPING[slotNumInt] || `캐릭터 ${charId}`;
                     const category = SLOT_CATEGORY_MAPPING[slotNumInt] || 'other';
                     const awakeningLevel = getAwakeningLevel(pdata1Arr, slotNumInt);
+                    const fusionAwakening = getFusionAwakening(pdata1Arr, slotNumInt);
 
                     const ttType = data.TT_TYPE1 !== undefined ? parseInt(data.TT_TYPE1) : 2;
                     const mults = GRADE_MULTIPLIERS[ttType] || GRADE_MULTIPLIERS[2];
@@ -2088,6 +2110,7 @@ async function fetchAndRenderLogs(nicName) {
                         speed,
                         awakening,
                         awakeningLevel,
+                        fusionAwakening,
                         fortitude,
                         limit,
                         limitPt,
@@ -2862,6 +2885,8 @@ function createMobileBasicCard(char) {
     const nameClass = char.isTodaySave ? 'mc-name mc-attended' : 'mc-name';
     const awakening = char.awakeningLevel > 0
         ? `<span class="mc-awakening">각성:${char.awakeningLevel}</span>` : '';
+    const fusionAwakening = (char.fusionAwakening && char.fusionAwakening.level > 0)
+        ? `<span class="mc-awakening mc-fusion-awakening">${char.fusionAwakening.name}:${char.fusionAwakening.level}</span>` : '';
 
     // 6대 마스터 조건 판정
     const mastery = getMasteryInfo(char);
@@ -2894,7 +2919,7 @@ function createMobileBasicCard(char) {
             <span class="mc-lv"><span class="stat-label">Lv:</span> <b class="mc-val ${isLvlMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.level)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${(MAX_SPEED_MAPPING[char.name] !== undefined ? MAX_SPEED_MAPPING[char.name] : (MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] !== undefined ? MAX_SPEED_MAPPING[LINK_NAME_MAPPING[char.slotNum]] : '-'))})</small></span>
             <span class="mc-adv"><span class="stat-label">모험:</span> <b class="mc-val ${isAdvMaxed ? 'stat-val-maxed' : ''}">${mbFmt(char.adventure)}</b> <small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">(${getAdventureStage(char.adventure)})</small></span>
         </div>
-        <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 700000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}</div>
+        <div class="mc-cp"><span class="stat-label">투력:</span> <b class="mc-val ${(typeof char.cp === 'string' ? parseInt(char.cp.replace(/,/g, '')) : parseInt(char.cp)) >= 700000 ? 'cp-maxed-completed' : ''}">${mbFmt(char.cp)}</b>${awakening}${fusionAwakening}</div>
         <div class="mc-divider"></div>
         <div class="mc-row"><span><span class="stat-label">공격:</span> <b class="mc-val">${mbFmt(char.attack)}</b></span><span><span class="stat-label">방어:</span> <b class="mc-val">${mbFmt(char.defense)}</b></span></div>
         <div class="mc-row"><span><span class="stat-label">기:</span> <b class="mc-val">${mbFmt(char.ki)}</b></span><span><span class="stat-label">체력:</span> <b class="mc-val">${mbFmt(char.hp)}</b></span></div>
