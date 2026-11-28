@@ -541,7 +541,36 @@ def get_logs():
                             pass
 
             meta_cache["max_adventure"] = known_max_adventure
+
+            # 맵 버전 추출 (SEASON_TITLE_VER / 시즌 포인트 획득 기반, 예: 'v21.0' -> 'V21')
+            def _parse_ver_num(ver_str):
+                if not ver_str:
+                    return 0
+                m_v = re.search(r'v?(\d+)', str(ver_str), re.IGNORECASE)
+                return int(m_v.group(1)) if m_v else 0
+
+            raw_ver_str = merged_data.get("SEASON_TITLE_VER") or merged_data.get("시즌 포인트 획득") or ""
+            user_ver_num = _parse_ver_num(raw_ver_str)
+            prev_latest_num = _parse_ver_num(meta_cache.get("latest_map_version", "V21"))
+            latest_ver_num = max(21, prev_latest_num, user_ver_num)
+            latest_map_version = f"V{latest_ver_num}"
+            user_map_version = f"V{user_ver_num}" if user_ver_num > 0 else latest_map_version
+            meta_cache["latest_map_version"] = latest_map_version
+
+            allmax_hist = meta_cache.get("allmax_history")
+            if not isinstance(allmax_hist, dict):
+                allmax_hist = {}
+            if "1m60cm" not in allmax_hist:
+                allmax_hist["1m60cm"] = {
+                    "nicName": "1m60cm",
+                    "versions": {
+                        "V20": {"count": 66, "total": 66, "is_all_chars": True, "updated_at": "2026-11-08"}
+                    }
+                }
+            meta_cache["allmax_history"] = allmax_hist
             cache["_meta"] = meta_cache
+
+            user_allmax_versions = allmax_hist.get(nicName.lower(), {}).get("versions", {})
 
             nic_cache = cache.get(nicName, {})
 
@@ -598,6 +627,9 @@ def get_logs():
             "latest_log_date": latest_log_date,
             "slot_dates": slot_dates,
             "max_adventure": known_max_adventure,
+            "latest_map_version": locals().get("latest_map_version", "V21"),
+            "user_map_version": locals().get("user_map_version", "V21"),
+            "allmax_history": locals().get("user_allmax_versions", {}),
             "data": merged_data
         })
         
@@ -605,6 +637,75 @@ def get_logs():
         return jsonify({"success": False, "error": "Request to m16tool.xyz timed out."}), 504
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/allmax-history', methods=['GET'])
+def get_allmax_history():
+    cache = load_cache()
+    meta_cache = cache.get("_meta", {}) if isinstance(cache.get("_meta"), dict) else {}
+    allmax_hist = meta_cache.get("allmax_history", {}) if isinstance(meta_cache.get("allmax_history"), dict) else {}
+    if "1m60cm" not in allmax_hist:
+        allmax_hist["1m60cm"] = {
+            "nicName": "1m60cm",
+            "versions": {
+                "V20": {"count": 66, "total": 66, "is_all_chars": True, "updated_at": "2026-11-08"}
+            }
+        }
+    return jsonify({
+        "success": True,
+        "latest_map_version": meta_cache.get("latest_map_version", "V21"),
+        "max_adventure": meta_cache.get("max_adventure", 25000),
+        "users": allmax_hist
+    })
+
+@app.route('/api/allmax-record', methods=['POST'])
+def record_allmax_history():
+    payload = request.get_json(silent=True) or {}
+    nic = (payload.get("nicName") or "").strip()
+    version = (payload.get("version") or "").strip().upper()
+    if not nic or not version:
+        return jsonify({"success": False, "error": "nicName and version are required"}), 400
+    all_max_count = int(payload.get("allMaxCount") or 0)
+    total_chars = int(payload.get("totalChars") or 0)
+    chars = payload.get("chars") or []
+
+    cache = load_cache()
+    meta_cache = cache.get("_meta", {}) if isinstance(cache.get("_meta"), dict) else {}
+    allmax_hist = meta_cache.get("allmax_history")
+    if not isinstance(allmax_hist, dict):
+        allmax_hist = {}
+    key = nic.lower()
+    entry = allmax_hist.get(key) if isinstance(allmax_hist.get(key), dict) else {"nicName": nic, "versions": {}}
+    entry["nicName"] = nic
+    versions = entry.get("versions") if isinstance(entry.get("versions"), dict) else {}
+
+    from datetime import datetime
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    if all_max_count > 0:
+        versions[version] = {
+            "count": all_max_count,
+            "total": total_chars,
+            "is_all_chars": (total_chars > 0 and all_max_count >= total_chars),
+            "chars": chars[:15],
+            "updated_at": now_str
+        }
+    else:
+        versions.pop(version, None)
+
+    if versions:
+        entry["versions"] = versions
+        allmax_hist[key] = entry
+    else:
+        allmax_hist.pop(key, None)
+
+    meta_cache["allmax_history"] = allmax_hist
+    cache["_meta"] = meta_cache
+    save_cache(cache)
+
+    return jsonify({
+        "success": True,
+        "latest_map_version": meta_cache.get("latest_map_version", "V21"),
+        "versions": versions
+    })
 
 @app.route('/api/rankings')
 def get_rankings():

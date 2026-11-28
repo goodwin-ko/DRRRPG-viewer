@@ -304,6 +304,76 @@ body {
     color: var(--text-main);
 }
 
+.player-allmax-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+}
+
+.player-allmax-badges:empty {
+    display: none;
+}
+
+.id-allmax-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    cursor: help;
+    background: linear-gradient(135deg, rgba(255, 208, 0, 0.25), rgba(255, 136, 0, 0.25));
+    border: 1px solid rgba(255, 208, 0, 0.75);
+    color: #ffe26a;
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.id-allmax-ver-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: help;
+}
+
+.id-allmax-ver-pill.is-latest {
+    background: rgba(0, 229, 255, 0.16);
+    border: 1px solid rgba(0, 229, 255, 0.55);
+    color: #7ef2ff;
+}
+
+.id-allmax-ver-pill.is-past {
+    background: rgba(255, 208, 0, 0.12);
+    border: 1px solid rgba(255, 208, 0, 0.4);
+    color: #e6c667;
+}
+
+.rank-allmax-ver-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 5px;
+    margin-left: 4px;
+    border-radius: 5px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: help;
+    background: rgba(255, 208, 0, 0.14);
+    border: 1px solid rgba(255, 208, 0, 0.45);
+    color: #ffd85c;
+}
+
+.rank-allmax-ver-pill.is-latest {
+    background: linear-gradient(135deg, rgba(255, 208, 0, 0.26), rgba(0, 229, 255, 0.18));
+    border-color: rgba(255, 215, 0, 0.8);
+    color: #fff099;
+}
+
 .profile-center {
     flex: 2 1 450px;
 }

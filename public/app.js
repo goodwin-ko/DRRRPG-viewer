@@ -1015,6 +1015,86 @@ function getMasteryInfo(c) {
     };
 }
 
+function _sortMapVersions(versionsMap) {
+    return Object.keys(versionsMap || {})
+        .filter(v => versionsMap[v] && (versionsMap[v].count || 0) > 0)
+        .sort((a, b) => (parseInt(a.replace(/\D/g, ''), 10) || 0) - (parseInt(b.replace(/\D/g, ''), 10) || 0));
+}
+
+function buildAllMaxBadgesHtml(versionsMap, latestVer) {
+    const achievedVers = _sortMapVersions(versionsMap);
+    if (achievedVers.length === 0) return '';
+
+    const latestUpper = (latestVer || 'V21').toUpperCase();
+    const hasLatest = Boolean(versionsMap[latestUpper] && (versionsMap[latestUpper].count || 0) > 0);
+    const verSummary = achievedVers.map(v => {
+        const info = versionsMap[v];
+        const scope = info.is_all_chars ? '전캐릭' : `${info.count}캐릭`;
+        return `${v} (${scope})`;
+    }).join(', ');
+
+    let html = '';
+    // 신버전 기준 메인 올맥스 배지 (신버전 미달성 시 자동 비표시)
+    if (hasLatest) {
+        const latestInfo = versionsMap[latestUpper];
+        const scopeText = latestInfo.is_all_chars ? '전캐릭 올맥스' : `${latestInfo.count}캐릭 올맥스`;
+        html += `<span class="id-allmax-badge" title="현재 신버전(${latestUpper}) 올맥스 달성 (${scopeText})&#10;전체 달성 버전: ${verSummary}">★ 올맥스 ★</span>`;
+    }
+
+    // 맵 버전별 달성 배지 (마우스 올리면 달성 버전 상세 표시)
+    achievedVers.forEach(v => {
+        const info = versionsMap[v];
+        const isLatest = (v === latestUpper);
+        const scopeText = info.is_all_chars ? '전캐릭' : `${info.count}캐릭`;
+        const dateNote = info.updated_at ? ` · ${info.updated_at}` : '';
+        const statusNote = isLatest ? '현재 신버전' : `이전 버전 (신버전 ${latestUpper} 기준 갱신됨)`;
+        html += `<span class="id-allmax-ver-pill ${isLatest ? 'is-latest' : 'is-past'}" title="${v} 맵 버전 올맥스 달성 (${scopeText}${dateNote})&#10;상태: ${statusNote}">${v} 올맥스</span>`;
+    });
+
+    return html;
+}
+
+function syncUserAllMaxHistory(nicName, userVer, latestVer, characters, serverVersions) {
+    const allMaxChars = (characters || []).filter(c => getMasteryInfo(c).isAllMaxed);
+    const mergedVersions = Object.assign({}, serverVersions || {});
+    const targetVer = (userVer || latestVer || 'V21').toUpperCase();
+
+    if (allMaxChars.length > 0) {
+        mergedVersions[targetVer] = {
+            count: allMaxChars.length,
+            total: characters.length,
+            is_all_chars: characters.length > 0 && allMaxChars.length >= characters.length,
+            chars: allMaxChars.map(c => c.name).slice(0, 15)
+        };
+    } else {
+        delete mergedVersions[targetVer];
+    }
+
+    // 서버에 기록 동기화 (비동기)
+    fetch('/api/allmax-record', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            nicName,
+            version: targetVer,
+            allMaxCount: allMaxChars.length,
+            totalChars: characters.length,
+            chars: allMaxChars.map(c => c.name)
+        })
+    }).then(r => r.json()).then(res => {
+        if (res && res.success) {
+            window.allMaxUsersCache = window.allMaxUsersCache || {};
+            if (Object.keys(res.versions || {}).length > 0) {
+                window.allMaxUsersCache[nicName.trim().toLowerCase()] = { nicName, versions: res.versions };
+            } else {
+                delete window.allMaxUsersCache[nicName.trim().toLowerCase()];
+            }
+        }
+    }).catch(() => {});
+
+    return mergedVersions;
+}
+
 function getBorderTagHtml(mastery) {
     if (!mastery || mastery.count < 1) return '';
     const starText = mastery.isAllMaxed ? '★올맥스★' : '★'.repeat(mastery.count);
@@ -2160,6 +2240,27 @@ async function fetchAndRenderLogs(nicName) {
         const uniqueCharacters = Object.values(charactersBySlot);
         window.currentUserCharacters = uniqueCharacters;
 
+        // 맵 버전별 올맥스 배지 갱신 (신버전 기준)
+        const latestVer = result.latest_map_version || 'V21';
+        const userVer = result.user_map_version || latestVer;
+        window.latestMapVersion = latestVer;
+        const gameVerNumEl = document.querySelector('.game-ver-num');
+        const gameVerPillEl = document.querySelector('.game-version-pill');
+        if (gameVerNumEl && latestVer) gameVerNumEl.textContent = latestVer;
+        if (gameVerPillEl && latestVer) gameVerPillEl.title = `현재 플레이 중인 드래곤볼 RPG 맵 버전: ${latestVer}`;
+
+        const mergedAllMaxVersions = syncUserAllMaxHistory(
+            result.nicName,
+            userVer,
+            latestVer,
+            uniqueCharacters,
+            result.allmax_history || {}
+        );
+        const allMaxBadgesEl = document.getElementById('player-allmax-badges');
+        if (allMaxBadgesEl) {
+            allMaxBadgesEl.innerHTML = buildAllMaxBadgesHtml(mergedAllMaxVersions, latestVer);
+        }
+
         // 모든 캐릭터의 블루다이아 합산하여 상단 프로필에 반영
         let totalBlueDiamonds = 0;
         uniqueCharacters.forEach(char => {
@@ -2396,12 +2497,22 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
 
     try {
         colRank.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>랭킹 정보를 불러오는 중입니다...</p></div>';
-        const response = await fetch('/api/rankings?board=' + encodeURIComponent(boardName));
+        const [response, allMaxRes] = await Promise.all([
+            fetch('/api/rankings?board=' + encodeURIComponent(boardName)),
+            fetch('/api/allmax-history').then(r => r.json()).catch(() => null)
+        ]);
         const result = await response.json();
 
         if (!result.success) {
             throw new Error(result.error || '랭킹 데이터를 가져오지 못했습니다.');
         }
+
+        if (allMaxRes && allMaxRes.success) {
+            window.allMaxUsersCache = allMaxRes.users || {};
+            window.latestMapVersion = allMaxRes.latest_map_version || window.latestMapVersion || 'V21';
+        }
+        const allMaxUsers = window.allMaxUsersCache || {};
+        const latestVer = window.latestMapVersion || 'V21';
 
         const rankings = result.rankings || [];
         if (rankings.length === 0) {
@@ -2475,8 +2586,12 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                 
                 // Format rank with medals for top 3
                 let rankDisplay = item.rank;
-                const isMaster = (typeof isAllMaxMaster === 'function' && isAllMaxMaster(item.nicname)) || (item.nicname && item.nicname.trim().toLowerCase() === '1m60cm');
-                const isSearchedUser = searchedNic && item.nicname && (item.nicname.trim().toLowerCase() === searchedNic);
+                const cleanNicLower = item.nicname ? item.nicname.trim().toLowerCase() : '';
+                const allMaxEntry = allMaxUsers[cleanNicLower];
+                const allMaxVers = _sortMapVersions(allMaxEntry ? allMaxEntry.versions : {});
+                const hasLatestAllMax = allMaxVers.includes(latestVer);
+                const isMaster = hasLatestAllMax || (typeof isAllMaxMaster === 'function' && isAllMaxMaster(item.nicname)) || (cleanNicLower === '1m60cm');
+                const isSearchedUser = searchedNic && (cleanNicLower === searchedNic);
 
                 const rowClasses = [];
                 if (isMaster) rowClasses.push('rank-row-1m60cm');
@@ -2485,9 +2600,17 @@ async function fetchAndRenderRankings(boardName = '유저랭킹') {
                     tr.className = rowClasses.join(' ');
                 }
 
-                const nickContent = isMaster
-                    ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">${item.nicname}<span class="rank-champion-tag" title="드래곤볼 RPG V20 전캐릭 올맥스 달성">👑 [V20] 전캐릭 올맥스</span>`
-                    : item.nicname;
+                const verBadgesHtml = allMaxVers.map(v => {
+                    const info = allMaxEntry.versions[v];
+                    const scope = info && info.is_all_chars ? '전캐릭' : `${(info && info.count) || 1}캐릭`;
+                    const isCur = (v === latestVer);
+                    return `<span class="rank-allmax-ver-pill ${isCur ? 'is-latest' : ''}" title="${v} 맵 버전 올맥스 달성 (${scope})">${isCur ? '👑 ' : ''}${v} 올맥스</span>`;
+                }).join('');
+
+                const profileIconHtml = (cleanNicLower === '1m60cm')
+                    ? `<img src="images/special/1m60cm_profile.png" alt="1m60cm" class="rank-profile-icon" onerror="this.style.display='none'">`
+                    : '';
+                const nickContent = `${profileIconHtml}${item.nicname}${verBadgesHtml}`;
                 if (item.rank === 1) rankDisplay = '🥇';
                 else if (item.rank === 2) rankDisplay = '🥈';
                 else if (item.rank === 3) rankDisplay = '🥉';
