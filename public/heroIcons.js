@@ -228,65 +228,7 @@ window.isSpecialHorusGoku = isSpecialHorusGoku;
  * - goodwin: 손오공 (초사이어인 로제), 베지터 (갓 & 블루 듀얼)
  */
 function getSpecialCardTheme(nicName, charName, slotNum) {
-    if (!nicName || typeof nicName !== 'string') return null;
-    const nic = nicName.trim().toLowerCase();
-    const slot = parseInt(slotNum);
-    const isGoku = (slot === 1) || (!slot && charName && typeof charName === 'string' && (charName === '손오공' || (charName.includes('손오공') && !charName.includes('블랙'))));
-    const isVegeta = (slot === 9) || (!slot && charName && typeof charName === 'string' && (charName === '베지터' || (charName.includes('베지터') && !charName.includes('킹') && !charName.includes('왕'))));
-
-    // 1. Horus - 손오공 (SSGSS 블루)
-    if (nic === 'horus' && isGoku) {
-        return {
-            className: 'special-card-horus-goku',
-            badgeText: 'SSGSS',
-            badgeClass: 'horus-special-badge'
-        };
-    }
-
-    // 2. goodwin - 손오공 (초사이어인 로제)
-    if (nic === 'goodwin' && isGoku) {
-        return {
-            className: 'special-card-goodwin-goku',
-            badgeText: 'ROSE',
-            badgeClass: 'goodwin-rose-badge'
-        };
-    }
-
-    // 3. goodwin - 베지터 (갓 & 블루 듀얼)
-    if (nic === 'goodwin' && isVegeta) {
-        return {
-            className: 'special-card-goodwin-vegeta',
-            badgeText: 'DUAL',
-            badgeClass: 'goodwin-dual-badge'
-        };
-    }
-
-    // 4. 1m60cm - 전캐릭 올맥스 명예의 전당 (브로리, 손오공, 베지터 등)
-    if (nic === '1m60cm') {
-        const isBroly = (slot === 47 || slot === 54 || (charName && typeof charName === 'string' && charName.includes('브로리')));
-        if (isBroly) {
-            return {
-                className: 'special-card-1m60cm-broly',
-                badgeText: 'V20 LEGEND',
-                badgeClass: 'broly-legend-badge'
-            };
-        }
-        if (isGoku) {
-            return {
-                className: 'special-card-1m60cm-goku',
-                badgeText: 'V20 BLADE',
-                badgeClass: 'goku-blade-badge'
-            };
-        }
-        if (isVegeta) {
-            return {
-                className: 'special-card-1m60cm-vegeta',
-                badgeText: 'V20 CLASH',
-                badgeClass: 'vegeta-clash-badge'
-            };
-        }
-    }
-
+    // 특정 아이디 캐릭터 배경사진 기능 비활성화
     return null;
 }
 
@@ -306,22 +248,7 @@ window.isAllMaxMaster = isAllMaxMaster;
  * 유저별 상단 프로필 헤더 스페셜 테마 매핑
  */
 function getSpecialProfileTheme(nicName) {
-    if (!nicName || typeof nicName !== 'string') return null;
-    const nic = nicName.trim().toLowerCase();
-    if (nic === '1m60cm') {
-        return {
-            className: 'special-profile-1m60cm',
-            badgeClass: 'allmax-champion-badge',
-            badgeText: '👑 [V20] ALL-MAX MASTER'
-        };
-    }
-    if (nic === 'jyh10') {
-        return {
-            className: 'special-profile-jyh10',
-            badgeClass: 'zamasu-badge',
-            badgeText: '👑 ZAMASU'
-        };
-    }
+    // 특정 아이디 프로필 배경사진 기능 비활성화
     return null;
 }
 window.getSpecialProfileTheme = getSpecialProfileTheme;

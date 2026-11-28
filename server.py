@@ -507,10 +507,42 @@ def get_logs():
             traceback.print_exc()
 
         # ─────────────────────────────────────────────────────────────────────
-        # 캐시 로드/업데이트/저장 (GetLog 성공 여부와 무관하게 항상 실행)
+        # 캐시 로드/업데이트/저장 및 버전별 최대 모험진행도 자동 학습
         # ─────────────────────────────────────────────────────────────────────
+        known_max_adventure = 25000
         try:
             cache = load_cache()
+            meta_cache = cache.get("_meta", {}) if isinstance(cache.get("_meta"), dict) else {}
+            known_max_adventure = max(25000, int(meta_cache.get("max_adventure", 25000) or 25000))
+
+            # 정상 캐릭터 슬롯(d1 길이 97)에서 관측된 최고 모험진행도로 신버전 상한 자동 갱신
+            for k_d1, raw_d1 in merged_data.items():
+                if k_d1.startswith("DATA1_") and raw_d1:
+                    s_d1 = str(raw_d1).strip()
+                    if "," in s_d1:
+                        arr_d1 = [x.strip() for x in s_d1.split(",")]
+                    else:
+                        try:
+                            pad_d1 = s_d1 + "=" * ((4 - len(s_d1) % 4) % 4)
+                            arr_d1 = [x.strip() for x in base64.b64decode(pad_d1).decode("utf-8", errors="ignore").split(",")]
+                        except Exception:
+                            arr_d1 = []
+                    if len(arr_d1) == 97 and (arr_d1[0] == "" or arr_d1[0].isdigit()):
+                        try:
+                            adv_val = int(arr_d1[16] or 0)
+                            if 25000 < adv_val <= 200000:
+                                if adv_val % 100 == 0 or (adv_val - 1) % 100 == 0:
+                                    cand_cap = adv_val
+                                else:
+                                    cand_cap = ((adv_val + 99) // 100) * 100
+                                if cand_cap > known_max_adventure:
+                                    known_max_adventure = cand_cap
+                        except Exception:
+                            pass
+
+            meta_cache["max_adventure"] = known_max_adventure
+            cache["_meta"] = meta_cache
+
             nic_cache = cache.get(nicName, {})
 
             for key in list(merged_data.keys()):
@@ -565,6 +597,7 @@ def get_logs():
             "latest_log_character": latest_log_char,
             "latest_log_date": latest_log_date,
             "slot_dates": slot_dates,
+            "max_adventure": known_max_adventure,
             "data": merged_data
         })
         

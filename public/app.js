@@ -1,39 +1,74 @@
 // Dragonball RPG Random (DRR) Dashboard Frontend Logic
 
 // UpBook{N}_Lv → Slot Number mapping (from PDATA1 array, 1-based index)
+// 전체 66개 영웅 슬롯 100% 매핑 (누락 없이 전 캐릭터 각성 수치 표시)
 const UPBOOK_TO_SLOT = {
     1: 4,   // 천진반 (100)
     2: 6,   // 피콜로 (100)
-    3: 32,  // 미스틱 오반 / 손오반 (101)
+    3: 32,  // 미스틱 오반 / 손오반 (200)
     4: 16,  // 어린손오반 (50)
-    5: 5,   // 무천도사 (101)
+    5: 5,   // 무천도사 (200)
     6: 2,   // 크리링 (100)
     7: 3,   // 야무치 (100)
     8: 17,  // 프리저 (200)
     9: 25,  // 셀 (200)
+    10: 31, // 마인부우 (200)
     11: 11, // 리쿰 (100)
-    12: 13, // 버터 (50)
-    13: 12, // 지스 (50)
-    14: 10, // 굴드 (50)
-    15: 14, // 캡틴 기뉴 (50)
+    12: 13, // 버터 (100)
+    13: 12, // 지스 (100)
+    14: 10, // 굴드 (100)
+    15: 14, // 캡틴 기뉴 (100)
     16: 15, // 미스터 사탄 (50)
-    19: 27, // 부르마 (50)
+    17: 23, // 인조인간17호 (200)
+    18: 24, // 인조인간18호 (200)
+    19: 27, // 부르마 (100)
     20: 7,  // 라데츠 (200)
-    21: 18, // 콜드대왕 (100)
+    21: 18, // 콜드대왕 (200)
     22: 19, // 네일 (100)
     23: 20, // 인조인간16호 (100)
     24: 21, // 인조인간19호 (100)
-    25: 22, // 인조인간20호 (50)
-    26: 45, // 쟈넨바 (101)
+    25: 22, // 인조인간20호 (100)
+    26: 45, // 쟈넨바 (200)
     27: 43, // 농부 (100)
     28: 1,  // 손오공 (200)
     29: 9,  // 베지터 (200)
     30: 28, // 야콩 (200)
     31: 54, // 브로리(약해진) (200)
-    32: 29, // 각성책 : 데브라
-    33: 30, // 각성책 : 바비디
-    34: 41, // 각성책 : 우부
-    35: 65  // 각성책 : 블랙오공
+    32: 29, // 데브라 (100)
+    33: 30, // 비비디/바비디 (100)
+    34: 41, // 우부 (100)
+    35: 26, // 트랭크스(미래) (100)
+    36: 36, // 트랭크스(어린) (100)
+    37: 37, // 자봉 (100)
+    38: 38, // 쿠우라 (100)
+    39: 39, // 인조인간15호 (100)
+    40: 40, // 인조인간14호 (200)
+    41: 33, // 도도리아 (100)
+    42: 42, // 타피온 (100)
+    43: 34, // 비델 (100)
+    44: 44, // 인조인간13호 (100)
+    45: 35, // 손오천 (100)
+    46: 46, // 블루장군 (100)
+    47: 47, // 브로리(전설) (100)
+    48: 48, // 버독 (100)
+    49: 49, // 타레스 (200)
+    50: 50, // 박테리안 (100)
+    51: 51, // 우마왕 (100)
+    52: 52, // 팡 (100)
+    53: 53, // 하야이드래곤 (100)
+    54: 8,  // 내퍼 (100)
+    55: 55, // 아리 (100)
+    56: 56, // 파이크한 (100)
+    57: 57, // 베이비 (200)
+    58: 58, // 리루도 (100)
+    59: 59, // 인조인간8호 (100)
+    60: 60, // 심벌 (100)
+    61: 61, // 유린 (100)
+    62: 62, // 메탈 쿠우라 (100)
+    63: 63, // 킹 베지터 (100)
+    64: 64, // 로드 슬러그 (100)
+    65: 65, // 블랙 오공 (100)
+    66: 66  // 자마스 (100)
 };
 
 // Reverse map: slot number → UpBook 1-based index (built automatically)
@@ -41,8 +76,6 @@ const SLOT_TO_UPBOOK = {};
 for (const [upBookIdx, slotNum] of Object.entries(UPBOOK_TO_SLOT)) {
     SLOT_TO_UPBOOK[slotNum] = parseInt(upBookIdx);
 }
-// 브로리(전설) Slot 47은 브로리(약해진) Slot 54와 각성책 공유
-SLOT_TO_UPBOOK[47] = 31;
 
 // Character Maximum Speed Mapping Table
 const MAX_SPEED_MAPPING = {
@@ -696,10 +729,12 @@ function getAwakeningLevel(pdata1Arr, slotNumInt) {
     const upBookIdx = SLOT_TO_UPBOOK[slotNumInt];
     if (upBookIdx === undefined) return 0;
     const arrIdx = upBookIdx - 1; // 0-based
-    if (arrIdx >= 0 && arrIdx < pdata1Arr.length) {
-        return pdata1Arr[arrIdx] || 0;
+    let val = (arrIdx >= 0 && arrIdx < pdata1Arr.length) ? (pdata1Arr[arrIdx] || 0) : 0;
+    // 구버전 세이브(1m60cm 등)에서 브로리(전설) 47이 미분리된 경우 브로리(약해진) 31번 수치 폴백
+    if (slotNumInt === 47 && val === 0 && pdata1Arr.length >= 31) {
+        val = pdata1Arr[30] || 0;
     }
-    return 0;
+    return val;
 }
 
 // Utility: Format numbers with commas
@@ -786,55 +821,104 @@ const GRADE_MULTIPLIERS = {
     11: { own: 400, friend: 270 }
 };
 
+// 모험 진행도 단계 테이블 (테이블의 마지막 단계 maxVal이 기본 최종 모험진행도로 자동 인식됨)
+const ADVENTURE_STAGES = [
+    { maxVal: 66, name: "태초" },
+    { maxVal: 300, name: "오자루" },
+    { maxVal: 459, name: "나메물약" },
+    { maxVal: 750, name: "셀주" },
+    { maxVal: 1000, name: "마인물약" },
+    { maxVal: 1501, name: "부우물약" },
+    { maxVal: 1999, name: "평화물약" },
+    { maxVal: 2500, name: "사이어맨" },
+    { maxVal: 3000, name: "학습물약" },
+    { maxVal: 3500, name: "우부" },
+    { maxVal: 4000, name: "학물LV2" },
+    { maxVal: 4500, name: "인조물약" },
+    { maxVal: 5000, name: "13호" },
+    { maxVal: 6000, name: "변화의물약" },
+    { maxVal: 7000, name: "비델사탄" },
+    { maxVal: 7500, name: "변화의물약2" },
+    { maxVal: 8500, name: "어둠의물약" },
+    { maxVal: 9000, name: "어둠의물약2" },
+    { maxVal: 10000, name: "다크사우르스" },
+    { maxVal: 11000, name: "슈퍼13호" },
+    { maxVal: 12000, name: "초1라데츠" },
+    { maxVal: 12999, name: "나무꾼의물약" },
+    { maxVal: 13000, name: "스테이지7" },
+    { maxVal: 14000, name: "초3라데츠" },
+    { maxVal: 15000, name: "약탈꾼의물약" },
+    { maxVal: 16000, name: "거대 오자루" },
+    { maxVal: 17000, name: "그림자물약" },
+    { maxVal: 18000, name: "자연의물약" },
+    { maxVal: 19000, name: "타차원 오우거" },
+    { maxVal: 20000, name: "자연의 물약Lv2" },
+    { maxVal: 21000, name: "타레스" },
+    { maxVal: 22000, name: "숲의 물약" },
+    { maxVal: 23000, name: "늑대인간왕" },
+    { maxVal: 24000, name: "모험가 길드 접수원-모험 의뢰" },
+    { maxVal: 24100, name: "도도리아" },
+    { maxVal: 24200, name: "자봉" },
+    { maxVal: 24300, name: "자봉-변신" },
+    { maxVal: 24400, name: "굴드" },
+    { maxVal: 24500, name: "리쿰" },
+    { maxVal: 24600, name: "버터" },
+    { maxVal: 24700, name: "지스" },
+    { maxVal: 24800, name: "캡틴 기뉴" },
+    { maxVal: 24900, name: "프리저-3단계" },
+    { maxVal: 25000, name: "프리저-완성체 풀파워" }
+];
+
 // Utility: Get Adventure Stage name from progress value
 function getAdventureStage(val) {
     const v = parseInt(val) || 0;
-    if (v < 67) return "태초";
-    if (v < 301) return "오자루";
-    if (v < 460) return "나메물약";
-    if (v < 751) return "셀주";
-    if (v < 1001) return "마인물약";
-    if (v < 1502) return "부우물약";
-    if (v < 2000) return "평화물약";
-    if (v < 2501) return "사이어맨";
-    if (v < 3001) return "학습물약";
-    if (v < 3501) return "우부";
-    if (v < 4001) return "학물LV2";
-    if (v < 4501) return "인조물약";
-    if (v < 5001) return "13호";
-    if (v < 6001) return "변화의물약";
-    if (v < 7001) return "비델사탄";
-    if (v < 7501) return "변화의물약2";
-    if (v < 8501) return "어둠의물약";
-    if (v < 9001) return "어둠의물약2";
-    if (v < 10001) return "다크사우르스";
-    if (v < 11001) return "슈퍼13호";
-    if (v < 12001) return "초1라데츠";
-    if (v < 13000) return "나무꾼의물약";
-    if (v < 13001) return "스테이지7";
-    if (v < 14001) return "초3라데츠";
-    if (v < 15001) return "약탈꾼의물약";
-    if (v < 16001) return "거대 오자루";
-    if (v < 17001) return "그림자물약";
-    if (v < 18001) return "자연의물약";
-    if (v < 19001) return "타차원 오우거";
-    if (v < 20001) return "자연의 물약Lv2";
-    if (v < 21001) return "타레스";
-    if (v < 22001) return "숲의 물약";
-    if (v < 23001) return "늑대인간왕";
-    if (v < 24001) return "모험가 길드 접수원-모험 의뢰";
-    if (v < 24101) return "도도리아";
-    if (v < 24201) return "자봉";
-    if (v < 24301) return "자봉-변신";
-    if (v < 24401) return "굴드";
-    if (v < 24501) return "리쿰";
-    if (v < 24601) return "버터";
-    if (v < 24701) return "지스";
-    if (v < 24801) return "캡틴 기뉴";
-    if (v < 24901) return "프리저-3단계";
-    if (v < 25001) return "프리저-완성체 풀파워";
+    for (let i = 0; i < ADVENTURE_STAGES.length; i++) {
+        if (v <= ADVENTURE_STAGES[i].maxVal) return ADVENTURE_STAGES[i].name;
+    }
     return "개발중";
 }
+
+// 버전별 마지막 모험진행도 동적 인식 (단계 테이블 최종값 + 서버/실데이터 최고치 자동 감지)
+function getMaxAdventureCap(targetChar) {
+    let cap = ADVENTURE_STAGES.length > 0 ? ADVENTURE_STAGES[ADVENTURE_STAGES.length - 1].maxVal : 25000;
+    if (window.serverMaxAdventure && window.serverMaxAdventure > cap) {
+        cap = window.serverMaxAdventure;
+    }
+
+    let observedMax = 0;
+    let observedMaxCount = 0;
+    const chars = Array.isArray(window.currentUserCharacters) ? window.currentUserCharacters : [];
+    for (let i = 0; i < chars.length; i++) {
+        const ch = chars[i];
+        if (!ch || ch.isCorrupted) continue;
+        const v = parseInt(ch.adv !== undefined ? ch.adv : ch.adventure) || 0;
+        if (v > 0 && v <= 200000) {
+            if (v > observedMax) {
+                observedMax = v;
+                observedMaxCount = 1;
+            } else if (v === observedMax) {
+                observedMaxCount++;
+            }
+        }
+    }
+    if (targetChar && !targetChar.isCorrupted) {
+        const tv = parseInt(targetChar.adv !== undefined ? targetChar.adv : targetChar.adventure) || 0;
+        if (tv > observedMax && tv <= 200000) {
+            observedMax = tv;
+            observedMaxCount = 1;
+        }
+    }
+
+    if (observedMax > cap) {
+        if (observedMax % 100 === 0 || (observedMax - 1) % 100 === 0 || observedMaxCount >= 2) {
+            cap = observedMax;
+        } else {
+            cap = Math.ceil(observedMax / 100) * 100;
+        }
+    }
+    return cap;
+}
+window.getMaxAdventureCap = getMaxAdventureCap;
 
 // 6대 마스터 조건 판정 및 뱃지 생성 함수
 function getMasteryInfo(c) {
@@ -844,10 +928,11 @@ function getMasteryInfo(c) {
     const lvlNum = parseInt(c.level) || 0;
     const isLvlMaxed = lvlNum >= 6000;
     
-    // 2. 모험 (Adventure >= 21001)
+    // 2. 모험 (버전별 마지막 모험진행도 동적 인식)
     const advVal = c.adv !== undefined ? c.adv : c.adventure;
     const advNum = parseInt(advVal) || 0;
-    const isAdvMaxed = advNum >= 21001;
+    const maxAdvCap = getMaxAdventureCap(c);
+    const isAdvMaxed = advNum >= maxAdvCap;
     
     // 3. 투력 (CP >= 700000)
     const cpRaw = c.cp !== undefined && c.cp !== null ? c.cp : 0;
@@ -1690,6 +1775,9 @@ async function fetchAndRenderLogs(nicName) {
             throw new Error(result.error || '데이터 조회에 실패했습니다.');
         }
 
+        if (result.max_adventure) {
+            window.serverMaxAdventure = Math.max(window.serverMaxAdventure || 0, parseInt(result.max_adventure) || 0);
+        }
         window.currentSearchNicName = result.nicName || nicName;
         try {
             localStorage.setItem('DRR_LAST_SEARCHED_USER', result.nicName || nicName);

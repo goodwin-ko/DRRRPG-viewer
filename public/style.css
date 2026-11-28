@@ -768,6 +768,7 @@ body {
 
 /* Character Card styling */
 .char-card {
+    position: relative;
     background-color: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 8px;
@@ -1009,6 +1010,7 @@ body {
 
 /* Equipment Card Styling */
 .equip-card {
+    position: relative;
     background-color: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 8px;
@@ -2538,28 +2540,28 @@ body {
 }
 
 /* 마스터 단계별 카드 테두리 색상 */
-.char-card.char-card-mastery-1, .mc-card.char-card-mastery-1 {
+.char-card.char-card-mastery-1, .equip-card.char-card-mastery-1, .mc-card.char-card-mastery-1 {
     position: relative !important;
     border-color: rgba(255, 215, 0, 0.35) !important;
 }
-.char-card.char-card-mastery-2, .mc-card.char-card-mastery-2 {
+.char-card.char-card-mastery-2, .equip-card.char-card-mastery-2, .mc-card.char-card-mastery-2 {
     position: relative !important;
     border-color: rgba(255, 215, 0, 0.5) !important;
 }
-.char-card.char-card-mastery-3, .mc-card.char-card-mastery-3 {
+.char-card.char-card-mastery-3, .equip-card.char-card-mastery-3, .mc-card.char-card-mastery-3 {
     position: relative !important;
     border-color: rgba(255, 215, 0, 0.65) !important;
 }
-.char-card.char-card-mastery-4, .mc-card.char-card-mastery-4 {
+.char-card.char-card-mastery-4, .equip-card.char-card-mastery-4, .mc-card.char-card-mastery-4 {
     position: relative !important;
     border-color: rgba(255, 223, 51, 0.8) !important;
 }
-.char-card.char-card-mastery-5, .mc-card.char-card-mastery-5 {
+.char-card.char-card-mastery-5, .equip-card.char-card-mastery-5, .mc-card.char-card-mastery-5 {
     position: relative !important;
     border-color: rgba(255, 240, 102, 0.95) !important;
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.25) !important;
 }
-.char-card.char-card-all-maxed, .mc-card.char-card-all-maxed {
+.char-card.char-card-all-maxed, .equip-card.char-card-all-maxed, .mc-card.char-card-all-maxed {
     border: 2px solid rgba(255, 215, 0, 0.95) !important;
     position: relative !important;
     background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 35, 20, 0.95)) !important;
@@ -2802,7 +2804,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/horus_goku.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 20% !important;
     background-repeat: no-repeat !important;
@@ -2919,7 +2921,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/goodwin_goku.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 15% !important;
     background-repeat: no-repeat !important;
@@ -3031,7 +3033,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/goodwin_vegeta.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 10% !important;
     background-repeat: no-repeat !important;
@@ -3145,7 +3147,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/1m60cm_header.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 25% !important;
     background-repeat: no-repeat !important;
@@ -3224,7 +3226,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/1m60cm_broly.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 15% !important;
     background-repeat: no-repeat !important;
@@ -3334,7 +3336,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/1m60cm_goku.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 15% !important;
     background-repeat: no-repeat !important;
@@ -3444,7 +3446,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/1m60cm_clash.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center 30% !important;
     background-repeat: no-repeat !important;
@@ -3778,7 +3780,7 @@ span.stat-value.stat-val-maxed {
     content: '' !important;
     position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('images/special/jyh10_header.jpg') !important;
+    /* background-image removed */
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
@@ -4814,6 +4816,7 @@ span.stat-value.stat-val-maxed {
 }
 .char-popup-modal-body .char-card,
 .char-popup-modal-body .equip-card {
+    position: relative !important;
     width: 100% !important;
     box-sizing: border-box !important;
     border: 1px solid rgba(0, 229, 255, 0.35) !important;
@@ -5471,5 +5474,674 @@ span.stat-value.stat-val-maxed {
     .build-cards-grid,
     .part-recom-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   High-Visibility Star System & Part BIS Summary Styles
+   ========================================================================== */
+
+/* Enhanced Star Colors & Glows */
+.star-cyan { color: #00ffff !important; text-shadow: 0 0 7px #00ffff, 0 0 12px rgba(0, 255, 255, 0.8) !important; }
+.star-gold { color: #ffd700 !important; text-shadow: 0 0 6px #ffd700, 0 0 10px rgba(255, 215, 0, 0.8) !important; }
+.star-silver { color: #c2d8ff !important; text-shadow: 0 0 5px #b0ccff, 0 0 8px rgba(176, 204, 255, 0.85) !important; }
+.star-bronze { color: #ff9d3b !important; text-shadow: 0 0 5px #ff9d3b, 0 0 9px rgba(255, 157, 59, 0.8) !important; }
+.star-white { color: #ffffff !important; text-shadow: 0 0 4px rgba(255, 255, 255, 0.85) !important; }
+.star-empty { color: #6e7a8e !important; text-shadow: none !important; }
+.star-locked { color: rgba(255, 255, 255, 0.25) !important; text-shadow: none !important; }
+
+/* Enhanced Slot Overlay */
+.slot-stars-overlay {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5px;
+    background: rgba(10, 5, 20, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 4px !important;
+    padding: 1.5px 2px !important;
+    pointer-events: none;
+    z-index: 6;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+.slot-stars-overlay .opt-star {
+    font-size: 11px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    filter: drop-shadow(0 1px 2px #000) !important;
+}
+
+/* Tooltip & Card Option Line Star & Percentage Badges */
+.opt-star-badge {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.opt-pct-badge {
+    display: inline-block;
+    padding: 0 4px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    vertical-align: middle;
+}
+
+/* Part Summary & BIS Recommendation Card */
+.part-overview-banner {
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.part-overview-banner .banner-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-bottom: 4px;
+}
+
+.part-overview-banner .banner-desc {
+    font-size: 0.82rem;
+    color: #ccc;
+    line-height: 1.45;
+}
+
+.part-detail-bis-card {
+    background: linear-gradient(135deg, rgba(28, 16, 44, 0.95), rgba(18, 10, 30, 0.95));
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.08);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.bis-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+}
+
+.bis-part-badge {
+    background: #ffd700;
+    color: #111;
+    font-weight: 900;
+    font-size: 0.82rem;
+    padding: 3px 9px;
+    border-radius: 4px;
+}
+
+.bis-sample-badge {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--cyan);
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    font-size: 0.72rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.bis-head-title {
+    font-size: 0.94rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.bis-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bis-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: rgba(10, 6, 18, 0.5);
+    border-radius: 6px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bis-row.warning-row {
+    background: rgba(255, 77, 77, 0.06);
+    border-color: rgba(255, 77, 77, 0.3);
+}
+
+.bis-label-crown {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffd700;
+}
+
+.bis-val-highlight {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #fff;
+    padding-left: 4px;
+}
+
+.bis-label-god {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #00ffff;
+}
+
+.bis-val-god {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #bbf2f6;
+    padding-left: 4px;
+    line-height: 1.45;
+}
+
+.bis-label-can {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #00e676;
+}
+
+.bis-val-can {
+    font-size: 0.8rem;
+    color: #d1f2d9;
+    padding-left: 4px;
+    line-height: 1.4;
+}
+
+.bis-label-cannot {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #ff5252;
+}
+
+.bis-val-cannot {
+    font-size: 0.8rem;
+    color: #ffb4b4;
+    padding-left: 4px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+
+/* Per-item Recommendation Badges */
+.recom-bis {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 4px;
+    color: #ffd700;
+    font-size: 0.72rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.recom-god {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(0, 229, 255, 0.2);
+    border: 1px solid rgba(0, 229, 255, 0.5);
+    border-radius: 4px;
+    color: var(--cyan);
+    font-size: 0.72rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.recom-can {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(0, 230, 118, 0.15);
+    border: 1px solid rgba(0, 230, 118, 0.4);
+    border-radius: 4px;
+    color: #00e676;
+    font-size: 0.72rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.recom-cannot {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(255, 82, 82, 0.18);
+    border: 1px solid rgba(255, 82, 82, 0.45);
+    border-radius: 4px;
+    color: #ff5252;
+    font-size: 0.72rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.recom-row.warn-text {
+    background: rgba(255, 82, 82, 0.08);
+    border-radius: 4px;
+    padding: 4px 6px;
+    border-left: 2px solid #ff5252;
+    font-size: 0.74rem;
+    color: #ffb4b4;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+
+/* ==========================================================================
+   v1.7.0: Expanded Character Column, 2x Equipment Grid, & Per-Item Guide Table
+   ========================================================================== */
+
+/* 1. 캐릭터 아이콘 영역을 더 아래로 넓게 확장 */
+.char-nav-col {
+    width: 284px;
+    max-height: none;
+    min-height: 820px;
+    padding: 14px 12px;
+}
+
+.char-avatar-grid {
+    grid-template-columns: repeat(5, 46px);
+    gap: 7px;
+}
+
+.char-avatar-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 7px;
+}
+
+.char-avatar-btn .badge-eq {
+    font-size: 10px;
+    padding: 0 4px;
+    line-height: 12px;
+}
+
+/* 2. 장비 영역 아이콘 2배 확대 (44px -> 88px) 및 내부 요소 비례 조정 */
+.equip-panel-box {
+    padding: 16px 18px;
+    border-radius: 12px;
+}
+
+.equip-panel-box .panel-title-sm {
+    font-size: 15px;
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+}
+
+.equip-grid {
+    grid-template-columns: repeat(3, 88px);
+    grid-template-rows: repeat(6, 88px);
+    gap: 10px;
+}
+
+.equip-slot {
+    width: 88px;
+    height: 88px;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+.equip-slot.has-item {
+    border-width: 2.5px;
+}
+
+.equip-slot .ic2 {
+    inset: 4px;
+    border-radius: 7px;
+}
+
+.equip-slot .gf {
+    inset: 0;
+    border-radius: 9px;
+}
+
+.equip-slot .slot-idx {
+    top: 5px;
+    left: 6px;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 700;
+    z-index: 4;
+    text-shadow: 0 1px 2px #000;
+}
+
+.equip-slot .slot-label {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.equip-slot .ph {
+    inset: 4px;
+    font-size: 26px;
+    border-radius: 7px;
+}
+
+/* 강화 수치(+N)를 우측 상단으로 배치하여 하단 별 오버레이와 겹침 방지 */
+.equip-slot .up {
+    top: 4px;
+    right: 5px;
+    bottom: auto;
+    font-size: 15px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 1.5px 5px;
+    border-radius: 5px;
+    z-index: 7;
+}
+
+.inv-slot .up {
+    top: 2px;
+    right: 2px;
+    bottom: auto;
+    font-size: 10px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    border-radius: 3px;
+    z-index: 7;
+}
+
+.equip-slot .slot-stars-overlay {
+    bottom: 4px !important;
+    left: 4px !important;
+    right: 4px !important;
+    padding: 2.5px 4px !important;
+    gap: 2.5px !important;
+    border-radius: 6px !important;
+}
+
+.equip-slot .slot-stars-overlay .opt-star {
+    font-size: 14px !important;
+}
+
+/* 장비 영역(높이 ~648px)과 균형을 맞추기 위한 인벤토리/보관함 레이아웃 비례 조정 */
+.inv-panel-box {
+    padding: 16px 18px;
+    min-width: 380px;
+}
+
+.inv-grid-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 6px 0;
+}
+
+.inv-grid {
+    width: 100%;
+    max-width: 720px;
+    grid-template-columns: repeat(12, minmax(34px, 1fr));
+    grid-auto-rows: auto;
+    gap: 5px;
+    padding: 10px;
+    min-height: unset;
+    box-sizing: border-box;
+}
+
+.inv-slot {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+}
+
+.inv-filter-group {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #201333;
+    border: 1px solid var(--border-card);
+    border-radius: 5px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-btn:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #1f0e38 0%, #2f1754 100%);
+    border-color: var(--cyan);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.25);
+}
+
+.inv-footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-card);
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.inv-capacity strong,
+.curr-item strong {
+    color: var(--cyan);
+}
+
+.btn-expand {
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--cyan);
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--cyan);
+    font-weight: 800;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.inv-currency {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+/* 3. 부위별 · 개별 아이템별 옵션 수치표 UI */
+.chip-sub-cnt {
+    font-size: 0.68rem;
+    opacity: 0.78;
+    margin-left: 2px;
+}
+
+.items-sub-filter-row {
+    background: rgba(14, 7, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: -4px;
+}
+
+.sub-filter-label {
+    color: #ffd700;
+}
+
+.item-sub-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(26, 15, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #ddd;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.77rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.item-sub-chip:hover {
+    background: rgba(45, 26, 70, 0.95);
+    border-color: rgba(255, 215, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+.item-sub-chip.active {
+    background: #ffd700;
+    color: #111 !important;
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.item-sub-chip.active .item-chip-mo {
+    color: #333;
+}
+
+.item-chip-mo {
+    font-size: 0.68rem;
+    color: #999;
+    font-weight: 600;
+}
+
+.guide-item-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f0b08;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.guide-item-icon-fallback {
+    color: #ffd9a0;
+    font-weight: 800;
+    background: #1c130c;
+}
+
+.parts-table-wrap {
+    max-height: 660px;
+}
+
+.guide-parts-table tr.item-group-start td {
+    border-top: 2px solid rgba(0, 229, 255, 0.24);
+}
+
+.td-item-col {
+    background: rgba(24, 13, 38, 0.72);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: top !important;
+    padding: 10px 12px !important;
+}
+
+.td-item-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.td-item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.td-item-title {
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.td-item-sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.item-set-pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: rgba(171, 71, 188, 0.18);
+    border: 1px solid rgba(171, 71, 188, 0.4);
+    color: #e1bee7;
+    white-space: nowrap;
+}
+
+.item-mo-pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: rgba(255, 215, 0, 0.14);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    color: #ffd700;
+    white-space: nowrap;
+}
+
+.td-item-cnt {
+    font-size: 0.7rem;
+    color: #888;
+}
+
+.td-unobserved {
+    color: #777 !important;
+    font-style: italic;
+    text-align: center;
+    padding: 14px !important;
+}
+
+@media (max-width: 768px) {
+    .char-nav-col {
+        width: 100%;
+        min-height: unset;
+        max-height: 340px;
+    }
+    .char-avatar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+        max-height: 285px;
+    }
+    .char-avatar-btn {
+        width: 100%;
+        height: 42px;
+    }
+    .equip-grid {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(6, 80px);
+        gap: 8px;
+    }
+    .equip-slot {
+        width: 80px;
+        height: 80px;
+    }
+    .equip-slot .slot-stars-overlay .opt-star {
+        font-size: 12.5px !important;
+    }
+    .inv-panel-box {
+        min-width: 0 !important;
+        padding: 10px 8px;
+    }
+    .inv-grid {
+        grid-template-columns: repeat(8, minmax(34px, 1fr));
+        gap: 4px;
+        padding: 6px;
     }
 }

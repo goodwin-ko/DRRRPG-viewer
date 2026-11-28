@@ -3,6 +3,26 @@
     "5": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "무천도사 2차 각성"
+    },
+    "51": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "우마왕"
+    },
+    "50": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "박테리안"
+    },
+    "29": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "데브라"
+    },
+    "24": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "인조인간 18호"
+    },
+    "63": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "킹 베지터"
     }
   },
   "Horus": {
@@ -25,6 +45,66 @@
     "59": {
       "friend_name": "오지터 - 초싸1",
       "hero_display_name": "인조인간 8호"
+    },
+    "46": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "블루장군"
+    },
+    "47": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "전설의 사이어인 - 브로리"
+    },
+    "48": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 버독"
+    },
+    "49": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "사이어인 - 타레스"
+    },
+    "50": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "박테리안"
+    },
+    "51": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "우마왕"
+    },
+    "60": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "심벌"
+    },
+    "61": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "유린"
+    },
+    "62": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "메탈 쿠우라 빅게테스타"
+    },
+    "63": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "킹 베지터 사이어인 왕"
+    },
+    "64": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "로드 슬러그 초거대화"
+    },
+    "66": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "자마스 불멸"
+    },
+    "65": {
+      "friend_name": "자봉(변신)",
+      "hero_display_name": "블랙 오공"
+    },
+    "58": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "리루도"
+    },
+    "57": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "베이비"
     }
   },
   "jyh10": {
@@ -34,25 +114,286 @@
     },
     "65": {
       "friend_name": "셀 완전체",
-      "hero_display_name": "블랙 오공"
+      "hero_display_name": "초사이어인 - 블랙 오공"
+    },
+    "10": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "굴드 2차 각성"
+    },
+    "57": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "베이비"
+    },
+    "54": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "전설의 초사이어인4 - 브로리(약해진)"
+    },
+    "6": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "피콜로 2차 각성"
+    },
+    "25": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "셀 2차 각성"
+    },
+    "5": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "벌크업 무천도사"
+    },
+    "52": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "팡"
+    },
+    "51": {
+      "friend_name": "황소Lv2",
+      "hero_display_name": "우마왕"
+    },
+    "39": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "인조인간 15호"
+    },
+    "32": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "20": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "인조인간 16호 2차 각성"
+    },
+    "14": {
+      "friend_name": "캡틴 기뉴",
+      "hero_display_name": "캡틴 기뉴 2차 각성"
     }
   },
   "goodwin": {
     "3": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "야무치 2차 각성"
+    },
+    "51": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "우마왕"
+    },
+    "50": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "박테리안"
+    },
+    "32": {
+      "friend_name": "메탈 쿠우라(약해진)",
+      "hero_display_name": "미스틱 손오반"
+    },
+    "11": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "기뉴특전대 - 리쿰"
+    },
+    "23": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "인조인간 17호"
     }
   },
   "godwin": {
     "5": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "무천도사 2차 각성"
+    },
+    "51": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "우마왕"
+    },
+    "50": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "박테리안"
+    },
+    "11": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "기뉴특전대 - 리쿰"
+    },
+    "23": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "인조인간 17호"
+    },
+    "3": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "야무치 2차 각성"
     }
   },
   "goodsee": {
     "5": {
       "friend_name": "키드부우(약해진)",
       "hero_display_name": "무천도사 2차 각성"
+    },
+    "51": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "우마왕"
+    },
+    "50": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "박테리안"
+    },
+    "11": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "기뉴특전대 - 리쿰"
+    },
+    "29": {
+      "friend_name": "셀 완전체(약해진)",
+      "hero_display_name": "데브라"
+    },
+    "3": {
+      "friend_name": "키드부우(약해진)",
+      "hero_display_name": "야무치 2차 각성"
+    }
+  },
+  "1m60cm": {
+    "65": {
+      "friend_name": "오지터 - 초싸1",
+      "hero_display_name": "블랙 오공"
+    }
+  },
+  "_meta": {
+    "max_adventure": 25000
+  },
+  "jhlee6470": {
+    "20": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "인조인간 16호 2차 각성"
+    },
+    "41": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "우부"
+    },
+    "29": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "데브라"
+    },
+    "19": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "네일 2차 각성"
+    },
+    "28": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "골든 야콩"
+    },
+    "47": {
+      "friend_name": "초싸1 베지트",
+      "hero_display_name": "전설의 초사이어인4 - 브로리"
+    }
+  },
+  "Santafe": {
+    "66": {
+      "friend_name": "오천크스 - 초사이어인3",
+      "hero_display_name": "자마스 불멸"
+    },
+    "19": {
+      "friend_name": "오천크스 - 초사이어인3",
+      "hero_display_name": "네일 2차 각성"
+    },
+    "25": {
+      "friend_name": "오천크스 - 초사이어인3",
+      "hero_display_name": "셀 2차 각성"
+    }
+  },
+  "Colaa": {
+    "37": {
+      "friend_name": "마인부우(선)",
+      "hero_display_name": "자봉 풀파워 - 변신"
+    },
+    "48": {
+      "friend_name": "마인부우(선)",
+      "hero_display_name": "사이어인 - 버독"
+    }
+  },
+  "ased": {
+    "65": {
+      "friend_name": "황소Lv2",
+      "hero_display_name": "초사이어인 로제3 - 블랙 오공"
+    }
+  },
+  "mnm1823": {},
+  "pse1122": {
+    "28": {
+      "friend_name": "미이라",
+      "hero_display_name": "골든 야콩"
+    },
+    "29": {
+      "friend_name": "미이라",
+      "hero_display_name": "데브라"
+    }
+  },
+  "wtrtat": {
+    "58": {
+      "friend_name": "오천크스 - 노멀",
+      "hero_display_name": "리루도"
+    }
+  },
+  "k7it": {
+    "54": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "전설의 초사이어인4 - 브로리(약해진)"
+    }
+  },
+  "tjdqhlove": {
+    "34": {
+      "friend_name": "셀 완전체",
+      "hero_display_name": "비델"
+    }
+  },
+  "RA_": {
+    "8": {
+      "friend_name": "오지터 - 노멀",
+      "hero_display_name": "초사이어인3 - 내퍼"
+    },
+    "9": {
+      "friend_name": "오지터 - 노멀",
+      "hero_display_name": "초사이어인4 - 베지터"
+    }
+  },
+  "time8463": {},
+  "racu": {},
+  "ENPRANI": {},
+  "no5376": {
+    "23": {
+      "friend_name": "메탈 쿠우라",
+      "hero_display_name": "인조인간 17호"
+    },
+    "24": {
+      "friend_name": "메탈 쿠우라",
+      "hero_display_name": "인조인간 18호"
+    }
+  },
+  "FrostDaemon": {
+    "41": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "우부"
+    },
+    "1": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "사이어인 - 손오공"
+    },
+    "2": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "크리링 2차 각성"
+    },
+    "3": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "야무치 2차 각성"
+    },
+    "4": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "천진반 2차 각성"
+    },
+    "5": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "무천도사 2차 각성"
+    },
+    "6": {
+      "friend_name": "슈퍼 부우",
+      "hero_display_name": "피콜로 2차 각성"
+    }
+  },
+  "utada": {
+    "63": {
+      "friend_name": "힐데건",
+      "hero_display_name": "킹 베지터 사이어인 왕"
     }
   }
 }
